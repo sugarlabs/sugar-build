@@ -1,0 +1,10 @@
+unset  GPG_AGENT_INFO
+unset SSH_AUTH_SOCK
+unset GNOME_KEYRING_CONTROL
+unset GNOME_KEYRING_PID
+
+SCRIPTS_DIR=`dirname "$0"`
+ROOT_DIR=`dirname "$SCRIPTS_DIR"`
+RUN_COMMAND="dbus-launch --exit-with-session sugar"
+
+$ROOT_DIR/build/bin/jhbuild -f $ROOT_DIR/scripts/jhbuildrc run $RUN_COMMAND

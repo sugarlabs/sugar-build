@@ -1,0 +1,16 @@
+import os
+
+def root():
+    return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+use_local_modulesets = True
+moduleset = [os.path.join(root(), "scripts", "system.modules"),
+             os.path.join(root(), "scripts", "sugar.modules")]
+modules = ["meta-system", "meta-sugar"]
+
+checkoutroot = os.path.join(root(), "source")
+prefix = os.path.join(root(), "build")
+
+os.environ["GTK_DATA_PREFIX"] = prefix
+os.environ["GTK_PREFIX"] = os.path.join(root(), "build", "lib", "gtk-2.0")
+

@@ -1,0 +1,26 @@
+Setup X to run as a normal user
+===============================
+
+In Ubuntu by default only root can start the X server.
+You need to change that with
+
+  dpkg-reconfigure x11-common
+
+Build and run
+=============
+
+Just
+
+  make build
+  make run
+
+Buildbot
+========
+
+You can easily setup a buildbot based on scripts/buildbot/master.cfg.
+
+Supported distributions
+=======================
+
+Fedora 17
+Ubuntu 12.04
