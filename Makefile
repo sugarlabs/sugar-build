@@ -1,3 +1,5 @@
+TIMESTAMP := $(shell date +%Y%m%d-%H%M%S)
+LOGFILE = $(CURDIR)/logs/build-$(TIMESTAMP).log
 SCRIPTS = $(CURDIR)/scripts
 JHBUILD = $(CURDIR)/build/bin/jhbuild -f $(SCRIPTS)/jhbuildrc
 
@@ -6,7 +8,7 @@ submodules:
 	git submodule update
 
 check-system:
-	$(SCRIPTS)/check-system
+	script -ae -c "$(SCRIPTS)/check-system" $(LOGFILE)
 
 install-jhbuild: submodules check-system
 	cd $(SCRIPTS)/jhbuild ; \
@@ -14,19 +16,22 @@ install-jhbuild: submodules check-system
 	make ; make install
 
 build-activities: submodules
-	$(JHBUILD) run $(SCRIPTS)/build-activity terminal
+	$(JHBUILD) run $(SCRIPTS)/build-activity terminal | tee -a $(LOGFILE)
 
 build-glucose: install-jhbuild check-system
-	$(JHBUILD) build
+	script -ae -c "$(JHBUILD) build" $(LOGFILE)
 
 build: build-glucose build-activities
 
 build-%:
-	$(JHBUILD) buildone $*
+	script -ae -c "$(JHBUILD) buildone $*" $(LOGFILE)
 
 run:
 	xinit $(SCRIPTS)/xinitrc -- :2
 
+bug-report:
+	@$(SCRIPTS)/bug-report
+
 clean:
-	rm -rf source
-	rm -rf build
+	rm -rf source build
+	rm -f logs/*.log all-logs.tar.bz2
