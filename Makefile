@@ -34,4 +34,4 @@ bug-report:
 
 clean:
 	rm -rf source build
-	rm -f logs/*.log all-logs.tar.bz2
+	rm -f logs/*.log logs/all-logs.tar.bz2
