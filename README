@@ -2,11 +2,11 @@
 
 For all the distributions your user need admin rights (i.e. it should be able to run the su command).
 
-== Fedora 17 ==
+== Fedora 17 (32-bit and 64-bit)  ==
 
 Works out of the box!
 
-== Ubuntu 12.04 ==
+== Ubuntu 12.04 (32-bit and 64-bit) ==
 
 By default only root can start the X server. You need to change that with
 
