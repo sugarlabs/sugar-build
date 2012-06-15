@@ -20,7 +20,7 @@
     </dependencies>
   </autotools>
   <autotools id="sugar">
-    <branch module="sugar/dnarvaezs-mainline.git" checkoutdir="sugar"/>
+    <branch module="sugar/mainline.git" checkoutdir="sugar"/>
     <dependencies>
       <dep package="sugar-base"/>
       <dep package="sugar-toolkit"/>
