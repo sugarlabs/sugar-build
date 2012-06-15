@@ -4,6 +4,9 @@ import os
 import subprocess
 import sys
 
+xvfb_packages = { "fedora": "Xvfb",
+                  "ubuntu": "xvfb" }
+
 binaries = [{ "name": "git",
               "packages": { "fedora": "git",
                             "ubuntu": "git" } },
@@ -123,36 +126,7 @@ elif os.path.exists("/etc/lsb-release"):
 
 devnull = open("/dev/null", "w")
 
-missing_binaries = []
-missing_libs = []
-missing_imports = []
-packages = []
-
-for info in binaries:
-    if subprocess.call(["which", info["name"]],
-                       stdout=devnull,
-                       stderr=subprocess.STDOUT):
-        if distro in info["packages"]:
-            packages.append(info["packages"][distro])
-        else:
-            missing_binaries.append(info)
-
-for info in libs:
-    if subprocess.call(["pkg-config", "--exists", info["name"]]) == 1:
-        if distro in info["packages"]:
-            packages.append(info["packages"][distro])
-        else:
-            missing_libs.append(info)
-
-for info in imports:
-    if subprocess.call(["python", "-c", info["import"]],
-                       stdout=devnull, stderr=subprocess.STDOUT) == 1:
-        if distro in info["packages"]:
-            packages.append(info["packages"][distro])
-        else:
-            missing_libs.append(info)
-
-if packages:
+def install_packages(packages):
     args = ["sudo"]
 
     if "SUGAR_BUILDBOT" in os.environ:
@@ -166,6 +140,49 @@ if packages:
 
     args.extend(packages)
     subprocess.call(args)
+
+def check_binary(name):
+    return subprocess.call(["which", name],
+                           stdout=devnull,
+                           stderr=subprocess.STDOUT)
+
+if check_binary("Xvfb"):
+    if distro in xvfb_packages:
+        install_packages([xvfb_packages[distro]])
+    else:
+        print "Xvfb is required to check dependecies."
+        sys.exit(1)
+
+missing_binaries = []
+missing_libs = []
+missing_imports = []
+packages = []
+
+for info in binaries:
+    if check_binary(info["name"]):
+        if distro in info["packages"]:
+            packages.append(info["packages"][distro])
+        else:
+            missing_binaries.append(info)
+
+for info in libs:
+    if subprocess.call(["pkg-config", "--exists", info["name"]]) == 1:
+        if distro in info["packages"]:
+            packages.append(info["packages"][distro])
+        else:
+            missing_libs.append(info)
+
+for info in imports:
+    if subprocess.call(["Xvfb", ":100", "-ac",
+                        "python", "-c", info["import"]],
+                       stdout=devnull, stderr=subprocess.STDOUT) == 1:
+        if distro in info["packages"]:
+            packages.append(info["packages"][distro])
+        else:
+            missing_libs.append(info)
+
+if packages:
+    install_packages(packages)
 
 if missing_binaries:
     print "Missing binaries\n"
