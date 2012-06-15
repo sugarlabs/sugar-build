@@ -2,13 +2,24 @@ TIMESTAMP := $(shell date +%Y%m%d-%H%M%S)
 LOGFILE = $(CURDIR)/logs/build-$(TIMESTAMP).log
 SCRIPTS = $(CURDIR)/scripts
 JHBUILD = $(CURDIR)/build/bin/jhbuild -f $(SCRIPTS)/jhbuildrc
+LOG = $(SCRIPTS)/log-command
+
+# The buildbot shell does not handle script properly. It's unnecessary
+# anyway because we can't use interactive scripts there.
+ifdef SUGAR_BUILDBOT
+TYPESCRIPT = $(LOG)
+else
+TYPESCRIPT = script -ae -c
+endif
+
+all: build
 
 submodules:
 	git submodule init
 	git submodule update
 
 check-system:
-	script -ae -c "$(SCRIPTS)/check-system" $(LOGFILE)
+	$(TYPESCRIPT) $(SCRIPTS)/check-system $(LOGFILE)
 
 install-jhbuild: submodules check-system
 	cd $(SCRIPTS)/jhbuild ; \
@@ -16,15 +27,15 @@ install-jhbuild: submodules check-system
 	make ; make install
 
 build-activities: submodules
-	$(JHBUILD) run $(SCRIPTS)/build-activity terminal | tee -a $(LOGFILE)
+	$(LOG) "$(JHBUILD) run $(SCRIPTS)/build-activity terminal" $(LOGFILE)
 
 build-glucose: install-jhbuild check-system
-	script -ae -c "$(JHBUILD) build" $(LOGFILE)
+	$(TYPESCRIPT) "$(JHBUILD) build" $(LOGFILE)
 
 build: build-glucose build-activities
 
 build-%:
-	script -ae -c "$(JHBUILD) buildone $*" $(LOGFILE)
+	$(TYPESCRIPT) "$(JHBUILD) buildone $*" $(LOGFILE)
 
 run:
 	xinit $(SCRIPTS)/xinitrc -- :2

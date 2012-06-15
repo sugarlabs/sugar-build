@@ -1,0 +1,5 @@
+#!/bin/sh
+
+exec $1 | tee $2
+
+exit ${PIPESTATUS[0]} 
