@@ -172,14 +172,27 @@ for info in libs:
         else:
             missing_libs.append(info)
 
+xvfb_display = ":100"
+xvfb_proc = subprocess.Popen(args=["Xvfb", xvfb_display],
+                             stdout=devnull,
+                             stderr=subprocess.STDOUT)
+orig_display = os.environ.get("DISPLAY", None)
+os.environ["DISPLAY"] = xvfb_display
+
 for info in imports:
-    if subprocess.call(["Xvfb", ":100", "-ac",
-                        "python", "-c", info["import"]],
+    if subprocess.call(["python", "-c", info["import"]],
                        stdout=devnull, stderr=subprocess.STDOUT) == 1:
         if distro in info["packages"]:
             packages.append(info["packages"][distro])
         else:
             missing_libs.append(info)
+
+if orig_display:
+    os.environ["DISPLAY"] = xvfb_display
+else:
+    del os.environ["DISPLAY"]
+
+xvfb_proc.terminate()
 
 if packages:
     install_packages(packages)
