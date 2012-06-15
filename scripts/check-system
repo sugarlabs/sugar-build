@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import sys
 
 binaries = [{ "name": "git",
               "packages": { "fedora": "git",
@@ -153,6 +154,10 @@ for info in imports:
 
 if packages:
     args = ["sudo"]
+
+    if "SUGAR_BUILDBOT" in os.environ:
+        print "Missing packages %s" % " ".join(packages)
+        sys.exit(1)
 
     if distro == "fedora":
         args.extend(["yum", "install"])

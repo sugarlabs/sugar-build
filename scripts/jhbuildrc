@@ -3,6 +3,8 @@ import os
 def root():
     return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+interact = not "SUGAR_BUILDBOT" in os.environ
+
 use_local_modulesets = True
 moduleset = [os.path.join(root(), "scripts", "system.modules"),
              os.path.join(root(), "scripts", "sugar.modules")]
