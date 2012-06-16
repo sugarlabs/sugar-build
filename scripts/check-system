@@ -34,6 +34,9 @@ binaries = [{ "name": "git",
             { "name": "intltoolize",
               "packages": { "fedora": "intltool",
                             "ubuntu": "intltool" } },
+            { "name": "xcursorgen",
+              "packages": { "fedora": "xorg-x11-apps",
+                            "ubuntu": "x11-apps" } },
             { "name": "gnome-doc-common", # FIXME
               "packages": { "fedora": "gnome-common",
                             "ubuntu": "gnome-common" } }]
