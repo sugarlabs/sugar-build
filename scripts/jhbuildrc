@@ -3,6 +3,12 @@ import os
 def root():
     return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+def libdir():
+    if use_lib64:
+        return os.path.join(prefix, "lib64")
+    else:
+        return os.path.join(prefix, "lib")
+
 interact = not "SUGAR_BUILDBOT" in os.environ
 
 use_local_modulesets = True
@@ -12,8 +18,7 @@ modules = ["meta-system", "meta-sugar"]
 
 checkoutroot = os.path.join(root(), "source")
 prefix = os.path.join(root(), "build")
-libdir = os.path.join(prefix, ["lib", "lib64"][use_lib64])
 
 os.environ["GTK_DATA_PREFIX"] = prefix
-os.environ["GTK_PATH"] = os.path.join(libdir, "gtk-2.0")
+os.environ["GTK_PATH"] = os.path.join(libdir(), "gtk-2.0")
 
