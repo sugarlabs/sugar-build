@@ -38,7 +38,7 @@ build-%:
 	$(TYPESCRIPT) "$(JHBUILD) buildone $*" $(LOGFILE)
 
 run:
-	xinit $(SCRIPTS)/xinitrc -- :2
+	xinit $(SCRIPTS)/xinitrc -- :99
 
 bug-report:
 	@$(SCRIPTS)/bug-report
