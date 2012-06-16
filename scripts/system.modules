@@ -2,8 +2,9 @@
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
 <moduleset>
   <repository type="git" name="git.gnome.org" href="git://git.gnome.org"/>
+  <repository type="git" name="github.com/dnarvaez" href="git://github.com/dnarvaez"/>
   <autotools id="pygobject">
-    <branch repo="git.gnome.org" revision="fb39ba934180e1e48fd15774e69d1cecf47a4c84"/>
+    <branch repo="github.com/dnarvaez"/>
     <dependencies>
       <dep package="glib"/>
       <dep package="gobject-introspection"/>
