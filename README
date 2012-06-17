@@ -33,11 +33,11 @@ make bug-report     Generate a bug report.
 
 = Report bugs =
 
-I expect a lot of tweaks will be necessary before this is stable. In the future distributions upgrades will also be problematic. We need the build to work out of the box 99% of the time for everyone, so if stuff breaks don't please don't be shy and always report a bug (patches are appreciated of course but not required). If you install an activity and it doesn't work, that might also be a sugar-build bug, in doubt just report it.
-
 To generate bug report information
 
     make bug-report
+
+I expect a lot of tweaks will be necessary before this is stable. In the future distributions upgrades will also be problematic. We need the build to work out of the box 99% of the time for everyone, so if stuff breaks don't please don't be shy and always report a bug (patches are appreciated of course but not required). If you install an activity and it doesn't work, that might also be a sugar-build bug, in doubt just report it.
 
 = Rationale =
 
