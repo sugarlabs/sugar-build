@@ -136,6 +136,8 @@ def install_packages(packages):
         print "Missing packages %s" % " ".join(packages)
         sys.exit(1)
 
+    print "Installing required system packages"
+
     if distro == "fedora":
         args.extend(["yum", "install"])
     elif distro == "ubuntu":    
