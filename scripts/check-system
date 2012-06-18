@@ -80,6 +80,12 @@ libs = [{ "name": "python2",
         { "name": "pycairo",
           "packages": { "fedora": "pycairo-devel",
                         "ubuntu": "python-cairo-dev" } },
+        { "name": "xrandr", # list-displays
+          "packages": { "fedora": "libXrandr-devel",
+                        "ubuntu": "libxrandr-dev" } },
+        { "name": "x11", # list-displays
+          "packages": { "fedora": "libX11-devel",
+                        "ubuntu": "libx11-dev" } },
         { "name": "icon-naming-utils",
           "packages": { "fedora": "icon-naming-utils",
                         "ubuntu": "icon-naming-utils" } }]

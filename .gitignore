@@ -3,3 +3,4 @@ build/
 source/
 logs/*.log
 logs/all-logs.tar.bz2
+scripts/list-outputs

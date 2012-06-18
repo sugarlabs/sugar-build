@@ -5,6 +5,20 @@ unset GNOME_KEYRING_PID
 
 SCRIPTS_DIR=`dirname "$0"`
 ROOT_DIR=`dirname "$SCRIPTS_DIR"`
-RUN_COMMAND="dbus-launch --exit-with-session sugar"
 
+# Sugar doesn't handle multiple outputs properly. To avoid issues we keep the
+# first output in the list returned by xrandr and turn off everything else.
+
+OUTPUTS=`scripts/list-outputs`
+
+for output in $OUTPUTS
+do
+   if [ -z "$FIRST_OUTPUT" ]; then
+       FIRST_OUTPUT=$output
+   else
+       xrandr --output $output --off
+   fi
+done
+
+RUN_COMMAND="dbus-launch --exit-with-session sugar"
 $ROOT_DIR/build/bin/jhbuild -f $ROOT_DIR/scripts/jhbuildrc run $RUN_COMMAND

@@ -18,6 +18,11 @@ submodules:
 	git submodule init
 	git submodule update
 
+XRANDR_LIBS := $(shell pkg-config --libs xrandr x11)
+
+scripts/list-outputs:
+	gcc -o scripts/list-outputs scripts/list-outputs.c $(XRANDR_LIBS)
+
 check-system:
 	$(TYPESCRIPT) $(SCRIPTS)/check-system $(LOGFILE)
 
@@ -32,7 +37,7 @@ build-activities: submodules
 build-glucose: install-jhbuild check-system
 	$(TYPESCRIPT) "$(JHBUILD) build" $(LOGFILE)
 
-build: build-glucose build-activities
+build: build-glucose build-activities scripts/list-outputs
 
 build-%:
 	$(TYPESCRIPT) "$(JHBUILD) buildone $*" $(LOGFILE)
@@ -46,3 +51,4 @@ bug-report:
 clean:
 	rm -rf source build
 	rm -f logs/*.log logs/all-logs.tar.bz2
+	rm -f scripts/list-outputs
