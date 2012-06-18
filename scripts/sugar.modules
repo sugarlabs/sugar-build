@@ -10,7 +10,6 @@
     <branch module="sugar-toolkit/mainline.git" checkoutdir="sugar-toolkit"/>
     <dependencies>
       <dep package="sugar-datastore"/>
-      <dep package="sugar-presence-service"/>
     </dependencies>
   </autotools>
   <autotools id="sugar-toolkit-gtk3">
@@ -26,9 +25,6 @@
       <dep package="sugar-toolkit"/>
       <dep package="sugar-artwork"/>
     </dependencies>
-  </autotools>
-  <autotools id="sugar-presence-service">
-    <branch module="sugar-presence-service/mainline.git" checkoutdir="sugar-presence-service"/>
   </autotools>
   <autotools id="sugar-artwork">
     <branch module="sugar-artwork/mainline.git" checkoutdir="sugar-artwork"/>
