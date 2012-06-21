@@ -1,5 +1,5 @@
 #!/bin/bash
 
-exec $1 | tee $2
+exec $1 | tee -a $2
 
 exit ${PIPESTATUS[0]} 
