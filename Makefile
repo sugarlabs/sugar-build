@@ -18,7 +18,7 @@ submodules:
 	git submodule init
 	git submodule update
 
-XRANDR_LIBS := $(shell pkg-config --libs xrandr x11)
+XRANDR_LIBS = $(shell pkg-config --libs xrandr x11)
 
 scripts/list-outputs:
 	gcc -o scripts/list-outputs scripts/list-outputs.c $(XRANDR_LIBS)
