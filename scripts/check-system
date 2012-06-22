@@ -4,132 +4,6 @@ import os
 import subprocess
 import sys
 
-xvfb_packages = { "fedora": "Xvfb",
-                  "ubuntu": "xvfb" }
-
-binaries = [{ "name": "git",
-              "packages": { "fedora": "git",
-                            "ubuntu": "git" } },
-            { "name": "gcc",
-              "packages": { "fedora": "gcc",
-                            "ubuntu": "gcc" } },
-            { "name": "tar",
-              "packages": { "fedora": "tar",
-                            "ubuntu": "tar" } },
-            { "name": "flex", # gobject-introspection
-              "packages": { "fedora": "flex",
-                            "ubuntu": "flex" } },
-            { "name": "bison", # gobject-introspection
-              "packages": { "fedora": "bison",
-                            "ubuntu": "bison" } },
-            { "name": "autoreconf",
-              "packages": { "fedora": "autoconf",
-                            "ubuntu": "autoconf" } },
-            { "name": "aclocal",
-              "packages": { "fedora": "automake",
-                            "ubuntu": "automake" } },
-            { "name": "libtool",
-              "packages": { "fedora": "libtool",
-                            "ubuntu": "libtool" } },
-			{ "name": "icon-slicer",
-              "packages": { "fedora": "icon-slicer",
-                            "ubuntu": "icon-slicer" } },
-            { "name": "intltoolize",
-              "packages": { "fedora": "intltool",
-                            "ubuntu": "intltool" } },
-            { "name": "xcursorgen",
-              "packages": { "fedora": "xorg-x11-apps",
-                            "ubuntu": "x11-apps" } },
-            { "name": "gnome-doc-common", # FIXME
-              "packages": { "fedora": "gnome-common",
-                            "ubuntu": "gnome-common" } }]
-            
-libs = [{ "name": "python2",
-          "packages": { "fedora": "python-devel",
-                        "ubuntu": "python-dev" } },
-        { "name": "glib-2.0",
-          "packages": { "fedora": "glib2-devel",
-                        "ubuntu": "libglib2.0-dev" } },
-        { "name": "gtk+-3.0",
-          "packages": { "fedora": "gtk3-devel",
-                        "ubuntu": "libgtk-3-dev" } },
-        { "name": "sm",
-          "packages": { "fedora": "libSM-devel",
-                        "ubuntu": "libsm-dev" } },
-        { "name": "ice",
-          "packages": { "fedora": "libICE-devel",
-                        "ubuntu": "libice-dev" } },
-        { "name": "alsa",
-          "packages": { "fedora": "alsa-lib-devel",
-                        "ubuntu": "libasound2-dev" } },
-        { "name": "librsvg-2.0",
-          "packages": { "fedora": "librsvg2-devel",
-                        "ubuntu": "librsvg2-dev" } },
-        { "name": "gobject-introspection-1.0",
-          "packages": { "fedora": "gobject-introspection-devel",
-                        "ubuntu": "libgirepository1.0-dev" } },
-        { "name": "pygtk-2.0",
-          "packages": { "fedora": "pygtk2-devel",
-                        "ubuntu": "python-gtk2-dev" } },
-        { "name": "gconf-2.0",
-          "packages": { "fedora": "GConf2-devel",
-                        "ubuntu": "libgconf2-dev" } },
-        { "name": "gtk-doc", # glib
-          "packages": { "fedora": "gtk-doc",
-                        "ubuntu": "gtk-doc-tools" } },
-        { "name": "cairo-gobject", # gobject-introspection
-          "packages": { "fedora": "cairo-gobject-devel",
-                        "ubuntu": "libcairo2-dev" } },
-        { "name": "pycairo",
-          "packages": { "fedora": "pycairo-devel",
-                        "ubuntu": "python-cairo-dev" } },
-        { "name": "xrandr", # list-displays
-          "packages": { "fedora": "libXrandr-devel",
-                        "ubuntu": "libxrandr-dev" } },
-        { "name": "x11", # list-displays
-          "packages": { "fedora": "libX11-devel",
-                        "ubuntu": "libx11-dev" } },
-        { "name": "icon-naming-utils",
-          "packages": { "fedora": "icon-naming-utils",
-                        "ubuntu": "icon-naming-utils" } }]
-
-imports = [{ "import": "import wnck",
-             "packages": { "fedora": "gnome-python2-libwnck",
-                           "ubuntu": "python-wnck" } },
-           { "import": "import hippo",
-             "packages": { "fedora": "hippo-canvas-python",
-                           "ubuntu": "python-hippocanvas" } },
-           { "import": "import telepathy",
-             "packages": { "fedora": "python-telepathy",
-                           "ubuntu": "python-telepathy" } },
-           { "import": "import cjson",
-             "packages": { "fedora": "python-cjson",
-                           "ubuntu": "python-cjson" } },
-           { "import": "import xapian",
-             "packages": { "fedora": "xapian-bindings-python",
-                           "ubuntu": "python-xapian" } },
-           { "import": "import dateutil",
-             "packages": { "fedora": "python-dateutil",
-                           "ubuntu": "python-dateutil" } },
-           { "import": "import gtksourceview2",
-             "packages": { "fedora": "pygtksourceview",
-                           "ubuntu": "python-gtksourceview2" } },
-           { "import": "import vte",
-             "packages": { "fedora": "vte",
-                           "ubuntu": "python-vte" } },
-           { "import": "import decorator",
-             "packages": { "fedora": "python-decorator",
-                           "ubuntu": "python-decorator" } },
-           { "import": "import gi",
-             "packages": { "fedora": "pygobject3",
-                           "ubuntu": "pygobject" } },
-           { "import": "from gi.repository import EvinceDocument",
-             "packages": { "fedora": "evince-libs",
-                           "ubuntu": "gir1.2-evince-3.0" } },
-           { "import": "import rsvg",
-             "packages": { "fedora": "gnome-python2-rsvg",
-                           "ubuntu": "python-rsvg" } }]
-
 distro = "unknown"
 
 if os.path.exists("/etc/fedora-release"):
@@ -140,6 +14,195 @@ elif os.path.exists("/etc/lsb-release"):
         distro = "ubuntu"
 
 devnull = open("/dev/null", "w")
+xvfb_display = ":100"
+
+def check_binary(check):
+    return subprocess.call(["which", check],
+                           stdout=devnull,
+                           stderr=subprocess.STDOUT)
+
+def check_pkgconfig(check):
+    return subprocess.call(["pkg-config", "--exists", check]) == 1
+
+def check_python(check):
+    return subprocess.call(["python", "-c", check],
+                           stdout=devnull, stderr=subprocess.STDOUT) == 1
+
+checkers = { "binary": check_binary,
+             "python": check_python,
+             "pkgconfig": check_pkgconfig }
+
+pre_checks = \
+[{ "check": "Xvfb",
+   "checker": "binary", 
+   "packages": { "fedora": "Xvfb",
+                 "ubuntu": "xvfb" } },
+ { "check": "pkg-config",
+   "checker": "binary",
+   "packages": { "fedora": "pkgconfig",
+                 "ubuntu": "pkgconfig" } }]
+
+checks = \
+[{ "check": "git",
+   "checker": "binary", 
+   "packages": { "fedora": "git",
+                 "ubuntu": "git" } },
+ { "check": "gcc",
+   "checker": "binary",
+   "packages": { "fedora": "gcc",
+                 "ubuntu": "gcc" } },
+ { "check": "tar",
+   "checker": "binary", 
+   "packages": { "fedora": "tar",
+                 "ubuntu": "tar" } },
+ { "check": "flex", # gobject-introspection
+   "checker": "binary",
+   "packages": { "fedora": "flex",
+                 "ubuntu": "flex" } },
+ { "check": "bison", # gobject-introspection
+   "checker": "binary",
+   "packages": { "fedora": "bison",
+                 "ubuntu": "bison" } },
+ { "check": "autoreconf",
+   "checker": "binary",
+   "packages": { "fedora": "autoconf",
+                 "ubuntu": "autoconf" } },
+ { "check": "aclocal",
+   "checker": "binary",
+   "packages": { "fedora": "automake",
+                 "ubuntu": "automake" } },
+ { "check": "libtool",
+   "checker": "binary",
+   "packages": { "fedora": "libtool",
+                 "ubuntu": "libtool" } },
+ { "check": "icon-slicer",
+   "checker": "binary",
+   "packages": { "fedora": "icon-slicer",
+                 "ubuntu": "icon-slicer" } },
+ { "check": "intltoolize",
+   "checker": "binary",
+   "packages": { "fedora": "intltool",
+                 "ubuntu": "intltool" } },
+ { "check": "xcursorgen",
+   "checker": "binary",
+   "packages": { "fedora": "xorg-x11-apps",
+                 "ubuntu": "x11-apps" } },
+ { "check": "gnome-doc-common", # FIXME
+   "checker": "binary",
+   "packages": { "fedora": "gnome-common",
+                 "ubuntu": "gnome-common" } },
+ { "check": "python2",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "python-devel",
+                 "ubuntu": "python-dev" } },
+ { "check": "glib-2.0",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "glib2-devel",
+                 "ubuntu": "libglib2.0-dev" } },
+ { "check": "gtk+-3.0",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "gtk3-devel",
+                 "ubuntu": "libgtk-3-dev" } },
+ { "check": "sm",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "libSM-devel",
+                 "ubuntu": "libsm-dev" } },
+ { "check": "ice",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "libICE-devel",
+                 "ubuntu": "libice-dev" } },
+ { "check": "alsa",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "alsa-lib-devel",
+                 "ubuntu": "libasound2-dev" } },
+ { "check": "librsvg-2.0",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "librsvg2-devel",
+                 "ubuntu": "librsvg2-dev" } },
+ { "check": "gobject-introspection-1.0",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "gobject-introspection-devel",
+                 "ubuntu": "libgirepository1.0-dev" } },
+ { "check": "pygtk-2.0",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "pygtk2-devel",
+                 "ubuntu": "python-gtk2-dev" } },
+ { "check": "gconf-2.0",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "GConf2-devel",
+                 "ubuntu": "libgconf2-dev" } },
+ { "check": "gtk-doc", # glib
+   "checker": "pkgconfig",
+   "packages": { "fedora": "gtk-doc",
+                 "ubuntu": "gtk-doc-tools" } },
+ { "check": "cairo-gobject", # gobject-introspection
+   "checker": "pkgconfig",
+   "packages": { "fedora": "cairo-gobject-devel",
+                 "ubuntu": "libcairo2-dev" } },
+ { "check": "pycairo",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "pycairo-devel",
+                 "ubuntu": "python-cairo-dev" } },
+ { "check": "xrandr", # list-displays
+   "checker": "pkgconfig",
+   "packages": { "fedora": "libXrandr-devel",
+                 "ubuntu": "libxrandr-dev" } },
+ { "check": "x11", # list-displays
+   "checker": "pkgconfig",
+   "packages": { "fedora": "libX11-devel",
+                 "ubuntu": "libx11-dev" } },
+ { "check": "icon-naming-utils",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "icon-naming-utils",
+                 "ubuntu": "icon-naming-utils" } },
+ { "check": "import wnck",
+   "checker": "python",
+   "packages": { "fedora": "gnome-python2-libwnck",
+                 "ubuntu": "python-wnck" } },
+ { "check": "import hippo",
+   "checker": "python",
+   "packages": { "fedora": "hippo-canvas-python",
+                 "ubuntu": "python-hippocanvas" } },
+ { "check": "import telepathy",
+   "checker": "python",
+   "packages": { "fedora": "python-telepathy",
+                 "ubuntu": "python-telepathy" } },
+ { "check": "import cjson",
+   "checker": "python",
+   "packages": { "fedora": "python-cjson",
+                 "ubuntu": "python-cjson" } },
+ { "check": "import xapian",
+   "checker": "python",
+   "packages": { "fedora": "xapian-bindings-python",
+                 "ubuntu": "python-xapian" } },
+ { "check": "import dateutil",
+   "checker": "python",
+   "packages": { "fedora": "python-dateutil",
+                 "ubuntu": "python-dateutil" } },
+ { "check": "import gtksourceview2",
+   "checker": "python",
+   "packages": { "fedora": "pygtksourceview",
+                 "ubuntu": "python-gtksourceview2" } },
+ { "check": "import vte",
+   "checker": "python",
+   "packages": { "fedora": "vte",
+                 "ubuntu": "python-vte" } },
+ { "check": "import decorator",
+   "checker": "python",
+   "packages": { "fedora": "python-decorator",
+                 "ubuntu": "python-decorator" } },
+ { "check": "import gi",
+   "checker": "python",
+   "packages": { "fedora": "pygobject3",
+                 "ubuntu": "pygobject" } },
+ { "check": "from gi.repository import EvinceDocument",
+   "checker": "python",
+   "packages": { "fedora": "evince-libs",
+                 "ubuntu": "gir1.2-evince-3.0" } },
+ { "check": "import rsvg",
+   "checker": "python",
+   "packages": { "fedora": "gnome-python2-rsvg",
+                 "ubuntu": "python-rsvg" } }]
 
 def install_packages(packages):
     args = ["sudo"]
@@ -158,76 +221,48 @@ def install_packages(packages):
     args.extend(packages)
     subprocess.call(args)
 
-def check_binary(name):
-    return subprocess.call(["which", name],
-                           stdout=devnull,
-                           stderr=subprocess.STDOUT)
+def run_checks(checks):
+    failed_checks = []
+    packages = []
 
-if check_binary("Xvfb"):
-    if distro in xvfb_packages:
-        install_packages([xvfb_packages[distro]])
-    else:
-        print "Xvfb is required to check dependecies."
-        sys.exit(1)
+    for check in checks:
+        checker = checkers[check["checker"]]
+        if checker(check["check"]):
+            if distro in check["packages"]:
+                packages.append(check["packages"][distro])
+            else:
+                failed_checks.append(check)
 
-missing_binaries = []
-missing_libs = []
-missing_imports = []
-packages = []
+    if packages:
+        install_packages(packages)
 
-for info in binaries:
-    if check_binary(info["name"]):
-        if distro in info["packages"]:
-            packages.append(info["packages"][distro])
-        else:
-            missing_binaries.append(info)
+    if failed_checks:
+        print "Failed checks\n"
 
-for info in libs:
-    if subprocess.call(["pkg-config", "--exists", info["name"]]) == 1:
-        if distro in info["packages"]:
-            packages.append(info["packages"][distro])
-        else:
-            missing_libs.append(info)
+    for check in failed_checks:
+        print "[%s] %s" % (info["checker"], info["check"])
 
-xvfb_display = ":100"
-xvfb_proc = subprocess.Popen(args=["Xvfb", xvfb_display],
-                             stdout=devnull,
-                             stderr=subprocess.STDOUT)
-orig_display = os.environ.get("DISPLAY", None)
-os.environ["DISPLAY"] = xvfb_display
-
-for info in imports:
-    if subprocess.call(["python", "-c", info["import"]],
-                       stdout=devnull, stderr=subprocess.STDOUT) == 1:
-        if distro in info["packages"]:
-            packages.append(info["packages"][distro])
-        else:
-            missing_libs.append(info)
-
-if orig_display:
+def start_xvfb():
+    xvfb_proc = subprocess.Popen(args=["Xvfb", xvfb_display],
+                                 stdout=devnull,
+                                 stderr=subprocess.STDOUT)
+    orig_display = os.environ.get("DISPLAY", None)
     os.environ["DISPLAY"] = xvfb_display
-else:
-    del os.environ["DISPLAY"]
 
-xvfb_proc.terminate()
+    return (xvfb_proc, orig_display)
 
-if packages:
-    install_packages(packages)
+def stop_xvfb(proc, orig_display):
+    if orig_display:
+        os.environ["DISPLAY"] = xvfb_display
+    else:
+        del os.environ["DISPLAY"]
 
-if missing_binaries:
-    print "Missing binaries\n"
+    xvfb_proc.terminate()
 
-    for info in missing_binaries:
-        print info["name"]
+run_checks(pre_checks)
 
-if missing_libs:
-    print "Missing libraries\n"
+xvfb_proc, orig_display = start_xvfb()
 
-    for info in missing_libs:
-        print info["name"]
+run_checks(checks)
 
-if missing_imports:
-    print "Missing imports\n"
-
-    for info in missing_imports:
-        print info["name"]
+stop_xvfb(xvfb_proc, orig_display)
