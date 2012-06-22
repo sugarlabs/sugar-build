@@ -13,9 +13,12 @@ OUTPUTS=`scripts/list-outputs`
 
 for output in $OUTPUTS
 do
-   if [ -z "$FIRST_OUTPUT" ]; then
-       FIRST_OUTPUT=$output
-   else
+   # Default to the first output in the list
+   if [ -z $SUGAR_OUTPUT ]; then
+       SUGAR_OUTPUT=$output
+   fi
+
+   if [ $SUGAR_OUTPUT != $output ]; then
        xrandr --output $output --off
    fi
 done

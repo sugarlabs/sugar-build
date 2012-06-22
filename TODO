@@ -1,3 +1,2 @@
 * Ensure we have pkg-config, probably refactor as prerequisites
-* Add SUGAR_OUTPUT
 * Build web activity

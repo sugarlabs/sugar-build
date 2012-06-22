@@ -31,6 +31,15 @@ make build-[module] Build a single module.
 make clean		    Delete build artifacts and sources.
 make bug-report     Generate a bug report. 
 
+= Environment variables =
+
+SUGAR_OUTPUT
+
+Sugar does not run properly on multiple video outputs, so we need to select one
+and turn off the others. By default we select the first output listed by RandR.
+You can set this variable to override that with any other of the connected
+outputs reported by xrandr command, for example VGA1 if you have an external monitor.
+
 = Report bugs =
 
 To generate bug report information
