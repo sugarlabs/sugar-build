@@ -46,6 +46,9 @@ build-%:
 run:
 	xinit $(SCRIPTS)/xinitrc -- :99
 
+shell:
+	$(JHBUILD) shell
+
 bug-report:
 	@$(SCRIPTS)/bug-report
 

@@ -23,6 +23,17 @@ Run the commands
 
 That should be all you need to have sugar running!
 
+= Developing =
+
+You can find all the sources in sugar-build/source. Before running any module
+build command make sure to be inside a shell, so that the environment is
+properly setup. For example if you wanted to make changes to the sugar module
+you could
+
+    make shell
+    cd source/sugar
+    make install
+
 = Commands reference =
 
 make build		    Build everything.
@@ -30,6 +41,7 @@ make run		    Run sugar.
 make build-[module] Build a single module.
 make clean		    Delete build artifacts and sources.
 make bug-report     Generate a bug report. 
+make shell          Open a shell with proper build environment.
 
 = Environment variables =
 
