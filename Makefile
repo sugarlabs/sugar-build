@@ -33,6 +33,7 @@ install-jhbuild: submodules check-system
 
 build-activities: submodules
 	$(LOG) "$(JHBUILD) run $(SCRIPTS)/build-activity terminal" $(LOGFILE)
+	$(LOG) "$(JHBUILD) run $(SCRIPTS)/build-activity browse" $(LOGFILE)
 
 build-glucose: install-jhbuild check-system
 	$(TYPESCRIPT) "$(JHBUILD) build" $(LOGFILE)

@@ -4,3 +4,6 @@
 [submodule "activities/terminal"]
 	path = activities/terminal
 	url = git://git.sugarlabs.org/terminal/mainline.git
+[submodule "activities/browse"]
+	path = activities/browse
+	url = git://git.sugarlabs.org/browse/mainline.git
