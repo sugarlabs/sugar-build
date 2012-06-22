@@ -43,26 +43,14 @@ pre_checks = \
                  "ubuntu": "pkgconfig" } }]
 
 checks = \
-[{ "check": "git",
-   "checker": "binary", 
-   "packages": { "fedora": "git",
-                 "ubuntu": "git" } },
+[
+
+ # Sugar buildtime
+
  { "check": "gcc",
    "checker": "binary",
    "packages": { "fedora": "gcc",
                  "ubuntu": "gcc" } },
- { "check": "tar",
-   "checker": "binary", 
-   "packages": { "fedora": "tar",
-                 "ubuntu": "tar" } },
- { "check": "flex", # gobject-introspection
-   "checker": "binary",
-   "packages": { "fedora": "flex",
-                 "ubuntu": "flex" } },
- { "check": "bison", # gobject-introspection
-   "checker": "binary",
-   "packages": { "fedora": "bison",
-                 "ubuntu": "bison" } },
  { "check": "autoreconf",
    "checker": "binary",
    "packages": { "fedora": "autoconf",
@@ -87,7 +75,7 @@ checks = \
    "checker": "binary",
    "packages": { "fedora": "xorg-x11-apps",
                  "ubuntu": "x11-apps" } },
- { "check": "gnome-doc-common", # FIXME
+ { "check": "gnome-doc-common",
    "checker": "binary",
    "packages": { "fedora": "gnome-common",
                  "ubuntu": "gnome-common" } },
@@ -131,30 +119,17 @@ checks = \
    "checker": "pkgconfig",
    "packages": { "fedora": "GConf2-devel",
                  "ubuntu": "libgconf2-dev" } },
- { "check": "gtk-doc", # glib
-   "checker": "pkgconfig",
-   "packages": { "fedora": "gtk-doc",
-                 "ubuntu": "gtk-doc-tools" } },
- { "check": "cairo-gobject", # gobject-introspection
-   "checker": "pkgconfig",
-   "packages": { "fedora": "cairo-gobject-devel",
-                 "ubuntu": "libcairo2-dev" } },
  { "check": "pycairo",
    "checker": "pkgconfig",
    "packages": { "fedora": "pycairo-devel",
                  "ubuntu": "python-cairo-dev" } },
- { "check": "xrandr", # list-displays
-   "checker": "pkgconfig",
-   "packages": { "fedora": "libXrandr-devel",
-                 "ubuntu": "libxrandr-dev" } },
- { "check": "x11", # list-displays
-   "checker": "pkgconfig",
-   "packages": { "fedora": "libX11-devel",
-                 "ubuntu": "libx11-dev" } },
  { "check": "icon-naming-utils",
    "checker": "pkgconfig",
    "packages": { "fedora": "icon-naming-utils",
                  "ubuntu": "icon-naming-utils" } },
+
+ # Sugar runtime 
+
  { "check": "import wnck",
    "checker": "python",
    "packages": { "fedora": "gnome-python2-libwnck",
@@ -202,7 +177,45 @@ checks = \
  { "check": "import rsvg",
    "checker": "python",
    "packages": { "fedora": "gnome-python2-rsvg",
-                 "ubuntu": "python-rsvg" } }]
+                 "ubuntu": "python-rsvg" } },
+
+ # System modules buildtime
+
+ { "check": "flex",
+   "checker": "binary",
+   "packages": { "fedora": "flex",
+                 "ubuntu": "flex" } },
+ { "check": "bison",
+   "checker": "binary",
+   "packages": { "fedora": "bison",
+                 "ubuntu": "bison" } },
+ { "check": "gtk-doc",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "gtk-doc",
+                 "ubuntu": "gtk-doc-tools" } },
+ { "check": "cairo-gobject",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "cairo-gobject-devel",
+                 "ubuntu": "libcairo2-dev" } },
+
+ # sugar-build buildtime
+
+ { "check": "xrandr",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "libXrandr-devel",
+                 "ubuntu": "libxrandr-dev" } },
+ { "check": "x11",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "libX11-devel",
+                 "ubuntu": "libx11-dev" } },
+
+ # Workarounds for distro bugs
+ 
+ # Ubuntu: libtoolize doesn't work without installing tar
+ { "check": "tar",
+   "checker": "binary", 
+   "packages": { "fedora": "tar",
+                 "ubuntu": "tar" } }]
 
 def install_packages(packages):
     args = ["sudo"]
