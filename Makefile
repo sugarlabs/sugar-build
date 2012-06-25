@@ -47,7 +47,7 @@ run:
 	xinit $(SCRIPTS)/xinitrc -- :99
 
 shell:
-	$(JHBUILD) shell
+	@PS1="[sugar-build]$$ " $(JHBUILD) shell
 
 bug-report:
 	@$(SCRIPTS)/bug-report
