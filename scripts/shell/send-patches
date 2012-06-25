@@ -1,0 +1,99 @@
+#!/usr/bin/python
+
+import argparse
+import re
+import subprocess
+import sys
+
+GIT_CONFIG_SETUP = "sugar-build.send-patches.setup"
+
+def get_git_config(name, is_global=False):
+    args = ["git", "config"]
+
+    if is_global:
+        args.append("--global")
+
+    args.append(name)
+
+    try:
+        return subprocess.check_output(args)
+    except subprocess.CalledProcessError:
+        return None
+
+def set_git_config(name, value):
+    return subprocess.check_output(["git", "config", name, value])
+
+def unset_git_config(name):
+    try:
+        subprocess.check_output(["git", "config", "--unset", name])
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+def get_from():
+    name = get_git_config("user.name", is_global=True)
+    email = get_git_config("user.email", is_global=True)
+
+    if not name or not email:
+        print "Please configure your name and email\n\n" \
+              "git config --global user.name Your Name\n" \
+              "git config --global user.email youremail@example.com"
+        sys.exit(1)
+
+    return "%s <%s>" % (name, email)
+
+def get_module():
+    for line in open("configure.ac"):
+        m = re.match("AC_INIT\((.+)\)", line)
+        if m:
+            return m.group(1).split(",")[-1][1:-1]    
+
+def setup():
+    print "Choose how to send email \n\n" \
+          "1 Google account\n" \
+          "2 Sugar Labs shell account\n" \
+          "3 System sendmail"
+
+    choice = None
+
+    while choice not in ["1", "2", "3"]:
+        choice = raw_input("# ")
+
+    if choice == "1":
+        print "\nEnter your user name"
+        smtpuser = raw_input("# ")
+
+        set_git_config("sendemail.smtpencryption", "tls")
+        set_git_config("sendemail.smtpserver", "smtp.gmail.com")
+        set_git_config("sendemail.smtpserverport", "587")
+        set_git_config("sendemail.smtpuser", smtpuser)
+    elif choice == "2":
+        print "\nEnter your user name"
+        smtpuser = raw_input("# ")
+
+        set_git_config("sendemail.smtpencryption", "tls")
+        set_git_config("sendemail.smtpserver", "smtp.sugarlabs.org")
+        set_git_config("sendemail.smtpserverport", "587")
+        set_git_config("sendemail.smtpuser", smtpuser)
+    elif choice == "3":
+        unset_git_config("sendemail.smtpencryption")
+        unset_git_config("sendemail.smtpserver")
+        unset_git_config("sendemail.smtpserverport")
+        unset_git_config("sendemail.smtpuser")
+
+    set_git_config(GIT_CONFIG_SETUP, "true")
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--setup", action="store_true",
+                    help="interactive configuration")
+
+args = parser.parse_args()
+
+if not get_git_config(GIT_CONFIG_SETUP) or args.setup:
+    setup()
+
+subprocess.call(["git", "send-email",
+                 "-from", get_from(),
+                 "-to", "sugar-devel <sugar-devel@lists.sugarlabs.org>",
+                 "--subject-prefix", "PATCH %s" % get_module(),
+                 "origin"])
