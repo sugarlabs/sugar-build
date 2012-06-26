@@ -23,7 +23,7 @@ do
    fi
 done
 
-JHBUILD="$ROOT_DIR/build/bin/jhbuild -f $ROOT_DIR/scripts/jhbuildrc"
+JHBUILD="$ROOT_DIR/install/bin/jhbuild -f $ROOT_DIR/scripts/jhbuildrc"
 RUN_COMMAND="dbus-launch --exit-with-session sugar"
 
 if [ -z $SUGAR_BUILD_SHELL ]; then
