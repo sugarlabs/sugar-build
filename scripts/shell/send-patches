@@ -86,6 +86,7 @@ def setup():
 parser = argparse.ArgumentParser()
 parser.add_argument("--setup", action="store_true",
                     help="interactive configuration")
+parser.add_argument('rev_list', nargs='?', default='origin')
 
 args = parser.parse_args()
 
@@ -96,4 +97,4 @@ subprocess.call(["git", "send-email",
                  "-from", get_from(),
                  "-to", "sugar-devel <sugar-devel@lists.sugarlabs.org>",
                  "--subject-prefix", "PATCH %s" % get_module(),
-                 "origin"])
+                 args.rev_list])
