@@ -37,7 +37,7 @@ build-glucose: install-jhbuild check-system
 build: build-glucose scripts/list-outputs
 
 install-activities:
-	$(SCRIPTS)/install-activities
+	$(LOG) "$(SCRIPTS)/install-activities" $(LOGFILE)
 
 build-%:
 	$(TYPESCRIPT) "$(JHBUILD) buildone $*" $(LOGFILE)
