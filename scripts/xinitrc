@@ -1,4 +1,4 @@
-unset  GPG_AGENT_INFO
+unset GPG_AGENT_INFO
 unset SSH_AUTH_SOCK
 unset GNOME_KEYRING_CONTROL
 unset GNOME_KEYRING_PID
@@ -23,5 +23,11 @@ do
    fi
 done
 
+JHBUILD="$ROOT_DIR/build/bin/jhbuild -f $ROOT_DIR/scripts/jhbuildrc"
 RUN_COMMAND="dbus-launch --exit-with-session sugar"
-$ROOT_DIR/build/bin/jhbuild -f $ROOT_DIR/scripts/jhbuildrc run $RUN_COMMAND
+
+if [ -z $SUGAR_BUILD_SHELL ]; then
+    $JHBUILD run $RUN_COMMAND
+else
+    $RUN_COMMAND
+fi

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+shelldir=`dirname "$0"`
+scriptsdir=`dirname "$shelldir"`
+
+xinit $scriptsdir/xinitrc -- :99

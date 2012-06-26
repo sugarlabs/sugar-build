@@ -49,6 +49,7 @@ run:
 shell:
 	@PS1="[sugar-build]$$ " \
     PATH=$(PATH):$(SCRIPTS)/shell \
+    SUGAR_BUILD_SHELL=yes \
     $(JHBUILD) shell
 
 bug-report:
