@@ -65,6 +65,8 @@ make shell          Open a shell with proper build environment.
 start-sugar         Start sugar.
 send-patches        Send local commits as patches for review.
 
+Use --help for more informations about each command.
+
 == Environment variables ==
 
 SUGAR_OUTPUT
