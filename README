@@ -53,7 +53,8 @@ I expect a lot of tweaks will be necessary before this is stable. In the future 
 
 == Makefile targets reference ==
 
-make build		    Build everything.
+make all            Build and install activities
+make build		    Build all the modules.
 make run		    Run sugar.
 make build-[module] Build a single module.
 make clean		    Delete build artifacts and sources.
