@@ -1,0 +1,32 @@
+#!/bin/sh
+
+scriptsdir=`dirname "$0"`
+rootdir=`dirname "$scriptsdir"`
+activitiesdir=$rootdir/install/share/sugar/activities
+
+activities=$(cat <<EOF
+http://activities.sugarlabs.org/downloads/file/28118/browse-140.xo
+http://activities.sugarlabs.org/downloads/file/28135/terminal-40.xo
+EOF
+)
+
+cd $activitiesdir
+
+for activity in $activities
+do
+    curl -L -o temp.xo $activity
+
+    activityinfopath=`zipinfo -1 temp.xo | grep activity.info`
+    activitydir=`dirname $activityinfopath`
+    rootactivitydir=`dirname $activitydir`
+
+    if [ -d "$rootactivitydir" ]; then
+        rm -rf $rootactivitydir
+    fi
+    
+    unzip temp.xo
+    
+    rm temp.xo
+done
+
+

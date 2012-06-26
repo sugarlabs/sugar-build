@@ -1,9 +1,3 @@
 [submodule "scripts/jhbuild"]
 	path = scripts/jhbuild
 	url = git://git.gnome.org/jhbuild
-[submodule "activities/terminal"]
-	path = activities/terminal
-	url = git://git.sugarlabs.org/terminal/mainline.git
-[submodule "activities/browse"]
-	path = activities/browse
-	url = git://git.sugarlabs.org/browse/mainline.git

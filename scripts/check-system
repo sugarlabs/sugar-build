@@ -200,6 +200,10 @@ checks = \
 
  # sugar-build buildtime
 
+ { "check": "curl",
+   "checker": "binary",
+   "packages": { "fedora": "curl",
+                 "ubuntu": "curl" } },
  { "check": "xrandr",
    "checker": "pkgconfig",
    "packages": { "fedora": "libXrandr-devel",

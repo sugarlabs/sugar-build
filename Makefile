@@ -12,7 +12,7 @@ else
 TYPESCRIPT = script -ae -c
 endif
 
-all: build
+all: build install-activities
 
 submodules:
 	git submodule init
@@ -31,14 +31,13 @@ install-jhbuild: submodules check-system
 	./autogen.sh --prefix=$(CURDIR)/install ; \
 	make ; make install
 
-build-activities: submodules
-	$(LOG) "$(JHBUILD) run $(SCRIPTS)/build-activity terminal" $(LOGFILE)
-	$(LOG) "$(JHBUILD) run $(SCRIPTS)/build-activity browse" $(LOGFILE)
-
 build-glucose: install-jhbuild check-system
 	$(TYPESCRIPT) "$(JHBUILD) build" $(LOGFILE)
 
-build: build-glucose build-activities scripts/list-outputs
+build: build-glucose scripts/list-outputs
+
+install-activities:
+	$(SCRIPTS)/install-activities
 
 build-%:
 	$(TYPESCRIPT) "$(JHBUILD) buildone $*" $(LOGFILE)

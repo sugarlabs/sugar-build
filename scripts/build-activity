@@ -1,8 +1,0 @@
-#!/bin/sh
-
-scriptsdir=`dirname "$0"`
-rootdir=`dirname "$scriptsdir"`
-
-cd $rootdir/activities/$1
-./setup.py install --prefix=$rootdir/install
-
