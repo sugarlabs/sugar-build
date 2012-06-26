@@ -17,7 +17,8 @@ moduleset = [os.path.join(root(), "scripts", "system.modules"),
 modules = ["meta-system", "meta-sugar"]
 
 checkoutroot = os.path.join(root(), "source")
-prefix = os.path.join(root(), "build")
+buildroot = os.path.join(root(), "build")
+prefix = os.path.join(root(), "install")
 
 os.environ["GTK_DATA_PREFIX"] = prefix
 os.environ["GTK_PATH"] = os.path.join(libdir(), "gtk-2.0")

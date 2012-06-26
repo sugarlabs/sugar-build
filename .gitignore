@@ -1,4 +1,5 @@
 *~
+install/
 build/
 source/
 logs/*.log

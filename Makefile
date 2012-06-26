@@ -1,7 +1,7 @@
 TIMESTAMP := $(shell date +%Y%m%d-%H%M%S)
 LOGFILE = $(CURDIR)/logs/build-$(TIMESTAMP).log
 SCRIPTS = $(CURDIR)/scripts
-JHBUILD = $(CURDIR)/build/bin/jhbuild -f $(SCRIPTS)/jhbuildrc
+JHBUILD = $(CURDIR)/install/bin/jhbuild -f $(SCRIPTS)/jhbuildrc
 LOG = $(SCRIPTS)/log-command
 
 # The buildbot shell does not handle script properly. It's unnecessary
@@ -28,7 +28,7 @@ check-system:
 
 install-jhbuild: submodules check-system
 	cd $(SCRIPTS)/jhbuild ; \
-	./autogen.sh --prefix=$(CURDIR)/build ; \
+	./autogen.sh --prefix=$(CURDIR)/install ; \
 	make ; make install
 
 build-activities: submodules
@@ -57,6 +57,6 @@ bug-report:
 	@$(SCRIPTS)/bug-report
 
 clean:
-	rm -rf source build
+	rm -rf source build install
 	rm -f logs/*.log logs/all-logs.tar.bz2
 	rm -f scripts/list-outputs
