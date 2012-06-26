@@ -47,10 +47,11 @@ run:
 	xinit $(SCRIPTS)/xinitrc -- :99
 
 shell:
-	@PS1="[sugar-build]$$ " \
-    PATH=$(PATH):$(SCRIPTS)/shell \
-    SUGAR_BUILD_SHELL=yes \
-    $(JHBUILD) shell
+	@cd source; \
+	PS1="[sugar-build \W]$$ " \
+	PATH=$(PATH):$(SCRIPTS)/shell \
+	SUGAR_BUILD_SHELL=yes \
+	$(JHBUILD) shell
 
 bug-report:
 	@$(SCRIPTS)/bug-report
