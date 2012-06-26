@@ -30,7 +30,8 @@ First of all enter the sugar-build shell, this will ensure you have the right en
     make shell
 
 You can find all the sources in sugar-build/source. Enter the desired module
-directory and apply the modifications you desire. To test them out, you need to install the new code and start sugar
+directory and apply your modifications. To test them out, you need to install
+the new code and start sugar
 
     make install
     start-sugar
