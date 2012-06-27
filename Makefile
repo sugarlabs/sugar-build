@@ -56,6 +56,12 @@ bug-report:
 	@$(SCRIPTS)/bug-report
 
 clean:
-	rm -rf source build install
+	rm -rf build install
+	rm -rf source/sugar
+	rm -rf source/sugar-datastore
+	rm -rf source/sugar-artwork
+	rm -rf source/sugar-toolkit
+	rm -rf source/sugar-base
+	rm -rf source/sugar-toolkit-gtk3
 	rm -f logs/*.log logs/all-logs.tar.bz2
 	rm -f scripts/list-outputs
