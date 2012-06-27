@@ -130,6 +130,10 @@ checks = \
 
  # Sugar runtime 
 
+ { "check": "espeak",
+   "checker": "binary",
+   "packages": { "fedora": "espeak",
+                 "ubuntu": "espeak" } },
  { "check": "import wnck",
    "checker": "python",
    "packages": { "fedora": "gnome-python2-libwnck",
