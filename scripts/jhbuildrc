@@ -3,11 +3,16 @@ import os
 def root():
     return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-def libdir():
-    if use_lib64:
-        return os.path.join(prefix, "lib64")
+def libdir(system=False):
+    if system:
+        base = "/usr"
     else:
-        return os.path.join(prefix, "lib")
+        base = prefix
+
+    if use_lib64:
+        return os.path.join(base, "lib64")
+    else:
+        return os.path.join(base, "lib")
 
 interact = not "SUGAR_BUILDBOT" in os.environ
 
@@ -22,4 +27,5 @@ prefix = os.path.join(root(), "install")
 
 os.environ["GTK_DATA_PREFIX"] = prefix
 os.environ["GTK_PATH"] = os.path.join(libdir(), "gtk-2.0")
-
+os.environ["GIO_EXTRA_MODULES"] = os.path.join(libdir(system=True),
+                                               "gio", "modules")
