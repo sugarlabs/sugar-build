@@ -60,6 +60,7 @@ make build-[module] Build a single module.
 make clean		    Delete build artifacts and sources.
 make bug-report     Generate a bug report. 
 make shell          Open a shell with proper build environment.
+make test           Run UI tests
 
 == Shell commands reference ==
 
