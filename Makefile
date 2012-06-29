@@ -45,6 +45,9 @@ build-%:
 run:
 	xinit $(SCRIPTS)/xinitrc -- :99
 
+test:
+	$(LOG) "$(SCRIPTS)/run-dogtail-tests" $(LOGFILE)
+
 shell:
 	@cd source; \
 	PS1="[sugar-build \W]$$ " \

@@ -216,6 +216,10 @@ checks = \
    "checker": "pkgconfig",
    "packages": { "fedora": "libX11-devel",
                  "ubuntu": "libx11-dev" } },
+ { "check": "import dogtail",
+   "checker": "python",
+   "packages": { "fedora": "dogtail",
+                 "ubuntu": "python-dogtail" } },
 
  # Workarounds for distro bugs
  

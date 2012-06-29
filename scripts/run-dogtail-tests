@@ -1,0 +1,36 @@
+#!/bin/sh
+
+scriptsdir=`dirname "$0"`
+rootdir=`dirname "$scriptsdir"`
+testsdir=$rootdir/tests
+display=:99
+
+minver="0.8.0"
+version=`python -c "import dogtail; print dogtail.__version__"`
+if [ "$minver" != "`echo -e "$minver\n$version" | sort -V | head -n1`" ]; then
+    echo "Dogtail >= 0.8.0 is required."
+    exit 0
+fi
+
+xserver=`which Xvfb`
+if [ -z "$HEADLESS" ]; then
+    xserver=
+fi
+
+export GTK_MODULES=gail:atk-bridge
+export SUGAR_PROFILE=dogtail
+
+rm -rf ~/.sugar/dogtail
+
+xinit $scriptsdir/xinitrc -- $xserver $display  &
+xinitpid=$!
+
+# FIXME starting the tests immediately puts dogtail in a broken state
+sleep 1
+
+DISPLAY=$display python $testsdir/shell.py
+result=$?
+
+kill $xinitpid
+
+exit $result
