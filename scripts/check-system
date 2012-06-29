@@ -28,9 +28,20 @@ def check_python(check):
     return subprocess.call(["python", "-c", check],
                            stdout=devnull, stderr=subprocess.STDOUT) == 1
 
+def check_gtkmodule(check):
+    # Not sure we can do better than this, the gtkmodule stuff is private
+    missing = True
+    
+    for libdir in ["lib", "lib64"]:
+        if os.path.exists("/usr/%s/gtk-2.0/modules/lib%s.so" % (libdir, check)):
+            missing = False
+
+    return missing
+
 checkers = { "binary": check_binary,
              "python": check_python,
-             "pkgconfig": check_pkgconfig }
+             "pkgconfig": check_pkgconfig,
+             "gtkmodule": check_gtkmodule }
 
 pre_checks = \
 [{ "check": "Xvfb",
@@ -202,12 +213,27 @@ checks = \
    "packages": { "fedora": "cairo-gobject-devel",
                  "ubuntu": "libcairo2-dev" } },
 
- # sugar-build buildtime
+ # sugar-build runtime
 
+ { "check": "atk-bridge",
+   "checker": "gtkmodule",
+   "packages": { "fedora": "at-spi2-atk",
+                 "ubuntu": "at-spi2-atk" } },
  { "check": "curl",
    "checker": "binary",
    "packages": { "fedora": "curl",
                  "ubuntu": "curl" } },
+ { "check": "dbus-launch",
+   "checker": "binary",
+   "packages": { "fedora": "dbus-x11",
+                 "ubuntu": "dbus-x11" } },
+ { "check": "import dogtail",
+   "checker": "python",
+   "packages": { "fedora": "dogtail",
+                 "ubuntu": "python-dogtail" } },
+
+ # sugar-build buildtime
+
  { "check": "xrandr",
    "checker": "pkgconfig",
    "packages": { "fedora": "libXrandr-devel",
@@ -216,10 +242,6 @@ checks = \
    "checker": "pkgconfig",
    "packages": { "fedora": "libX11-devel",
                  "ubuntu": "libx11-dev" } },
- { "check": "import dogtail",
-   "checker": "python",
-   "packages": { "fedora": "dogtail",
-                 "ubuntu": "python-dogtail" } },
 
  # Workarounds for distro bugs
  
