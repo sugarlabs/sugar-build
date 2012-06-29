@@ -32,7 +32,9 @@ def check_gtkmodule(check):
     # Not sure we can do better than this, the gtkmodule stuff is private
     missing = True
     
-    for libdir in ["lib", "lib64"]:
+    for libdir in ["lib", "lib64",
+                   "lib/x86_64-linux-gnu",
+                   "lib/i386-linux-gnu"]:
         if os.path.exists("/usr/%s/gtk-2.0/modules/lib%s.so" % (libdir, check)):
             missing = False
 
@@ -218,7 +220,7 @@ checks = \
  { "check": "atk-bridge",
    "checker": "gtkmodule",
    "packages": { "fedora": "at-spi2-atk",
-                 "ubuntu": "at-spi2-atk" } },
+                 "ubuntu": "libatk-adaptor" } },
  { "check": "curl",
    "checker": "binary",
    "packages": { "fedora": "curl",
