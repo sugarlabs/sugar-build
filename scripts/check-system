@@ -143,6 +143,10 @@ checks = \
 
  # Sugar runtime 
 
+ { "check": "dconf",
+   "checker": "binary",
+   "packages": { "fedora": "dconf",
+                 "ubuntu": "dconf" } },
  { "check": "gnome-keyring-daemon",
    "checker": "binary",
    "packages": { "fedora": "gnome-keyring",
