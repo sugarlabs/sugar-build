@@ -13,7 +13,7 @@ if [ "$minver" != "`echo -e "$minver\n$version" | sort -V | head -n1`" ]; then
 fi
 
 xserver=`which Xvfb`
-if [ -z "$HEADLESS" ]; then
+if [ -z "$SUGAR_BUILDBOT" ]; then
     xserver=
 fi
 
