@@ -143,6 +143,14 @@ checks = \
 
  # Sugar runtime 
 
+ { "check": "gnome-keyring-daemon",
+   "checker": "binary",
+   "packages": { "fedora": "gnome-keyring",
+                 "ubuntu": "gnome-keyring" } },
+ { "check": "metacity",
+   "checker": "binary",
+   "packages": { "fedora": "metacity",
+                 "ubuntu": "metacity" } },
  { "check": "espeak",
    "checker": "binary",
    "packages": { "fedora": "espeak",
