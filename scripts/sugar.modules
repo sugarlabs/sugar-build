@@ -39,4 +39,11 @@
       <dep package="sugar"/>
     </dependencies>
   </metamodule>
+
+  <autotools id="sugar-fructose"
+             skip-autogen="true"
+             makeinstallargs="install prefix=${prefix}"
+             supports-non-srcdir-builds="no">
+    <branch module="sugar-fructose/sugar-fructose.git"/>
+  </autotools>
 </moduleset>
