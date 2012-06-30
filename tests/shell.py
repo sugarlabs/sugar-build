@@ -1,3 +1,5 @@
+from operator import attrgetter
+
 from dogtail import tree
 from dogtail import predicate
 
@@ -23,6 +25,8 @@ table = shell.child(name="", roleName="table")
 cells = table.findChildren(predicate.GenericPredicate(roleName="table cell"))
 for row in [cells[i:i+5] for i in range(0, len(cells), 5)]:
     activities.append(Activity(name=row[2].text, icon=row[1]))
+
+activities.sort(key=attrgetter("name"))
 
 # Launch and close all the activities
 for activity in activities:
