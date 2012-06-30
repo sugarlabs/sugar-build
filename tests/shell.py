@@ -16,6 +16,8 @@ table = shell.child(name="", roleName="table")
 cells = table.findChildren(predicate.GenericPredicate(roleName="table cell"))
 
 for row in [cells[i:i+5] for i in range(0, len(cells), 5)]:
+    print "Launching %s" % row[2].text
+
     row[1].click()
 
     activity = tree.root.child(name="sugar-activity", roleName="application")
