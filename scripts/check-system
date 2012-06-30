@@ -226,6 +226,10 @@ checks = \
    "checker": "python",
    "packages": { "fedora": "webkitgtk3",
                  "ubuntu": "gir1.2-webkit-3.0" } },
+ { "check": "import abiword",
+   "checker": "python",
+   "packages": { "fedora": "pyabiword",
+                 "ubuntu": "python-abiword" } },
 
  # System modules buildtime
 
