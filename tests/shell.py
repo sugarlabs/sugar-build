@@ -1,6 +1,11 @@
 from dogtail import tree
 from dogtail import predicate
 
+class Activity:
+    def __init__(self, name=None, icon=None):
+        self.name = name
+        self.icon = icon
+
 shell = tree.root.child(name="sugar-session", roleName="application")
 
 # Complete the intro screen
@@ -11,14 +16,24 @@ done_button.click()
 radio_button = shell.child(name="List view", roleName="radio button")
 radio_button.click()
 
-# Start and stop all the activities in the table
+# Make a list of activities by iterating the table
+activities = []
+
 table = shell.child(name="", roleName="table")
 cells = table.findChildren(predicate.GenericPredicate(roleName="table cell"))
-
 for row in [cells[i:i+5] for i in range(0, len(cells), 5)]:
-    print "Launching %s" % row[2].text
+    activities.append(Activity(name=row[2].text, icon=row[1]))
 
-    row[1].click()
+# Launch and close all the activities
+for activity in activities:
+    print "Launching %s" % activity.name 
+
+    activity.icon.click()
+
+    # Read displays an object chooser, let's close it
+    if activity.name == "Read":
+        close_button = shell.child(name="Close", roleName="push button")
+        close_button.click()
 
     activity = tree.root.child(name="sugar-activity", roleName="application")
     stop_button = activity.child(name="Stop", roleName="push button")
