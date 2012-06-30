@@ -40,10 +40,14 @@ def check_gtkmodule(check):
 
     return missing
 
+def check_dbus(check):
+    return not os.path.exists("/usr/share/dbus-1/services/%s.service" % check)
+
 checkers = { "binary": check_binary,
              "python": check_python,
              "pkgconfig": check_pkgconfig,
-             "gtkmodule": check_gtkmodule }
+             "gtkmodule": check_gtkmodule,
+             "dbus": check_dbus }
 
 pre_checks = \
 [{ "check": "Xvfb",
@@ -143,6 +147,10 @@ checks = \
 
  # Sugar runtime 
 
+ { "check": "org.freedesktop.Telepathy.AccountManager",
+   "checker": "dbus",
+   "packages": { "fedora": "telepathy-mission-control",
+                 "ubuntu": "telepathy-mission-control-5" } },
  { "check": "dconf",
    "checker": "binary",
    "packages": { "fedora": "dconf",
