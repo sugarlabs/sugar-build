@@ -220,6 +220,13 @@ checks = \
    "packages": { "fedora": "gnome-python2-rsvg",
                  "ubuntu": "python-rsvg" } },
 
+ # Activities runtime
+
+ { "check": "from gi.repository import WebKit",
+   "checker": "python",
+   "packages": { "fedora": "webkitgtk3",
+                 "ubuntu": "gir1.2-webkit-3.0" } },
+
  # System modules buildtime
 
  { "check": "flex",
