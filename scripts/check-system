@@ -16,6 +16,11 @@ elif os.path.exists("/etc/lsb-release"):
 devnull = open("/dev/null", "w")
 xvfb_display = ":100"
 
+libdirs = ["lib",
+           "lib64",
+           "lib/x86_64-linux-gnu",
+           "lib/i386-linux-gnu"]
+
 def check_binary(check):
     return subprocess.call(["which", check],
                            stdout=devnull,
@@ -32,9 +37,7 @@ def check_gtkmodule(check):
     # Not sure we can do better than this, the gtkmodule stuff is private
     missing = True
     
-    for libdir in ["lib", "lib64",
-                   "lib/x86_64-linux-gnu",
-                   "lib/i386-linux-gnu"]:
+    for libdir in libdirs:
         if os.path.exists("/usr/%s/gtk-2.0/modules/lib%s.so" % (libdir, check)):
             missing = False
 
@@ -43,11 +46,21 @@ def check_gtkmodule(check):
 def check_dbus(check):
     return not os.path.exists("/usr/share/dbus-1/services/%s.service" % check)
 
+def check_gstreamer(check):
+    missing = True
+    
+    for libdir in libdirs:
+        if os.path.exists("/usr/%s/gstreamer-0.10/libgst%s.so" % (libdir, check)):
+            missing = False
+
+    return missing
+
 checkers = { "binary": check_binary,
              "python": check_python,
              "pkgconfig": check_pkgconfig,
              "gtkmodule": check_gtkmodule,
-             "dbus": check_dbus }
+             "dbus": check_dbus,
+             "gstreamer": check_gstreamer }
 
 pre_checks = \
 [{ "check": "Xvfb",
@@ -230,6 +243,14 @@ checks = \
    "checker": "python",
    "packages": { "fedora": "pyabiword",
                  "ubuntu": "python-abiword" } },
+ { "check": "import pygst",
+   "checker": "python",
+   "packages": { "fedora": "gstreamer-python",
+                 "ubuntu": "python-gst0.10" } },
+ { "check": "video4linux2",
+   "checker": "gstreamer",
+   "packages": { "fedora": "gstreamer-plugins-good",
+                 "ubuntu": "gstreamer0.10-plugins-good" } },
 
  # System modules buildtime
 
