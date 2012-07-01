@@ -4,7 +4,6 @@ from dogtail import tree
 from dogtail import predicate
 
 ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read", "Image Viewer", "Jukebox"]
-ACTIVITIES_MULTIPLE_STOP = ["Pippy"]
 
 class ActivityLauncher:
     def __init__(self, name=None, icon=None):
@@ -39,6 +38,9 @@ radio_button.click()
 
 # Launch and close all the activities
 for activity_launcher in get_activity_launchers(shell):
+    if activity_launcher.name == "Pippy":
+        continue
+
     print "Launching %s" % activity_launcher.name 
 
     activity_launcher.icon.click()
@@ -49,11 +51,5 @@ for activity_launcher in get_activity_launchers(shell):
 
     activity = tree.root.child(name="sugar-activity", roleName="application")
 
-    if activity_launcher.name in ACTIVITIES_MULTIPLE_STOP:
-        toolbar = activity.child(roleName="tool bar")
-        pred = predicate.GenericPredicate(name="Stop", roleName="push button")
-        stop_buttons = toolbar.findChildren(pred)
-        stop_buttons[-1].click()
-    else:
-        stop_button = activity.child(name="Stop", roleName="push button")
-        stop_button.click()
+    stop_button = activity.child(name="Stop", roleName="push button")
+    stop_button.click()
