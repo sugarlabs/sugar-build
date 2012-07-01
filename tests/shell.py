@@ -30,19 +30,17 @@ activities.sort(key=attrgetter("name"))
 
 # Launch and close all the activities
 for activity in activities:
-    # FIXME these does not work properly yet
-    if activity.name in ["Image Viewer", "Jukebox", "Pippy"]:
-        continue
-
     print "Launching %s" % activity.name 
 
     activity.icon.click()
 
-    # Read displays an object chooser, let's close it
-    if activity.name == "Read":
+    # Some activities displays an object chooser, let's close it
+    if activity.name in ["Read", "Image Viewer", "Jukebox"]:
         close_button = shell.child(name="Close", roleName="push button")
         close_button.click()
 
     activity = tree.root.child(name="sugar-activity", roleName="application")
-    stop_button = activity.child(name="Stop", roleName="push button")
-    stop_button.click()
+
+    pred = predicate.GenericPredicate(name="Stop", roleName="push button")
+    stop_buttons = activity.findChildren(pred)
+    stop_buttons[-1].click()
