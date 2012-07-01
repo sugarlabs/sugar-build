@@ -232,6 +232,14 @@ checks = \
    "checker": "python",
    "packages": { "fedora": "gnome-python2-rsvg",
                  "ubuntu": "python-rsvg" } },
+ { "check": "org.freedesktop.Telepathy.ConnectionManager.gabble",
+   "checker": "dbus",
+   "packages": { "fedora": "telepathy-gabble",
+                 "ubuntu": "telepathy-gabble" } },
+ { "check": "org.freedesktop.Telepathy.ConnectionManager.salut",
+   "checker": "dbus",
+   "packages": { "fedora": "telepathy-salut",
+                 "ubuntu": "telepathy-salut" } },
 
  # Activities runtime
 
