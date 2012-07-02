@@ -1,7 +1,9 @@
+import sys
 from operator import attrgetter
 
 from dogtail import tree
 from dogtail import predicate
+from dogtail import dump
 
 ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read", "Image Viewer", "Jukebox"]
 
@@ -26,21 +28,7 @@ def get_activity_launchers(shell):
 
     return activity_launchers
 
-shell = tree.root.child(name="sugar-session", roleName="application")
-
-# Complete the intro screen
-done_button = shell.child(name="Done", roleName="push button")
-done_button.click()
-
-# Switch to the home list view
-radio_button = shell.child(name="List view", roleName="radio button")
-radio_button.click()
-
-# Launch and close all the activities
-for activity_launcher in get_activity_launchers(shell):
-    if activity_launcher.name in ["Pippy", "Write"]:
-        continue
-
+def launch_and_stop_activity(activity_launcher):
     print "Launching %s" % activity_launcher.name 
 
     activity_launcher.icon.click()
@@ -53,3 +41,28 @@ for activity_launcher in get_activity_launchers(shell):
 
     stop_button = activity.child(name="Stop", roleName="push button")
     stop_button.click()
+
+def main():
+    shell = tree.root.child(name="sugar-session", roleName="application")
+
+    # Complete the intro screen
+    done_button = shell.child(name="Done", roleName="push button")
+    done_button.click()
+
+    # Switch to the home list view
+    radio_button = shell.child(name="List view", roleName="radio button")
+    radio_button.click()
+
+    # Launch and close all the activities
+    for activity_launcher in get_activity_launchers(shell):
+        if activity_launcher.name in ["Pippy", "Write"]:
+            continue
+
+        launch_and_stop_activity(activity_launcher)
+
+try:
+    main()
+except tree.SearchError:
+    print "\nDumping the accessible tree\n"
+    dump.plain(tree.root)
+    sys.exit(1)
