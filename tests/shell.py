@@ -38,7 +38,7 @@ radio_button.click()
 
 # Launch and close all the activities
 for activity_launcher in get_activity_launchers(shell):
-    if activity_launcher.name == "Pippy":
+    if activity_launcher.name in ["Pippy", "Write"]:
         continue
 
     print "Launching %s" % activity_launcher.name 
