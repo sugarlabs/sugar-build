@@ -4,6 +4,7 @@ scriptsdir=`dirname "$0"`
 rootdir=`dirname "$scriptsdir"`
 testsdir=$rootdir/tests
 display=:99
+resolution=1024x768x16
 
 minver="0.8.0"
 version=`python -c "import dogtail; print dogtail.__version__"`
@@ -12,9 +13,11 @@ if [ "$minver" != "`echo -e "$minver\n$version" | sort -V | head -n1`" ]; then
     exit 0
 fi
 
-xserver=`which Xvfb`
+xvfb=`which Xvfb`
+xserver="$xvfb $display -ac -noreset -shmem -screen 0 $resolution"
+
 if [ -z "$SUGAR_BUILDBOT" ]; then
-    xserver=
+    xserver=$display
 fi
 
 export SUGAR_LOGGER_LEVEL=debug
@@ -23,7 +26,7 @@ export SUGAR_PROFILE=dogtail
 
 rm -rf ~/.sugar/dogtail
 
-xinit $scriptsdir/xinitrc -- $xserver $display  &
+xinit $scriptsdir/xinitrc -- $xserver &
 xinitpid=$!
 
 # FIXME starting the tests immediately puts dogtail in a broken state
