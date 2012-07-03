@@ -3,9 +3,12 @@ import sys
 from dogtail import tree
 from dogtail import predicate
 from dogtail import dump
+from dogtail.config import config
 
 ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read", "Image Viewer", "Jukebox"]
 ACTIVITIES_TO_IGNORE = ["Pippy", "Write"]
+
+config.load({ "actionDelay": 3 })
 
 def build_activities_list():
     shell = tree.root.child(name="sugar-session", roleName="application")
