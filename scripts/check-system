@@ -4,6 +4,7 @@ import os
 import subprocess
 import sys
 
+scriptdir = os.path.dirname(__file__)
 devnull = open("/dev/null", "w")
 xvfb_display = ":100"
 
@@ -386,6 +387,21 @@ def check_distro():
 
     return distro
 
+def apply_ubuntu_tweaks():
+    wrapper_config = open("/etc/X11/Xwrapper.config").read()
+    if "allowed_users=anybody" not in wrapper_config:
+        if "SUGAR_BUILDBOT" in os.environ:
+            print "\nPlease allow anybody to run the X server with \n" \
+                  "  sudo dpkg-reconfigure x11-common"        
+        else:  
+            print "\nWe are going to allow anybody to run the X server"            
+            ubuntu_tweaks = os.path.join(scriptdir, "ubuntu-tweaks")            
+            subprocess.call(["sudo", ubuntu_tweaks])
+
+def apply_distro_tweaks(distro):
+    if distro == "fedora":
+        apply_ubuntu_tweaks()
+
 def warn_if_unsupported(distro):
     if distro == "unsupported":
         print "*********************************************************\n" \
@@ -405,5 +421,6 @@ xvfb_proc, orig_display = start_xvfb()
 run_checks(distro, checks)
 
 warn_if_unsupported(distro)
+apply_distro_tweaks(distro)
 
 stop_xvfb(xvfb_proc, orig_display)

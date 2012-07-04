@@ -2,17 +2,8 @@
 
 For all the distributions your user need admin rights (i.e. it should be able to run the su command).
 
-== Fedora 17 (32-bit and 64-bit)  ==
-
-Works out of the box!
-
-== Ubuntu 12.04 (32-bit and 64-bit) ==
-
-By default only root can start the X server. You need to change that with
-
-  sudo dpkg-reconfigure x11-common
-
-I'm hoping we can get rid of this step in the next Ubuntu version when a working nested X server implementation should become available.
+Fedora 17 (32-bit and 64-bit)
+Ubuntu 12.04 (32-bit and 64-bit)
 
 = Getting started =
 
