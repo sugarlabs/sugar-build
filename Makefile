@@ -37,15 +37,12 @@ build-glucose: install-jhbuild check-system
 build-fructose:
 	$(TYPESCRIPT) "$(JHBUILD) build sugar-fructose" $(LOGFILE)
 
-build: build-glucose scripts/list-outputs
-
-install-activities:
-	$(LOG) "$(SCRIPTS)/install-activities" $(LOGFILE)
+build: build-glucose build-fructose 
 
 build-%:
 	$(TYPESCRIPT) "$(JHBUILD) buildone $*" $(LOGFILE)
 
-run:
+run: scripts/list-outputs
 	xinit $(SCRIPTS)/xinitrc -- :99
 
 test:
