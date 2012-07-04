@@ -4,6 +4,12 @@ SCRIPTS = $(CURDIR)/scripts
 JHBUILD = $(CURDIR)/install/bin/jhbuild -f $(SCRIPTS)/jhbuildrc
 LOG = $(SCRIPTS)/log-command
 
+ifdef SUGAR_SESSION
+XINITDISPLAY = :100
+else
+XINITDISPLAY = :99
+endif
+
 # The buildbot shell does not handle script properly. It's unnecessary
 # anyway because we can't use interactive scripts there.
 ifdef SUGAR_BUILDBOT
@@ -43,7 +49,7 @@ build-%:
 	$(TYPESCRIPT) "$(JHBUILD) buildone $*" $(LOGFILE)
 
 run: scripts/list-outputs
-	xinit $(SCRIPTS)/xinitrc -- :99
+	xinit $(SCRIPTS)/xinitrc -- $(XINITDISPLAY)
 
 test:
 	$(LOG) "$(SCRIPTS)/run-dogtail-tests" $(LOGFILE)

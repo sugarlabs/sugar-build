@@ -23,6 +23,12 @@ do
    fi
 done
 
+if [ -z $SUGAR_SESSION ]; then
+    export SUGAR_SESSION=yes
+else
+    export SUGAR_PROFILE=development
+fi
+
 JHBUILD="$ROOT_DIR/install/bin/jhbuild -f $ROOT_DIR/scripts/jhbuildrc"
 RUN_COMMAND="dbus-launch --exit-with-session sugar"
 
