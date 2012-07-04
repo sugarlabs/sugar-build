@@ -364,7 +364,7 @@ def check_distro():
 
     # Fedora
     try:
-        fedora_release = open("/etc/fedora-release").read()
+        fedora_release = open("/etc/fedora-release").read().strip()
         if fedora_release == "Fedora release 17 (Beefy Miracle)":
             distro = "fedora"
     except IOError:
@@ -380,12 +380,13 @@ def check_distro():
     except OSError:
         pass
 
-    if subprocess.check_output(["uname", "-i"]) not in ["i386", "x86_64"]:
+    arch = subprocess.check_output(["uname", "-i"]).strip()
+    if arch not in ["i386", "x86_64"]:
         distro = "unsupported" 
 
     return distro
 
-def warn_about_unsupported_distro():
+def warn_if_unsupported(distro):
     if distro == "unsupported":
         print "*********************************************************\n" \
               "You are running an unsupported distribution. You might be\n" \
@@ -403,6 +404,6 @@ xvfb_proc, orig_display = start_xvfb()
 
 run_checks(distro, checks)
 
-warn_about_unsupported_distro()
+warn_if_unsupported(distro)
 
 stop_xvfb(xvfb_proc, orig_display)
