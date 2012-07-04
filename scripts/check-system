@@ -373,8 +373,8 @@ def check_distro():
 
     # Ubuntu
     try:
-        distributor = subprocess.check_output(["lsb_release", "-si"])
-        release = subprocess.check_output(["lsb_release", "-sr"])
+        distributor = subprocess.check_output(["lsb_release", "-si"]).strip()
+        release = subprocess.check_output(["lsb_release", "-sr"]).strip()
 
         if distributor == "Ubuntu" and release == "12.04":
             distro = "ubuntu"
@@ -399,7 +399,7 @@ def apply_ubuntu_tweaks():
             subprocess.call(["sudo", ubuntu_tweaks])
 
 def apply_distro_tweaks(distro):
-    if distro == "fedora":
+    if distro == "ubuntu":
         apply_ubuntu_tweaks()
 
 def warn_if_unsupported(distro):
