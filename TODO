@@ -1,4 +1,3 @@
-* Add a big warning about unsupported distributions
 * Add x11-common reconfig to check system and remove from README
 * Figure out what to do with shutdown
 * Allow to configure resolution (sugarbuildrc?)

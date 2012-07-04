@@ -4,15 +4,6 @@ import os
 import subprocess
 import sys
 
-distro = "unknown"
-
-if os.path.exists("/etc/fedora-release"):
-    distro = "fedora"
-elif os.path.exists("/etc/lsb-release"):
-    distributor_id = subprocess.check_output(["lsb_release", "-i"])
-    if "Ubuntu" in distributor_id:
-        distro = "ubuntu"
-
 devnull = open("/dev/null", "w")
 xvfb_display = ":100"
 
@@ -313,7 +304,7 @@ checks = \
    "packages": { "fedora": "tar",
                  "ubuntu": "tar" } }]
 
-def install_packages(packages):
+def install_packages(distro, packages):
     args = ["sudo"]
 
     if "SUGAR_BUILDBOT" in os.environ:
@@ -330,7 +321,7 @@ def install_packages(packages):
     args.extend(packages)
     subprocess.call(args)
 
-def run_checks(checks):
+def run_checks(distro, checks):
     failed_checks = []
     packages = []
 
@@ -343,7 +334,7 @@ def run_checks(checks):
                 failed_checks.append(check)
 
     if packages:
-        install_packages(packages)
+        install_packages(distro, packages)
 
     if failed_checks:
         print "Failed checks\n"
@@ -368,10 +359,50 @@ def stop_xvfb(proc, orig_display):
 
     xvfb_proc.terminate()
 
-run_checks(pre_checks)
+def check_distro():
+    distro = "unsupported"
+
+    # Fedora
+    try:
+        fedora_release = open("/etc/fedora-release").read()
+        if fedora_release == "Fedora release 17 (Beefy Miracle)":
+            distro = "fedora"
+    except IOError:
+        pass
+
+    # Ubuntu
+    try:
+        distributor = subprocess.check_output(["lsb_release", "-si"])
+        release = subprocess.check_output(["lsb_release", "-sr"])
+
+        if distributor == "Ubuntu" and release == "12.04":
+            distro = "ubuntu"
+    except OSError:
+        pass
+
+    if subprocess.check_output(["uname", "-i"]) not in ["i386", "x86_64"]:
+        distro = "unsupported" 
+
+    return distro
+
+def warn_about_unsupported_distro():
+    if distro == "unsupported":
+        print "*********************************************************\n" \
+              "You are running an unsupported distribution. You might be\n" \
+              "able to make sugar work by installing or building \n" \
+              "packages but it certainly won't work out of the box.\n" \
+              "You are strongly encouraged to pick one of the supported \n" \
+              "distributions listed in the README.\n" \
+              "*********************************************************\n"
+
+distro = check_distro()
+
+run_checks(distro, pre_checks)
 
 xvfb_proc, orig_display = start_xvfb()
 
-run_checks(checks)
+run_checks(distro, checks)
+
+warn_about_unsupported_distro()
 
 stop_xvfb(xvfb_proc, orig_display)
