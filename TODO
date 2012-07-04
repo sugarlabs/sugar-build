@@ -1,2 +1,3 @@
 * Figure out what to do with shutdown
 * Allow to configure resolution (sugarbuildrc?)
+* Hide xinit output, confusing, logging might be enough
