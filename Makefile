@@ -49,7 +49,7 @@ build-%:
 	$(TYPESCRIPT) "$(JHBUILD) buildone $*" $(LOGFILE)
 
 run: scripts/list-outputs
-	xinit $(SCRIPTS)/xinitrc -- $(XINITDISPLAY)
+	xinit $(SCRIPTS)/xinitrc -- $(XINITDISPLAY) &>>$(LOGFILE)
 
 test:
 	$(LOG) "$(SCRIPTS)/run-dogtail-tests" $(LOGFILE)
