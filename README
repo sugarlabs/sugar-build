@@ -70,9 +70,22 @@ send-patches                Send local commits as patches for review.
 
 Use --help for more informations about each command.
 
-== Environment variables ==
+== Configuration ==
 
-SUGAR_OUTPUT
+You can set a few options by creating sugar-build/config. Example
+
+OUTPUT=HDMI1
+RESOLUTION=1024x768
+
+The following options are available
+
+RESOLUTION
+
+Specify the screen resolution in the form widthxheight. Note that
+the resolution needs to be in the list of available modes, as
+displayed by xrandr command.
+
+OUTPUT
 
 Sugar does not run properly on multiple video outputs, so we need to
 select one and turn off the others. By default we select the first

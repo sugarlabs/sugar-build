@@ -6,3 +6,4 @@ logs/*.log
 logs/*.tar
 logs/all-logs.tar.bz2
 scripts/list-outputs
+config

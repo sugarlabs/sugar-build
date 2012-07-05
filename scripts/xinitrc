@@ -7,6 +7,12 @@ unset SESSION_MANAGER
 SCRIPTS_DIR=`dirname "$0"`
 ROOT_DIR=`dirname "$SCRIPTS_DIR"`
 
+if [ -f $ROOT_DIR/config ]; then
+    source $ROOT_DIR/config
+fi
+
+echo $OUTPUT
+
 # Sugar doesn't handle multiple outputs properly. To avoid issues we keep the
 # first output in the list returned by xrandr and turn off everything else.
 
@@ -15,14 +21,18 @@ OUTPUTS=`scripts/list-outputs`
 for output in $OUTPUTS
 do
    # Default to the first output in the list
-   if [ -z $SUGAR_OUTPUT ]; then
-       SUGAR_OUTPUT=$output
+   if [ -z $OUTPUT ]; then
+       OUTPUT=$output
    fi
 
-   if [ $SUGAR_OUTPUT != $output ]; then
+   if [ $OUTPUT != $output ]; then
        xrandr --output $output --off
    fi
 done
+
+if [ -n $RESOLUTION ]; then
+    xrandr -s $RESOLUTION
+fi
 
 if [ -z $SUGAR_SESSION ]; then
     export SUGAR_SESSION=yes
