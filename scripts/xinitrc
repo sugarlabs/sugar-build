@@ -30,7 +30,7 @@ do
    fi
 done
 
-if [ -n $RESOLUTION ]; then
+if [ ! -z $RESOLUTION ]; then
     xrandr -s $RESOLUTION
 fi
 
