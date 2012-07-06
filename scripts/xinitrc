@@ -40,6 +40,8 @@ else
     export SUGAR_PROFILE=development
 fi
 
+eval `ssh-agent -s`
+
 JHBUILD="$ROOT_DIR/install/bin/jhbuild -f $ROOT_DIR/scripts/jhbuildrc"
 RUN_COMMAND="dbus-launch --exit-with-session sugar"
 
@@ -48,3 +50,5 @@ if [ -z $SUGAR_BUILD_SHELL ]; then
 else
     $RUN_COMMAND
 fi
+
+kill $SSH_AGENT_PID
