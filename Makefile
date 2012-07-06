@@ -51,7 +51,7 @@ build-%:
 run: scripts/list-outputs
 	xinit $(SCRIPTS)/xinitrc -- $(XINITDISPLAY) &>>$(LOGFILE)
 
-test:
+test: scripts/list-outputs
 	$(LOG) "$(SCRIPTS)/run-dogtail-tests" $(LOGFILE)
 
 shell:
