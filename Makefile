@@ -41,7 +41,7 @@ build-glucose: install-jhbuild check-system
 	$(TYPESCRIPT) "$(JHBUILD) build" $(LOGFILE)
 
 build-fructose:
-	$(TYPESCRIPT) "$(JHBUILD) build sugar-fructose" $(LOGFILE)
+	$(TYPESCRIPT) "$(JHBUILD) build -f sugar-fructose" $(LOGFILE)
 
 build: build-glucose build-fructose 
 
