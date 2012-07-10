@@ -3,7 +3,7 @@
 <moduleset>
   <repository type="git" name="git.gnome.org" href="git://git.gnome.org"/>
   <repository type="git" name="github.com/dnarvaez" href="git://github.com/dnarvaez"/>
-  <autotools id="pygobject" revision="198066effc0ca44ccb897e9f0738ab627e8b3275">
+  <autotools id="pygobject">
     <branch repo="github.com/dnarvaez"/>
     <dependencies>
       <dep package="glib"/>
