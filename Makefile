@@ -73,5 +73,7 @@ clean:
 	rm -rf source/sugar-base
 	rm -rf source/sugar-toolkit-gtk3
 	rm -rf source/sugar-fructose
+	rm -rf source/at-spi2-core
+	rm -rf source/at-spi2-atk
 	rm -f logs/*.log logs/all-logs.tar.bz2
 	rm -f scripts/list-outputs
