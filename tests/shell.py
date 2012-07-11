@@ -68,8 +68,8 @@ def main():
     go_to_list_view()
 
     for activity in build_activities_list():
-        launch_and_stop_activity(activity)
         sleep(10)
+        launch_and_stop_activity(activity)
 
 try:
     main()
