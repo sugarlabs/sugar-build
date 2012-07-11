@@ -42,7 +42,7 @@ else
     LOGFILE=$logsdir/test.tar
 fi
 
-cd $PROFILE_PATH/logs
+cd ~/.sugar/dogtail/logs
 tar cvf $LOGFILE *.log
 
 exit $result
