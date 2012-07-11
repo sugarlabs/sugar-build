@@ -38,7 +38,10 @@ do
    fi
 done
 
-if [ ! -z $PROFILE ]; then
+if [ ! -z $SUGAR_DOGTAIL ]; then
+    rm -rf ~/sugar/dogtail
+    export SUGAR_PROFILE=dogtail
+elif [ ! -z $PROFILE ]; then
     export SUGAR_PROFILE=$PROFILE
 fi
 
