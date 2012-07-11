@@ -24,7 +24,7 @@ source $ROOT_DIR/config
 # Sugar doesn't handle multiple outputs properly. To avoid issues we keep the
 # first output in the list returned by xrandr and turn off everything else.
 
-OUTPUTS=`scripts/list-outputs`
+OUTPUTS=`$SCRIPTS_DIR/list-outputs`
 
 for output in $OUTPUTS
 do
