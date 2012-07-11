@@ -232,6 +232,10 @@ checks = \
    "checker": "dbus",
    "packages": { "fedora": "telepathy-salut",
                  "ubuntu": "telepathy-salut" } },
+ { "check": "espeak",
+   "checker": "gstreamer",
+   "packages": { "fedora": "gstreamer-plugins-espeak",
+                 "ubuntu": None } },
 
  # Activities runtime
 
@@ -334,7 +338,11 @@ def run_checks(distro, checks):
         checker = checkers[check["checker"]]
         if checker(check["check"]):
             if distro in check["packages"]:
-                packages.append(check["packages"][distro])
+                package = check["packages"][distro]
+                
+                # Might be none, if so skip on this distro
+                if package:
+                    packages.append(package)
             else:
                 failed_checks.append(check)
 
