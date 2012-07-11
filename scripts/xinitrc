@@ -38,8 +38,9 @@ do
    fi
 done
 
+echo $SUGAR_DOGTAIL
 if [ ! -z $SUGAR_DOGTAIL ]; then
-    rm -rf ~/sugar/dogtail
+    rm -rf ~/.sugar/dogtail
     export SUGAR_PROFILE=dogtail
 elif [ ! -z $PROFILE ]; then
     export SUGAR_PROFILE=$PROFILE
