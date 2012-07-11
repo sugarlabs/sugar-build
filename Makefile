@@ -3,12 +3,7 @@ LOGFILE = $(CURDIR)/logs/build-$(TIMESTAMP).log
 SCRIPTS = $(CURDIR)/scripts
 JHBUILD = $(CURDIR)/install/bin/jhbuild -f $(SCRIPTS)/jhbuildrc
 LOG = $(SCRIPTS)/log-command
-
-ifdef SUGAR_SESSION
-XINITDISPLAY = :100
-else
-XINITDISPLAY = :99
-endif
+XINITDISPLAY = `$(SCRIPTS)/find-free-display`
 
 # The buildbot shell does not handle script properly. It's unnecessary
 # anyway because we can't use interactive scripts there.
@@ -25,9 +20,15 @@ submodules:
 	git submodule update
 
 XRANDR_LIBS = $(shell pkg-config --libs xrandr x11)
+X11_LIBS = $(shell pkg-config --libs x11)
 
-scripts/list-outputs:
+scripts/list-outputs: scripts/list-outputs.c
 	gcc -o scripts/list-outputs scripts/list-outputs.c $(XRANDR_LIBS)
+
+scripts/find-free-display: scripts/find-free-display.c
+	gcc -o scripts/find-free-display scripts/find-free-display.c $(X11_LIBS)
+
+x11-utils: scripts/list-outputs scripts/find-free-display 
 
 check-system:
 	$(TYPESCRIPT) $(SCRIPTS)/check-system $(LOGFILE)
@@ -48,13 +49,13 @@ build: build-glucose build-fructose
 build-%:
 	$(TYPESCRIPT) "$(JHBUILD) buildone $*" $(LOGFILE)
 
-run: scripts/list-outputs
+run: x11-utils
 	xinit $(SCRIPTS)/xinitrc -- $(XINITDISPLAY) &>>$(LOGFILE)
 
-test: scripts/list-outputs
+test: x11-utils
 	$(LOG) "$(SCRIPTS)/run-dogtail-tests" $(LOGFILE)
 
-shell:
+shell: x11-utils
 	@cd source; \
 	PS1="[sugar-build \W]$$ " \
 	PATH=$(PATH):$(SCRIPTS)/shell \

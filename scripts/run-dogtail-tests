@@ -3,8 +3,9 @@
 scriptsdir=`dirname "$0"`
 rootdir=`dirname "$scriptsdir"`
 testsdir=$rootdir/tests
+scriptsdir=$rootdir/scripts
 logsdir=$rootdir/logs
-display=:99
+display=`$scriptsdir/find-free-display`
 resolution=1024x768x16
 
 minver="0.8.0"

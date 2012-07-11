@@ -2,5 +2,6 @@
 
 shelldir=`dirname "$0"`
 scriptsdir=`dirname "$shelldir"`
+display=`$scriptsdir/find-free-display`
 
-xinit $scriptsdir/xinitrc -- :99
+xinit $scriptsdir/xinitrc -- $display
