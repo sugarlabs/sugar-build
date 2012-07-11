@@ -7,16 +7,24 @@ unset SESSION_MANAGER
 SCRIPTS_DIR=`dirname "$0"`
 ROOT_DIR=`dirname "$SCRIPTS_DIR"`
 
-if [ -f $ROOT_DIR/config ]; then
-    source $ROOT_DIR/config
+if [ ! -f $ROOT_DIR/config ]; then
+    touch $ROOT_DIR/config
 fi
 
-echo $OUTPUT
+if [ ! -z $SUGAR_PROFILE ]; then
+    grep -q PROFILE $ROOT_DIR/config
+    if [ $? -eq 1 ]; then
+        randomstring=`</dev/urandom tr -cd A-Za-z0-9 | head -c10`
+        echo "PROFILE=$randomstring" >> $ROOT_DIR/config
+    fi
+fi
+
+source $ROOT_DIR/config
 
 # Sugar doesn't handle multiple outputs properly. To avoid issues we keep the
 # first output in the list returned by xrandr and turn off everything else.
 
-OUTPUTS=`scripts/list-outputs`
+OUTPUTS=`$SCRIPTS_DIR/list-outputs`
 
 for output in $OUTPUTS
 do
@@ -30,14 +38,12 @@ do
    fi
 done
 
-if [ ! -z $RESOLUTION ]; then
-    xrandr -s $RESOLUTION
-fi
-
-if [ -z $SUGAR_SESSION ]; then
-    export SUGAR_SESSION=yes
-else
-    export SUGAR_PROFILE=development
+echo $SUGAR_DOGTAIL
+if [ ! -z $SUGAR_DOGTAIL ]; then
+    rm -rf ~/.sugar/dogtail
+    export SUGAR_PROFILE=dogtail
+elif [ ! -z $PROFILE ]; then
+    export SUGAR_PROFILE=$PROFILE
 fi
 
 eval `ssh-agent -s`
