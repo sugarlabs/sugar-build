@@ -11,8 +11,6 @@ if [ -f $ROOT_DIR/config ]; then
     source $ROOT_DIR/config
 fi
 
-echo $OUTPUT
-
 # Sugar doesn't handle multiple outputs properly. To avoid issues we keep the
 # first output in the list returned by xrandr and turn off everything else.
 
@@ -30,14 +28,8 @@ do
    fi
 done
 
-if [ ! -z $RESOLUTION ]; then
-    xrandr -s $RESOLUTION
-fi
-
-if [ -z $SUGAR_SESSION ]; then
-    export SUGAR_SESSION=yes
-else
-    export SUGAR_PROFILE=development
+if [ ! -z $PROFILE ]; then
+    export SUGAR_PROFILE=$PROFILE
 fi
 
 eval `ssh-agent -s`
