@@ -2,3 +2,4 @@
 * make test and keyring
 * Tests unreliability
 * When using sudo print the command we are going to execute
+* Fully build out of source directory
