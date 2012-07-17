@@ -3,8 +3,8 @@
 <moduleset>
   <repository type="git" name="git.gnome.org" href="git://git.gnome.org"/>
   <repository type="git" name="github.com/dnarvaez" href="git://github.com/dnarvaez"/>
-  <autotools id="gtk">
-    <branch repo="github.com/dnarvaez"/>
+  <autotools id="gtk+">
+    <branch repo="git.gnome.org"/>
     <dependencies>
       <dep package="atk"/>
     </dependencies>
@@ -27,7 +27,7 @@
     </dependencies>
   </autotools>
   <autotools id="pygobject">
-    <branch repo="github.com/dnarvaez"/>
+    <branch repo="git.gnome.org"/>
     <dependencies>
       <dep package="glib"/>
       <dep package="gobject-introspection"/>
