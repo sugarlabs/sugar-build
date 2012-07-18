@@ -46,7 +46,7 @@
   <metamodule id="meta-system">
     <dependencies>
       <dep package="pygobject"/>
-      <dep package="gtk"/>
+      <dep package="gtk+"/>
     </dependencies>
   </metamodule>
 </moduleset>
