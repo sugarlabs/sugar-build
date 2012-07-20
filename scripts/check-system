@@ -257,8 +257,7 @@ checks = \
                  "ubuntu": "gstreamer0.10-plugins-good" } },
  { "check": "import abiword",
    "checker": "python",
-   "packages": { "fedora": "pyabiword",
-                 "ubuntu": "python-abiword" } },
+   "packages": { "fedora": "pyabiword" } },
 
  # System modules buildtime
 
