@@ -258,7 +258,7 @@ checks = \
  { "check": "import abiword",
    "checker": "python",
    "packages": { "fedora": "pyabiword",
-                 "ubuntu": "python-abiword" } },
+                 "ubuntu": None } },
 
  # System modules buildtime
 
