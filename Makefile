@@ -76,3 +76,4 @@ clean:
 	rm -rf source/sugar-fructose
 	rm -f logs/*.log logs/all-logs.tar.bz2
 	rm -f scripts/list-outputs
+	rm -f scripts/find-free-display
