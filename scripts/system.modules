@@ -4,7 +4,7 @@
   <repository type="git" name="git.gnome.org" href="git://git.gnome.org"/>
   <repository type="git" name="github.com/dnarvaez" href="git://github.com/dnarvaez"/>
   <autotools id="pygobject">
-    <branch repo="github.com/dnarvaez"/>
+    <branch repo="git.gnome.org" revision="4df676e10a5ea595a0d491af10268f557dd722d7"/>
     <dependencies>
       <dep package="glib"/>
       <dep package="gobject-introspection"/>
