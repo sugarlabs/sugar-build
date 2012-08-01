@@ -3,6 +3,8 @@
 <moduleset>
   <repository type="git" name="git.gnome.org" href="git://git.gnome.org"/>
   <repository type="git" name="github.com/dnarvaez" href="git://github.com/dnarvaez"/>
+  <repository type="git" name="gstreamer.freedesktop.org" href="git://anongit.freedesktop.org/gstreamer/"/>
+
   <autotools id="pygobject">
     <branch repo="git.gnome.org" revision="4df676e10a5ea595a0d491af10268f557dd722d7"/>
     <dependencies>
@@ -19,10 +21,26 @@
   <autotools id="glib">
     <branch repo="git.gnome.org" revision="3e706ef88b3b433f777e552c85339b901314deaa"/>
   </autotools>
+  <autotools id="gstreamer" revision="8d9a4b2e94fa806f5146482fb0261d890db38fd5" supports-non-srcdir-builds="no">
+    <branch repo="gstreamer.freedesktop.org"/>
+  </autotools>
+  <autotools id="gst-plugins-base" revision="39aa4dc674291f438606ccab6033225f7a886de4" supports-non-srcdir-builds="no">
+    <branch repo="gstreamer.freedesktop.org"/>
+    <dependencies>
+      <dep package="gstreamer"/>
+    </dependencies>
+  </autotools>
+  <autotools id="gst-plugins-good" revision="86c236a5f61725dc4e0fe22ba6681795bb5f1160" supports-non-srcdir-builds="no">
+    <branch repo="gstreamer.freedesktop.org"/>
+    <dependencies>
+      <dep package="gst-plugins-base"/>
+    </dependencies>
+  </autotools>
 
   <metamodule id="meta-system">
     <dependencies>
       <dep package="pygobject"/>
+      <dep package="gst-plugins-good"/>
     </dependencies>
   </metamodule>
 </moduleset>
