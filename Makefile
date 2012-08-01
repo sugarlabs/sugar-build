@@ -76,5 +76,9 @@ clean:
 	rm -rf source/sugar-fructose
 	rm -rf source/at-spi2-core
 	rm -rf source/at-spi2-atk
+	rm -rf source/gstreamer
+	rm -rf source/gst-plugins-base
+	rm -rf source/gst-plugins-good
 	rm -f logs/*.log logs/all-logs.tar.bz2
 	rm -f scripts/list-outputs
+	rm -f scripts/find-free-display

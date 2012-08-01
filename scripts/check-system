@@ -255,9 +255,17 @@ checks = \
    "checker": "gstreamer",
    "packages": { "fedora": "gstreamer-plugins-good",
                  "ubuntu": "gstreamer0.10-plugins-good" } },
+ { "check": "import abiword",
+   "checker": "python",
+   "packages": { "fedora": "pyabiword",
+                 "ubuntu": None } },
 
  # System modules buildtime
 
+ { "check": "c++",
+   "checker": "binary",
+   "packages": { "fedora": "gcc-c++",
+                 "ubuntu": "g++" } },
  { "check": "flex",
    "checker": "binary",
    "packages": { "fedora": "flex",

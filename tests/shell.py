@@ -6,7 +6,7 @@ from dogtail import predicate
 from dogtail import dump
 
 ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read", "Image Viewer", "Jukebox"]
-ACTIVITIES_TO_IGNORE = ["Pippy", "Write"]
+ACTIVITIES_TO_IGNORE = ["Pippy"]
 
 def build_activities_list():
     shell = tree.root.child(name="sugar-session", roleName="application")
