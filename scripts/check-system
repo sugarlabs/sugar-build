@@ -262,6 +262,10 @@ checks = \
 
  # System modules buildtime
 
+ { "check": "c++",
+   "checker": "binary",
+   "packages": { "fedora": "gcc-c++",
+                 "ubuntu": "g++" } },
  { "check": "flex",
    "checker": "binary",
    "packages": { "fedora": "flex",
