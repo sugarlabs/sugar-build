@@ -37,6 +37,10 @@ do
    fi
 done
 
+if [ ! -z $RESOLUTION ]; then
+    xrandr -s $RESOLUTION
+fi
+
 echo $SUGAR_DOGTAIL
 if [ ! -z $SUGAR_DOGTAIL ]; then
     rm -rf ~/.sugar/dogtail
