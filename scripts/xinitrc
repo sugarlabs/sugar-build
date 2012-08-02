@@ -8,10 +8,6 @@ SCRIPTS_DIR=`dirname "$0"`
 ROOT_DIR=`dirname "$SCRIPTS_DIR"`
 test -z "$ROOT_DIR" && $ROOT_DIR=.
 
-if [ ! -f $ROOT_DIR/config ]; then
-    touch $ROOT_DIR/config
-fi
-
 if [ ! -z $SUGAR_PROFILE ]; then
     grep -q PROFILE $ROOT_DIR/config
     if [ $? -eq 1 ]; then
@@ -20,7 +16,9 @@ if [ ! -z $SUGAR_PROFILE ]; then
     fi
 fi
 
-source $ROOT_DIR/config
+if [ -f $ROOT_DIR/config ]; then
+    source $ROOT_DIR/config
+fi
 
 # Sugar doesn't handle multiple outputs properly. To avoid issues we keep the
 # first output in the list returned by xrandr and turn off everything else.

@@ -5,7 +5,7 @@ scriptsdir=`dirname "$shelldir"`
 rootdir=`dirname "$scriptsdir"`
 display=`$scriptsdir/find-free-display`
 
-if [ -z $rootdir/config ]; then
+if [ -f $rootdir/config ]; then
   source $rootdir/config
 fi
 

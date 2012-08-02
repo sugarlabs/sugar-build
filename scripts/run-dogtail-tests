@@ -8,7 +8,7 @@ logsdir=$rootdir/logs
 display=`$scriptsdir/find-free-display`
 resolution=1024x768x16
 
-if [ -z $rootdir/config ]; then
+if [ -f $rootdir/config ]; then
     source $rootdir/config
 fi
 
