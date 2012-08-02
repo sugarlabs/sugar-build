@@ -10,7 +10,7 @@ if [ -f $rootdir/config ]; then
 fi
 
 if [ ! -z $SUGAR_PROFILE ]; then
-    grep -q PROFILE $ROOT_DIR/config
+    grep -q PROFILE $rootdir/config
     if [ $? -eq 1 ]; then
         randomstring=`</dev/urandom tr -cd A-Za-z0-9 | head -c10`
         echo "PROFILE=$randomstring" >> $ROOT_DIR/config
