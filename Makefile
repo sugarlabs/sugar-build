@@ -3,7 +3,6 @@ LOGFILE = $(CURDIR)/logs/build-$(TIMESTAMP).log
 SCRIPTS = $(CURDIR)/scripts
 JHBUILD = $(CURDIR)/install/bin/jhbuild -f $(SCRIPTS)/jhbuildrc
 LOG = $(SCRIPTS)/log-command
-XINITDISPLAY = `$(SCRIPTS)/find-free-display`
 
 # The buildbot shell does not handle script properly. It's unnecessary
 # anyway because we can't use interactive scripts there.
@@ -50,7 +49,7 @@ build-%:
 	$(TYPESCRIPT) "$(JHBUILD) buildone $*" $(LOGFILE)
 
 run: x11-utils
-	xinit $(SCRIPTS)/xinitrc -- $(XINITDISPLAY) &>>$(LOGFILE)
+	$(SCRIPTS)/shell/start-sugar
 
 test: x11-utils
 	$(LOG) "$(SCRIPTS)/run-dogtail-tests" $(LOGFILE)
