@@ -6,7 +6,7 @@ unset SESSION_MANAGER
 
 SCRIPTS_DIR=`dirname "$0"`
 ROOT_DIR=`dirname "$SCRIPTS_DIR"`
-ROOT_DIR -z "$ROOT_DIR" && ROOT_DIR=.
+test -z "$ROOT_DIR" && $ROOT_DIR=.
 
 if [ ! -f $ROOT_DIR/config ]; then
     touch $ROOT_DIR/config
