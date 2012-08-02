@@ -61,6 +61,8 @@ def go_to_list_view():
     done_button = shell.child(name="Done", roleName="push button")
     done_button.click()
 
+    sleep(10)
+
     radio_button = shell.child(name="List view", roleName="radio button")
     radio_button.click()
 
