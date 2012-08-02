@@ -25,7 +25,6 @@ else
 
     xport=`echo $display | cut -c2-`
     xvncport=$(($xport + 5800))
-    echo $xvncport
     vncviewer localhost:$xvncport
 
     kill $xvncpid

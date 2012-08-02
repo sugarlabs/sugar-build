@@ -6,7 +6,6 @@ unset SESSION_MANAGER
 
 SCRIPTS_DIR=`dirname "$0"`
 ROOT_DIR=`dirname "$SCRIPTS_DIR"`
-test -z "$ROOT_DIR" && $ROOT_DIR=.
 
 if [ ! -z $SUGAR_PROFILE ]; then
     grep -q PROFILE $ROOT_DIR/config
@@ -41,7 +40,6 @@ if [ ! -z $RESOLUTION ]; then
     xrandr -s $RESOLUTION
 fi
 
-echo $SUGAR_DOGTAIL
 if [ ! -z $SUGAR_DOGTAIL ]; then
     rm -rf ~/.sugar/dogtail
     export SUGAR_PROFILE=dogtail
