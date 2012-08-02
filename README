@@ -99,3 +99,8 @@ Sugar supports multiple profiles, so that you can run multiple
 instances with the same user. You can specify the name of the
 profile with this option. A random generated one is added to
 the config if you are running sugar-build under sugar.
+
+RUN_IN_WINDOW
+
+Set this variable to any value to run Sugar inside a window rather
+than fullscreen.
