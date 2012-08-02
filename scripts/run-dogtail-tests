@@ -8,6 +8,8 @@ logsdir=$rootdir/logs
 display=`$scriptsdir/find-free-display`
 resolution=1024x768x16
 
+source $rootdir/config
+
 minver="0.8.0"
 version=`python -c "import dogtail; print dogtail.__version__"`
 if [ "$minver" != "`echo -e "$minver\n$version" | sort -V | head -n1`" ]; then
