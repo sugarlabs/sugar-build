@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 shelldir=`dirname "$0"`
 scriptsdir=`dirname "$shelldir"`
