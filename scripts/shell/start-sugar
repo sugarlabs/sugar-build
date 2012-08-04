@@ -20,12 +20,5 @@ fi
 if [ -z $RUN_IN_WINDOW ]; then
     xinit $scriptsdir/xinitrc -- $display
 else
-    xinit $scriptsdir/xinitrc -- /usr/bin/Xvnc $xvncdisplay -SecurityTypes None &
-    xvncpid=$!
-
-    xport=`echo $display | cut -c2-`
-    xvncport=$(($xport + 5800))
-    vncviewer localhost:$xvncport
-
-    kill $xvncpid
+    xinit $scriptsdir/xinitrc -- /usr/bin/Xephyr $display
 fi
