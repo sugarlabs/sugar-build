@@ -9,7 +9,7 @@ ROOT_DIR=`dirname "$SCRIPTS_DIR"`
 
 if [ ! -z $SUGAR_PROFILE ]; then
     grep -q PROFILE $ROOT_DIR/config
-    if [ $? -eq 1 ]; then
+    if [ $? -ne 0 ]; then
         randomstring=`</dev/urandom tr -cd A-Za-z0-9 | head -c10`
         echo "PROFILE=$randomstring" >> $ROOT_DIR/config
     fi
