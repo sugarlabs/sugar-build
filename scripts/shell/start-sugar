@@ -1,7 +1,24 @@
-#!/bin/sh
+#!/bin/bash
 
 shelldir=`dirname "$0"`
 scriptsdir=`dirname "$shelldir"`
+rootdir=`dirname "$scriptsdir"`
 display=`$scriptsdir/find-free-display`
 
-xinit $scriptsdir/xinitrc -- $display
+if [ -f $rootdir/config ]; then
+  source $rootdir/config
+fi
+
+if [ ! -z $SUGAR_PROFILE ]; then
+    grep -q PROFILE $rootdir/config
+    if [ $? -eq 1 ]; then
+        randomstring=`</dev/urandom tr -cd A-Za-z0-9 | head -c10`
+        echo "PROFILE=$randomstring" >> $ROOT_DIR/config
+    fi
+fi
+
+if [ -z $RUN_IN_WINDOW ]; then
+    xinit $scriptsdir/xinitrc -- $display
+else
+    xinit $scriptsdir/xinitrc -- /usr/bin/Xephyr $display
+fi
