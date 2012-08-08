@@ -66,13 +66,6 @@ bug-report:
 
 clean:
 	rm -rf build install
-	rm -rf source/sugar
-	rm -rf source/sugar-datastore
-	rm -rf source/sugar-artwork
-	rm -rf source/sugar-toolkit
-	rm -rf source/sugar-base
-	rm -rf source/sugar-toolkit-gtk3
-	rm -rf source/sugar-fructose
 	rm -rf source/gstreamer
 	rm -rf source/gst-plugins-base
 	rm -rf source/gst-plugins-good
