@@ -46,7 +46,7 @@ build-fructose:
 build: build-glucose build-fructose 
 
 build-%:
-	$(TYPESCRIPT) "$(JHBUILD) buildone $*" $(LOGFILE)
+	$(TYPESCRIPT) "$(JHBUILD) buildone -f $*" $(LOGFILE)
 
 run: x11-utils
 	$(SCRIPTS)/shell/start-sugar
