@@ -65,8 +65,20 @@ make test                   Run UI tests
 
 == Shell commands reference ==
 
-start-sugar                 Start sugar.
-send-patches                Send local commits as patches for review.
+* start-sugar
+
+Start sugar.
+
+* send-patches
+
+Send local commits as patches for review.
+
+* auto-install
+
+Automatically install python files when they are modified. Run it
+inside a module directory, make changes to the code and have them
+applied without needing to run make install (you still need to
+restart sugar).
 
 Use --help for more informations about each command.
 
