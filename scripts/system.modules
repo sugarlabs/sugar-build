@@ -4,6 +4,7 @@
   <repository type="git" name="git.gnome.org" href="git://git.gnome.org"/>
   <repository type="git" name="github.com/dnarvaez" href="git://github.com/dnarvaez"/>
   <repository type="git" name="gstreamer.freedesktop.org" href="git://anongit.freedesktop.org/gstreamer/"/>
+ <repository type="git" name="git.sugarlabs.org" href="git://git.sugarlabs.org"/>
   <autotools id="gtk+">
     <branch repo="git.gnome.org"/>
     <dependencies>
@@ -58,12 +59,16 @@
       <dep package="gst-plugins-base"/>
     </dependencies>
   </autotools>
+  <autotools id="gst-plugins-espeak" supports-non-srcdir-builds="no">
+    <branch repo="git.sugarlabs.org" module="gst-plugins-espeak/gstreamer-1-0.git" checkoutdir="gst-plugins-espeak"/>
+  </autotools>
 
   <metamodule id="meta-system">
     <dependencies>
       <dep package="pygobject"/>
       <dep package="gtk+"/>
       <dep package="gst-plugins-good"/>
+      <dep package="gst-plugins-espeak"/>
     </dependencies>
   </metamodule>
 </moduleset>
