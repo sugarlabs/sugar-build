@@ -60,7 +60,7 @@
     </dependencies>
   </autotools>
   <autotools id="gst-plugins-espeak" supports-non-srcdir-builds="no">
-    <branch repo="git.sugarlabs.org" module="gst-plugins-espeak/gstreamer-1-0.git" checkoutdir="gst-plugins-espeak"/>
+    <branch repo="git.sugarlabs.org" module="gst-plugins-espeak/mainline.git" checkoutdir="gst-plugins-espeak"/>
   </autotools>
 
   <metamodule id="meta-system">
