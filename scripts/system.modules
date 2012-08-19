@@ -44,17 +44,17 @@
   <autotools id="glib">
     <branch repo="git.gnome.org" revision="3e706ef88b3b433f777e552c85339b901314deaa"/>
   </autotools>
-  <autotools id="gstreamer" revision="8d9a4b2e94fa806f5146482fb0261d890db38fd5" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org"/>
+  <autotools id="gstreamer" supports-non-srcdir-builds="no">
+    <branch repo="gstreamer.freedesktop.org" revision="8d9a4b2e94fa806f5146482fb0261d890db38fd5"/>
   </autotools>
-  <autotools id="gst-plugins-base" revision="39aa4dc674291f438606ccab6033225f7a886de4" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org"/>
+  <autotools id="gst-plugins-base" supports-non-srcdir-builds="no">
+    <branch repo="gstreamer.freedesktop.org" revision="39aa4dc674291f438606ccab6033225f7a886de4"/>
     <dependencies>
       <dep package="gstreamer"/>
     </dependencies>
   </autotools>
-  <autotools id="gst-plugins-good" revision="86c236a5f61725dc4e0fe22ba6681795bb5f1160" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org"/>
+  <autotools id="gst-plugins-good" supports-non-srcdir-builds="no">
+    <branch repo="gstreamer.freedesktop.org" revision="86c236a5f61725dc4e0fe22ba6681795bb5f1160"/>
     <dependencies>
       <dep package="gst-plugins-base"/>
     </dependencies>
