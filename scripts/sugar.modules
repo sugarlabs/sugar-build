@@ -12,13 +12,13 @@
       <dep package="sugar-datastore"/>
     </dependencies>
   </autotools>
-  <autotools id="sugar-toolkit-gtk3">
+  <autotools id="sugar-toolkit-gtk3" supports-non-srcdir-builds="no">
     <branch module="~manuq/sugar-toolkit-gtk3/manuqs-sugar-toolkit-gtk3.git" checkoutdir="sugar-toolkit-gtk3"/>
     <dependencies>
       <dep package="sugar-datastore"/>
     </dependencies>
   </autotools>
-  <autotools id="sugar">
+  <autotools id="sugar" supports-non-srcdir-builds="no">
     <branch module="~manuq/sugar/manuqs-erikos-shell-port.git" checkoutdir="sugar"/>
     <dependencies>
       <dep package="sugar-base"/>
