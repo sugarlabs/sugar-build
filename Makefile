@@ -66,8 +66,6 @@ bug-report:
 
 clean:
 	rm -rf build install
-	rm -rf source/at-spi2-core
-	rm -rf source/at-spi2-atk
 	rm -rf source/libxklavier
 	rm -rf source/gstreamer
 	rm -rf source/gst-plugins-base

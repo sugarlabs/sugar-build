@@ -18,13 +18,13 @@
       <dep package="at-spi2-atk"/>
     </dependencies>
   </autotools>
-  <autotools id="at-spi2-atk" supports-non-srcdir-builds="no">
+  <autotools id="at-spi2-atk">
     <branch repo="git.gnome.org"/>
     <dependencies>
       <dep package="at-spi2-core"/>
     </dependencies>
   </autotools>
-  <autotools id="at-spi2-core" supports-non-srcdir-builds="no">
+  <autotools id="at-spi2-core">
     <branch repo="git.gnome.org"/>
     <dependencies>
     </dependencies>
