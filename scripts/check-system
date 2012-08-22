@@ -286,6 +286,10 @@ checks = \
    "checker": "pkgconfig",
    "packages": { "fedora": "iso-codes-devel",
                  "ubuntu": "iso-codes" } },
+ { "check": "xkbfile",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "libxkbfile-devel",
+                 "ubuntu": "libxkbfile-dev" } },
 
  # sugar-build runtime
 
