@@ -4,7 +4,8 @@
   <repository type="git" name="git.gnome.org" href="git://git.gnome.org"/>
   <repository type="git" name="github.com/dnarvaez" href="git://github.com/dnarvaez"/>
   <repository type="git" name="gstreamer.freedesktop.org" href="git://anongit.freedesktop.org/gstreamer/"/>
- <repository type="git" name="git.sugarlabs.org" href="git://git.sugarlabs.org"/>
+  <repository type="git" name="freedesktop.org" href="git://anongit.freedesktop.org/"/>
+  <repository type="git" name="git.sugarlabs.org" href="git://git.sugarlabs.org"/>
   <autotools id="gtk+">
     <branch repo="git.gnome.org"/>
     <dependencies>
@@ -62,6 +63,9 @@
   <autotools id="gst-plugins-espeak" supports-non-srcdir-builds="no">
     <branch repo="git.sugarlabs.org" module="gst-plugins-espeak/mainline.git" checkoutdir="gst-plugins-espeak"/>
   </autotools>
+  <autotools id="libxklavier" supports-parallel-builds="no" supports-non-srcdir-builds="no">
+    <branch repo="freedesktop.org"/>
+  </autotools>
 
   <metamodule id="meta-system">
     <dependencies>
@@ -69,6 +73,7 @@
       <dep package="gtk+"/>
       <dep package="gst-plugins-good"/>
       <dep package="gst-plugins-espeak"/>
+      <dep package="libxklavier"/>
     </dependencies>
   </metamodule>
 </moduleset>
