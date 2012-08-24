@@ -63,7 +63,7 @@
   <autotools id="gst-plugins-espeak" supports-non-srcdir-builds="no">
     <branch repo="git.sugarlabs.org" module="gst-plugins-espeak/mainline.git" checkoutdir="gst-plugins-espeak"/>
   </autotools>
-  <autotools id="libxklavier" supports-parallel-builds="no">
+  <autotools id="libxklavier">
     <branch repo="freedesktop.org"/>
   </autotools>
 
