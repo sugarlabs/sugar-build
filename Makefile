@@ -70,8 +70,6 @@ clean:
 	rm -rf source/gst-plugins-base
 	rm -rf source/gst-plugins-good
 	rm -rf source/gst-plugins-espeak
-	rm -rf source/sugar
-	rm -rf source/sugar-toolkit-gtk3
 	rm -rf source/gst-plugins-bad
 	rm -rf source/gst-plugins-ugly
 	rm -rf source/gst-ffmpeg

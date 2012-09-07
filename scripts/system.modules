@@ -7,37 +7,37 @@
   <repository type="git" name="freedesktop.org" href="git://anongit.freedesktop.org/"/>
   <repository type="git" name="git.sugarlabs.org" href="git://git.sugarlabs.org"/>
   <autotools id="gtk+">
-    <branch repo="git.gnome.org"/>
+    <branch repo="git.gnome.org" revision="a19e5a197c66e4f2aae7e0e4af46125b8b592765"/>
     <dependencies>
       <dep package="atk"/>
     </dependencies>
   </autotools>
   <autotools id="atk">
-    <branch repo="git.gnome.org"/>
+    <branch repo="git.gnome.org" revision="52763423af3e3dd86d7d95550c08dcc23b69c62a"/>
     <dependencies>
       <dep package="at-spi2-atk"/>
     </dependencies>
   </autotools>
   <autotools id="at-spi2-atk">
-    <branch repo="git.gnome.org"/>
+    <branch repo="git.gnome.org" revision="278bafc52334d22f65e1d1d56af38ebc4b4f8352"/>
     <dependencies>
       <dep package="at-spi2-core"/>
     </dependencies>
   </autotools>
   <autotools id="at-spi2-core">
-    <branch repo="git.gnome.org"/>
+    <branch repo="git.gnome.org" revision="4c271819e4efc5a59b383e640c0592914c173585"/>
     <dependencies>
     </dependencies>
   </autotools>
   <autotools id="pygobject">
-    <branch repo="git.gnome.org"/>
+    <branch repo="git.gnome.org" revision="2d83e52233812618493af4b165615e8741ba41c8"/>
     <dependencies>
       <dep package="glib"/>
       <dep package="gobject-introspection"/>
     </dependencies>
   </autotools>
   <autotools id="gobject-introspection">
-    <branch repo="git.gnome.org" revision="5ae4c8763e4fcf94f43201f0d7aa8a13586a2fea"/>
+    <branch repo="git.gnome.org" revision="80e12709c105ce4a00af496201004fc8fd355a56"/>
     <dependencies>
       <dep package="glib"/>
     </dependencies>
