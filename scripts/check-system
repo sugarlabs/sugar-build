@@ -297,7 +297,7 @@ checks = \
  { "check": "espeak/speak_lib.h",
    "checker": "include",
    "packages": { "fedora": "espeak-devel",
-                 "ubuntu": "espeak-dev" } },
+                 "ubuntu": "libespeak-dev" } },
 
  # sugar-build runtime
 
