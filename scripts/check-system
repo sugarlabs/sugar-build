@@ -35,6 +35,9 @@ def check_gtkmodule(check):
 
     return missing
 
+def check_include(check):
+    return not os.path.exists(os.path.join("/usr/include/", check))
+
 def check_dbus(check):
     return not os.path.exists("/usr/share/dbus-1/services/%s.service" % check)
 
@@ -52,7 +55,8 @@ checkers = { "binary": check_binary,
              "pkgconfig": check_pkgconfig,
              "gtkmodule": check_gtkmodule,
              "dbus": check_dbus,
-             "gstreamer": check_gstreamer }
+             "gstreamer": check_gstreamer,
+             "include": check_include }
 
 pre_checks = \
 [{ "check": "Xvfb",
@@ -228,10 +232,6 @@ checks = \
    "checker": "dbus",
    "packages": { "fedora": "telepathy-salut",
                  "ubuntu": "telepathy-salut" } },
- { "check": "espeak",
-   "checker": "gstreamer",
-   "packages": { "fedora": "gstreamer-plugins-espeak",
-                 "ubuntu": None } },
 
  # Activities runtime
 
@@ -294,6 +294,10 @@ checks = \
    "checker": "pkgconfig",
    "packages": { "fedora": "libxkbfile-devel",
                  "ubuntu": "libxkbfile-dev" } },
+ { "check": "espeak/speak_lib.h",
+   "checker": "include",
+   "packages": { "fedora": "espeak-devel",
+                 "ubuntu": "espeak-dev" } },
 
  # sugar-build runtime
 
