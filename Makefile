@@ -72,6 +72,9 @@ clean:
 	rm -rf source/gst-plugins-espeak
 	rm -rf source/sugar
 	rm -rf source/sugar-toolkit-gtk3
+	rm -rf source/gst-plugins-bad
+	rm -rf source/gst-plugins-ugly
+	rm -rf source/gst-ffmpeg
 	rm -f logs/*.log logs/all-logs.tar.bz2
 	rm -f scripts/list-outputs
 	rm -f scripts/find-free-display

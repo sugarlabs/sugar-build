@@ -46,16 +46,16 @@
     <branch repo="git.gnome.org" revision="3e706ef88b3b433f777e552c85339b901314deaa"/>
   </autotools>
   <autotools id="gstreamer" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="8d9a4b2e94fa806f5146482fb0261d890db38fd5"/>
+    <branch repo="gstreamer.freedesktop.org" revision="a30e63740644179aab267c17d7748333f6d7ae2c"/>
   </autotools>
   <autotools id="gst-plugins-base" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="39aa4dc674291f438606ccab6033225f7a886de4"/>
+    <branch repo="gstreamer.freedesktop.org" revision="efac71bab7aec1659e759431ae658ceeb2abbafd"/>
     <dependencies>
       <dep package="gstreamer"/>
     </dependencies>
   </autotools>
   <autotools id="gst-plugins-good" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="86c236a5f61725dc4e0fe22ba6681795bb5f1160"/>
+    <branch repo="gstreamer.freedesktop.org" revision="916e4c86fac864d2230590d99ec5c54b382e6e7b"/>
     <dependencies>
       <dep package="gst-plugins-base"/>
     </dependencies>
@@ -66,6 +66,21 @@
   <autotools id="libxklavier">
     <branch repo="freedesktop.org"/>
   </autotools>
+  <autotools id="gst-plugins-bad" supports-non-srcdir-builds="no">
+    <branch repo="gstreamer.freedesktop.org" revision="c1923a6755ad4a71597817c267a96deed10a3b94"/>
+    <dependencies>
+      <dep package="gst-plugins-base"/>
+    </dependencies>
+  </autotools>
+  <autotools id="gst-plugins-ugly" supports-non-srcdir-builds="no">
+    <branch repo="gstreamer.freedesktop.org" revision="ef0efeddf3b70fbc32ce2fc1c4e6dbdccac4ac74"/>
+    <dependencies>
+      <dep package="gst-plugins-base"/>
+    </dependencies>
+  </autotools>
+  <autotools id="gst-ffmpeg" supports-non-srcdir-builds="no">
+    <branch repo="gstreamer.freedesktop.org" revision="6d1203e5ab574b70ba421cd2d839b9b958f23bab"/>
+  </autotools>
 
   <metamodule id="meta-system">
     <dependencies>
@@ -74,6 +89,9 @@
       <dep package="gst-plugins-good"/>
       <dep package="gst-plugins-espeak"/>
       <dep package="libxklavier"/>
+      <dep package="gst-plugins-bad"/>
+      <dep package="gst-plugins-ugly"/>
+      <dep package="gst-ffmpeg"/>
     </dependencies>
   </metamodule>
 </moduleset>
