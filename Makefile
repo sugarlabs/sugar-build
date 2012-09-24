@@ -55,8 +55,7 @@ test: x11-utils
 	$(LOG) "$(SCRIPTS)/run-dogtail-tests" $(LOGFILE)
 
 shell: x11-utils
-	@cd source; \
-	PS1="[sugar-build \W]$$ " \
+	@PS1="[sugar-build \W]$$ " \
 	PATH=$(PATH):$(SCRIPTS)/shell \
 	SUGAR_BUILD_SHELL=yes \
 	$(JHBUILD) shell
