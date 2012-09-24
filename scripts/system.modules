@@ -46,16 +46,16 @@
     <branch repo="git.gnome.org" revision="3e706ef88b3b433f777e552c85339b901314deaa"/>
   </autotools>
   <autotools id="gstreamer" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="a30e63740644179aab267c17d7748333f6d7ae2c"/>
+    <branch repo="gstreamer.freedesktop.org" revision="9e167f6f91999da6a9a2bf21a4bd629f4aeb0b1e"/>
   </autotools>
   <autotools id="gst-plugins-base" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="efac71bab7aec1659e759431ae658ceeb2abbafd"/>
+    <branch repo="gstreamer.freedesktop.org" revision="146ca8e3bf24e42d96e044c09c45acbf6fc2ae99"/>
     <dependencies>
       <dep package="gstreamer"/>
     </dependencies>
   </autotools>
   <autotools id="gst-plugins-good" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="916e4c86fac864d2230590d99ec5c54b382e6e7b"/>
+    <branch repo="gstreamer.freedesktop.org" revision="183b4d2686561449dcb8a4087ed1406a5e7a9616"/>
     <dependencies>
       <dep package="gst-plugins-base"/>
     </dependencies>
@@ -67,19 +67,19 @@
     <branch repo="freedesktop.org"/>
   </autotools>
   <autotools id="gst-plugins-bad" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="c1923a6755ad4a71597817c267a96deed10a3b94"/>
+    <branch repo="gstreamer.freedesktop.org" revision="46e8c203d642756bb46245748c7eace327305fb5"/>
     <dependencies>
       <dep package="gst-plugins-base"/>
     </dependencies>
   </autotools>
   <autotools id="gst-plugins-ugly" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="ef0efeddf3b70fbc32ce2fc1c4e6dbdccac4ac74"/>
+    <branch repo="gstreamer.freedesktop.org" revision="cd876895186cc574c75464e3cd5b74eabe2d3408"/>
     <dependencies>
       <dep package="gst-plugins-base"/>
     </dependencies>
   </autotools>
   <autotools id="gst-ffmpeg" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="6d1203e5ab574b70ba421cd2d839b9b958f23bab"/>
+    <branch repo="gstreamer.freedesktop.org" revision="1fefcf2cf4d13659ea1c90ffb1e0f08ac67cc18d"/>
   </autotools>
 
   <metamodule id="meta-system">
