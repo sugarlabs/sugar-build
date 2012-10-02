@@ -302,6 +302,10 @@ checks = \
    "checker": "include",
    "packages": { "fedora": "espeak-devel",
                  "ubuntu": "libespeak-dev" } },
+ { "check": "libxml-2.0",
+   "checker": "pkgconfig",
+   "packages": { "fedora": "libxml2-devel",
+                 "ubuntu": "libxml2-dev" } },
 
  # sugar-build runtime
 
