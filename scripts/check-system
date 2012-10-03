@@ -41,6 +41,9 @@ def check_include(check):
 def check_dbus(check):
     return not os.path.exists("/usr/share/dbus-1/services/%s.service" % check)
 
+def check_metacity_theme(check):
+    return not os.path.exists("/usr/share/themes/%s/metacity-1/metacity-theme-3.xml" % check)
+
 def check_gstreamer(check):
     missing = True
     
@@ -56,6 +59,7 @@ checkers = { "binary": check_binary,
              "gtkmodule": check_gtkmodule,
              "dbus": check_dbus,
              "gstreamer": check_gstreamer,
+             "metacity-theme": check_metacity_theme,
              "include": check_include }
 
 pre_checks = \
@@ -172,6 +176,10 @@ checks = \
    "checker": "binary",
    "packages": { "fedora": "metacity",
                  "ubuntu": "metacity" } },
+ { "check": "Adwaita",
+   "checker": "metacity-theme",
+   "packages": { "fedora": "gnome-themes-standard",
+                 "ubuntu": "gnome-themes-standard" } },
  { "check": "espeak",
    "checker": "binary",
    "packages": { "fedora": "espeak",
