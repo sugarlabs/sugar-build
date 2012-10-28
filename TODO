@@ -2,3 +2,6 @@
 * make test and keyring
 * Tests unreliability
 * When using sudo print the command we are going to execute
+* Non US keyboards
+* Pulseaudio not working (lack systemd auth)
+* Support GNOME 3.6 distros
