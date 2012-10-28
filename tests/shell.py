@@ -5,7 +5,7 @@ from dogtail import tree
 from dogtail import predicate
 from dogtail import dump
 
-ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read", "Image Viewer", "Jukebox"]
+ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read", "Jukebox"]
 ACTIVITIES_TO_IGNORE = ["Pippy"]
 
 def build_activities_list():
