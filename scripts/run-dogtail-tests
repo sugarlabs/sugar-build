@@ -37,12 +37,18 @@ result=$?
 kill $xinitpid
 
 if [ -z "$SUGAR_BUILDBOT" ]; then
-    LOGFILE=$logsdir/test-`date +%Y%m%d-%H%M%S`.tar
+    LOGFILE=$logsdir/test-`date +%Y%m%d-%H%M%S`.log
 else
-    LOGFILE=$logsdir/test.tar
+    LOGFILE=$logsdir/test.log
 fi
 
 cd ~/.sugar/dogtail/logs
-tar cvf $LOGFILE *.log
+
+for logfile in *.log
+do
+ echo -e "===== $logfile =====\n" >> $LOGFILE
+ cat $logfile >> $LOGFILE
+ echo >> $LOGFILE
+done
 
 exit $result
