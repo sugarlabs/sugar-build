@@ -42,6 +42,8 @@ def launch_and_stop_activity(activity_name):
 
             icon.click()
 
+            sleep(10)
+
             print "Stopping %s" % activity_name 
 
             if activity_name in ACTIVITIES_WITH_OBJECT_CHOOSER:
