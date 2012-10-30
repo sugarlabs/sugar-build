@@ -29,7 +29,7 @@ export SUGAR_DOGTAIL=yes
 xinit $scriptsdir/xinitrc -- $xserver &
 xinitpid=$!
 
-sleep 10
+sleep 20
 
 DISPLAY=$display python $testsdir/shell.py
 result=$?
