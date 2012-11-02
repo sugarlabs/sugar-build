@@ -26,7 +26,10 @@ if [ ! -z $SUGAR_PROFILE ]; then
 fi
 
 if [ -z $DISPLAY ]; then
-    xinit $scriptsdir/xinitrc -- $display
+    tty_num=`tty | grep -oE '[0-9]+$'`
+    x_options="vt$tty_num"
+
+    xinit $scriptsdir/xinitrc -- $display $x_options
 else
     if [ -z $RUN_IN_WINDOW ]; then
         xephyr_options="$xephyr_options -fullscreen"
