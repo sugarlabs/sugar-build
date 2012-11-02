@@ -47,6 +47,11 @@ elif [ ! -z $PROFILE ]; then
     export SUGAR_PROFILE=$PROFILE
 fi
 
+if [ -n $SUGAR_XKBCONFIG ]; then
+    cat $SUGAR_XKBCONFIG | xkbcomp - $DISPLAY 2> /dev/null
+    rm $SUGAR_XKBCONFIG
+fi
+
 JHBUILD="$ROOT_DIR/install/bin/jhbuild -f $ROOT_DIR/scripts/jhbuildrc"
 RUN_COMMAND="dbus-launch --exit-with-session $SCRIPTS_DIR/run-with-keyring sugar"
 

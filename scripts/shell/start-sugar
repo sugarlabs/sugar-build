@@ -6,7 +6,13 @@ rootdir=`dirname "$scriptsdir"`
 display=`$scriptsdir/find-free-display`
 
 if [ -f $rootdir/config ]; then
-  source $rootdir/config
+    source $rootdir/config
+fi
+
+if [ -n $SUGAR_DISPLAY ]; then
+    SUGAR_XKBCONFIG=`mktemp -t sugar-xkbconfig-XXXXXX`
+    setxkbmap -print > $SUGAR_XKBCONFIG
+    export SUGAR_XKBCONFIG
 fi
 
 if [ ! -z $SUGAR_PROFILE ]; then
