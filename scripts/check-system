@@ -391,9 +391,13 @@ def run_checks(distro, checks):
 
     if failed_checks:
         print "Failed checks\n"
+    else:
+        return True
 
     for check in failed_checks:
         print "[%s] %s" % (check["checker"], check["check"])
+
+    return False
 
 def start_xvfb():
     xvfb_proc = subprocess.Popen(args=["Xvfb", xvfb_display],
@@ -466,13 +470,12 @@ def warn_if_unsupported(distro):
 
 distro = check_distro()
 
-run_checks(distro, pre_checks)
+if run_checks(distro, pre_checks):
+    xvfb_proc, orig_display = start_xvfb()
 
-xvfb_proc, orig_display = start_xvfb()
+    run_checks(distro, checks)
 
-run_checks(distro, checks)
+    warn_if_unsupported(distro)
+    apply_distro_tweaks(distro)
 
-warn_if_unsupported(distro)
-apply_distro_tweaks(distro)
-
-stop_xvfb(xvfb_proc, orig_display)
+    stop_xvfb(xvfb_proc, orig_display)
