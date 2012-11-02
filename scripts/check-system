@@ -393,7 +393,7 @@ def run_checks(distro, checks):
         print "Failed checks\n"
 
     for check in failed_checks:
-        print "[%s] %s" % (info["checker"], info["check"])
+        print "[%s] %s" % (check["checker"], check["check"])
 
 def start_xvfb():
     xvfb_proc = subprocess.Popen(args=["Xvfb", xvfb_display],
