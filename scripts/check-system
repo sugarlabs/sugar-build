@@ -470,12 +470,14 @@ def warn_if_unsupported(distro):
 
 distro = check_distro()
 
-if run_checks(distro, pre_checks):
-    xvfb_proc, orig_display = start_xvfb()
+if not run_checks(distro, pre_checks):
+    sys.exit(1)
 
-    run_checks(distro, checks)
+xvfb_proc, orig_display = start_xvfb()
 
-    warn_if_unsupported(distro)
-    apply_distro_tweaks(distro)
+run_checks(distro, checks)
 
-    stop_xvfb(xvfb_proc, orig_display)
+warn_if_unsupported(distro)
+apply_distro_tweaks(distro)
+
+stop_xvfb(xvfb_proc, orig_display)
