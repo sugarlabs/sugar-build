@@ -4,8 +4,6 @@ shelldir=`dirname "$0"`
 scriptsdir=`dirname "$shelldir"`
 rootdir=`dirname "$scriptsdir"`
 display=`$scriptsdir/find-free-display`
-screen_dpi=`$scriptsdir/get-screen-dpi`
-xephyr_options="-dpi $screen_dpi"
 
 if [ -f $rootdir/config ]; then
     source $rootdir/config
@@ -31,6 +29,9 @@ if [ -z $DISPLAY ]; then
 
     xinit $scriptsdir/xinitrc -- $display $x_options
 else
+    screen_dpi=`$scriptsdir/get-screen-dpi`
+    xephyr_options="-dpi $screen_dpi"
+
     if [ -z $RUN_IN_WINDOW ]; then
         xephyr_options="$xephyr_options -fullscreen"
     fi
