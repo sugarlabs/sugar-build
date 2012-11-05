@@ -13,19 +13,19 @@
     </dependencies>
   </autotools>
   <autotools id="atk">
-    <branch repo="git.gnome.org" revision="52763423af3e3dd86d7d95550c08dcc23b69c62a"/>
+    <branch repo="git.gnome.org" revision="ATK_2_6_0"/>
     <dependencies>
       <dep package="at-spi2-atk"/>
     </dependencies>
   </autotools>
   <autotools id="at-spi2-atk">
-    <branch repo="git.gnome.org" revision="278bafc52334d22f65e1d1d56af38ebc4b4f8352"/>
+    <branch repo="git.gnome.org" revision="AT_SPI2_ATK_2_6_1"/>
     <dependencies>
       <dep package="at-spi2-core"/>
     </dependencies>
   </autotools>
   <autotools id="at-spi2-core">
-    <branch repo="git.gnome.org" revision="4c271819e4efc5a59b383e640c0592914c173585"/>
+    <branch repo="git.gnome.org" revision="AT_SPI2_CORE_2_6_1"/>
     <dependencies>
     </dependencies>
   </autotools>
