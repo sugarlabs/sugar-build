@@ -7,7 +7,7 @@
   <repository type="git" name="freedesktop.org" href="git://anongit.freedesktop.org/"/>
   <repository type="git" name="git.sugarlabs.org" href="git://git.sugarlabs.org"/>
   <autotools id="gtk+">
-    <branch repo="git.gnome.org" revision="a19e5a197c66e4f2aae7e0e4af46125b8b592765"/>
+    <branch repo="git.gnome.org" revision="3.6.1"/>
     <dependencies>
       <dep package="atk"/>
     </dependencies>
