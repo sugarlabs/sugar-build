@@ -46,40 +46,41 @@
     <branch repo="git.gnome.org" revision="3e706ef88b3b433f777e552c85339b901314deaa"/>
   </autotools>
   <autotools id="gstreamer" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="9e167f6f91999da6a9a2bf21a4bd629f4aeb0b1e"/>
+    <branch repo="gstreamer.freedesktop.org" revision="1.0.2"/>
   </autotools>
   <autotools id="gst-plugins-base" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="146ca8e3bf24e42d96e044c09c45acbf6fc2ae99"/>
+    <branch repo="gstreamer.freedesktop.org" revision="1.0.2"/>
     <dependencies>
       <dep package="gstreamer"/>
     </dependencies>
   </autotools>
   <autotools id="gst-plugins-good" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="183b4d2686561449dcb8a4087ed1406a5e7a9616"/>
+    <branch repo="gstreamer.freedesktop.org" revision="1.0.2"/>
     <dependencies>
       <dep package="gst-plugins-base"/>
     </dependencies>
   </autotools>
   <autotools id="gst-plugins-espeak" supports-non-srcdir-builds="no">
-    <branch repo="git.sugarlabs.org" module="gst-plugins-espeak/mainline.git" checkoutdir="gst-plugins-espeak"/>
+    <branch repo="git.sugarlabs.org" module="gst-plugins-espeak/mainline.git"
+            revision="v0.4.0" checkoutdir="gst-plugins-espeak"/>
   </autotools>
   <autotools id="libxklavier">
     <branch repo="freedesktop.org"/>
   </autotools>
   <autotools id="gst-plugins-bad" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="46e8c203d642756bb46245748c7eace327305fb5"/>
+    <branch repo="gstreamer.freedesktop.org" revision="1.0.2"/>
     <dependencies>
       <dep package="gst-plugins-base"/>
     </dependencies>
   </autotools>
   <autotools id="gst-plugins-ugly" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="cd876895186cc574c75464e3cd5b74eabe2d3408"/>
+    <branch repo="gstreamer.freedesktop.org" revision="1.0.2"/>
     <dependencies>
       <dep package="gst-plugins-base"/>
     </dependencies>
   </autotools>
   <autotools id="gst-ffmpeg" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="1fefcf2cf4d13659ea1c90ffb1e0f08ac67cc18d"/>
+    <branch repo="gstreamer.freedesktop.org" revision="1.0.2"/>
   </autotools>
 
   <metamodule id="meta-system">
