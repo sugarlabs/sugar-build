@@ -30,20 +30,20 @@
     </dependencies>
   </autotools>
   <autotools id="pygobject">
-    <branch repo="git.gnome.org" revision="2d83e52233812618493af4b165615e8741ba41c8"/>
+    <branch repo="git.gnome.org" revision="3.4.1.1"/>
     <dependencies>
       <dep package="glib"/>
       <dep package="gobject-introspection"/>
     </dependencies>
   </autotools>
   <autotools id="gobject-introspection">
-    <branch repo="git.gnome.org" revision="80e12709c105ce4a00af496201004fc8fd355a56"/>
+    <branch repo="git.gnome.org" revision="GOBJECT_INTROSPECTION_1_34_1_1"/>
     <dependencies>
       <dep package="glib"/>
     </dependencies>
   </autotools>
   <autotools id="glib">
-    <branch repo="git.gnome.org" revision="3e706ef88b3b433f777e552c85339b901314deaa"/>
+    <branch repo="git.gnome.org" revision="2.34.1"/>
   </autotools>
   <autotools id="gstreamer" supports-non-srcdir-builds="no">
     <branch repo="gstreamer.freedesktop.org" revision="1.0.2"/>
