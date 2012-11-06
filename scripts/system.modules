@@ -6,6 +6,7 @@
   <repository type="git" name="gstreamer.freedesktop.org" href="git://anongit.freedesktop.org/gstreamer/"/>
   <repository type="git" name="freedesktop.org" href="git://anongit.freedesktop.org/"/>
   <repository type="git" name="git.sugarlabs.org" href="git://git.sugarlabs.org"/>
+  <repository type="tarball" name="gnome.org" href="http://download.gnome.org/sources/"/>
   <autotools id="gtk+">
     <branch repo="git.gnome.org" revision="3.6.1"/>
     <dependencies>
@@ -43,7 +44,10 @@
     </dependencies>
   </autotools>
   <autotools id="glib">
-    <branch repo="git.gnome.org" revision="2.34.1"/>
+    <branch module="glib/2.34/glib-2.34.1.tar.xz" version="2.34.1"
+            repo="gnome.org"
+            hash="sha256:6e84dc9d84b104725b34d255421ed7ac3629e49f437d37addde5ce3891c2e2f1"
+            size="6363332"/>
   </autotools>
   <autotools id="gstreamer" supports-non-srcdir-builds="no">
     <branch repo="gstreamer.freedesktop.org" revision="1.0.2"/>
