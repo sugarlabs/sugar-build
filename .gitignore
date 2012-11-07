@@ -1,4 +1,5 @@
 *~
+*.pyc
 install/
 build/
 source/

@@ -52,7 +52,7 @@ run: x11-utils
 	$(SCRIPTS)/shell/start-sugar
 
 test: x11-utils
-	$(LOG) "$(SCRIPTS)/run-dogtail-tests" $(LOGFILE)
+	$(LOG) "$(SCRIPTS)/run-ui-tests" $(LOGFILE)
 
 shell: x11-utils
 	@PS1="[sugar-build \W]$$ " \

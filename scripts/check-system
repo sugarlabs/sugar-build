@@ -329,10 +329,10 @@ checks = \
    "checker": "binary",
    "packages": { "fedora": "dbus-x11",
                  "ubuntu": "dbus-x11" } },
- { "check": "import dogtail",
+ { "check": "import pyatspi",
    "checker": "python",
-   "packages": { "fedora": "dogtail",
-                 "ubuntu": "python-dogtail" } },
+   "packages": { "fedora": "pyatspi",
+                 "ubuntu": "python-pyatspi2" } },
 
  # sugar-build buildtime
 
