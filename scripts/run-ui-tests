@@ -8,13 +8,6 @@ logsdir=$rootdir/logs
 display=`$scriptsdir/find-free-display`
 resolution=1024x768x16
 
-minver="0.8.0"
-version=`python -c "import dogtail; print dogtail.__version__"`
-if [ "$minver" != "`echo -e "$minver\n$version" | sort -V | head -n1`" ]; then
-    echo "Dogtail >= 0.8.0 is required."
-    exit 0
-fi
-
 xvfb=`which Xvfb`
 xserver="$xvfb $display -ac -noreset -shmem -screen 0 $resolution"
 
@@ -24,7 +17,7 @@ fi
 
 export SUGAR_LOGGER_LEVEL=debug
 export GTK_MODULES=gail:atk-bridge
-export SUGAR_DOGTAIL=yes
+export SUGAR_UI_TESTS=yes
 
 xinit $scriptsdir/xinitrc -- $xserver &
 xinitpid=$!
@@ -42,7 +35,7 @@ else
     LOGFILE=$logsdir/test.log
 fi
 
-cd ~/.sugar/dogtail/logs
+cd ~/.sugar/ui-tests/logs
 
 for logfile in *.log
 do

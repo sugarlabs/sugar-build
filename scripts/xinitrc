@@ -40,9 +40,9 @@ if [ ! -z $RESOLUTION ]; then
     xrandr -s $RESOLUTION
 fi
 
-if [ ! -z $SUGAR_DOGTAIL ]; then
-    rm -rf ~/.sugar/dogtail
-    export SUGAR_PROFILE=dogtail
+if [ ! -z $SUGAR_UI_TESTS ]; then
+    rm -rf ~/.sugar/ui-tests
+    export SUGAR_PROFILE=ui-tests
 elif [ ! -z $PROFILE ]; then
     export SUGAR_PROFILE=$PROFILE
 fi
