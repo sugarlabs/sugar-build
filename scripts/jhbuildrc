@@ -1,5 +1,9 @@
 import os
 
+# HACK Ubuntu 64 bit gobject-introspection is not multilib
+if os.path.exists("/usr/lib/girepository-1.0"):
+    addpath("GI_TYPELIB_PATH", "/usr/lib/girepository-1.0")
+
 def root():
     return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
