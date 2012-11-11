@@ -72,7 +72,8 @@ class Node:
     def _crawl_accessible(self, accessible, depth):
         self._dump_accessible(accessible, depth)
 
-        for child in self._find_children_internal():
+        node = Node(accessible)
+        for child in node._find_children_internal():
             self._crawl_accessible(child, depth + 1)
 
     def dump(self):
