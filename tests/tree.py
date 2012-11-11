@@ -16,7 +16,7 @@ def retry_find(func):
                    kwargs.get("role_name", None))
 
             result = func(*args, **kwargs)
-            if result is not None:
+            if result:
                 return result
 
             time.sleep(5)
@@ -48,7 +48,7 @@ class Node:
 
         accessible = pyatspi.findDescendant(self._accessible, predicate)
         if accessible is None:
-            return None
+            return []
 
         return Node(accessible)
 
