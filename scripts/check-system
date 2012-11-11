@@ -96,7 +96,7 @@ def run_checks(distro, checks, packages):
                 package = packages[check_name][distro]
                 
                 # Might be none, if so skip on this distro
-                if package:
+                if package and package not in packages:
                     to_install.append(package)
             else:
                 failed_checks.append(check)
