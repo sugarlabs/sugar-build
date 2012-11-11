@@ -14,7 +14,7 @@
    "checker": "binary" },
  { "check": "gnome-doc-common",
    "checker": "binary" },
- { "check": "python2",
+ { "check": "python",
    "checker": "pkgconfig" },
  { "check": "glib-2.0",
    "checker": "pkgconfig" },

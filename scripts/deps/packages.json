@@ -37,7 +37,7 @@
   "gnome-doc-common":
   { "fedora": "gnome-common",
     "ubuntu": "gnome-common" },
-  "python2":
+  "python":
   { "fedora": "python-devel",
     "ubuntu": "python-dev" },
   "glib-2.0":
