@@ -82,52 +82,52 @@
   "espeak":
   { "fedora": "espeak",
     "ubuntu": "espeak" },
-  "import wnck":
+  "wnck python":
   { "fedora": "gnome-python2-libwnck",
     "ubuntu": "python-wnck" },
-  "import simplejson":
+  "simplejson python":
   { "fedora": "python-simplejson",
     "ubuntu": "python-simplejson" },
-  "import hippo":
+  "hippo python":
   { "fedora": "hippo-canvas-python",
     "ubuntu": "python-hippocanvas" },
-  "import telepathy":
+  "telepathy python":
   { "fedora": "python-telepathy",
     "ubuntu": "python-telepathy" },
-  "import xapian":
+  "xapian python":
   { "fedora": "xapian-bindings-python",
     "ubuntu": "python-xapian" },
-  "import dateutil":
+  "dateutil python":
   { "fedora": "python-dateutil",
     "ubuntu": "python-dateutil" },
-  "import gtksourceview2":
+  "gtksourceview2 python":
   { "fedora": "pygtksourceview",
     "ubuntu": "python-gtksourceview2" },
-  "import vte":
+  "vte python":
   { "fedora": "vte",
     "ubuntu": "python-vte" },
-  "import decorator":
+  "decorator python":
   { "fedora": "python-decorator",
     "ubuntu": "python-decorator" },
-  "import gi":
+  "gi python":
   { "fedora": "pygobject3",
     "ubuntu": "pygobject" },
-  "from gi.repository import EvinceDocument":
+  "evince typelib":
   { "fedora": "evince-libs",
     "ubuntu": "gir1.2-evince-3.0" },
-  "from gi.repository import GtkSource":
+  "gtksource typelib":
   { "fedora": "gtksourceview3",
     "ubuntu": "gir1.2-gtksource-3.0" },
-  "from gi.repository import GConf":
+  "gconf typelib":
   { "fedora": "GConf2",
     "ubuntu": "gir1.2-gconf-2.0" },
-  "from gi.repository import Gst":
+  "gst typelib":
   { "fedora": "gstreamer",
     "ubuntu": "gir1.2-gstreamer-1.0" },
-  "from gi.repository import Wnck":
+  "wnck typelib":
   { "fedora": "libwnck3",
     "ubuntu": "gir1.2-wnck-3.0" },
-  "import rsvg":
+  "rsvg python":
   { "fedora": "gnome-python2-rsvg",
     "ubuntu": "python-rsvg" },
   "org.freedesktop.Telepathy.ConnectionManager.gabble":
@@ -136,19 +136,19 @@
   "org.freedesktop.Telepathy.ConnectionManager.salut":
   { "fedora": "telepathy-salut",
     "ubuntu": "telepathy-salut" },
-  "from gi.repository import WebKit":
+  "webkit typelib":
   { "fedora": "webkitgtk3",
     "ubuntu": "gir1.2-webkit-3.0" },
-  "import pygst":
+  "pygst python":
   { "fedora": "gstreamer-python",
     "ubuntu": "python-gst0.10" },
-  "from gi.repository import Vte":
+  "vte typelib":
   { "fedora": "vte3",
     "ubuntu": "gir1.2-vte-2.90" },
   "video4linux2":
   { "fedora": "gstreamer-plugins-good",
     "ubuntu": "gstreamer0.10-plugins-good" },
-  "import abiword":
+  "abiword python":
   { "fedora": "pyabiword",
     "ubuntu": null },
   "c++":
@@ -178,7 +178,7 @@
   "xkbfile":
   { "fedora": "libxkbfile-devel",
     "ubuntu": "libxkbfile-dev" },
-  "espeak/speak_lib.h":
+  "espeak devel":
   { "fedora": "espeak-devel",
     "ubuntu": "libespeak-dev" },
   "libxml-2.0":
@@ -193,7 +193,7 @@
   "dbus-launch":
   { "fedora": "dbus-x11",
     "ubuntu": "dbus-x11" },
-  "import pyatspi":
+  "pyatspi python":
   { "fedora": "pyatspi",
     "ubuntu": "python-pyatspi2" },
   "xrandr":

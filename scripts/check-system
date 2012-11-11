@@ -89,9 +89,9 @@ def run_checks(distro, checks, packages):
     to_install = []
 
     for check in checks:
-        check_name = check["check"]
         checker = checkers[check["checker"]]
-        if checker(check_name):
+        if checker(check["check"]):
+            check_name = check.get("check_name", check["check"])
             if distro in packages[check_name]:
                 package = packages[check_name][distro]
                 

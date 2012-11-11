@@ -16,7 +16,8 @@
    "checker": "pkgconfig" },
  { "check": "xkbfile",
    "checker": "pkgconfig" },
- { "check": "espeak/speak_lib.h",
+ { "check_name": "espeak devel",
+   "check": "espeak/speak_lib.h",
    "checker": "include" },
  { "check": "libxml-2.0",
    "checker": "pkgconfig" }]
