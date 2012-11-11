@@ -49,7 +49,7 @@ class Node:
 
         accessible = pyatspi.findDescendant(self._accessible, predicate)
         if accessible is None:
-            return []
+            return None
 
         return Node(accessible)
 
@@ -63,7 +63,7 @@ class Node:
 
         all_accessibles = pyatspi.findAllDescendants(self._accessible, predicate)
         if not all_accessibles:
-            return None
+            return []
 
         return [Node(accessible) for accessible in all_accessibles]
 
