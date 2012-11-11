@@ -22,6 +22,8 @@ def retry_find(func):
             time.sleep(5)
             n_retries = n_retries + 1
 
+        get_root().dump()
+
         return None
 
     return wrapped
