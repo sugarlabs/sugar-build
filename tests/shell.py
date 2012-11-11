@@ -1,5 +1,4 @@
 import sys
-from time import sleep
 
 import tree
 
@@ -40,8 +39,6 @@ def launch_and_stop_activity(activity_name):
 
             icon.click()
 
-            sleep(10)
-
             print "Stopping %s" % activity_name 
 
             if activity_name in ACTIVITIES_WITH_OBJECT_CHOOSER:
@@ -62,8 +59,6 @@ def go_to_list_view():
     done_button = shell.find_child(name="Done", role_name="push button")
     done_button.do_action("click")
 
-    sleep(10)
-
     radio_button = shell.find_child(name="List view", role_name="radio button")
     radio_button.do_action("click")
 
@@ -71,7 +66,6 @@ def main():
     go_to_list_view()
 
     for activity in build_activities_list():
-        sleep(10)
         launch_and_stop_activity(activity)
 
 main()
