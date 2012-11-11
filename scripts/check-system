@@ -153,7 +153,7 @@ def check_distro():
         pass
 
     arch = subprocess.check_output(["uname", "-i"]).strip()
-    if arch not in ["i386", "x86_64"]:
+    if arch not in ["i386", "i686", "x86_64"]:
         distro = "unsupported" 
 
     return distro
