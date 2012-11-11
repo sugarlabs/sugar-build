@@ -1,7 +1,23 @@
+import time
+
 import pyatspi
 
 def get_root():
     return Node(pyatspi.Registry.getDesktop(0))
+
+def retry(func):
+    def wrapped(*args, **kwargs):
+        n_retries = 10
+
+        while n_retries > 0:
+            result = func(*args, **kwargs)
+            if result is not None:
+                return result
+
+        time.sleep(5)
+        n_retries = n_retries - 1
+
+    return wrapped
 
 class Node:
     def __init__(self, accessible):
@@ -16,19 +32,25 @@ class Node:
 
         return True
 
+    @retry
     def find_child(self, name=None, role_name=None):
         def predicate(accessible):
             return self._predicate(accessible, name, role_name)
 
         accessible = pyatspi.findDescendant(self._accessible, predicate)
+        if accessible is None:
+            return None
 
         return Node(accessible)
 
+    @retry
     def find_children(self, name=None, role_name=None):
         def predicate(accessible):
             return self._predicate(accessible, name, role_name)
 
         all_accessibles = pyatspi.findAllDescendants(self._accessible, predicate)
+        if not all_accessibles:
+            return None
 
         return [Node(accessible) for accessible in all_accessibles]
 
