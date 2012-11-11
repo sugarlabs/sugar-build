@@ -65,7 +65,7 @@ class Node:
         return [Node(accessible) for accessible in all_accessibles]
 
     def _dump_accessible(self, node, depth):
-        print "" * depth + str(node._accessible)
+        print "  " * depth + str(node._accessible)
 
     def _crawl_accessible(self, node, depth):
         self._dump_accessible(node, depth)
