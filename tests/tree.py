@@ -54,6 +54,9 @@ class Node:
 
     @retry_find
     def find_children(self, name=None, role_name=None):
+        self._find_children_internal(name, role_name)
+
+    def _find_children_internal(self, name=None, role_name=None):
         def predicate(accessible):
             return self._predicate(accessible, name, role_name)
 
@@ -69,7 +72,7 @@ class Node:
     def _crawl_accessible(self, accessible, depth):
         self._dump_accessible(accessible, depth)
 
-        for child in self.find_children():
+        for child in self._find_children_internal():
             self._crawl_accessible(child, depth + 1)
 
     def dump(self):
