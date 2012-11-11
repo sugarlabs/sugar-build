@@ -7,6 +7,10 @@ if os.path.exists("/usr/lib/girepository-1.0"):
 def root():
     return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+def moduleset_path(moduleset):
+    return os.path.join(root(), "scripts", "modules",
+                        "%s.modules" % moduleset)
+
 def libdir(system=False):
     if system:
         base = "/usr"
@@ -21,8 +25,8 @@ def libdir(system=False):
 interact = not "SUGAR_BUILDBOT" in os.environ
 
 use_local_modulesets = True
-moduleset = [os.path.join(root(), "scripts", "system.modules"),
-             os.path.join(root(), "scripts", "sugar.modules")]
+moduleset = [moduleset_path("system"),
+             moduleset_path("sugar")]
 modules = ["meta-system", "meta-sugar"]
 
 checkoutroot = os.path.join(root(), "source")
