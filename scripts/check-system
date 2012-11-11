@@ -173,7 +173,8 @@ checks = []
 checks.extend(load_deps_json("system"))
 checks.extend(load_deps_json("sugar-build"))
 checks.extend(load_deps_json("sugar-buildtime"))
-checks.extend(load_deps_json("sugar-runtime"))
+checks.extend(load_deps_json("sugar-runtime-%s" %
+                             sysinfo.get_system_version()))
 run_checks(distro, checks, packages)
 
 warn_if_unsupported(distro)
