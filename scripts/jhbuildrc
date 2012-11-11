@@ -1,4 +1,9 @@
 import os
+import sys
+
+sys.path.append(os.path.join(os.getcwd(), "scripts"))
+
+import sysinfo
 
 # HACK Ubuntu 64 bit gobject-introspection is not multilib
 if os.path.exists("/usr/lib/girepository-1.0"):
@@ -25,7 +30,8 @@ def libdir(system=False):
 interact = not "SUGAR_BUILDBOT" in os.environ
 
 use_local_modulesets = True
-moduleset = [moduleset_path("system"),
+moduleset = [moduleset_path("system-%s" %
+                            sysinfo.get_system_version()),
              moduleset_path("sugar")]
 modules = ["meta-system", "meta-sugar"]
 

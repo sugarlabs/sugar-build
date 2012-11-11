@@ -160,7 +160,8 @@ def warn_if_unsupported(distro):
 
 distro = sysinfo.get_distro_name()
 
-packages = load_deps_json("packages")
+packages = load_deps_json("packages-%s" %
+                          sysinfo.get_system_version())
 
 checks = load_deps_json("prerequisites")
 if not run_checks(distro, checks, packages):
