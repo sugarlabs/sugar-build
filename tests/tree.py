@@ -7,6 +7,7 @@ def get_root():
 
 def retry_find(func):
     def wrapped(*args, **kwargs):
+        result = None
         n_retries = 1
 
         while n_retries <= 10:
@@ -24,7 +25,7 @@ def retry_find(func):
 
         get_root().dump()
 
-        return None
+        return result
 
     return wrapped
 
