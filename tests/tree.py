@@ -66,18 +66,18 @@ class Node:
 
         return [Node(accessible) for accessible in all_accessibles]
 
-    def _dump_accessible(self, accessible, depth):
-        print "" * depth + str(accessible)
+    def _dump_accessible(self, node, depth):
+        print "" * depth + str(node._accessible)
 
-    def _crawl_accessible(self, accessible, depth):
-        self._dump_accessible(accessible, depth)
+    def _crawl_accessible(self, node, depth):
+        self._dump_accessible(node, depth)
 
         node = Node(accessible)
         for child in node._find_children_internal():
             self._crawl_accessible(child, depth + 1)
 
     def dump(self):
-        self._crawl_accessible(self._accessible, 0)
+        self._crawl_accessible(self, 0)
 
     def do_action(self, name):
         action = self._accessible.queryAction()
