@@ -54,7 +54,7 @@ class Node:
 
     @retry_find
     def find_children(self, name=None, role_name=None):
-        self._find_children_internal(name, role_name)
+        return self._find_children_internal(name, role_name)
 
     def _find_children_internal(self, name=None, role_name=None):
         def predicate(accessible):
