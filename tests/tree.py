@@ -5,17 +5,20 @@ import pyatspi
 def get_root():
     return Node(pyatspi.Registry.getDesktop(0))
 
-def retry(func):
+def retry_find(func):
     def wrapped(*args, **kwargs):
-        n_retries = 10
+        n_retries = 1
 
-        while n_retries > 0:
+        while n_retries <= 10:
+            print "Try %d, name=%s role_name=%s" % \
+                  (kwargs["name"], kwargs["role_name"])
+
             result = func(*args, **kwargs)
             if result is not None:
                 return result
 
             time.sleep(5)
-            n_retries = n_retries - 1
+            n_retries = n_retries + 1
 
         return None
 
@@ -34,7 +37,7 @@ class Node:
 
         return True
 
-    @retry
+    @retry_find
     def find_child(self, name=None, role_name=None):
         def predicate(accessible):
             return self._predicate(accessible, name, role_name)
@@ -45,7 +48,7 @@ class Node:
 
         return Node(accessible)
 
-    @retry
+    @retry_find
     def find_children(self, name=None, role_name=None):
         def predicate(accessible):
             return self._predicate(accessible, name, role_name)
