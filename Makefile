@@ -9,7 +9,7 @@ LOG = $(SCRIPTS)/log-command
 ifdef SUGAR_BUILDBOT
 TYPESCRIPT = $(LOG)
 else
-TYPESCRIPT = script -ae -c
+TYPESCRIPT = script -t/tmp/sugar-build-scripttimingfd -ae -c
 endif
 
 all: build install-activities
