@@ -1,5 +1,7 @@
 [{ "check": "atk-bridge",
    "checker": "gtkmodule" },
+ { "check": "xinit",
+   "checker": "binary" },
  { "check": "Xephyr",
    "checker": "binary" },
  { "check": "dbus-launch",

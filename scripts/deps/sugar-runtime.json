@@ -65,6 +65,9 @@
  { "check_name": "webkit typelib",
    "check": "from gi.repository import WebKit",
    "checker": "python" },
+ { "check_name": "cairo foreign",
+   "check": "from gi.repository import Gdk, Gtk; window = Gtk.Window(0); window.realize();context = Gdk.cairo_create(window.get_window())",
+   "checker": "python" },
  { "check_name": "pygst python",
    "check": "import pygst",
    "checker": "python" },
@@ -75,4 +78,8 @@
    "checker": "gstreamer" },
  { "check_name": "abiword python",
    "check": "import abiword",
-   "checker": "python" }]
+   "checker": "python" },
+ { "check_name": "cairo typelib",
+   "check": "from gi.repository import cairo",
+   "checker": "python" }
+]

@@ -1,6 +1,15 @@
 { "Xvfb":
   { "fedora": "Xvfb",
     "ubuntu": "xvfb" },
+  "xinit":
+  { "fedora": "xorg-x11-init",
+    "ubuntu": "xinit" },
+  "cairo foreign":
+  { "fedora": "pygobject3",
+    "ubuntu": "python-gi-cairo" },
+  "cairo typelib":
+  { "fedora": "gobject-introspection",
+    "ubuntu": "gir1.2-freedesktop" },
   "pkg-config":
   { "fedora": "pkgconfig",
     "ubuntu": "pkgconfig" },
