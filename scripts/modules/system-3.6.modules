@@ -1,8 +1,15 @@
 <?xml version="1.0"?>
 <?xml-stylesheet type="text/xsl" href="moduleset.xsl"?>
+<repository type="git" name="github.com/dnarvaez" href="git://github.com/dnarvaez"/>
 <moduleset>
+  <autotools id="pygobject">
+    <branch repo="github.com/dnarvaez"/>
+    <dependencies>
+    </dependencies>
+  </autotools>
   <metamodule id="meta-system">
     <dependencies>
+      <dep package="pygobject"/>
     </dependencies>
   </metamodule>
 </moduleset>
