@@ -14,8 +14,10 @@ def retry(func):
             if result is not None:
                 return result
 
-        time.sleep(5)
-        n_retries = n_retries - 1
+            time.sleep(5)
+            n_retries = n_retries - 1
+
+        return None
 
     return wrapped
 
