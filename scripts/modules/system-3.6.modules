@@ -3,7 +3,7 @@
 <moduleset>
   <repository type="git" name="github.com/dnarvaez" href="git://github.com/dnarvaez"/>
   <autotools id="pygobject">
-    <branch repo="github.com/dnarvaez"/>
+    <branch repo="github.com/dnarvaez" revision="pygobject-3-4"/>
     <dependencies>
     </dependencies>
   </autotools>
