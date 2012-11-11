@@ -5,4 +5,8 @@
  { "check": "dbus-launch",
    "checker": "binary" },
  { "check": "import pyatspi",
-   "checker": "python" }]
+   "checker": "python" },
+ { "check": "xrandr",
+   "checker": "pkgconfig" },
+ { "check": "x11",
+   "checker": "pkgconfig" }]

@@ -194,13 +194,10 @@ if not run_checks(distro, checks, packages):
 xvfb_proc, orig_display = start_xvfb()
 
 checks = []
-checks.extend(load_deps_json("system-buildtime"))
-checks.extend(load_deps_json("system-buildtime"))
+checks.extend(load_deps_json("system"))
+checks.extend(load_deps_json("sugar-build"))
 checks.extend(load_deps_json("sugar-buildtime"))
-checks.extend(load_deps_json("sugar-build-buildtime"))
-checks.extend(load_deps_json("sugar-build-runtime"))
 checks.extend(load_deps_json("sugar-runtime"))
-checks.extend(load_deps_json("activities-runtime"))
 run_checks(distro, checks, packages)
 
 warn_if_unsupported(distro)

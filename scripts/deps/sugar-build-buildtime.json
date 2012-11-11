@@ -1,4 +1,0 @@
-[{ "check": "xrandr",
-   "checker": "pkgconfig" },
- { "check": "x11",
-   "checker": "pkgconfig" }]

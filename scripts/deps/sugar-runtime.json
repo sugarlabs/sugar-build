@@ -45,4 +45,14 @@
  { "check": "org.freedesktop.Telepathy.ConnectionManager.gabble",
    "checker": "dbus" },
  { "check": "org.freedesktop.Telepathy.ConnectionManager.salut",
-   "checker": "dbus" }]
+   "checker": "dbus" },
+ { "check": "from gi.repository import WebKit",
+   "checker": "python" },
+ { "check": "import pygst",
+   "checker": "python" },
+ { "check": "from gi.repository import Vte",
+   "checker": "python" },
+ { "check": "video4linux2",
+   "checker": "gstreamer" },
+ { "check": "import abiword",
+   "checker": "python" }]
