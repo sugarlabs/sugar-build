@@ -11,7 +11,9 @@ def retry_find(func):
 
         while n_retries <= 10:
             print "Try %d, name=%s role_name=%s" % \
-                  (n_retries, kwargs["name"], kwargs["role_name"])
+                  (n_retries,
+                   kwargs.get("name", None),
+                   kwargs.get("role_name", None))
 
             result = func(*args, **kwargs)
             if result is not None:
