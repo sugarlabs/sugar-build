@@ -1,0 +1,4 @@
+[{ "check": "Xvfb",
+   "checker": "binary" },
+ { "check": "pkg-config",
+   "checker": "binary" }]

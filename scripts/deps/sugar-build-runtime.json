@@ -1,0 +1,8 @@
+[{ "check": "atk-bridge",
+   "checker": "gtkmodule" },
+ { "check": "Xephyr",
+   "checker": "binary" },
+ { "check": "dbus-launch",
+   "checker": "binary" },
+ { "check": "import pyatspi",
+   "checker": "python" }]

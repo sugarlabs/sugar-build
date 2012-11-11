@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import json
 import os
 import subprocess
 import sys
@@ -62,309 +63,6 @@ checkers = { "binary": check_binary,
              "metacity-theme": check_metacity_theme,
              "include": check_include }
 
-pre_checks = \
-[{ "check": "Xvfb",
-   "checker": "binary", 
-   "packages": { "fedora": "Xvfb",
-                 "ubuntu": "xvfb" } },
- { "check": "pkg-config",
-   "checker": "binary",
-   "packages": { "fedora": "pkgconfig",
-                 "ubuntu": "pkgconfig" } }]
-
-checks = \
-[
-
- # Sugar buildtime
-
- { "check": "gcc",
-   "checker": "binary",
-   "packages": { "fedora": "gcc",
-                 "ubuntu": "gcc" } },
- { "check": "autoreconf",
-   "checker": "binary",
-   "packages": { "fedora": "autoconf",
-                 "ubuntu": "autoconf" } },
- { "check": "aclocal",
-   "checker": "binary",
-   "packages": { "fedora": "automake",
-                 "ubuntu": "automake" } },
- { "check": "libtool",
-   "checker": "binary",
-   "packages": { "fedora": "libtool",
-                 "ubuntu": "libtool" } },
- { "check": "icon-slicer",
-   "checker": "binary",
-   "packages": { "fedora": "icon-slicer",
-                 "ubuntu": "icon-slicer" } },
- { "check": "intltoolize",
-   "checker": "binary",
-   "packages": { "fedora": "intltool",
-                 "ubuntu": "intltool" } },
- { "check": "xcursorgen",
-   "checker": "binary",
-   "packages": { "fedora": "xorg-x11-apps",
-                 "ubuntu": "x11-apps" } },
- { "check": "gnome-doc-common",
-   "checker": "binary",
-   "packages": { "fedora": "gnome-common",
-                 "ubuntu": "gnome-common" } },
- { "check": "python2",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "python-devel",
-                 "ubuntu": "python-dev" } },
- { "check": "glib-2.0",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "glib2-devel",
-                 "ubuntu": "libglib2.0-dev" } },
- { "check": "gtk+-3.0",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "gtk3-devel",
-                 "ubuntu": "libgtk-3-dev" } },
- { "check": "sm",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "libSM-devel",
-                 "ubuntu": "libsm-dev" } },
- { "check": "ice",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "libICE-devel",
-                 "ubuntu": "libice-dev" } },
- { "check": "alsa",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "alsa-lib-devel",
-                 "ubuntu": "libasound2-dev" } },
- { "check": "librsvg-2.0",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "librsvg2-devel",
-                 "ubuntu": "librsvg2-dev" } },
- { "check": "gobject-introspection-1.0",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "gobject-introspection-devel",
-                 "ubuntu": "libgirepository1.0-dev" } },
- { "check": "pygtk-2.0",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "pygtk2-devel",
-                 "ubuntu": "python-gtk2-dev" } },
- { "check": "gconf-2.0",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "GConf2-devel",
-                 "ubuntu": "libgconf2-dev" } },
- { "check": "pycairo",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "pycairo-devel",
-                 "ubuntu": "python-cairo-dev" } },
- { "check": "icon-naming-utils",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "icon-naming-utils",
-                 "ubuntu": "icon-naming-utils" } },
-
- # Sugar runtime 
-
- { "check": "org.freedesktop.Telepathy.AccountManager",
-   "checker": "dbus",
-   "packages": { "fedora": "telepathy-mission-control",
-                 "ubuntu": "telepathy-mission-control-5" } },
- { "check": "dconf",
-   "checker": "binary",
-   "packages": { "fedora": "dconf",
-                 "ubuntu": "dconf" } },
- { "check": "gnome-keyring-daemon",
-   "checker": "binary",
-   "packages": { "fedora": "gnome-keyring",
-                 "ubuntu": "gnome-keyring" } },
- { "check": "metacity",
-   "checker": "binary",
-   "packages": { "fedora": "metacity",
-                 "ubuntu": "metacity" } },
- { "check": "Adwaita",
-   "checker": "metacity-theme",
-   "packages": { "fedora": "gnome-themes-standard",
-                 "ubuntu": "gnome-themes-standard" } },
- { "check": "espeak",
-   "checker": "binary",
-   "packages": { "fedora": "espeak",
-                 "ubuntu": "espeak" } },
- { "check": "import wnck",
-   "checker": "python",
-   "packages": { "fedora": "gnome-python2-libwnck",
-                 "ubuntu": "python-wnck" } },
- { "check": "import simplejson",
-   "checker": "python",
-   "packages": { "fedora": "python-simplejson",
-                 "ubuntu": "python-simplejson" } },
- { "check": "import hippo",
-   "checker": "python",
-   "packages": { "fedora": "hippo-canvas-python",
-                 "ubuntu": "python-hippocanvas" } },
- { "check": "import telepathy",
-   "checker": "python",
-   "packages": { "fedora": "python-telepathy",
-                 "ubuntu": "python-telepathy" } },
- { "check": "import xapian",
-   "checker": "python",
-   "packages": { "fedora": "xapian-bindings-python",
-                 "ubuntu": "python-xapian" } },
- { "check": "import dateutil",
-   "checker": "python",
-   "packages": { "fedora": "python-dateutil",
-                 "ubuntu": "python-dateutil" } },
- { "check": "import gtksourceview2",
-   "checker": "python",
-   "packages": { "fedora": "pygtksourceview",
-                 "ubuntu": "python-gtksourceview2" } },
- { "check": "import vte",
-   "checker": "python",
-   "packages": { "fedora": "vte",
-                 "ubuntu": "python-vte" } },
- { "check": "import decorator",
-   "checker": "python",
-   "packages": { "fedora": "python-decorator",
-                 "ubuntu": "python-decorator" } },
- { "check": "import gi",
-   "checker": "python",
-   "packages": { "fedora": "pygobject3",
-                 "ubuntu": "pygobject" } },
- { "check": "from gi.repository import EvinceDocument",
-   "checker": "python",
-   "packages": { "fedora": "evince-libs",
-                 "ubuntu": "gir1.2-evince-3.0" } },
- { "check": "from gi.repository import GtkSource",
-   "checker": "python",
-   "packages": { "fedora": "gtksourceview3",
-                 "ubuntu": "gir1.2-gtksource-3.0" } },
- { "check": "from gi.repository import GConf",
-   "checker": "python",
-   "packages": { "fedora": "GConf2",
-                 "ubuntu": "gir1.2-gconf-2.0" } },
- { "check": "from gi.repository import Gst",
-   "checker": "python",
-   "packages": { "fedora": "gstreamer",
-                 "ubuntu": "gir1.2-gstreamer-1.0" } },
- { "check": "from gi.repository import Wnck",
-   "checker": "python",
-   "packages": { "fedora": "libwnck3",
-                 "ubuntu": "gir1.2-wnck-3.0" } },
- { "check": "import rsvg",
-   "checker": "python",
-   "packages": { "fedora": "gnome-python2-rsvg",
-                 "ubuntu": "python-rsvg" } },
- { "check": "org.freedesktop.Telepathy.ConnectionManager.gabble",
-   "checker": "dbus",
-   "packages": { "fedora": "telepathy-gabble",
-                 "ubuntu": "telepathy-gabble" } },
- { "check": "org.freedesktop.Telepathy.ConnectionManager.salut",
-   "checker": "dbus",
-   "packages": { "fedora": "telepathy-salut",
-                 "ubuntu": "telepathy-salut" } },
-
- # Activities runtime
-
- { "check": "from gi.repository import WebKit",
-   "checker": "python",
-   "packages": { "fedora": "webkitgtk3",
-                 "ubuntu": "gir1.2-webkit-3.0" } },
- { "check": "import pygst",
-   "checker": "python",
-   "packages": { "fedora": "gstreamer-python",
-                 "ubuntu": "python-gst0.10" } },
- { "check": "from gi.repository import Vte",
-   "checker": "python",
-   "packages": { "fedora": "vte3",
-                 "ubuntu": "gir1.2-vte-2.90" } },
- { "check": "video4linux2",
-   "checker": "gstreamer",
-   "packages": { "fedora": "gstreamer-plugins-good",
-                 "ubuntu": "gstreamer0.10-plugins-good" } },
- { "check": "import abiword",
-   "checker": "python",
-   "packages": { "fedora": "pyabiword",
-                 "ubuntu": None } },
-
- # System modules buildtime
-
- { "check": "c++",
-   "checker": "binary",
-   "packages": { "fedora": "gcc-c++",
-                 "ubuntu": "g++" } },
- { "check": "yasm",
-   "checker": "binary",
-   "packages": { "fedora": "yasm",
-                 "ubuntu": "yasm" } },
- { "check": "flex",
-   "checker": "binary",
-   "packages": { "fedora": "flex",
-                 "ubuntu": "flex" } },
- { "check": "xtst",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "libXtst-devel",
-                 "ubuntu": "libxtst-dev" } },
- { "check": "bison",
-   "checker": "binary",
-   "packages": { "fedora": "bison",
-                 "ubuntu": "bison" } },
- { "check": "gtk-doc",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "gtk-doc",
-                 "ubuntu": "gtk-doc-tools" } },
- { "check": "cairo-gobject",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "cairo-gobject-devel",
-                 "ubuntu": "libcairo2-dev" } },
- { "check": "iso-codes",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "iso-codes-devel",
-                 "ubuntu": "iso-codes" } },
- { "check": "xkbfile",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "libxkbfile-devel",
-                 "ubuntu": "libxkbfile-dev" } },
- { "check": "espeak/speak_lib.h",
-   "checker": "include",
-   "packages": { "fedora": "espeak-devel",
-                 "ubuntu": "libespeak-dev" } },
- { "check": "libxml-2.0",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "libxml2-devel",
-                 "ubuntu": "libxml2-dev" } },
-
- # sugar-build runtime
-
- { "check": "atk-bridge",
-   "checker": "gtkmodule",
-   "packages": { "fedora": "at-spi2-atk",
-                 "ubuntu": "libatk-adaptor" } },
- { "check": "Xephyr",
-   "checker": "binary",
-   "packages": { "fedora": "xorg-x11-server-Xephyr",
-                 "ubuntu": "xserver-xephyr" } },
- { "check": "dbus-launch",
-   "checker": "binary",
-   "packages": { "fedora": "dbus-x11",
-                 "ubuntu": "dbus-x11" } },
- { "check": "import pyatspi",
-   "checker": "python",
-   "packages": { "fedora": "pyatspi",
-                 "ubuntu": "python-pyatspi2" } },
-
- # sugar-build buildtime
-
- { "check": "xrandr",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "libXrandr-devel",
-                 "ubuntu": "libxrandr-dev" } },
- { "check": "x11",
-   "checker": "pkgconfig",
-   "packages": { "fedora": "libX11-devel",
-                 "ubuntu": "libx11-dev" } },
-
- # Workarounds for distro bugs
- 
- # Ubuntu: libtoolize doesn't work without installing tar
- { "check": "tar",
-   "checker": "binary", 
-   "packages": { "fedora": "tar",
-                 "ubuntu": "tar" } }]
-
 def install_packages(distro, packages):
     args = ["sudo"]
 
@@ -382,24 +80,29 @@ def install_packages(distro, packages):
     args.extend(packages)
     subprocess.call(args)
 
-def run_checks(distro, checks):
+def load_deps_json(name):
+    path = os.path.join(scriptdir, "deps", "%s.json" % name)
+    return json.load(open(path))
+
+def run_checks(distro, checks, packages):
     failed_checks = []
-    packages = []
+    to_install = []
 
     for check in checks:
+        check_name = check["check"]
         checker = checkers[check["checker"]]
-        if checker(check["check"]):
-            if distro in check["packages"]:
-                package = check["packages"][distro]
+        if checker(check_name):
+            if distro in packages[check_name]:
+                package = packages[check_name][distro]
                 
                 # Might be none, if so skip on this distro
                 if package:
-                    packages.append(package)
+                    to_install.append(package)
             else:
                 failed_checks.append(check)
 
-    if packages:
-        install_packages(distro, packages)
+    if to_install:
+        install_packages(distro, to_install)
 
     if failed_checks:
         print "Failed checks\n"
@@ -482,12 +185,23 @@ def warn_if_unsupported(distro):
 
 distro = check_distro()
 
-if not run_checks(distro, pre_checks):
+packages = load_deps_json("packages")
+
+checks = load_deps_json("prerequisites")
+if not run_checks(distro, checks, packages):
     sys.exit(1)
 
 xvfb_proc, orig_display = start_xvfb()
 
-run_checks(distro, checks)
+checks = []
+checks.extend(load_deps_json("system-buildtime"))
+checks.extend(load_deps_json("system-buildtime"))
+checks.extend(load_deps_json("sugar-buildtime"))
+checks.extend(load_deps_json("sugar-build-buildtime"))
+checks.extend(load_deps_json("sugar-build-runtime"))
+checks.extend(load_deps_json("sugar-runtime"))
+checks.extend(load_deps_json("activities-runtime"))
+run_checks(distro, checks, packages)
 
 warn_if_unsupported(distro)
 apply_distro_tweaks(distro)
