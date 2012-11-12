@@ -1,6 +1,7 @@
 [{ "name": "browse",
-   "repo": "git://git.sugarlabs.org/browse/mainline.git" },
+   "repo": "git://git.sugarlabs.org/browse/mainline.git",
+   "out-of-source": false },
  { "name": "chat",
    "repo": "git://git.sugarlabs.org/chat/mainline.git",
-   "branch": "gtk3" }
-]
+   "branch": "gtk3",
+   "out-of-source": false }]

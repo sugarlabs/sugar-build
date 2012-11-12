@@ -52,11 +52,10 @@ if [ -n $SUGAR_XKBCONFIG ]; then
     rm $SUGAR_XKBCONFIG
 fi
 
-JHBUILD="$ROOT_DIR/install/bin/jhbuild -f $ROOT_DIR/scripts/jhbuildrc"
 RUN_COMMAND="dbus-launch --exit-with-session $SCRIPTS_DIR/run-with-keyring sugar"
 
 if [ -z $SUGAR_BUILD_SHELL ]; then
-    $JHBUILD run $RUN_COMMAND
+    $SCRIPTS_DIR/dn-build run $RUN_COMMAND
 else
     $RUN_COMMAND
 fi

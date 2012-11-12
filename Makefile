@@ -1,7 +1,7 @@
 TIMESTAMP := $(shell date +%Y%m%d-%H%M%S)
 LOGFILE = $(CURDIR)/logs/build-$(TIMESTAMP).log
 SCRIPTS = $(CURDIR)/scripts
-JHBUILD = $(CURDIR)/install/bin/jhbuild -f $(SCRIPTS)/jhbuildrc
+DNBUILD = $(SCRIPTS)/dn-build
 LOG = $(SCRIPTS)/log-command
 
 # The buildbot shell does not handle script properly. It's unnecessary
@@ -13,10 +13,6 @@ TYPESCRIPT = script -t/tmp/sugar-build-scripttimingfd -ae -c
 endif
 
 all: build install-activities
-
-submodules:
-	git submodule init
-	git submodule update
 
 XRANDR_LIBS = $(shell pkg-config --libs xrandr x11)
 X11_LIBS = $(shell pkg-config --libs x11)
@@ -32,21 +28,13 @@ x11-utils: scripts/list-outputs scripts/find-free-display
 check-system:
 	$(TYPESCRIPT) $(SCRIPTS)/check-system $(LOGFILE)
 
-install-jhbuild: submodules check-system
-	cd $(SCRIPTS)/jhbuild ; \
-	./autogen.sh --prefix=$(CURDIR)/install ; \
-	make ; make install
-
-build-glucose: install-jhbuild check-system
-	$(TYPESCRIPT) "$(JHBUILD) build" $(LOGFILE)
+build-glucose: check-system
+	$(LOG) "$(DNBUILD) build glucose" $(LOGFILE)
 
 build-activities:
-	$(TYPESCRIPT) "$(JHBUILD) run $(SCRIPTS)/dn-build" $(LOGFILE)
+	$(LOG) "$(DNBUILD) build activities" $(LOGFILE)
 
 build: build-glucose build-activities
-
-build-%:
-	$(TYPESCRIPT) "$(JHBUILD) buildone -f $*" $(LOGFILE)
 
 run: x11-utils
 	$(SCRIPTS)/shell/start-sugar
@@ -58,7 +46,7 @@ shell: x11-utils
 	@PS1="[sugar-build \W]$$ " \
 	PATH=$(PATH):$(SCRIPTS)/shell \
 	SUGAR_BUILD_SHELL=yes \
-	$(JHBUILD) shell
+	$(DNBUILD) shell
 
 bug-report:
 	@$(SCRIPTS)/bug-report

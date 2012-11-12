@@ -1,0 +1,12 @@
+[{ "name": "sugar-base",
+   "repo": "git://git.sugarlabs.org/sugar-base/mainline.git" },
+ { "name": "sugar-toolkit",
+   "repo": "git://git.sugarlabs.org/sugar-toolkit/mainline.git" },
+ { "name": "sugar-toolkit-gtk3",
+   "repo": "git://git.sugarlabs.org/sugar-toolkit-gtk3/sugar-toolkit-gtk3.git" },
+ { "name": "sugar",
+   "repo": "git://git.sugarlabs.org/sugar/mainline.git" },
+ { "name": "sugar-artwork",
+   "repo": "git://git.sugarlabs.org/sugar-artwork/mainline.git" },
+ { "name": "sugar-datastore",
+   "repo": "git://git.sugarlabs.org/sugar-datastore/mainline.git" }]
