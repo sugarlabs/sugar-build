@@ -24,7 +24,7 @@ xinitpid=$!
 
 sleep 5
 
-DISPLAY=$display python $testsdir/shell.py
+DISPLAY=$display python -u $testsdir/shell.py
 result=$?
 
 kill $xinitpid
