@@ -225,15 +225,15 @@ def setup_gconf():
         for line in input.readlines():
             if "/etc/gconf" in line:
                 output.write(line.replace("/etc/gconf", gconf_dir))
-                output.write(line)
+            output.write(line)
 
         output.close()
         input.close()
 
-        os.environ["GCONF_DEFAULT_SOURCE_PATH"] = gconf_path
+    os.environ["GCONF_DEFAULT_SOURCE_PATH"] = gconf_path
 
-        os.environ["GCONF_SCHEMA_INSTALL_SOURCE"] = \
-            "xml:merged:" + os.path.join(gconf_dir, "gconf.xml.defaults")
+    os.environ["GCONF_SCHEMA_INSTALL_SOURCE"] = \
+        "xml:merged:" + os.path.join(gconf_dir, "gconf.xml.defaults")
 
 def setup_dirs():
     for dir in [source_dir,
