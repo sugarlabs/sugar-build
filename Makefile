@@ -40,10 +40,10 @@ install-jhbuild: submodules check-system
 build-glucose: install-jhbuild check-system
 	$(TYPESCRIPT) "$(JHBUILD) build" $(LOGFILE)
 
-build-fructose:
-	$(TYPESCRIPT) "$(JHBUILD) build -f sugar-fructose" $(LOGFILE)
+build-activities:
+	$(TYPESCRIPT) "$(JHBUILD) run $(SCRIPTS)/dn-build" $(LOGFILE)
 
-build: build-glucose build-fructose 
+build: build-glucose build-activities
 
 build-%:
 	$(TYPESCRIPT) "$(JHBUILD) buildone -f $*" $(LOGFILE)

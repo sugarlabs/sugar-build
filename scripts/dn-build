@@ -1,0 +1,51 @@
+#!/usr/bin/python
+
+import json
+import os
+import sys
+import subprocess
+
+scripts_dir = os.path.abspath(os.path.dirname(__file__))
+base_dir = os.path.dirname(scripts_dir)
+install_dir = os.path.join(base_dir, "install")
+source_dir = os.path.join(base_dir, "source")
+activities_dir = os.path.join(source_dir, "activities")
+modules_dir = os.path.join(scripts_dir, "modules")
+
+def get_module_dir(module):
+    return os.path.join(activities_dir, module["name"])
+
+def pull_source(module):
+    if not os.path.exists(activities_dir):
+        os.mkdir(activities_dir)
+
+    module_dir = get_module_dir(module)
+
+    if os.path.exists(module_dir):
+        os.chdir(module_dir)
+        subprocess.check_call(["git", "pull"])
+    else:
+        os.chdir(activities_dir)
+        subprocess.check_call(["git", "clone", module["repo"], module["name"]])
+        os.chdir(module_dir)
+
+    branch = module.get("branch", "master")
+    subprocess.check_call(["git", "checkout", branch])
+
+def build(module):
+    os.chdir(get_module_dir(module))
+    subprocess.check_call(["./setup.py", "install", "--prefix", install_dir])
+
+def main():
+    modules = json.load(open(os.path.join(modules_dir, "activities.json")))
+
+    for module in modules:
+        print "\n=== Building %s ===\n" % module["name"]
+
+        try:
+            pull_source(module)
+            build(module)
+        except subprocess.CalledProcessError:
+            sys.exit(1)
+
+main()

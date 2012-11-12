@@ -1,0 +1,6 @@
+[{ "name": "browse",
+   "repo": "git://git.sugarlabs.org/browse/mainline.git" },
+ { "name": "chat",
+   "repo": "git://git.sugarlabs.org/chat/mainline.git",
+   "branch": "gtk3" }
+]

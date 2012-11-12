@@ -3,8 +3,7 @@ import time
 
 import tree
 
-ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read", "Jukebox"]
-ACTIVITIES_TO_IGNORE = ["Pippy"]
+ACTIVITIES_WITH_OBJECT_CHOOSER = []
 
 def build_activities_list():
     root = tree.get_root()
@@ -17,8 +16,7 @@ def build_activities_list():
 
     for row in [cells[i:i+5] for i in range(0, len(cells), 5)]:
         activity_name = row[2].text
-        if activity_name not in ACTIVITIES_TO_IGNORE:
-            activities.append(activity_name)
+        activities.append(activity_name)
 
     activities.sort()
 
