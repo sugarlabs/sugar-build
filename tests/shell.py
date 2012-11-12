@@ -60,6 +60,12 @@ def go_to_list_view():
     done_button = shell.find_child(name="Done", role_name="push button")
     done_button.do_action("click")
 
+    gcr_prompter = root.find_child(name="gcr-prompter", role_name="application")
+    if gcr_prompter:
+        cancel_button = gcr_prompter.find_child(name="Cancel",
+                                                role_name="push button")
+        cancel_button.do_action("click")
+
     radio_button = shell.find_child(name="List view", role_name="radio button")
     radio_button.do_action("click")
 

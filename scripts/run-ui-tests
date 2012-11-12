@@ -22,7 +22,7 @@ export SUGAR_UI_TESTS=yes
 xinit $scriptsdir/xinitrc -- $xserver &
 xinitpid=$!
 
-sleep 20
+sleep 5
 
 DISPLAY=$display python $testsdir/shell.py
 result=$?
