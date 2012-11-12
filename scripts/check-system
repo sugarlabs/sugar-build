@@ -65,9 +65,14 @@ checkers = { "binary": check_binary,
              "metacity-theme": check_metacity_theme,
              "include": check_include }
 
-def install_packages(distro, packages):
-    args = ["sudo"]
+def run_with_sudo(args):
+    args_with_sudo = ["sudo"]
+    args_with_sudo.extend(args)
 
+    print " ".join(args_with_sudo)
+    subprocess.call(args_with_sudo)
+
+def install_packages(distro, packages):
     if "SUGAR_BUILDBOT" in os.environ:
         print "Missing packages %s" % " ".join(packages)
         sys.exit(1)
@@ -75,12 +80,12 @@ def install_packages(distro, packages):
     print "Installing required system packages"
 
     if distro == "fedora":
-        args.extend(["yum", "install"])
+        args = ["yum", "install"]
     elif distro == "ubuntu":    
-        args.extend(["apt-get", "install"])
+        args = ["apt-get", "install"]
 
     args.extend(packages)
-    subprocess.call(args)
+    run_with_sudo(args)
 
 def load_deps_json(name):
     path = os.path.join(scriptdir, "deps", "%s.json" % name)
@@ -142,7 +147,7 @@ def apply_ubuntu_tweaks():
         else:  
             print "\nWe are going to allow anybody to run the X server"            
             ubuntu_tweaks = os.path.join(scriptdir, "ubuntu-tweaks")            
-            subprocess.call(["sudo", ubuntu_tweaks])
+            run_with_sudo([ubuntu_tweaks])
 
 def apply_distro_tweaks(distro):
     if distro == "ubuntu":
