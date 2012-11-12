@@ -95,7 +95,8 @@ def pull_source(module):
         run_command(["git", "remote", "update", "origin"])
     else:
         os.chdir(source_dir)
-        run_command(["git", "clone", module["repo"], module["name"]])
+        run_command(["git", "clone", "--progress",
+                     module["repo"], module["name"]])
         os.chdir(module_dir)
 
     branch = module.get("branch", "master")
