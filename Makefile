@@ -28,13 +28,8 @@ x11-utils: scripts/list-outputs scripts/find-free-display
 check-system:
 	$(TYPESCRIPT) $(SCRIPTS)/check-system $(LOGFILE)
 
-build-glucose: check-system
-	$(LOG) "$(DNBUILD) build glucose" $(LOGFILE)
-
-build-activities:
-	$(LOG) "$(DNBUILD) build activities" $(LOGFILE)
-
-build: build-glucose build-activities
+build: check-system
+	$(LOG) "$(DNBUILD) build" $(LOGFILE)
 
 run: x11-utils
 	$(SCRIPTS)/shell/start-sugar

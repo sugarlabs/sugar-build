@@ -11,6 +11,10 @@ import subprocess
 import sysinfo
 
 system_version = sysinfo.get_system_version()
+module_files = ["system-%s.json" % system_version,
+                "sugar.json",
+                "activities.json"]
+
 scripts_dir = os.path.abspath(os.path.dirname(__file__))
 base_dir = os.path.dirname(scripts_dir)
 install_dir = os.path.join(base_dir, "install")
@@ -30,10 +34,6 @@ if os.uname()[4] == "x86_64":
 else:
     lib_dir = os.path.join(install_dir, "lib")
     system_lib_dir = "/usr/lib"
-
-module_files = { "activities": ["activities.json"],
-                 "glucose": ["system-%s.json" % system_version,
-                             "sugar.json"] }
 
 state = { "built_modules": {} }
 
@@ -143,13 +143,20 @@ def build(module):
     state["built_modules"][module["name"]] = get_module_commit_id(module)
     save_state()
 
+def clear_built_modules(modules, index):
+    if index < len(modules) - 1:
+        for module in modules[index + 1:]:
+            name = module["name"]
+            if name in state["built_modules"]:
+                del state["built_modules"][name]
+
 def cmd_build():
     modules = []
-    for module_file in module_files[sys.argv[2]]:
+    for module_file in module_files:
         path = os.path.join(modules_dir, module_file)
         modules.extend(json.load(open(path)))
 
-    for module in modules:
+    for i, module in enumerate(modules):
         print "\n=== Building %s ===\n" % module["name"]
 
         try:
@@ -159,6 +166,7 @@ def cmd_build():
             new_commit_id = get_module_commit_id(module)
 
             if old_commit_id is None or old_commit_id != new_commit_id:
+                clear_built_modules(modules, i)
                 build(module)
             else:
                 print "\n* Already built, skipping *"
