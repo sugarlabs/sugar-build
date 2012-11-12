@@ -71,21 +71,6 @@
   <autotools id="libxklavier">
     <branch repo="freedesktop.org" revision="libxklavier-5.3"/>
   </autotools>
-  <autotools id="gst-plugins-bad" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="1.0.2"/>
-    <dependencies>
-      <dep package="gst-plugins-base"/>
-    </dependencies>
-  </autotools>
-  <autotools id="gst-plugins-ugly" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="1.0.2"/>
-    <dependencies>
-      <dep package="gst-plugins-base"/>
-    </dependencies>
-  </autotools>
-  <autotools id="gst-ffmpeg" supports-non-srcdir-builds="no">
-    <branch repo="gstreamer.freedesktop.org" revision="1.0.2"/>
-  </autotools>
 
   <metamodule id="meta-system">
     <dependencies>
@@ -94,9 +79,6 @@
       <dep package="gst-plugins-good"/>
       <dep package="gst-plugins-espeak"/>
       <dep package="libxklavier"/>
-      <dep package="gst-plugins-bad"/>
-      <dep package="gst-plugins-ugly"/>
-      <dep package="gst-ffmpeg"/>
     </dependencies>
   </metamodule>
 </moduleset>
