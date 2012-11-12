@@ -37,6 +37,15 @@ module_files = { "activities": ["activities.json"],
 
 state = { "built_modules": {} }
 
+def load_state():
+    global state
+
+    if os.path.exists(build_state_path):
+        state = json.load(open(build_state_path))
+
+def save_state():
+    json.dump(state, open(build_state_path, "w+"))
+
 def add_path(name, path):
     if name not in os.environ:
         os.environ[name] = path
@@ -131,6 +140,7 @@ def build(module):
         sys.exit(1)
 
     state["built_modules"][module["name"]] = get_module_commit_id(module)
+    save_state()
 
 def cmd_build():
     modules = []
@@ -225,15 +235,6 @@ def setup_dirs():
                 os.path.join(share_dir, "aclocal")]:
         if not os.path.exists(dir):
             os.mkdir(dir)
-
-def load_state():
-    global state
-
-    if os.path.exists(build_state_path):
-        state = json.load(open(build_state_path))
-
-def save_state():
-    json.dump(state, open(build_state_path, "w+"))
 
 def main():
     load_state()
