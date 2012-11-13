@@ -213,5 +213,8 @@
     "ubuntu": "libx11-dev" },
   "tar":
   { "fedora": "tar",
-    "ubuntu": "tar" }
+    "ubuntu": "tar" },
+  "xrdb":
+  { "fedora": "xorg-x11-server-utils",
+    "ubuntu": "x11-xserver-utils" }
 }
