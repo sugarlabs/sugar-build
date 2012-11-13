@@ -9,4 +9,7 @@
  { "name": "sugar-artwork",
    "repo": "git://git.sugarlabs.org/sugar-artwork/mainline.git" },
  { "name": "sugar-datastore",
-   "repo": "git://git.sugarlabs.org/sugar-datastore/mainline.git" }]
+   "repo": "git://git.sugarlabs.org/sugar-datastore/mainline.git" },
+ { "name": "gst-plugins-espeak",
+   "repo": "git://git.sugarlabs.org/gst-plugins-espeak/mainline.git",
+   "out-of-source": false }]
