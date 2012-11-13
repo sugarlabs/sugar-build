@@ -12,14 +12,16 @@ int main(int argc, char **argv)
 
     rr = XRRGetScreenResources(dpy, DefaultRootWindow(dpy));
 
-    for (i = 0; i < rr->noutput; i++) {
-	    output = XRRGetOutputInfo(dpy, rr, rr->outputs[i]);
+    if (rr != NULL) {
+        for (i = 0; i < rr->noutput; i++) {
+            output = XRRGetOutputInfo(dpy, rr, rr->outputs[i]);
 
-        if (output->connection == RR_Connected) {
-            printf("%s\n", output->name);
+            if (output->connection == RR_Connected) {
+                printf("%s\n", output->name);
+            }
+
+            XRRFreeOutputInfo(output);
         }
-
-        XRRFreeOutputInfo(output);
     }
 
     XRRFreeScreenResources(rr);
