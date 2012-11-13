@@ -47,7 +47,7 @@ elif [ ! -z $PROFILE ]; then
     export SUGAR_PROFILE=$PROFILE
 fi
 
-if [ -n $SUGAR_XKBCONFIG ]; then
+if [ ! -z $SUGAR_XKBCONFIG ]; then
     cat $SUGAR_XKBCONFIG | xkbcomp - $DISPLAY 2> /dev/null
     rm $SUGAR_XKBCONFIG
 fi
