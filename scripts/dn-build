@@ -5,6 +5,7 @@ import glob
 import json
 import os
 import multiprocessing
+import shutil
 import sys
 import subprocess
 
@@ -143,6 +144,15 @@ def build(module):
     state["built_modules"][module["name"]] = get_module_commit_id(module)
     save_state()
 
+def load_modules():
+    modules = []
+
+    for module_file in module_files:
+        path = os.path.join(modules_dir, module_file)
+        modules.extend(json.load(open(path)))
+
+    return modules
+
 def clear_built_modules(modules, index):
     if index < len(modules) - 1:
         for module in modules[index + 1:]:
@@ -150,11 +160,12 @@ def clear_built_modules(modules, index):
             if name in state["built_modules"]:
                 del state["built_modules"][name]
 
+def rmtree(dir):
+    print "Deleting %s" % dir
+    shutil.rmtree(dir, ignore_errors=True)
+
 def cmd_build():
-    modules = []
-    for module_file in module_files:
-        path = os.path.join(modules_dir, module_file)
-        modules.extend(json.load(open(path)))
+    modules = load_modules()
 
     for i, module in enumerate(modules):
         print "\n=== Building %s ===\n" % module["name"]
@@ -179,6 +190,14 @@ def cmd_shell():
 
 def cmd_run():
     os.execlp(sys.argv[2], *sys.argv[2:])
+
+def cmd_clean():
+    rmtree(install_dir)
+    rmtree(build_dir)
+
+    for module in load_modules():
+        if not module.get("out-of-source", True):
+            rmtree(get_module_source_dir(module))
 
 def setup_environ():
     add_path("LD_LIBRARY_PATH", lib_dir)
@@ -252,13 +271,12 @@ def main():
     setup_gconf()
     setup_environ()
 
-    if sys.argv[1] == "build":
-        cmd_build()
-    elif sys.argv[1] == "shell":
-        cmd_shell()
-    elif sys.argv[1] == "run":
-        cmd_run()
+    commands = {"build": cmd_build,
+                "shell": cmd_shell,
+                "run": cmd_run,
+                "clean": cmd_clean}
 
-    save_state()
+    if sys.argv[1]:
+        commands[sys.argv[1]]()
 
 main()

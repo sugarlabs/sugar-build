@@ -47,15 +47,7 @@ bug-report:
 	@$(SCRIPTS)/bug-report
 
 clean:
-	rm -rf build install
-	rm -rf source/gstreamer
-	rm -rf source/gst-plugins-base
-	rm -rf source/gst-plugins-good
-	rm -rf source/gst-plugins-espeak
-	rm -rf source/gst-plugins-bad
-	rm -rf source/gst-plugins-ugly
-	rm -rf source/gst-ffmpeg
-	rm -rf source/sugar-fructose
+	$(DNBUILD) clean
 	rm -f logs/*.log logs/all-logs.tar.bz2
 	rm -f scripts/list-outputs
 	rm -f scripts/find-free-display
