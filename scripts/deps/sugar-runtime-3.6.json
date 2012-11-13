@@ -50,7 +50,7 @@
    "check": "from gi.repository import GConf",
    "checker": "python" },
  { "check_name": "gst typelib",
-   "check": "import gi; gi.require_version('Gst', '1.0'); from gi.repository import Gst",
+   "check": "import gi; gi.require_version('Gst', '1.0'); from gi.repository import Gst; Gst.init([])",
    "checker": "python" },
  { "check_name": "wnck typelib",
    "check": "from gi.repository import Wnck",

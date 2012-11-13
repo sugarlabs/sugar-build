@@ -100,11 +100,14 @@ def run_checks(distro, checks, packages):
         if checker(check["check"]):
             check_name = check.get("check_name", check["check"])
             if distro in packages[check_name]:
-                package = packages[check_name][distro]
-                
-                # Might be none, if so skip on this distro
-                if package and package not in packages:
-                    to_install.append(package)
+                package_list = packages[check_name][distro]
+                if not isinstance(package_list, list):
+                    package_list = [package_list]
+
+                for package in package_list:
+                    # Might be none, if so skip on this distro
+                    if package and package not in packages:
+                        to_install.append(package)
             else:
                 failed_checks.append(check)
 
