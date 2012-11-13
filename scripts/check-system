@@ -180,7 +180,8 @@ xvfb_proc, orig_display = start_xvfb()
 checks = []
 checks.extend(load_deps_json("system"))
 checks.extend(load_deps_json("sugar-build"))
-checks.extend(load_deps_json("sugar-buildtime"))
+checks.extend(load_deps_json("sugar-buildtime-%s" %
+                             sysinfo.get_system_version()))
 checks.extend(load_deps_json("sugar-runtime-%s" %
                              sysinfo.get_system_version()))
 run_checks(distro, checks, packages)

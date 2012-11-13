@@ -214,5 +214,8 @@
     "ubuntu": "libx11-dev" },
   "tar":
   { "fedora": "tar",
-    "ubuntu": "tar" }
+    "ubuntu": "tar" },
+  "gstreamer-1.0":
+  { "fedora": "gstreamer1-devel",
+    "ubuntu": "libgstreamer1.0-dev" }
 }
