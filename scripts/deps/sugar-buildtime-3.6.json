@@ -38,5 +38,7 @@
    "checker": "pkgconfig" },
  { "check": "gstreamer-1.0",
    "checker": "pkgconfig" },
+ { "check": "gstreamer-plugins-base-1.0",
+   "checker": "pkgconfig" },
  { "check": "icon-naming-utils",
    "checker": "pkgconfig" }]
