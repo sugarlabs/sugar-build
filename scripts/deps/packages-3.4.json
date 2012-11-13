@@ -132,8 +132,7 @@
     "ubuntu": "gir1.2-gconf-2.0" },
   "gst typelib":
   { "fedora": "gstreamer",
-    "ubuntu": ["gir1.2-gstreamer-1.0",
-               "libgstreamer-1.0-0"] },
+    "ubuntu": "gir1.2-gstreamer-1.0" },
   "wnck typelib":
   { "fedora": "libwnck3",
     "ubuntu": "gir1.2-wnck-3.0" },
