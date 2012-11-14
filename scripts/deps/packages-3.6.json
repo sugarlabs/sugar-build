@@ -16,7 +16,6 @@
                "xorg-x11-drv-mga",
                "xorg-x11-drv-modesetting",
                "xorg-x11-drv-nouveau",
-               "xorg-x11-drv-omap",
                "xorg-x11-drv-openchrome",
                "xorg-x11-drv-qxl",
                "xorg-x11-drv-synaptics",
