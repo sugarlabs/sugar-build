@@ -1,6 +1,6 @@
 { "Xvfb":
-  { "fedora": "Xvfb",
-    "ubuntu": "xorg-x11-server-Xvfb" },
+  { "fedora": "xorg-x11-server-Xvfb",
+    "ubuntu": "xvfb" },
   "xinit":
   { "fedora": "xorg-x11-xinit",
     "ubuntu": "xinit" },
