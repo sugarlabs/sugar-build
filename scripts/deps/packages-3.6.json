@@ -10,7 +10,7 @@
                "sudo",
                "xorg-x11-drv-ati",
                "xorg-x11-drv-evdev",
-               "xorg-x11-drv-fbdev",,
+               "xorg-x11-drv-fbdev",
                "xorg-x11-drv-geode",
                "xorg-x11-drv-intel",
                "xorg-x11-drv-mga",
