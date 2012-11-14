@@ -3,6 +3,8 @@
     "ubuntu": "xvfb" },
   "base-system":
   { "fedora": ["kernel",
+               "kernel-PAE",
+               "kernel-modules-extra",
                "yum",
                "NetworkManager",
                "make",
