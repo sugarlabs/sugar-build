@@ -9,12 +9,66 @@ class FedoraPackageManager:
 
         command.run_with_sudo(args)
 
+    def remove_packages(self, packages):
+        args = ["rpm", "-e"]
+        args.extend(packages)
+
+        command.run_with_sudo(args)
+
+    def update(self):
+        command.run_with_sudo(["yum", "update"])
+
+    def find_all(self):
+        query_format = "--queryformat=[%{NAME} ]"
+        all = subprocess.check_output(["rpm", "-qa", query_format]).strip()
+        return all.split(" ")
+
+    def find_with_deps(self, packages):
+        result = []
+
+        for package in packages:
+            if package not in result:
+                result.append(package)
+
+            self._find_deps(package, result)
+
+        return result
+
+    def _find_deps(self, package, result):
+        query_format = "--queryformat=[%{REQUIRENAME} ]"
+        capabilities = subprocess.check_output(["rpm", "-q",
+                                                query_format,
+                                                package]).strip()
+
+        for capability in capabilities.strip().split(" "):
+            if capability.startswith("rpmlib"):
+                continue
+            query_format = "--queryformat=[%{NAME} ]"
+            deps_packages = subprocess.check_output(["rpm", "-q",
+                                                     query_format,
+                                                     "--whatprovides",
+                                                     capability]).strip()
+
+            for dep_package in deps_packages.split(" "):
+                if dep_package not in result:
+                    result.append(dep_package)
+                    self._find_deps(dep_package, result)
+
 class UbuntuPackageManager:
     def install_packages(self, packages):
         args = ["apt-get", "install"]
         args.extend(packages)
 
         command.run_with_sudo(args)
+
+    def remove_packages(self, packages):
+        raise NotImplementedError
+
+    def update(self):
+        raise NotImplementedError
+
+    def find_with_deps(package_names):
+        raise NotImplementedError
 
 def get_package_manager():
     name, version = _get_distro_info()

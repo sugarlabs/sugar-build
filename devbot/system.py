@@ -148,7 +148,31 @@ def warn_if_unsupported(distro_name):
               "distributions listed in the README.\n" \
               "*********************************************************\n"
 
-def check():
+def autoremove_packages(packages):
+    package_manager = distro.get_package_manager()
+
+    to_keep = []
+    for package_info in packages.values():
+        if distro_name in package_info:
+            package_list = package_info[distro_name]
+            if not isinstance(package_list, list):
+                package_list = [package_list]
+
+            for package in package_list:
+                if package_info[distro_name] not in to_keep:
+                    to_keep.append(package_info[distro_name])
+
+    to_keep = package_manager.find_with_deps(to_keep)
+    all = package_manager.find_all()
+
+    to_remove = []
+    for package in all:
+        if package not in to_keep:
+            to_remove.append(package)
+
+    package_manager.remove_packages(to_remove)
+
+def check(autoremove=False, autoupdate=False):
     distro_name = distro.get_distro_name()
 
     packages = config.load_packages()
@@ -165,3 +189,10 @@ def check():
     apply_distro_tweaks(distro_name)
 
     stop_xvfb(xvfb_proc, orig_display)
+
+    if autoupdate:
+        package_manager = distro.get_package_manager()
+        package_manager.update()
+
+    if autoremove:
+	autoremove_packages(packages)
