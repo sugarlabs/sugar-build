@@ -43,6 +43,7 @@ class FedoraPackageManager:
                                                     package]).strip()
         except subprocess.CalledProcessError:
             print "Package %s not installed" % package
+            return
 
         for capability in capabilities.strip().split(" "):
             if capability.startswith("rpmlib"):
