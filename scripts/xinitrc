@@ -6,6 +6,7 @@ unset SESSION_MANAGER
 
 SCRIPTS_DIR=`dirname "$0"`
 ROOT_DIR=`dirname "$SCRIPTS_DIR"`
+COMMANDS_DIR=$ROOT_DIR/commands
 
 if [ ! -z $SUGAR_PROFILE ]; then
     grep -q PROFILE $ROOT_DIR/config
@@ -55,7 +56,7 @@ fi
 RUN_COMMAND="dbus-launch --exit-with-session $SCRIPTS_DIR/run-with-keyring sugar"
 
 if [ -z $SUGAR_BUILD_SHELL ]; then
-    $SCRIPTS_DIR/dn-build run $RUN_COMMAND
+    $COMMANDS_DIR/run $RUN_COMMAND
 else
     $RUN_COMMAND
 fi
