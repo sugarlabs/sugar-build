@@ -1,6 +1,7 @@
 TIMESTAMP := $(shell date +%Y%m%d-%H%M%S)
 LOGFILE = $(CURDIR)/logs/build-$(TIMESTAMP).log
 SCRIPTS = $(CURDIR)/scripts
+COMMANDS = $(CURDIR)/commands
 DNBUILD = $(SCRIPTS)/dn-build
 LOG = $(SCRIPTS)/log-command
 
@@ -26,7 +27,7 @@ scripts/find-free-display: scripts/find-free-display.c
 x11-utils: scripts/list-outputs scripts/find-free-display 
 
 check-system:
-	$(TYPESCRIPT) $(SCRIPTS)/check-system $(LOGFILE)
+	$(TYPESCRIPT) $(COMMANDS)/check-system $(LOGFILE)
 
 build: check-system
 	$(LOG) "$(DNBUILD) build" $(LOGFILE)

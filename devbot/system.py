@@ -1,13 +1,11 @@
-#!/usr/bin/python
-
 import json
 import os
 import subprocess
 import sys
 
-import sysinfo
+from devbot import config
+from devbot import distro
 
-scriptdir = os.path.dirname(__file__)
 devnull = open("/dev/null", "w")
 xvfb_display = ":100"
 
@@ -72,16 +70,16 @@ def run_with_sudo(args):
     print " ".join(args_with_sudo)
     subprocess.call(args_with_sudo)
 
-def install_packages(distro, packages):
+def install_packages(distro_name, packages):
     if "SUGAR_BUILDBOT" in os.environ:
         print "Missing packages %s" % " ".join(packages)
         sys.exit(1)
 
     print "Installing required system packages"
 
-    if distro == "fedora":
+    if distro_name == "fedora":
         args = ["yum", "install"]
-    elif distro == "ubuntu":    
+    elif distro_name == "ubuntu":    
         args = ["apt-get", "install"]
 
     args.extend(packages)
@@ -91,7 +89,7 @@ def load_deps_json(name):
     path = os.path.join(scriptdir, "deps", "%s.json" % name)
     return json.load(open(path))
 
-def run_checks(distro, checks, packages):
+def run_checks(distro_name, checks, packages):
     failed_checks = []
     to_install = []
 
@@ -99,20 +97,20 @@ def run_checks(distro, checks, packages):
         checker = checkers[check["checker"]]
         if checker(check["check"]):
             check_name = check.get("check_name", check["check"])
-            if distro in packages[check_name]:
-                package_list = packages[check_name][distro]
+            if distro_name in packages[check_name]:
+                package_list = packages[check_name][distro_name]
                 if not isinstance(package_list, list):
                     package_list = [package_list]
 
                 for package in package_list:
-                    # Might be none, if so skip on this distro
+                    # Might be none, if so skip on this distro_name
                     if package and package not in packages:
                         to_install.append(package)
             else:
                 failed_checks.append(check)
 
     if to_install:
-        install_packages(distro, to_install)
+        install_packages(distro_name, to_install)
 
     if failed_checks:
         print "Failed checks\n"
@@ -133,7 +131,7 @@ def start_xvfb():
 
     return (xvfb_proc, orig_display)
 
-def stop_xvfb(proc, orig_display):
+def stop_xvfb(xvfb_proc, orig_display):
     if orig_display:
         os.environ["DISPLAY"] = xvfb_display
     else:
@@ -142,6 +140,10 @@ def stop_xvfb(proc, orig_display):
     xvfb_proc.terminate()
 
 def apply_ubuntu_tweaks():
+    # FIXME we don't want the package to depend on external scripts
+    devbot_dir = os.path.abspath(os.path.dirname(__file__))
+    scripts_dir = os.path.join(os.path.dirname(devbot_dir), "scripts")
+
     wrapper_config = open("/etc/X11/Xwrapper.config").read()
     if "allowed_users=anybody" not in wrapper_config:
         if "SUGAR_BUILDBOT" in os.environ:
@@ -149,15 +151,15 @@ def apply_ubuntu_tweaks():
                   "  sudo dpkg-reconfigure x11-common"        
         else:  
             print "\nWe are going to allow anybody to run the X server"            
-            ubuntu_tweaks = os.path.join(scriptdir, "ubuntu-tweaks")            
+            ubuntu_tweaks = os.path.join(scripts_dir, "ubuntu-tweaks")            
             run_with_sudo([ubuntu_tweaks])
 
-def apply_distro_tweaks(distro):
-    if distro == "ubuntu":
+def apply_distro_tweaks(distro_name):
+    if distro_name == "ubuntu":
         apply_ubuntu_tweaks()
 
-def warn_if_unsupported(distro):
-    if distro == "unsupported":
+def warn_if_unsupported(distro_name):
+    if distro_name == "unsupported":
         print "*********************************************************\n" \
               "You are running an unsupported distribution. You might be\n" \
               "able to make sugar work by installing or building \n" \
@@ -166,27 +168,20 @@ def warn_if_unsupported(distro):
               "distributions listed in the README.\n" \
               "*********************************************************\n"
 
-distro = sysinfo.get_distro_name()
+def check():
+    distro_name = distro.get_distro_name()
 
-packages = load_deps_json("packages-%s" %
-                          sysinfo.get_system_version())
+    packages = config.load_packages()
 
-checks = load_deps_json("prerequisites")
-if not run_checks(distro, checks, packages):
-    sys.exit(1)
+    checks = config.load_prerequisites()
+    if not run_checks(distro_name, checks, packages):
+        sys.exit(1)
 
-xvfb_proc, orig_display = start_xvfb()
+    xvfb_proc, orig_display = start_xvfb()
 
-checks = []
-checks.extend(load_deps_json("system"))
-checks.extend(load_deps_json("sugar-build"))
-checks.extend(load_deps_json("sugar-buildtime-%s" %
-                             sysinfo.get_system_version()))
-checks.extend(load_deps_json("sugar-runtime-%s" %
-                             sysinfo.get_system_version()))
-run_checks(distro, checks, packages)
+    run_checks(distro_name, config.load_checks(), config.load_packages())
 
-warn_if_unsupported(distro)
-apply_distro_tweaks(distro)
+    warn_if_unsupported(distro_name)
+    apply_distro_tweaks(distro_name)
 
-stop_xvfb(xvfb_proc, orig_display)
+    stop_xvfb(xvfb_proc, orig_display)
