@@ -51,7 +51,7 @@ def set_build_dir(dir):
     build_dir = dir
 
 def load_packages():
-    packages = _load_deps_json("packages-%s" % distro.get_system_version())
+    return _load_deps_json("packages-%s" % distro.get_system_version())
 
 def load_prerequisites():
     return _load_deps_json("prerequisites")

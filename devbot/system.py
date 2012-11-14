@@ -179,7 +179,7 @@ def check():
 
     xvfb_proc, orig_display = start_xvfb()
 
-    run_checks(distro_name, config.load_checks(), config.load_packages())
+    run_checks(distro_name, config.load_checks(), packages)
 
     warn_if_unsupported(distro_name)
     apply_distro_tweaks(distro_name)
