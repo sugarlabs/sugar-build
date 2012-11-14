@@ -171,7 +171,8 @@ def autoremove_packages(packages):
         if package not in to_keep:
             to_remove.append(package)
 
-    package_manager.remove_packages(to_remove)
+    if to_remove:
+        package_manager.remove_packages(to_remove)
 
 def check(autoremove=False, autoupdate=False):
     distro_name = distro.get_distro_name()
