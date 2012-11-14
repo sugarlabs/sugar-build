@@ -72,7 +72,7 @@ class UbuntuPackageManager:
     def update(self):
         pass
 
-    def find_with_deps(package_names):
+    def find_with_deps(self, package_names):
         raise NotImplementedError
 
 def get_package_manager():
