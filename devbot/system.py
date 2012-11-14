@@ -149,6 +149,7 @@ def warn_if_unsupported(distro_name):
               "*********************************************************\n"
 
 def autoremove_packages(packages):
+    distro_name = distro.get_distro_name()
     package_manager = distro.get_package_manager()
 
     to_keep = []
