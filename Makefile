@@ -4,14 +4,6 @@ SCRIPTS = $(CURDIR)/scripts
 COMMANDS = $(CURDIR)/commands
 LOG = $(SCRIPTS)/log-command
 
-# The buildbot shell does not handle script properly. It's unnecessary
-# anyway because we can't use interactive scripts there.
-ifdef SUGAR_BUILDBOT
-TYPESCRIPT = $(LOG)
-else
-TYPESCRIPT = script -t/tmp/sugar-build-scripttimingfd -ae -c
-endif
-
 all: build install-activities
 
 XRANDR_LIBS = $(shell pkg-config --libs xrandr x11)
@@ -26,7 +18,7 @@ scripts/find-free-display: scripts/find-free-display.c
 x11-utils: scripts/list-outputs scripts/find-free-display 
 
 check-system:
-	$(TYPESCRIPT) $(COMMANDS)/check-system $(LOGFILE)
+	$(COMMANDS)/check-system $(ARGS)
 
 build: check-system
 	$(LOG) "$(COMMANDS)/build" $(LOGFILE)
