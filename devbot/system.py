@@ -160,8 +160,8 @@ def autoremove_packages(packages):
                 package_list = [package_list]
 
             for package in package_list:
-                if package_info[distro_name] not in to_keep:
-                    to_keep.append(package_info[distro_name])
+                if package not in to_keep:
+                    to_keep.append(package)
 
     to_keep = package_manager.find_with_deps(to_keep)
     all = package_manager.find_all()
