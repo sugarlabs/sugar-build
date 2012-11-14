@@ -36,9 +36,13 @@ class FedoraPackageManager:
 
     def _find_deps(self, package, result):
         query_format = "--queryformat=[%{REQUIRENAME} ]"
-        capabilities = subprocess.check_output(["rpm", "-q",
-                                                query_format,
-                                                package]).strip()
+
+        try:
+            capabilities = subprocess.check_output(["rpm", "-q",
+                                                    query_format,
+                                                    package]).strip()
+        except subprocess.CalledProcessError:
+            print "Package %s not installed" % package
 
         for capability in capabilities.strip().split(" "):
             if capability.startswith("rpmlib"):
