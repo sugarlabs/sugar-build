@@ -1,5 +1,29 @@
 import subprocess
 
+from devbot import command
+
+class FedoraPackageManager:
+    def install_packages(self, packages):
+        args = ["yum", "install"]
+        args.extend(packages)
+
+        command.run_with_sudo(args)
+
+class UbuntuPackageManager:
+    def install_packages(self, packages):
+        args = ["apt-get", "install"]
+        args.extend(packages)
+
+        command.run_with_sudo(args)
+
+def get_package_manager():
+    name, version = _get_distro_info()
+
+    if name == "fedora":
+        return FedoraPackageManager()
+    elif name == "ubuntu":
+        return UbuntuPackageManager()
+
 def get_system_version():
     name, version = _get_distro_info()
     if (name == "ubuntu" and version == "12.10") or \

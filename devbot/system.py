@@ -64,21 +64,6 @@ checkers = { "binary": check_binary,
              "metacity-theme": check_metacity_theme,
              "include": check_include }
 
-def install_packages(distro_name, packages):
-    if "SUGAR_BUILDBOT" in os.environ:
-        print "Missing packages %s" % " ".join(packages)
-        sys.exit(1)
-
-    print "Installing required system packages"
-
-    if distro_name == "fedora":
-        args = ["yum", "install"]
-    elif distro_name == "ubuntu":    
-        args = ["apt-get", "install"]
-
-    args.extend(packages)
-    command.run_with_sudo(args)
-
 def load_deps_json(name):
     path = os.path.join(scriptdir, "deps", "%s.json" % name)
     return json.load(open(path))
@@ -104,7 +89,8 @@ def run_checks(distro_name, checks, packages):
                 failed_checks.append(check)
 
     if to_install:
-        install_packages(distro_name, to_install)
+        package_manager = distro.get_package_manager()
+        package_manager.install_packages(to_install)
 
     if failed_checks:
         print "Failed checks\n"
