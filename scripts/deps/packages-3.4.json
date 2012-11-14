@@ -1,8 +1,8 @@
 { "Xvfb":
-  { "fedora": "Xvfb",
+  { "fedora": "xorg-x11-server-Xvfb",
     "ubuntu": "xvfb" },
   "xinit":
-  { "fedora": "xorg-x11-init",
+  { "fedora": "xorg-x11-xinit",
     "ubuntu": "xinit" },
   "cairo foreign":
   { "fedora": "pygobject3",
