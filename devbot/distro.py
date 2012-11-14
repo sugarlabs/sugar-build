@@ -70,7 +70,7 @@ class UbuntuPackageManager:
         raise NotImplementedError
 
     def update(self):
-        raise NotImplementedError
+        pass
 
     def find_with_deps(package_names):
         raise NotImplementedError
