@@ -1,4 +1,6 @@
 { "Xvfb":
+  { "fedora": "xorg-x11-server-Xvfb",
+    "ubuntu": "xvfb" },
   "base-system":
   { "fedora": ["kernel",
                "yum",
@@ -25,8 +27,6 @@
                "xorg-x11-server-Xorg",
                "grub2"],
     "ubuntu": [] },
-  { "fedora": "xorg-x11-server-Xvfb",
-    "ubuntu": "xvfb" },
   "xinit":
   { "fedora": "xorg-x11-xinit",
     "ubuntu": "xinit" },
