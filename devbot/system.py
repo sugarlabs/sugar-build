@@ -165,7 +165,7 @@ def autoremove_packages(packages):
 
     try:
         to_keep = package_manager.find_with_deps(to_keep)
-    expect NotImplementedError:
+    except NotImplementedError:
         return
 
     all = package_manager.find_all()
