@@ -5,6 +5,7 @@ import sys
 
 from devbot import config
 from devbot import distro
+from devbot import command
 
 devnull = open("/dev/null", "w")
 xvfb_display = ":100"
@@ -63,13 +64,6 @@ checkers = { "binary": check_binary,
              "metacity-theme": check_metacity_theme,
              "include": check_include }
 
-def run_with_sudo(args):
-    args_with_sudo = ["sudo"]
-    args_with_sudo.extend(args)
-
-    print " ".join(args_with_sudo)
-    subprocess.call(args_with_sudo)
-
 def install_packages(distro_name, packages):
     if "SUGAR_BUILDBOT" in os.environ:
         print "Missing packages %s" % " ".join(packages)
@@ -83,7 +77,7 @@ def install_packages(distro_name, packages):
         args = ["apt-get", "install"]
 
     args.extend(packages)
-    run_with_sudo(args)
+    command.run_with_sudo(args)
 
 def load_deps_json(name):
     path = os.path.join(scriptdir, "deps", "%s.json" % name)
@@ -152,7 +146,7 @@ def apply_ubuntu_tweaks():
         else:  
             print "\nWe are going to allow anybody to run the X server"            
             ubuntu_tweaks = os.path.join(scripts_dir, "ubuntu-tweaks")            
-            run_with_sudo([ubuntu_tweaks])
+            command.run_with_sudo([ubuntu_tweaks])
 
 def apply_distro_tweaks(distro_name):
     if distro_name == "ubuntu":
