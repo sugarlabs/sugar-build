@@ -47,7 +47,9 @@
                "audit",
                "attr",
                "gpg-pubkey"],
-    "ubuntu": [] },
+    "ubuntu": ["apt",
+               "make",
+               "git"] },
   "xinit":
   { "fedora": "xorg-x11-xinit",
     "ubuntu": "xinit" },
