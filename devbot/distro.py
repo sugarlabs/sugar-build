@@ -90,7 +90,7 @@ class UbuntuPackageManager:
         command.run_with_sudo(args, test=self._test)
 
     def remove_packages(self, packages):
-        args = ["rpm", "-e"]
+        args = ["dpkg", "-e"]
         args.extend(packages)
 
         command.run_with_sudo(args, test=True)
@@ -100,33 +100,39 @@ class UbuntuPackageManager:
         command.run_with_sudo(["apt-get", "upgrade"], test=self._test)
 
     def find_all(self):
-        return [package for package in self._cache]
+        return [package.name for package in self._cache
+                if package.installed is not None]
 
-    def find_deps(package, result):
+    def _find_deps(self, package, result):
         if self._cache.is_virtual_package(package):
             for providing in self._cache.get_providing_packages(package):
-                find_deps(providing.name, result)
+                self._find_deps(providing.name, result)
             return
 
         if package not in self._cache:
-            print package
+            print "Package %s not in cache" % package
             return
 
-        candidate = self._cache[package].candidate
-        for dependency in candidate.dependencies:
+        installed = self._cache[package].installed
+        if installed is None:
+            print "Package %s not installed" % package
+            return
+
+        for dependency in installed.dependencies:
             for base_dependency in dependency.or_dependencies:
                 dependency_name = base_dependency.name
                 if dependency_name not in result:
                     result.append(dependency_name)
-                    find_deps(dependency_name, result)
+                    self._find_deps(dependency_name, result)
 
     def find_with_deps(self, package_names):
         result =  []
 
         for package in package_names:
-            find_deps(package, result)
-            if package not in result:
-                result.append(package)
+            if package is not None:
+                self._find_deps(package, result)
+                if package not in result:
+                    result.append(package)
 
         return result
 
