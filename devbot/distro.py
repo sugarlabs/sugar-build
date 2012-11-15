@@ -90,7 +90,8 @@ class UbuntuPackageManager:
         raise NotImplementedError
 
     def update(self):
-        pass
+        command.run_with_sudo(["apt-get", "update"], test=self._test)
+        command.run_with_sudo(["apt-get", "upgrade"], test=self._test)
 
     def find_with_deps(self, package_names):
         raise NotImplementedError
