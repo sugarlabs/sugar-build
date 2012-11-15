@@ -148,7 +148,7 @@ def warn_if_unsupported(distro_name):
               "distributions listed in the README.\n" \
               "*********************************************************\n"
 
-def autoremove_packages(packages):
+def remove_packages(packages):
     distro_name = distro.get_distro_name()
     package_manager = distro.get_package_manager()
 
@@ -178,7 +178,7 @@ def autoremove_packages(packages):
     if to_remove:
         package_manager.remove_packages(to_remove)
 
-def check(autoremove=False, autoupdate=False):
+def check(remove=False, update=False):
     distro_name = distro.get_distro_name()
 
     packages = config.load_packages()
@@ -196,9 +196,9 @@ def check(autoremove=False, autoupdate=False):
 
     stop_xvfb(xvfb_proc, orig_display)
 
-    if autoupdate:
+    if update:
         package_manager = distro.get_package_manager()
         package_manager.update()
 
-    if autoremove:
-	autoremove_packages(packages)
+    if remove:
+	remove_packages(packages)

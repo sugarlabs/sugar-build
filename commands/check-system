@@ -9,10 +9,10 @@ from devbot import system
 common.setup()
 
 parser = argparse.ArgumentParser(description='Check the system')
-parser.add_argument("--autoupdate", action="store_true",
+parser.add_argument("--update", action="store_true",
                     help="first of all update the system")
-parser.add_argument("--autoremove", action="store_true",
+parser.add_argument("--remove", action="store_true",
                     help="remove all the unnecessary packages")
 args = parser.parse_args()
 
-system.check(autoupdate=args.autoupdate, autoremove=args.autoremove)
+system.check(update=args.update, remove=args.remove)
