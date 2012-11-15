@@ -75,7 +75,7 @@ def pull_source(module):
         os.chdir(config.source_dir)
         command.run(["git", "clone", "--progress",
                      module["repo"], module["name"]])
-        command.run([module_dir])
+        os.chdir(module_dir)
 
     branch = module.get("branch", "master")
     command.run(["git", "checkout", branch])
