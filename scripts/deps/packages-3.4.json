@@ -45,6 +45,8 @@
                "sendmail",
                "biosdevname",
                "cronie",
+               "audit",
+               "attr",
                "gpg-pubkey"],
     "ubuntu": [] },
   "xinit":
