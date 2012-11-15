@@ -4,6 +4,9 @@ import subprocess
 from devbot import command
 
 class FedoraPackageManager:
+    def __init__(test=False):
+        self._test = test
+
     def install_packages(self, packages):
         args = ["yum"]
 
@@ -13,13 +16,13 @@ class FedoraPackageManager:
         args.append("install")
         args.extend(packages)
 
-        command.run_with_sudo(args)
+        command.run_with_sudo(args, test=self._test)
 
     def remove_packages(self, packages):
         args = ["rpm", "-e"]
         args.extend(packages)
 
-        command.run_with_sudo(args)
+        command.run_with_sudo(args, test=self._test)
 
     def update(self):
         args = ["yum"]
@@ -29,7 +32,7 @@ class FedoraPackageManager:
 
         args.append("update")
 
-        command.run_with_sudo(args)
+        command.run_with_sudo(args, test=self._test)
 
     def find_all(self):
         query_format = "--queryformat=[%{NAME} ]"
@@ -73,11 +76,14 @@ class FedoraPackageManager:
                     self._find_deps(dep_package, result)
 
 class UbuntuPackageManager:
+    def __init__(test=False):
+        self._test = test
+
     def install_packages(self, packages):
         args = ["apt-get", "install"]
         args.extend(packages)
 
-        command.run_with_sudo(args)
+        command.run_with_sudo(args, self._test=test)
 
     def remove_packages(self, packages):
         raise NotImplementedError
@@ -88,13 +94,13 @@ class UbuntuPackageManager:
     def find_with_deps(self, package_names):
         raise NotImplementedError
 
-def get_package_manager():
+def get_package_manager(test=False):
     name, version = _get_distro_info()
 
     if name == "fedora":
-        return FedoraPackageManager()
+        return FedoraPackageManager(test=test)
     elif name == "ubuntu":
-        return UbuntuPackageManager()
+        return UbuntuPackageManager(test=test)
 
 def get_system_version():
     name, version = _get_distro_info()

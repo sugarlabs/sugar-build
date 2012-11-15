@@ -68,7 +68,9 @@ def load_deps_json(name):
     path = os.path.join(scriptdir, "deps", "%s.json" % name)
     return json.load(open(path))
 
-def run_checks(distro_name, checks, packages):
+def run_checks(package_manager, checks, packages):
+    distro_name = distro.get_distro_name()
+
     failed_checks = []
     to_install = []
 
@@ -89,7 +91,6 @@ def run_checks(distro_name, checks, packages):
                 failed_checks.append(check)
 
     if to_install:
-        package_manager = distro.get_package_manager()
         package_manager.install_packages(to_install)
 
     if failed_checks:
@@ -148,9 +149,8 @@ def warn_if_unsupported(distro_name):
               "distributions listed in the README.\n" \
               "*********************************************************\n"
 
-def remove_packages(packages):
+def remove_packages(package_manager, packages):
     distro_name = distro.get_distro_name()
-    package_manager = distro.get_package_manager()
 
     to_keep = []
     for package_info in packages.values():
@@ -178,8 +178,9 @@ def remove_packages(packages):
     if to_remove:
         package_manager.remove_packages(to_remove)
 
-def check(remove=False, update=False):
+def check(remove=False, update=False, test=False):
     distro_name = distro.get_distro_name()
+    package_manager = distro.get_package_manager(test=test)
 
     packages = config.load_packages()
 
@@ -189,7 +190,7 @@ def check(remove=False, update=False):
 
     xvfb_proc, orig_display = start_xvfb()
 
-    run_checks(distro_name, config.load_checks(), packages)
+    run_checks(package_manager, config.load_checks(), packages)
 
     warn_if_unsupported(distro_name)
     apply_distro_tweaks(distro_name)
@@ -197,8 +198,7 @@ def check(remove=False, update=False):
     stop_xvfb(xvfb_proc, orig_display)
 
     if update:
-        package_manager = distro.get_package_manager()
         package_manager.update()
 
     if remove:
-	remove_packages(packages)
+	remove_packages(package_manager, packages)
