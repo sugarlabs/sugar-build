@@ -185,7 +185,7 @@ def check(remove=False, update=False, test=False):
     packages = config.load_packages()
 
     checks = config.load_prerequisites()
-    if not run_checks(distro_name, checks, packages):
+    if not run_checks(package_manager, checks, packages):
         sys.exit(1)
 
     xvfb_proc, orig_display = start_xvfb()
