@@ -43,6 +43,7 @@
                "parted",
                "sendmail",
                "biosdevname",
+               "cronie",
                "gpg-pubkey"],
     "ubuntu": [] },
   "xinit":
