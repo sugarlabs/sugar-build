@@ -1,6 +1,6 @@
 import subprocess
 
-def run_command(args, test=False):
+def run(args, test=False):
     print " ".join(args)
     if not test:
         subprocess.check_call(args)

@@ -9,6 +9,7 @@ import shutil
 import sys
 import subprocess
 
+from devbot import command
 from devbot import config
 from devbot import environ
 
@@ -53,10 +54,6 @@ def get_module_commit_id(module):
 
     return commit_id.strip()
 
-def run_command(args):
-    print " ".join(args)
-    subprocess.check_call(args)
-
 def unlink_libtool_files():
     orig_cwd = os.getcwd()
     os.chdir(config.lib_dir)
@@ -72,33 +69,33 @@ def pull_source(module):
     if os.path.exists(module_dir):
         os.chdir(module_dir)
 
-        run_command(["git", "remote", "set-url", "origin", module["repo"]])
-        run_command(["git", "remote", "update", "origin"])
+        command.run(["git", "remote", "set-url", "origin", module["repo"]])
+        command.run(["git", "remote", "update", "origin"])
     else:
         os.chdir(config.source_dir)
-        run_command(["git", "clone", "--progress",
+        command.run(["git", "clone", "--progress",
                      module["repo"], module["name"]])
-        os.chdir(module_dir)
+        command.run([module_dir])
 
     branch = module.get("branch", "master")
-    run_command(["git", "checkout", branch])
+    command.run(["git", "checkout", branch])
 
 def build_autotools(module):
     autogen = os.path.join(get_module_source_dir(module), "autogen.sh")
 
     jobs = multiprocessing.cpu_count() * 2
 
-    run_command([autogen,
+    command.run([autogen,
                  "--prefix", config.install_dir,
                  "--libdir", config.lib_dir])
 
-    run_command(["make", "-j", "%d" % jobs])
-    run_command(["make", "install"])
+    command.run(["make", "-j", "%d" % jobs])
+    command.run(["make", "install"])
 
     unlink_libtool_files()
 
 def build_activity(module):
-    run_command(["./setup.py", "install", "--prefix", config.install_dir])
+    command.run(["./setup.py", "install", "--prefix", config.install_dir])
 
 def build_module(module):
     module_source_dir = get_module_source_dir(module)
