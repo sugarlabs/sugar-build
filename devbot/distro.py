@@ -4,7 +4,7 @@ import subprocess
 from devbot import command
 
 class FedoraPackageManager:
-    def __init__(test=False):
+    def __init__(self, test=False):
         self._test = test
 
     def install_packages(self, packages):
@@ -76,7 +76,7 @@ class FedoraPackageManager:
                     self._find_deps(dep_package, result)
 
 class UbuntuPackageManager:
-    def __init__(test=False):
+    def __init__(self, test=False):
         self._test = test
 
     def install_packages(self, packages):
