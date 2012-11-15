@@ -9,4 +9,4 @@ def run_with_sudo(args, test=False):
     args_with_sudo = ["sudo"]
     args_with_sudo.extend(args)
 
-    run_command(args_with_sudo, test=test)
+    run(args_with_sudo, test=test)
