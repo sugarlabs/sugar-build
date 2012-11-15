@@ -1,10 +1,16 @@
+import os
 import subprocess
 
 from devbot import command
 
 class FedoraPackageManager:
     def install_packages(self, packages):
-        args = ["yum", "install"]
+        args = ["yum"]
+
+        if "SUGAR_BUILDBOT" in os.environ:
+            args.append("-y")
+
+        args.append("install")
         args.extend(packages)
 
         command.run_with_sudo(args)
@@ -16,7 +22,14 @@ class FedoraPackageManager:
         command.run_with_sudo(args)
 
     def update(self):
-        command.run_with_sudo(["yum", "update"])
+        args = ["yum"]
+
+        if "SUGAR_BUILDBOT" in os.environ:
+            args.append("-y")
+
+        args.append("update")
+
+        command.run_with_sudo(args)
 
     def find_all(self):
         query_format = "--queryformat=[%{NAME} ]"
