@@ -43,4 +43,6 @@
  { "check": "gstreamer-plugins-base-1.0",
    "checker": "pkgconfig" },
  { "check": "icon-naming-utils",
-   "checker": "pkgconfig" }]
+   "checker": "pkgconfig" },
+ { "check": "tar",
+   "checker": "binary"}]

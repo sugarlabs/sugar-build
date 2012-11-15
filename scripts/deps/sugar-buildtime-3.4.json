@@ -39,4 +39,6 @@
  { "check": "pycairo",
    "checker": "pkgconfig" },
  { "check": "icon-naming-utils",
-   "checker": "pkgconfig" }]
+   "checker": "pkgconfig" },
+ { "check": "tar",
+   "checker": "binary" }]
