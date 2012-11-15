@@ -43,7 +43,7 @@
                "parted",
                "sendmail",
                "biosdevname",
-               "gpg-pubkey"]
+               "gpg-pubkey"],
     "ubuntu": [] },
   "xinit":
   { "fedora": "xorg-x11-xinit",
