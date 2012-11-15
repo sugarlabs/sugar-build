@@ -27,7 +27,8 @@
                "xorg-x11-drv-wacom",
                "xorg-x11-server-Xorg",
                "grub2",
-               "setserial"],
+               "setserial",
+               "buildbot"],
     "ubuntu": [] },
   "xinit":
   { "fedora": "xorg-x11-xinit",
