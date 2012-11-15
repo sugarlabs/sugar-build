@@ -97,7 +97,7 @@ class UbuntuPackageManager:
 
     def update(self):
         command.run_with_sudo(["apt-get", "update"], test=self._test)
-        command.run_with_sudo(["apt-get", "upgrade"], test=self._test)
+        command.run_with_sudo(["apt-get", "-y", "upgrade"], test=self._test)
 
     def find_all(self):
         return [package.name for package in self._cache
