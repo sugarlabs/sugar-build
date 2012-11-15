@@ -65,8 +65,6 @@ class FedoraPackageManager:
                     if not cap.startswith("rpmlib")]
 
         if capabilities and filtered:
-            print package, filtered
-
             args = ["rpm", "-q",
                     "--queryformat=[%{NAME} ]",
                     "--whatprovides"]
