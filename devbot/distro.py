@@ -61,15 +61,18 @@ class FedoraPackageManager:
             print "Package %s not installed" % package
             return
 
-        for capability in capabilities.strip().split(" "):
-            if capability.startswith("rpmlib"):
-                continue
-            query_format = "--queryformat=[%{NAME} ]"
-            deps_packages = subprocess.check_output(["rpm", "-q",
-                                                     query_format,
-                                                     "--whatprovides",
-                                                     capability]).strip()
+        filtered = [cap for cap in capabilities.split(" ")
+                    if not cap.startswith("rpmlib")]
 
+        if capabilities and filtered:
+            print package, filtered
+
+            args = ["rpm", "-q",
+                    "--queryformat=[%{NAME} ]",
+                    "--whatprovides"]
+            args.extend(filtered)
+            
+            deps_packages = subprocess.check_output(args).strip()
             for dep_package in deps_packages.split(" "):
                 if dep_package not in result:
                     result.append(dep_package)
