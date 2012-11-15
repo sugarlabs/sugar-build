@@ -78,7 +78,10 @@ class FedoraPackageManager:
 
 class UbuntuPackageManager:
     def __init__(self, test=False):
+        import apt
+
         self._test = test
+        self._cache = apt.cache.Cache()
 
     def install_packages(self, packages):
         args = ["apt-get", "install"]
@@ -87,14 +90,45 @@ class UbuntuPackageManager:
         command.run_with_sudo(args, test=self._test)
 
     def remove_packages(self, packages):
-        raise NotImplementedError
+        args = ["rpm", "-e"]
+        args.extend(packages)
+
+        command.run_with_sudo(args, test=True)
 
     def update(self):
         command.run_with_sudo(["apt-get", "update"], test=self._test)
         command.run_with_sudo(["apt-get", "upgrade"], test=self._test)
 
+    def find_all(self):
+        return [package for package in self._cache]
+
+    def find_deps(package, result):
+        if self._cache.is_virtual_package(package):
+            for providing in self._cache.get_providing_packages(package):
+                find_deps(providing.name, result)
+            return
+
+        if package not in self._cache:
+            print package
+            return
+
+        candidate = self._cache[package].candidate
+        for dependency in candidate.dependencies:
+            for base_dependency in dependency.or_dependencies:
+                dependency_name = base_dependency.name
+                if dependency_name not in result:
+                    result.append(dependency_name)
+                    find_deps(dependency_name, result)
+
     def find_with_deps(self, package_names):
-        raise NotImplementedError
+        result =  []
+
+        for package in package_names:
+            find_deps(package, result)
+            if package not in result:
+                result.append(package)
+
+        return result
 
 def get_package_manager(test=False):
     name, version = _get_distro_info()
