@@ -85,7 +85,7 @@ def run_checks(package_manager, checks, packages):
 
                 for package in package_list:
                     # Might be none, if so skip on this distro_name
-                    if package and package not in packages:
+                    if package and package not in to_install:
                         to_install.append(package)
             else:
                 failed_checks.append(check)
