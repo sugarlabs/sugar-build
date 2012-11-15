@@ -4,7 +4,7 @@ SCRIPTS = $(CURDIR)/scripts
 COMMANDS = $(CURDIR)/commands
 LOG = $(SCRIPTS)/log-command
 
-all: build install-activities
+all: build
 
 XRANDR_LIBS = $(shell pkg-config --libs xrandr x11)
 X11_LIBS = $(shell pkg-config --libs x11)
