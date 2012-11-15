@@ -83,7 +83,7 @@ class UbuntuPackageManager:
         args = ["apt-get", "install"]
         args.extend(packages)
 
-        command.run_with_sudo(args, self._test=test)
+        command.run_with_sudo(args, test=self._test)
 
     def remove_packages(self, packages):
         raise NotImplementedError
