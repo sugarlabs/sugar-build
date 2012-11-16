@@ -132,7 +132,9 @@ def apply_ubuntu_tweaks():
                   "  sudo dpkg-reconfigure x11-common"        
         else:  
             print "\nWe are going to allow anybody to run the X server"            
-            ubuntu_tweaks = os.path.join(scripts_dir, "ubuntu-tweaks")            
+            ubuntu_tweaks = os.path.join(config.commands_dir,
+                                         "helpers",
+                                         "ubuntu-tweaks")            
             command.run_with_sudo([ubuntu_tweaks])
 
 def apply_distro_tweaks(distro_name):
