@@ -80,7 +80,10 @@
                "ubuntu-standard",
                "git", 
                "dash",
-               "bash"] },
+               "bash",
+               "diffutils",
+               "grep",
+               "ncurses-base"] },
   "xinit":
   { "fedora": "xorg-x11-xinit",
     "ubuntu": "xinit" },
