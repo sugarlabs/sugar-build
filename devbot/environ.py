@@ -49,6 +49,7 @@ def _setup_variables():
 
     os.environ["GTK_DATA_PREFIX"] = config.install_dir
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")
+    os.environ["PS1"] = "[sugar-build \W]$ "
 
 def _setup_gconf():
     gconf_dir = os.path.join(config.etc_dir, "gconf")

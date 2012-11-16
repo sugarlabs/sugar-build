@@ -14,3 +14,4 @@ def setup():
     config.set_source_dir(os.path.join(base_path, "source"))
     config.set_build_dir(os.path.join(base_path, "build"))
     config.set_commands_dir(os.path.join(base_path, "commands"))
+    config.set_logs_dir(os.path.join(base_path, "logs"))

@@ -4,6 +4,7 @@ import os
 from devbot import distro
 
 config_dir = None
+logs_dir = None
 commands_dir = None
 install_dir = None
 source_dir = None
@@ -23,6 +24,10 @@ else:
 def set_config_dir(dir):
     global config_dir
     config_dir = dir
+
+def set_logs_dir(dir):
+    global logs_dir
+    logs_dir = dir
 
 def set_install_dir(dir):
     global install_dir
