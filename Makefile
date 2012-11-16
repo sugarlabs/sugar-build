@@ -1,6 +1,5 @@
 SCRIPTS = $(CURDIR)/scripts
 COMMANDS = $(CURDIR)/commands
-LOG = $(SCRIPTS)/log-command
 
 all: build
 
@@ -25,7 +24,7 @@ run: x11-utils
 	$(SCRIPTS)/shell/start-sugar
 
 test: x11-utils
-	$(LOG) "$(SCRIPTS)/run-ui-tests" $(LOGFILE)
+	$(SCRIPTS)/run-ui-tests
 
 shell: x11-utils
 	@PS1="[sugar-build \W]$$ " \

@@ -21,6 +21,7 @@ def _add_path(name, path):
 def _setup_variables():
     _add_path("LD_LIBRARY_PATH", config.lib_dir)
     _add_path("PATH", config.bin_dir)
+    _add_path("PATH", config.commands_dir)
 
     _add_path("GIO_EXTRA_MODULES",
               os.path.join(config.system_lib_dir, "gio", "modules"))

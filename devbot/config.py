@@ -4,6 +4,7 @@ import os
 from devbot import distro
 
 config_dir = None
+commands_dir = None
 install_dir = None
 source_dir = None
 build_dir = None
@@ -49,6 +50,10 @@ def set_source_dir(dir):
 def set_build_dir(dir):
     global build_dir
     build_dir = dir
+
+def set_commands_dir(dir):
+    global commands_dir
+    commands_dir = dir
 
 def load_packages():
     return _load_deps_json("packages-%s" % distro.get_system_version())
