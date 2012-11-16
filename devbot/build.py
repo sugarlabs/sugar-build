@@ -46,7 +46,7 @@ def get_module_build_dir(module):
 
 def get_module_commit_id(module):
     orig_cwd = os.getcwd()
-    os.chdir(get_module_source_dir(module))
+    os.chdir(config.get_module_source_dir(module))
 
     commit_id = subprocess.check_output(["git", "rev-parse", "HEAD"])
 
@@ -64,7 +64,7 @@ def unlink_libtool_files():
     os.chdir(orig_cwd)
 
 def pull_source(module):
-    module_dir = get_module_source_dir(module)
+    module_dir = config.get_module_source_dir(module)
 
     if os.path.exists(module_dir):
         os.chdir(module_dir)
@@ -81,7 +81,7 @@ def pull_source(module):
     command.run(["git", "checkout", branch])
 
 def build_autotools(module):
-    autogen = os.path.join(get_module_source_dir(module), "autogen.sh")
+    autogen = os.path.join(config.get_module_source_dir(module), "autogen.sh")
 
     jobs = multiprocessing.cpu_count() * 2
 
@@ -98,10 +98,10 @@ def build_activity(module):
     command.run(["./setup.py", "install", "--prefix", config.install_dir])
 
 def build_module(module):
-    module_source_dir = get_module_source_dir(module)
+    module_source_dir = config.get_module_source_dir(module)
 
     if module.get("out-of-source", True):
-        module_build_dir = get_module_build_dir(module)
+        module_build_dir = config.get_module_build_dir(module)
 
         if not os.path.exists(module_build_dir):
             os.mkdir(module_build_dir)
@@ -161,4 +161,4 @@ def clean():
 
     for module in config.load_modules():
         if not module.get("out-of-source", True):
-            rmtree(get_module_source_dir(module))
+            rmtree(config.get_module_source_dir(module))

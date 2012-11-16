@@ -1,45 +1,8 @@
 #!/usr/bin/python
 
-from distutils.sysconfig import parse_makefile
-import os
-import shutil
-
 import common
 
-from gi.repository import Gio
-from gi.repository import GLib
-
-from devbot import config
-
-shell_dir = os.path.abspath(os.path.dirname(__file__))
-monitors = []
-
-def install(file):
-    dir = os.path.dirname(file.get_path())
-    relative_path = os.path.relpath(dir, config.source_dir)
-    makefile_path = os.path.join(config.build_dir, relative_path, "Makefile")
-    makefile = parse_makefile(makefile_path)
-
-    for variable in makefile:
-        if variable.endswith("_PYTHON"):
-            dir_variable = "%sdir" % variable.replace("_PYTHON", "")
-            install_dir = makefile[dir_variable]
-            shutil.copy(file.get_path(), install_dir)
-
-def changed_cb(monitor, file, other_file, event_flags):
-    if event_flags == Gio.FileMonitorEvent.CHANGED:
-        if file.get_path().endswith(".py"):
-            install(file)
-
-for root, dirs, files in os.walk(os.getcwd()):
-    for dir in dirs:
-        file = Gio.File.new_for_path(os.path.join(root, dir))
-        monitor = file.monitor(Gio.FileMonitorFlags.NONE, None)
-        monitor.connect("changed", changed_cb)
-
-        monitors.append(monitor)
+from devbot import autoinstall
 
 common.setup()
-
-main_loop = GLib.MainLoop()
-main_loop.run()
+autoinstall.observe()

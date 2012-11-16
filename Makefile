@@ -4,6 +4,9 @@ include Makefile.helpers
 
 all: build
 
+auto-install:
+	@$(COMMANDS)/auto-install
+
 check-system:
 	@$(COMMANDS)/check-system $(ARGS)
 

@@ -60,6 +60,12 @@ def set_commands_dir(dir):
     global commands_dir
     commands_dir = dir
 
+def get_module_source_dir(module):
+    return os.path.join(source_dir, module["name"])
+
+def get_module_build_dir(module):
+    return os.path.join(build_dir, module["name"])
+
 def load_packages():
     return _load_deps_json("packages-%s" % distro.get_system_version())
 
