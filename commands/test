@@ -1,11 +1,11 @@
 #!/bin/sh
 
-scriptsdir=`dirname "$0"`
-rootdir=`dirname "$scriptsdir"`
+commandsdir=`dirname "$0"`
+helpersdir=$commandsdir/helpers
+rootdir=`dirname "$helpersdir"`
 testsdir=$rootdir/tests
-scriptsdir=$rootdir/scripts
 logsdir=$rootdir/logs
-display=`$scriptsdir/find-free-display`
+display=`$helpersdir/find-free-display`
 resolution=1024x768x16
 
 xvfb=`which Xvfb`
@@ -19,7 +19,7 @@ export SUGAR_LOGGER_LEVEL=debug
 export GTK_MODULES=gail:atk-bridge
 export SUGAR_UI_TESTS=yes
 
-xinit $scriptsdir/xinitrc -- $xserver &
+xinit $helpersdir/xinitrc -- $xserver &
 xinitpid=$!
 
 sleep 5

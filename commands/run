@@ -1,9 +1,40 @@
-#!/usr/bin/python
+#!/bin/bash
 
-import common
-import sys
+commandsdir=`dirname "$0"`
+helpersdir=$commandsdir/helpers
+rootdir=`dirname "$commandsdir"`
+display=`$helpersdir/find-free-display`
 
-from devbot import run
+if [ -f $rootdir/config ]; then
+    source $rootdir/config
+fi
 
-common.setup()
-run.run(sys.argv[1:])
+if [ -n $SUGAR_DISPLAY ]; then
+    SUGAR_XKBCONFIG=`mktemp -t sugar-xkbconfig-XXXXXX`
+    setxkbmap -print > $SUGAR_XKBCONFIG
+    export SUGAR_XKBCONFIG
+fi
+
+if [ ! -z $SUGAR_PROFILE ]; then
+    grep -q PROFILE $rootdir/config
+    if [ $? -eq 1 ]; then
+        randomstring=`</dev/urandom tr -cd A-Za-z0-9 | head -c10`
+        echo "PROFILE=$randomstring" >> $ROOT_DIR/config
+    fi
+fi
+
+if [ -z $DISPLAY ]; then
+    tty_num=`tty | grep -oE '[0-9]+$'`
+    x_options="vt$tty_num"
+
+    xinit $helpersdir/xinitrc -- $display $x_options
+else
+    screen_dpi=`$helpersdir/get-screen-dpi`
+    xephyr_options="-dpi $screen_dpi"
+
+    if [ -z $RUN_IN_WINDOW ]; then
+        xephyr_options="$xephyr_options -fullscreen"
+    fi
+
+    xinit $helpersdir/xinitrc -- /usr/bin/Xephyr $display $xephyr_options
+fi

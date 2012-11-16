@@ -4,26 +4,26 @@ unset GNOME_KEYRING_CONTROL
 unset GNOME_KEYRING_PID
 unset SESSION_MANAGER
 
-SCRIPTS_DIR=`dirname "$0"`
-ROOT_DIR=`dirname "$SCRIPTS_DIR"`
-COMMANDS_DIR=$ROOT_DIR/commands
+HELPERS_DIR=`dirname "$0"`
+COMMANDS_DIR=`dirname "$HELPERS_DIR"`
+ROOT_DIR=`dirname "$COMMANDS_DIR"`
 
 if [ ! -z $SUGAR_PROFILE ]; then
-    grep -q PROFILE $ROOT_DIR/config
+    grep -q PROFILE $ROOT_DIR/prefs
     if [ $? -ne 0 ]; then
         randomstring=`</dev/urandom tr -cd A-Za-z0-9 | head -c10`
-        echo "PROFILE=$randomstring" >> $ROOT_DIR/config
+        echo "PROFILE=$randomstring" >> $ROOT_DIR/prefs
     fi
 fi
 
-if [ -f $ROOT_DIR/config ]; then
-    source $ROOT_DIR/config
+if [ -f $ROOT_DIR/prefs ]; then
+    source $ROOT_DIR/prefs
 fi
 
 # Sugar doesn't handle multiple outputs properly. To avoid issues we keep the
 # first output in the list returned by xrandr and turn off everything else.
 
-OUTPUTS=`$SCRIPTS_DIR/list-outputs`
+OUTPUTS=`$HELPERS_DIR/list-outputs`
 
 for output in $OUTPUTS
 do
@@ -53,10 +53,6 @@ if [ ! -z $SUGAR_XKBCONFIG ]; then
     rm $SUGAR_XKBCONFIG
 fi
 
-RUN_COMMAND="dbus-launch --exit-with-session $SCRIPTS_DIR/run-with-keyring sugar"
+RUN_COMMAND="dbus-launch --exit-with-session $HELPERS_DIR/run-with-keyring sugar"
 
-if [ -z $SUGAR_BUILD_SHELL ]; then
-    $COMMANDS_DIR/run $RUN_COMMAND
-else
-    $RUN_COMMAND
-fi
+$COMMANDS_DIR/run-command $RUN_COMMAND

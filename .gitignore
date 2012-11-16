@@ -6,6 +6,6 @@ source/
 logs/*.log
 logs/*.tar
 logs/all-logs.tar.bz2
-scripts/list-outputs
-scripts/find-free-display
+commands/helpers/list-outputs
+commands/helpers/find-free-display
 config

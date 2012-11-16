@@ -1,7 +1,7 @@
 #!/bin/sh
 
-scriptsdir=`dirname "$0"`
-rootdir=`dirname "$scriptsdir"`
+commandsdir=`dirname "$0"`
+rootdir=`dirname "$commandsdir"`
 buildlogsdir=$rootdir/logs
 sugarlogsdir=~/.sugar/default/logs
 tarfile=$buildlogsdir/all-logs.tar.bz2
