@@ -1,8 +1,12 @@
-#!/usr/bin/python -u
+#!/bin/bash
 
-import common
+commandsdir=`dirname "$0"`
+rootdir=`dirname "$commandsdir"`
+helpersdir=$commandsdir/helpers
 
-from devbot import build
+timestamp=`date +%Y%m%d-%H%M%S`
+logfile=$rootdir/logs/build-$timestamp.log
 
-common.setup()
-build.build()
+PYTHONPATH=$commandsdir $helpersdir/build | tee -a $logfile
+
+exit ${PIPESTATUS[0]} 

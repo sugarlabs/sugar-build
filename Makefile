@@ -1,5 +1,3 @@
-TIMESTAMP := $(shell date +%Y%m%d-%H%M%S)
-LOGFILE = $(CURDIR)/logs/build-$(TIMESTAMP).log
 SCRIPTS = $(CURDIR)/scripts
 COMMANDS = $(CURDIR)/commands
 LOG = $(SCRIPTS)/log-command
@@ -21,7 +19,7 @@ check-system:
 	$(COMMANDS)/check-system $(ARGS)
 
 build: check-system
-	$(LOG) "$(COMMANDS)/build" $(LOGFILE)
+	$(COMMANDS)/build
 
 run: x11-utils
 	$(SCRIPTS)/shell/start-sugar
