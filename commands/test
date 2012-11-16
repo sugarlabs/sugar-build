@@ -2,7 +2,7 @@
 
 commandsdir=`dirname "$0"`
 helpersdir=$commandsdir/helpers
-rootdir=`dirname "$helpersdir"`
+rootdir=`dirname "$commandsdir"`
 testsdir=$rootdir/tests
 logsdir=$rootdir/logs
 display=`$helpersdir/find-free-display`
