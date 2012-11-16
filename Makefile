@@ -33,7 +33,7 @@ shell: x11-utils
 	$(COMMANDS)/shell
 
 bug-report:
-	@$(SCRIPTS)/bug-report
+	$(COMMANDS)/bug-report
 
 clean:
 	$(COMMANDS)/clean
