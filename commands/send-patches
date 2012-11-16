@@ -6,12 +6,11 @@ import re
 import subprocess
 import sys
 
-GIT_CONFIG_SETUP = "sugar-build.send-patches.setup"
+import common
 
-shell_dir = os.path.abspath(os.path.dirname(__file__))
-scripts_dir = os.path.dirname(shell_dir)
-root_dir = os.path.dirname(scripts_dir)
-source_dir = os.path.join(root_dir, "source")
+from devbot import config
+
+GIT_CONFIG_SETUP = "sugar-build.send-patches.setup"
 
 def get_git_config(name, is_global=False):
     args = ["git", "config"]
@@ -89,7 +88,9 @@ def setup():
 
     set_git_config(GIT_CONFIG_SETUP, "true")
 
-if os.path.dirname(os.getcwd()) != source_dir:
+common.setup()
+
+if os.path.dirname(os.getcwd()) != config.source_dir:
     print "The command must be run inside one of the source modules."
     sys.exit(1)
 

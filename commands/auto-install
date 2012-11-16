@@ -4,21 +4,20 @@ from distutils.sysconfig import parse_makefile
 import os
 import shutil
 
+import common
+
 from gi.repository import Gio
 from gi.repository import GLib
 
-shell_dir = os.path.abspath(os.path.dirname(__file__))
-scripts_dir = os.path.dirname(shell_dir)
-root_dir = os.path.dirname(scripts_dir)
-source_dir = os.path.join(root_dir, "source")
-build_dir = os.path.join(root_dir, "build")
+from devbot import config
 
+shell_dir = os.path.abspath(os.path.dirname(__file__))
 monitors = []
 
 def install(file):
     dir = os.path.dirname(file.get_path())
-    relative_path = os.path.relpath(dir, source_dir)
-    makefile_path = os.path.join(build_dir, relative_path, "Makefile")
+    relative_path = os.path.relpath(dir, config.source_dir)
+    makefile_path = os.path.join(config.build_dir, relative_path, "Makefile")
     makefile = parse_makefile(makefile_path)
 
     for variable in makefile:
@@ -39,6 +38,8 @@ for root, dirs, files in os.walk(os.getcwd()):
         monitor.connect("changed", changed_cb)
 
         monitors.append(monitor)
+
+common.setup()
 
 main_loop = GLib.MainLoop()
 main_loop.run()
