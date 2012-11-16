@@ -38,6 +38,8 @@ def changed_cb(monitor, file, other_file, event_flags, module):
 def observe():
     for module in config.load_modules():
         if module.get("autoinstall", False):
+            print "Observing the %s module" % module["name"]
+
             source_dir = config.get_module_source_dir(module)
             for root, dirs, files in os.walk(source_dir):
                 for dir in dirs:
