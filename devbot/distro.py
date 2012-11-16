@@ -90,10 +90,10 @@ class UbuntuPackageManager:
         command.run_with_sudo(args, test=self._test)
 
     def remove_packages(self, packages):
-        args = ["dpkg", "-e"]
+        args = ["dpkg", "-P"]
         args.extend(packages)
 
-        command.run_with_sudo(args, test=True)
+        command.run_with_sudo(args, test=self._test)
 
     def update(self):
         command.run_with_sudo(["apt-get", "update"], test=self._test)
