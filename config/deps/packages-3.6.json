@@ -79,7 +79,8 @@
                "ubuntu-minimal",
                "ubuntu-standard",
                "git", 
-               "dash"] },
+               "dash",
+               "bash"] },
   "xinit":
   { "fedora": "xorg-x11-xinit",
     "ubuntu": "xinit" },
