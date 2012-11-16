@@ -78,7 +78,8 @@
                "plymouth-theme-ubuntu-text",
                "ubuntu-minimal",
                "ubuntu-standard",
-               "git"] },
+               "git", 
+               "dash"] },
   "xinit":
   { "fedora": "xorg-x11-xinit",
     "ubuntu": "xinit" },
