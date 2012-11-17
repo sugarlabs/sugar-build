@@ -2,6 +2,8 @@
    "checker": "binary" },
  { "check": "autoreconf",
    "checker": "binary" },
+ { "check": "sphinx-build",
+   "checker": "binary" },
  { "check": "xrdb",
    "checker": "binary" },
  { "check": "aclocal",

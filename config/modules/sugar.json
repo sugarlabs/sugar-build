@@ -1,4 +1,7 @@
-[{ "name": "sugar-base",
+[{ "name": "sugar-docs",
+   "repo": "git://git.sugarlabs.org/sugar-docs/sugar-docs.git",
+   "out-of-source": false },
+ { "name": "sugar-base",
    "repo": "git://git.sugarlabs.org/sugar-base/mainline.git" },
  { "name": "sugar-toolkit",
    "repo": "git://git.sugarlabs.org/sugar-toolkit/mainline.git" },

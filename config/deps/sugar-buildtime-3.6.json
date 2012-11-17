@@ -1,5 +1,7 @@
 [{ "check": "gcc",
    "checker": "binary" },
+ { "check": "sphinx-build",
+   "checker": "binary" },
  { "check": "autoreconf",
    "checker": "binary" },
  { "check": "xrdb",

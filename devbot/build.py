@@ -80,6 +80,9 @@ def pull_source(module):
     branch = module.get("branch", "master")
     command.run(["git", "checkout", branch])
 
+def build_make(module):
+    command.run(["make"])
+
 def build_autotools(module):
     autogen = os.path.join(config.get_module_source_dir(module), "autogen.sh")
 
@@ -114,6 +117,8 @@ def build_module(module):
         build_activity(module)
     elif os.path.exists(os.path.join(module_source_dir, "autogen.sh")):
         build_autotools(module)
+    elif os.path.exists(os.path.join(module_source_dir, "Makefile")):
+        build_make(module)
     else:
         print "Unknown build system"
         sys.exit(1)
