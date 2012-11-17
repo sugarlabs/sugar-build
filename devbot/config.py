@@ -84,22 +84,23 @@ def get_module_build_dir(module):
 def load_packages():
     packages = {}
 
-    for package_file in package_files:
-        deps = _load_deps_json(package_file)
-        for key, value in deps.items():
-            packages[key] = value
+    for file in package_files:
+        path = os.path.join(config_dir, "packages", "%s.json" % file)
+        packages.update(json.load(open(path)))
 
     return packages
 
 def load_prerequisites():
-    return _load_deps_json("prerequisites")
+    path = os.path.join(config_dir, "deps", "prerequisites.json")
+    return json.load(open(path))
 
 def load_checks():
     version = distro.get_system_version()
 
     checks = []
-    for check_file in dep_files:
-        checks.extend(_load_deps_json(check_file))
+    for file in dep_files:
+        path = os.path.join(config_dir, "deps", "%s.json" % file)
+        checks.extend(json.load(open(path)))
 
     return checks
 
@@ -112,12 +113,8 @@ def load_modules():
 
     modules = []
 
-    for module_file in module_files:
-        path = os.path.join(config_dir, "modules", module_file)
+    for file in module_files:
+        path = os.path.join(config_dir, "modules", file)
         modules.extend(json.load(open(path)))
 
     return modules
-
-def _load_deps_json(name):
-    path = os.path.join(config_dir, "deps", "%s.json" % name)
-    return json.load(open(path))
