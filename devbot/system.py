@@ -120,27 +120,6 @@ def stop_xvfb(xvfb_proc, orig_display):
 
     xvfb_proc.terminate()
 
-def apply_ubuntu_tweaks():
-    # FIXME we don't want the package to depend on external scripts
-    devbot_dir = os.path.abspath(os.path.dirname(__file__))
-    scripts_dir = os.path.join(os.path.dirname(devbot_dir), "scripts")
-
-    wrapper_config = open("/etc/X11/Xwrapper.config").read()
-    if "allowed_users=anybody" not in wrapper_config:
-        if "SUGAR_BUILDBOT" in os.environ:
-            print "\nPlease allow anybody to run the X server with \n" \
-                  "  sudo dpkg-reconfigure x11-common"        
-        else:  
-            print "\nWe are going to allow anybody to run the X server"            
-            ubuntu_tweaks = os.path.join(config.commands_dir,
-                                         "helpers",
-                                         "ubuntu-tweaks")            
-            command.run_with_sudo([ubuntu_tweaks])
-
-def apply_distro_tweaks(distro_name):
-    if distro_name == "ubuntu":
-        apply_ubuntu_tweaks()
-
 def warn_if_unsupported(distro_name):
     if distro_name == "unsupported":
         print "*********************************************************\n" \
@@ -195,7 +174,6 @@ def check(remove=False, update=False, test=False):
     run_checks(package_manager, config.load_checks(), packages)
 
     warn_if_unsupported(distro_name)
-    apply_distro_tweaks(distro_name)
 
     stop_xvfb(xvfb_proc, orig_display)
 

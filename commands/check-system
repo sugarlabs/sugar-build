@@ -17,4 +17,16 @@ parser.add_argument("--test", action="store_true",
                     help="don't add or remove packages, test only")
 args = parser.parse_args()
 
+def apply_ubuntu_tweaks():
+    wrapper_config = open("/etc/X11/Xwrapper.config").read()
+    if "allowed_users=anybody" not in wrapper_config:
+        print "\nWe are going to allow anybody to run the X server"
+
+        ubuntu_tweaks = os.path.join(config.commands_dir,
+                                     "helpers", "ubuntu-tweaks")
+
+        command.run_with_sudo([ubuntu_tweaks])
+
+apply_ubuntu_tweaks()
+
 system.check(update=args.update, remove=args.remove, test=args.test)
