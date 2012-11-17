@@ -64,10 +64,6 @@ checkers = { "binary": check_binary,
              "metacity-theme": check_metacity_theme,
              "include": check_include }
 
-def load_deps_json(name):
-    path = os.path.join(scriptdir, "deps", "%s.json" % name)
-    return json.load(open(path))
-
 def run_checks(package_manager, checks, packages):
     distro_name = distro.get_distro_name()
 
