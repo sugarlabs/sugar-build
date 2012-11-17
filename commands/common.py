@@ -32,7 +32,8 @@ def setup():
 
     config.set_dep_files(dep_files)
 
-    package_files = ["deps-%s" % version]
+    package_files = ["basesystem",
+                     "deps-%s" % version]
 
     if "SUGAR_BUILDBOT" in os.environ:
         package_files.append("buildslave")
