@@ -143,9 +143,9 @@ def get_package_manager(test=False, interactive=True):
     name, version = _get_distro_info()
 
     if name == "fedora":
-        return FedoraPackageManager(test=test, interactive=True)
+        return FedoraPackageManager(test=test, interactive=interactive)
     elif name == "ubuntu":
-        return UbuntuPackageManager(test=test, interactive=True)
+        return UbuntuPackageManager(test=test, interactive=interactive)
 
 def get_system_version():
     name, version = _get_distro_info()
