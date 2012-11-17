@@ -28,7 +28,6 @@
                "xorg-x11-server-Xorg",
                "grub2",
                "setserial",
-               "buildbot",
                "rootfiles",
                "e2fsprogs",
                "openssh-server",

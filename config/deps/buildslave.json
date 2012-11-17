@@ -1,0 +1,3 @@
+{ "buildslave":
+  { "fedora": ["buildbot"] }
+}

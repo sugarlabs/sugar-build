@@ -8,4 +8,3 @@ logs/*.tar
 logs/all-logs.tar.bz2
 commands/helpers/list-outputs
 commands/helpers/find-free-display
-config

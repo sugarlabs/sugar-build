@@ -30,6 +30,9 @@ def setup():
                  "sugar-buildtime-%s" % version,
                  "sugar-runtime-%s" % version]
 
+    if "SUGAR_BUILDBOT" in os.environ:
+        dep_files.append("buildslave")
+
     config.set_dep_files(dep_files)
 
     package_files = ["packages-%s" % version]
