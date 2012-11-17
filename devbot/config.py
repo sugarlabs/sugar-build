@@ -82,9 +82,14 @@ def get_module_build_dir(module):
     return os.path.join(build_dir, module["name"])
 
 def load_packages():
-    packages = []
+    packages = {}
+
     for package_file in package_files:
-        packages.extend(_load_deps_json(package_file))
+        deps = _load_deps_json(package_file)
+        for key, value in deps.items():
+            packages[key] = value
+
+    return packages
 
 def load_prerequisites():
     return _load_deps_json("prerequisites")
@@ -116,4 +121,3 @@ def load_modules():
 def _load_deps_json(name):
     path = os.path.join(config_dir, "deps", "%s.json" % name)
     return json.load(open(path))
-
