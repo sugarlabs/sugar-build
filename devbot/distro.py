@@ -87,7 +87,12 @@ class UbuntuPackageManager:
         self._cache = apt.cache.Cache()
 
     def install_packages(self, packages):
-        args = ["apt-get", "install"]
+        args = ["apt-get"]
+
+        if not self._interactive:
+            args.append("-y")
+
+        args.append("install")
         args.extend(packages)
 
         command.run_with_sudo(args, test=self._test)
@@ -100,7 +105,15 @@ class UbuntuPackageManager:
 
     def update(self):
         command.run_with_sudo(["apt-get", "update"], test=self._test)
-        command.run_with_sudo(["apt-get", "-y", "upgrade"], test=self._test)
+
+        args = ["apt-get"]
+
+        if not self._interactive:
+            args.append("-y")
+
+        args.append("upgrade")
+
+        command.run_with_sudo(args, test=self._test)
 
     def find_all(self):
         return [package.name for package in self._cache
