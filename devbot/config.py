@@ -14,6 +14,9 @@ devbot_dir = None
 share_dir = None
 bin_dir = None
 etc_dir = None
+dep_files = None
+module_files = None
+package_files = None
 use_lib64 = os.uname()[4] == "x86_64"
 
 if use_lib64:
@@ -60,6 +63,18 @@ def set_commands_dir(dir):
     global commands_dir
     commands_dir = dir
 
+def set_dep_files(files):
+    global dep_files
+    dep_files = files
+
+def set_module_files(files):
+    global module_files
+    module_files = files
+
+def set_package_files(files):
+    global package_files
+    package_files = files
+
 def get_module_source_dir(module):
     return os.path.join(source_dir, module["name"])
 
@@ -67,7 +82,9 @@ def get_module_build_dir(module):
     return os.path.join(build_dir, module["name"])
 
 def load_packages():
-    return _load_deps_json("packages-%s" % distro.get_system_version())
+    packages = []
+    for package_file in package_files:
+        packages.extend(_load_deps_json(package_file))
 
 def load_prerequisites():
     return _load_deps_json("prerequisites")
@@ -75,13 +92,8 @@ def load_prerequisites():
 def load_checks():
     version = distro.get_system_version()
 
-    check_files = ["system",
-                   "sugar-build",
-                   "sugar-buildtime-%s" % version,
-                   "sugar-runtime-%s" % version]
-
     checks = []
-    for check_file in check_files:
+    for check_file in dep_files:
         checks.extend(_load_deps_json(check_file))
 
     return checks

@@ -160,7 +160,7 @@ def remove_packages(package_manager, packages):
         package_manager.remove_packages(to_remove)
 
 def check(remove=False, update=False, test=False, interactive=True):
-    package_manager =
+    package_manager = \
         distro.get_package_manager(test=test, interactive=interactive)
 
     distro_name = distro.get_distro_name()
