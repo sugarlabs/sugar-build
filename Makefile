@@ -30,3 +30,7 @@ bug-report:
 
 clean: clean-helpers
 	@$(COMMANDS)/clean
+
+upload-docs:
+	rsync -r --progress ./source/sugar-docs/build/ \
+		dnarvaez@shell.sugarlabs.org:~/public_html/sugar-docs/
