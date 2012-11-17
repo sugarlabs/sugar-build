@@ -5,6 +5,8 @@ import argparse
 import common
 
 from devbot import system
+from devbot import config
+from devbot import distro
 
 common.setup()
 
@@ -27,6 +29,7 @@ def apply_ubuntu_tweaks():
 
         command.run_with_sudo([ubuntu_tweaks])
 
-apply_ubuntu_tweaks()
+if distro.get_distro_name() == "ubuntu":
+    apply_ubuntu_tweaks()
 
 system.check(update=args.update, remove=args.remove, test=args.test)
