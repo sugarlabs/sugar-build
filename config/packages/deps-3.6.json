@@ -1,7 +1,7 @@
 { "Xvfb":
   { "fedora": "xorg-x11-server-Xvfb",
     "ubuntu": "xvfb" },
-  "sphinx-build",
+  "sphinx-build":
   { "fedora": "python-sphinx",
     "ubuntu": "python-sphinx" },
   "xinit":
