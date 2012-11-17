@@ -75,11 +75,14 @@ def load_prerequisites():
 def load_checks():
     version = distro.get_system_version()
 
+    check_files = ["system",
+                   "sugar-build",
+                   "sugar-buildtime-%s" % version,
+                   "sugar-runtime-%s" % version]
+
     checks = []
-    checks.extend(_load_deps_json("system"))
-    checks.extend(_load_deps_json("sugar-build"))
-    checks.extend(_load_deps_json("sugar-buildtime-%s" % version))
-    checks.extend(_load_deps_json("sugar-runtime-%s" % version))
+    for check_file in check_files:
+        checks.extend(_load_deps_json(check_file))
 
     return checks
 
