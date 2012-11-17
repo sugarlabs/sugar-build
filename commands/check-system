@@ -32,4 +32,9 @@ def apply_ubuntu_tweaks():
 if distro.get_distro_name() == "ubuntu":
     apply_ubuntu_tweaks()
 
-system.check(update=args.update, remove=args.remove, test=args.test)
+interactive = "SUGAR_BUILDBOT" not in os.environ
+
+system.check(update=args.update,
+             remove=args.remove,
+             test=args.test,
+             interactive=interactive)

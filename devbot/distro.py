@@ -4,13 +4,14 @@ import subprocess
 from devbot import command
 
 class FedoraPackageManager:
-    def __init__(self, test=False):
+    def __init__(self, test=False, interactive=True):
         self._test = test
+        self._interactive = interactive
 
     def install_packages(self, packages):
         args = ["yum"]
 
-        if "SUGAR_BUILDBOT" in os.environ:
+        if not self._interactive:
             args.append("-y")
 
         args.append("install")
@@ -27,7 +28,7 @@ class FedoraPackageManager:
     def update(self):
         args = ["yum"]
 
-        if "SUGAR_BUILDBOT" in os.environ:
+        if self._interactive:
             args.append("-y")
 
         args.append("update")
@@ -77,10 +78,12 @@ class FedoraPackageManager:
                     self._find_deps(dep_package, result)
 
 class UbuntuPackageManager:
-    def __init__(self, test=False):
+    def __init__(self, test=False, interactive=True):
         import apt
 
         self._test = test
+        self._interactive = interactive
+
         self._cache = apt.cache.Cache()
 
     def install_packages(self, packages):
@@ -136,13 +139,13 @@ class UbuntuPackageManager:
 
         return result
 
-def get_package_manager(test=False):
+def get_package_manager(test=False, interactive=True):
     name, version = _get_distro_info()
 
     if name == "fedora":
-        return FedoraPackageManager(test=test)
+        return FedoraPackageManager(test=test, interactive=True)
     elif name == "ubuntu":
-        return UbuntuPackageManager(test=test)
+        return UbuntuPackageManager(test=test, interactive=True)
 
 def get_system_version():
     name, version = _get_distro_info()

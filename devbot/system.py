@@ -159,10 +159,11 @@ def remove_packages(package_manager, packages):
     if to_remove:
         package_manager.remove_packages(to_remove)
 
-def check(remove=False, update=False, test=False):
-    distro_name = distro.get_distro_name()
-    package_manager = distro.get_package_manager(test=test)
+def check(remove=False, update=False, test=False, interactive=True):
+    package_manager =
+        distro.get_package_manager(test=test, interactive=interactive)
 
+    distro_name = distro.get_distro_name()
     packages = config.load_packages()
 
     checks = config.load_prerequisites()
