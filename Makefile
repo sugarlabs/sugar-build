@@ -16,9 +16,6 @@ build: check-system
 run: helpers
 	@$(COMMANDS)/run
 
-run-command: helpers
-	@$(COMMANDS)/run-command
-
 test: helpers
 	@$(COMMANDS)/test
 
