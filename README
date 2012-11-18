@@ -1,15 +1,4 @@
-= Supported distributions =
+sugar-build is a set of scripts to make it easy to build all the sugar modules
+and some of the required dependencies. Please read the documentation at
 
-For all the distributions your user need admin rights (i.e. it should
-be able to run the su command).
-
-Fedora 17 (32-bit and 64-bit)
-Ubuntu 12.10 (32-bit and 64-bit)
-
-Experimental:
-
-Fedora 18 (32-bit and 64-bit)
-
-= Documentation =
-
-See http://sugarlabs.org/~dnarvaez/sugar-docs/
+http://sugarlabs.org/~dnarvaez/sugar-docs/build/build.html
