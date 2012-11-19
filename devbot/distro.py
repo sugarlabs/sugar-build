@@ -4,7 +4,7 @@ import subprocess
 from devbot import command
 
 class FedoraPackageManager:
-    def __init__(self, test=False, interactive=interactive):
+    def __init__(self, test=False, interactive=True):
         self._test = test
         self._interactive = interactive
 
