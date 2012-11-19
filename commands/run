@@ -9,7 +9,7 @@ if [ -f $rootdir/prefs ]; then
     source $rootdir/prefs
 fi
 
-if [ -n $SUGAR_DISPLAY ]; then
+if [ ! -z $DISPLAY ]; then
     SUGAR_XKBCONFIG=`mktemp -t sugar-xkbconfig-XXXXXX`
     setxkbmap -print > $SUGAR_XKBCONFIG
     export SUGAR_XKBCONFIG
