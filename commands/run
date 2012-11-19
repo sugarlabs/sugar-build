@@ -5,8 +5,8 @@ helpersdir=$commandsdir/helpers
 rootdir=`dirname "$commandsdir"`
 display=`$helpersdir/find-free-display`
 
-if [ -f $rootdir/config ]; then
-    source $rootdir/config
+if [ -f $rootdir/prefs ]; then
+    source $rootdir/prefs
 fi
 
 if [ -n $SUGAR_DISPLAY ]; then
@@ -16,10 +16,10 @@ if [ -n $SUGAR_DISPLAY ]; then
 fi
 
 if [ ! -z $SUGAR_PROFILE ]; then
-    grep -q PROFILE $rootdir/config
+    grep -q PROFILE $rootdir/prefs
     if [ $? -eq 1 ]; then
         randomstring=`</dev/urandom tr -cd A-Za-z0-9 | head -c10`
-        echo "PROFILE=$randomstring" >> $ROOT_DIR/config
+        echo "PROFILE=$randomstring" >> $ROOT_DIR/prefs
     fi
 fi
 
