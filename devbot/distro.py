@@ -28,7 +28,7 @@ class FedoraPackageManager:
     def update(self):
         args = ["yum"]
 
-        if self._interactive:
+        if not self._interactive:
             args.append("-y")
 
         args.append("update")
