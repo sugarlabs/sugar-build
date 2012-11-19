@@ -6,4 +6,4 @@ import sys
 from devbot import run
 
 common.setup()
-run.run(sys.argv[1:])
+run.run_command(sys.argv[1:])
