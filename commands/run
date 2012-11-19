@@ -32,13 +32,17 @@ else
     screen_dpi=`$helpersdir/get-screen-dpi`
     xephyr_options="-dpi $screen_dpi"
 
-    if [ -z $RUN_IN_WINDOW ]; then
-        xephyr_options="$xephyr_options -fullscreen"
-    fi
+    xidfile=`mktemp -t sugar-xephyr-xid-XXXXXX`
+    $helpersdir/xephyr-window $RESOLUTION > $xidfile &
+    xephyrwindowpid=$!
 
-    if [ ! -z $RESOLUTION ]; then
-        xephyr_options="$xephyr_options -screen $RESOLUTION"
-    fi
+    while [ ! -s $xidfile ]
+    do
+        sleep 1
+    done
 
+    xephyr_options="$xephyr_options -parent `cat $xidfile`"
     xinit $helpersdir/xinitrc -- /usr/bin/Xephyr $display $xephyr_options
+
+    kill $xephyrwindowpid
 fi

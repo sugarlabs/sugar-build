@@ -1,17 +1,15 @@
 HELPERS = $(COMMANDS)/helpers
 
-XRANDR_LIBS = $(shell pkg-config --libs xrandr x11)
-X11_LIBS = $(shell pkg-config --libs x11)
+HELPERS_LIBS = $(shell pkg-config --libs xrandr x11)
 
-$(HELPERS)/list-outputs: $(HELPERS)/list-outputs.c
-	gcc -o $(HELPERS)/list-outputs \
-            $(HELPERS)/list-outputs.c $(XRANDR_LIBS)
+$(HELPERS)/%: $(HELPERS)/%.c
+	gcc -o $@ $< $(HELPERS_LIBS)
 
-$(HELPERS)/find-free-display: $(HELPERS)/find-free-display.c
-	gcc -o $(HELPERS)/find-free-display \
-            $(HELPERS)/find-free-display.c $(X11_LIBS)
+bin_HELPERS = $(HELPERS)/list-outputs \
+              $(HELPERS)/find-free-display \
+              $(HELPERS)/xephyr-window
 
-helpers: $(HELPERS)/list-outputs $(HELPERS)/find-free-display
+helpers: $(bin_HELPERS)
 
 clean-helpers:
-	rm -f $(HELPERS)/list-outputs $(HELPERS)/find-free-display
+	rm -f $(bin_HELPERS)
