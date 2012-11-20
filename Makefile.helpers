@@ -1,17 +1,15 @@
-.PHONY: helpers clean-helpers
-
-HELPERS = $(COMMANDS)/helpers
+.PHONY: helpers-build helpers-clean
 
 HELPERS_LIBS = $(shell pkg-config --libs xrandr x11)
 
 $(HELPERS)/%: $(HELPERS)/%.c
 	gcc -o $@ $< $(HELPERS_LIBS)
 
-bin_HELPERS = $(HELPERS)/list-outputs \
-              $(HELPERS)/find-free-display \
-              $(HELPERS)/xephyr-window
+bin_HELPERS = $(HELPERS_DIR)/list-outputs \
+              $(HELPERS_DIR)/find-free-display \
+              $(HELPERS_DIR)/xephyr-window
 
-helpers: $(bin_HELPERS)
+helpers-build: $(bin_HELPERS)
 
-clean-helpers:
+helpers-clean:
 	rm -f $(bin_HELPERS)

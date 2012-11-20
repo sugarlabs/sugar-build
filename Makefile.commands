@@ -1,0 +1,25 @@
+.PHONY: auto-install check-system build run test shell bug-report clean
+
+auto-install:
+	@$(COMMANDS_DIR)/auto-install
+
+check-system:
+	@$(COMMANDS_DIR)/check-system $(ARGS)
+
+build: check-system
+	@$(COMMANDS_DIR)/build
+
+run: helpers-build
+	@$(COMMANDS_DIR)/run
+
+test: helpers-build
+	@$(COMMANDS_DIR)/test
+
+shell: helpers-build
+	@$(COMMANDS_DIR)/shell
+
+bug-report:
+	@$(COMMANDS_DIR)/bug-report
+
+clean: helpers-clean
+	@$(COMMANDS_DIR)/clean
