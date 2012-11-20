@@ -2,6 +2,9 @@ COMMANDS = $(CURDIR)/commands
 
 include Makefile.helpers
 
+.PHONY: all auto-install check-system build run test shell bug-report clean \
+        upload-docs
+
 all: build
 
 auto-install:

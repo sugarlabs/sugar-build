@@ -1,3 +1,5 @@
+.PHONY: helpers clean-helpers
+
 HELPERS = $(COMMANDS)/helpers
 
 HELPERS_LIBS = $(shell pkg-config --libs xrandr x11)
