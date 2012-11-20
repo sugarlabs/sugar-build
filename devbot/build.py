@@ -70,11 +70,12 @@ def pull_source(module):
         os.chdir(module_dir)
 
         command.run(["git", "remote", "set-url", "origin", module["repo"]])
-        command.run(["git", "remote", "update", "origin"])
+        command.run(["git", "remote", "updat", "origin"], retry=10)
     else:
         os.chdir(config.source_dir)
         command.run(["git", "clone", "--progress",
-                     module["repo"], module["name"]])
+                     module["repo"], module["name"]],
+                    retry=10)
         os.chdir(module_dir)
 
     branch = module.get("branch", "master")
