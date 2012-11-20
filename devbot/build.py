@@ -70,7 +70,7 @@ def pull_source(module):
         os.chdir(module_dir)
 
         command.run(["git", "remote", "set-url", "origin", module["repo"]])
-        command.run(["git", "remote", "updat", "origin"], retry=10)
+        command.run(["git", "remote", "update", "origin"], retry=10)
     else:
         os.chdir(config.source_dir)
         command.run(["git", "clone", "--progress",
