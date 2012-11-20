@@ -1,7 +1,5 @@
 COMMANDS = $(CURDIR)/commands
 
-include Makefile.helpers
-
 .PHONY: all auto-install check-system build run test shell bug-report clean \
         upload-docs
 
@@ -34,3 +32,5 @@ clean: clean-helpers
 upload-docs:
 	rsync -r --progress ./source/sugar-docs/build/ \
 		dnarvaez@shell.sugarlabs.org:~/public_html/sugar-docs/
+
+include Makefile.helpers
