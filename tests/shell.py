@@ -50,8 +50,9 @@ def launch_and_stop_activity(activity_name):
             activity = root.find_child(name="sugar-activity",
                                        role_name="application")
 
-            stop_button = activity.find_child(name="Stop", role_name="push button")
-            stop_button.do_action("click")
+            stop_buttons = activity.find_children(name="Stop",
+                                                  role_name="push button")
+            stop_buttons[-1].do_action("click")
 
             activity = root.find_child(name="sugar-activity",
                                        role_name="application",
