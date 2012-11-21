@@ -230,6 +230,9 @@
   "gstreamer-1.0":
   { "fedora": "gstreamer1-devel",
     "ubuntu": "libgstreamer1.0-dev" },
+  "pango gstreamer":
+  { "fedora": "gstreamer1-plugins-base",
+    "ubuntu": "gstreamer1.0-x" },
   "playback gstreamer":
   { "fedora": "gstreamer1-plugins-base",
     "ubuntu": "gstreamer1.0-plugins-base" }
