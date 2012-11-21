@@ -36,8 +36,6 @@ def launch_and_stop_activity(activity_name):
         if name == activity_name:
             print "Launching %s" % activity_name 
 
-            time.sleep(10)
-
             icon.click()
 
             print "Stopping %s" % activity_name 
