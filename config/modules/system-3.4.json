@@ -31,10 +31,6 @@
    "repo": "git://anongit.freedesktop.org/gstreamer/gst-plugins-good",
    "branch": "1.0.2",
    "out-of-source": false },
- { "name": "gst-plugins-espeak",
-   "repo": "git://git.sugarlabs.org/gst-plugins-espeak/mainline.git",
-   "branch": "v0.4.0",
-   "out-of-source": false },
  { "name": "libxklavier",
    "repo": "git://anongit.freedesktop.org/libxklavier",
    "branch": "libxklavier-5.3" }]
