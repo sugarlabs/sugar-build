@@ -37,10 +37,6 @@ do
    fi
 done
 
-if [ ! -z $RESOLUTION ]; then
-    xrandr -s $RESOLUTION
-fi
-
 if [ ! -z $SUGAR_UI_TESTS ]; then
     rm -rf ~/.sugar/ui-tests
     export SUGAR_PROFILE=ui-tests
