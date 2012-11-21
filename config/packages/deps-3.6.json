@@ -229,5 +229,8 @@
     "ubuntu": "libgstreamer-plugins-base1.0-dev" },
   "gstreamer-1.0":
   { "fedora": "gstreamer1-devel",
-    "ubuntu": "libgstreamer1.0-dev" }
+    "ubuntu": "libgstreamer1.0-dev" },
+  "playback gstreamer":
+  { "fedora": "gstreamer1-plugins-base",
+    "ubuntu": "gstreamer1.0-plugins-base" }
 }
