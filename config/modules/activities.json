@@ -28,5 +28,8 @@
    "out-of-source": false },
  { "name": "jukebox",
    "repo": "git://git.sugarlabs.org/jukebox/mainline.git",
+   "out-of-source": false },
+ { "name": "turtleart",
+   "repo": "git://git.sugarlabs.org/turtleart/mainline.git",
    "out-of-source": false }
 ]
