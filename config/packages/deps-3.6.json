@@ -4,6 +4,9 @@
   "sphinx-build":
   { "fedora": "python-sphinx",
     "ubuntu": "python-sphinx" },
+  "gconf python":
+  { "fedora": "gnome-python2-gconf",
+    "ubuntu": "python-gconf" },
   "xinit":
   { "fedora": "xorg-x11-xinit",
     "ubuntu": "xinit" },
