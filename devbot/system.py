@@ -46,21 +46,29 @@ def check_dbus(check):
 def check_metacity_theme(check):
     return not os.path.exists("/usr/share/themes/%s/metacity-1/metacity-theme-3.xml" % check)
 
-def check_gstreamer(check):
+def check_gstreamer(check, version):
     missing = True
     
     for libdir in libdirs:
-        if os.path.exists("/usr/%s/gstreamer-0.10/libgst%s.so" % (libdir, check)):
+        if os.path.exists("/usr/%s/gstreamer-%s/libgst%s.so" % \
+                          (libdir, version, check)):
             missing = False
 
     return missing
+
+def check_gstreamer_0_10(check):
+    return check_gstreamer(check, "0.10")
+
+def check_gstreamer_1_0(check):
+    return check_gstreamer(check, "1.0")
 
 checkers = { "binary": check_binary,
              "python": check_python,
              "pkgconfig": check_pkgconfig,
              "gtkmodule": check_gtkmodule,
              "dbus": check_dbus,
-             "gstreamer": check_gstreamer,
+             "gstreamer-0.10": check_gstreamer_0_10,
+             "gstreamer-1.0": check_gstreamer_1_0,
              "metacity-theme": check_metacity_theme,
              "include": check_include }
 

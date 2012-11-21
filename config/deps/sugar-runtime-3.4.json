@@ -78,7 +78,7 @@
    "check": "from gi.repository import Vte",
    "checker": "python" },
  { "check": "video4linux2",
-   "checker": "gstreamer" },
+   "checker": "gstreamer-0.10" },
  { "check_name": "abiword python",
    "check": "import abiword",
    "checker": "python" },
