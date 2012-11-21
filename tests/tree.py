@@ -17,7 +17,9 @@ def retry_find(func):
                    kwargs.get("role_name", None))
 
             result = func(*args, **kwargs)
-            if result:
+            expect_none = kwargs.get("expect_none", False)
+            if (not expect_none and result) or \
+               (expect_none and not result):
                 return result
 
             time.sleep(5)
@@ -43,7 +45,7 @@ class Node:
         return True
 
     @retry_find
-    def find_child(self, name=None, role_name=None):
+    def find_child(self, name=None, role_name=None, expect_none=False):
         def predicate(accessible):
             return self._predicate(accessible, name, role_name)
 

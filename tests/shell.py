@@ -53,6 +53,12 @@ def launch_and_stop_activity(activity_name):
             stop_button = activity.find_child(name="Stop", role_name="push button")
             stop_button.do_action("click")
 
+            activity = root.find_child(name="sugar-activity",
+                                       role_name="application",
+                                       expect_none=True)
+            if activity is not None:
+                raise RuntimeError
+
 def go_to_list_view():
     root = tree.get_root()
     shell = root.find_child(name="sugar-session", role_name="application")
