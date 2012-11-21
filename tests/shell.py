@@ -23,6 +23,8 @@ def build_activities_list():
     return activities
 
 def launch_and_stop_activity(activity_name):
+    print "Launching %s" % activity_name 
+
     root = tree.get_root()
     shell = root.find_child(name="sugar-session", role_name="application")
 
@@ -34,8 +36,6 @@ def launch_and_stop_activity(activity_name):
         icon = row[1]
 
         if name == activity_name:
-            print "Launching %s" % activity_name 
-
             icon.click()
 
             print "Stopping %s" % activity_name 
