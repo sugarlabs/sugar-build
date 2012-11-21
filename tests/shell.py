@@ -3,7 +3,7 @@ import time
 
 import tree
 
-ACTIVITIES_WITH_OBJECT_CHOOSER = []
+ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read"]
 
 def build_activities_list():
     root = tree.get_root()
