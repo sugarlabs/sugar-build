@@ -8,9 +8,6 @@
  { "name": "read",
    "repo": "git://git.sugarlabs.org/read/mainline.git",
    "out-of-source": false },
- { "name": "calculate",
-   "repo": "git://git.sugarlabs.org/calculate/mainline.git",
-   "out-of-source": false },
  { "name": "log",
    "repo": "git://git.sugarlabs.org/log/mainline.git",
    "out-of-source": false },
@@ -28,8 +25,5 @@
    "out-of-source": false },
  { "name": "jukebox",
    "repo": "git://git.sugarlabs.org/jukebox/mainline.git",
-   "out-of-source": false },
- { "name": "turtleart",
-   "repo": "git://git.sugarlabs.org/turtleart/mainline.git",
    "out-of-source": false }
 ]
