@@ -1,5 +1,8 @@
 [{ "check": "atk-bridge",
    "checker": "gtkmodule" },
+ { "check_name": "gail gtkmodule",
+   "check": "gail",
+   "checker": "gtkmodule" },
  { "check": "xinit",
    "checker": "binary" },
  { "check": "Xephyr",

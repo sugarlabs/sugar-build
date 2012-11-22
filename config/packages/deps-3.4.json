@@ -10,6 +10,9 @@
   "xinit":
   { "fedora": "xorg-x11-xinit",
     "ubuntu": "xinit" },
+  "gail gtkmodule":
+  { "fedora": "gtk2",
+    "ubuntu": "libgail-common" },
   "cairo foreign":
   { "fedora": "pygobject3",
     "ubuntu": "python-gi-cairo" },
