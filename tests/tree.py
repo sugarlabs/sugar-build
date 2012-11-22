@@ -1,11 +1,11 @@
 import time
 
-import pyatspi
+from gi.repository import Atspi
 
 def get_root():
-    return Node(pyatspi.Registry.getDesktop(0))
+    return Node(Atspi.get_desktop(0))
 
-def retry_find(func):
+def _retry_find(func):
     def wrapped(*args, **kwargs):
         result = None
         n_retries = 1
@@ -35,64 +35,97 @@ class Node:
     def __init__(self, accessible):
         self._accessible = accessible
 
-    def _predicate(self, accessible, name, role_name): 
-        if name is not None and name != accessible.name:
+    def get_children(self):
+        children = []
+
+        for i in range(self._accessible.get_child_count()):
+            child = self._accessible.get_child_at_index(i)
+
+            # We sometimes get none children from atspi
+            if child is not None:
+                children.append(Node(child))
+
+        return children
+
+    def _predicate(self, node, name, role_name):
+        if name is not None and name != node.name:
             return False
 
-        if role_name is not None and role_name != accessible.getRoleName():
+        if role_name is not None and role_name != node.role_name:
             return False
 
         return True
 
-    @retry_find
-    def find_child(self, name=None, role_name=None, expect_none=False):
-        def predicate(accessible):
-            return self._predicate(accessible, name, role_name)
+    def _find_descendant(self, node, predicate):
+        if predicate(node):
+            return node
 
-        accessible = pyatspi.findDescendant(self._accessible, predicate)
-        if accessible is None:
+        for child in node.get_children():
+            descendant = self._find_descendant(child, predicate)
+            if descendant is not None:
+                return descendant
+
+        return None
+
+    @_retry_find
+    def find_child(self, name=None, role_name=None, expect_none=False):
+        def predicate(node):
+            return self._predicate(node, name, role_name)
+
+        node = self._find_descendant(self, predicate)
+        if node is None:
             return None
 
-        return Node(accessible)
+        return node
 
-    @retry_find
+    def _find_all_descendants(self, node, predicate, matches):
+        if predicate(node):
+            matches.append(node)
+
+        for child in node.get_children():
+            self._find_all_descendants(child, predicate, matches)
+
+    @_retry_find
     def find_children(self, name=None, role_name=None):
-        def predicate(accessible):
-            return self._predicate(accessible, name, role_name)
+        def predicate(node):
+            return self._predicate(node, name, role_name)
 
-        all_accessibles = pyatspi.findAllDescendants(self._accessible, predicate)
-        if not all_accessibles:
+        descendants = []
+        self._find_all_descendants(self, predicate, descendants)
+        if not descendants:
             return []
 
-        return [Node(accessible) for accessible in all_accessibles]
+        return descendants
 
-    def _dump_accessible(self, node, depth):
-        print "  " * depth + str(node._accessible)
+    def __str__(self):
+        return "[%s | %s]" % (self.name, self.role_name)
 
     def _crawl_accessible(self, node, depth):
-        self._dump_accessible(node, depth)
+        print "  " * depth + str(node)
 
-        for child in node._accessible:
-            self._crawl_accessible(Node(child), depth + 1)
+        for child in node.get_children():
+            self._crawl_accessible(child, depth + 1)
 
     def dump(self):
         self._crawl_accessible(self, 0)
 
     def do_action(self, name):
-        action = self._accessible.queryAction()
-        for i in range(action.nActions):
-            if action.getName(i) == name:
-                action.doAction(i)
+        for i in range(self._accessible.get_n_actions()):
+            if Atspi.Action.get_name(self._accessible, i) == name:
+                self._accessible.do_action(i)
 
     def click(self, button=1):
-        component = self._accessible.queryComponent()
-        x, y = component.getPosition(pyatspi.DESKTOP_COORDS)
-        pyatspi.Registry.generateMouseEvent(x, y, "b%sc" % button)
+        point = self._accessible.get_position(Atspi.CoordType.SCREEN)
+        Atspi.generate_mouse_event(point.x, point.y, "b%sc" % button)
 
     @property
     def name(self):
-        return self._accessible.name
+        return self._accessible.get_name()
+
+    @property
+    def role_name(self):
+        return self._accessible.get_role_name()
 
     @property
     def text(self):
-        return self._accessible.queryText().getText(0, -1)
+        return Atspi.Text.get_text(self._accessible, 0, -1)

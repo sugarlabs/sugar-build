@@ -212,9 +212,9 @@
   "dbus-launch":
   { "fedora": "dbus-x11",
     "ubuntu": "dbus-x11" },
-  "pyatspi python":
-  { "fedora": "pyatspi",
-    "ubuntu": "python-pyatspi2" },
+  "atspi typelib":
+  { "fedora": "at-spi2-core",
+    "ubuntu": "gir1.2-atspi-2.0" },
   "xrandr":
   { "fedora": "libXrandr-devel",
     "ubuntu": "libxrandr-dev" },
