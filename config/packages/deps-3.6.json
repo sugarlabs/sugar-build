@@ -236,6 +236,9 @@
   "pango gstreamer":
   { "fedora": "gstreamer1-plugins-base",
     "ubuntu": "gstreamer1.0-x" },
+  "autodetect gstreamer":
+  { "fedora": "gstreamer1-plugins-good",
+    "ubuntu": "gstreamer1.0-plugins-good" },
   "playback gstreamer":
   { "fedora": "gstreamer1-plugins-base",
     "ubuntu": "gstreamer1.0-plugins-base" }
