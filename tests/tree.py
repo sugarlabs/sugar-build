@@ -35,77 +35,6 @@ class Node:
     def __init__(self, accessible):
         self._accessible = accessible
 
-    def get_children(self):
-        children = []
-
-        for i in range(self._accessible.get_child_count()):
-            child = self._accessible.get_child_at_index(i)
-
-            # We sometimes get none children from atspi
-            if child is not None:
-                children.append(Node(child))
-
-        return children
-
-    def _predicate(self, node, name, role_name):
-        if name is not None and name != node.name:
-            return False
-
-        if role_name is not None and role_name != node.role_name:
-            return False
-
-        return True
-
-    def _find_descendant(self, node, predicate):
-        if predicate(node):
-            return node
-
-        for child in node.get_children():
-            descendant = self._find_descendant(child, predicate)
-            if descendant is not None:
-                return descendant
-
-        return None
-
-    @_retry_find
-    def find_child(self, name=None, role_name=None, expect_none=False):
-        def predicate(node):
-            return self._predicate(node, name, role_name)
-
-        node = self._find_descendant(self, predicate)
-        if node is None:
-            return None
-
-        return node
-
-    def _find_all_descendants(self, node, predicate, matches):
-        if predicate(node):
-            matches.append(node)
-
-        for child in node.get_children():
-            self._find_all_descendants(child, predicate, matches)
-
-    @_retry_find
-    def find_children(self, name=None, role_name=None):
-        def predicate(node):
-            return self._predicate(node, name, role_name)
-
-        descendants = []
-        self._find_all_descendants(self, predicate, descendants)
-        if not descendants:
-            return []
-
-        return descendants
-
-    def __str__(self):
-        return "[%s | %s]" % (self.name, self.role_name)
-
-    def _crawl_accessible(self, node, depth):
-        print "  " * depth + str(node)
-
-        for child in node.get_children():
-            self._crawl_accessible(child, depth + 1)
-
     def dump(self):
         self._crawl_accessible(self, 0)
 
@@ -129,3 +58,74 @@ class Node:
     @property
     def text(self):
         return Atspi.Text.get_text(self._accessible, 0, -1)
+
+    def get_children(self):
+        children = []
+
+        for i in range(self._accessible.get_child_count()):
+            child = self._accessible.get_child_at_index(i)
+
+            # We sometimes get none children from atspi
+            if child is not None:
+                children.append(Node(child))
+
+        return children
+
+    @_retry_find
+    def find_children(self, name=None, role_name=None):
+        def predicate(node):
+            return self._predicate(node, name, role_name)
+
+        descendants = []
+        self._find_all_descendants(self, predicate, descendants)
+        if not descendants:
+            return []
+
+        return descendants
+
+    def __str__(self):
+        return "[%s | %s]" % (self.name, self.role_name)
+
+    @_retry_find
+    def find_child(self, name=None, role_name=None, expect_none=False):
+        def predicate(node):
+            return self._predicate(node, name, role_name)
+
+        node = self._find_descendant(self, predicate)
+        if node is None:
+            return None
+
+        return node
+
+    def _predicate(self, node, name, role_name):
+        if name is not None and name != node.name:
+            return False
+
+        if role_name is not None and role_name != node.role_name:
+            return False
+
+        return True
+
+    def _find_descendant(self, node, predicate):
+        if predicate(node):
+            return node
+
+        for child in node.get_children():
+            descendant = self._find_descendant(child, predicate)
+            if descendant is not None:
+                return descendant
+
+        return None
+
+    def _find_all_descendants(self, node, predicate, matches):
+        if predicate(node):
+            matches.append(node)
+
+        for child in node.get_children():
+            self._find_all_descendants(child, predicate, matches)
+
+    def _crawl_accessible(self, node, depth):
+        print "  " * depth + str(node)
+
+        for child in node.get_children():
+            self._crawl_accessible(child, depth + 1)
