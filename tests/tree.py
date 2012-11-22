@@ -83,9 +83,6 @@ class Node:
 
         return descendants
 
-    def __str__(self):
-        return "[%s | %s]" % (self.name, self.role_name)
-
     @_retry_find
     def find_child(self, name=None, role_name=None, expect_none=False):
         def predicate(node):
@@ -96,6 +93,9 @@ class Node:
             return None
 
         return node
+
+    def __str__(self):
+        return "[%s | %s]" % (self.name, self.role_name)
 
     def _predicate(self, node, name, role_name):
         if name is not None and name != node.name:
