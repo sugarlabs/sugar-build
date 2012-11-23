@@ -14,7 +14,7 @@ def _add_path(name, path):
         return
 
     splitted = os.environ[name].split(":")
-    splitted.append(path)
+    splitted.insert(0, path)
 
     os.environ[name] = ":".join(splitted)
 
@@ -28,9 +28,9 @@ def _setup_variables():
     _add_path("GIO_EXTRA_MODULES",
               os.path.join(config.system_lib_dir, "gio", "modules"))
     _add_path("GI_TYPELIB_PATH",
-              os.path.join(config.lib_dir, "girepository-1.0"))
-    _add_path("GI_TYPELIB_PATH",
               os.path.join(config.system_lib_dir, "girepository-1.0"))
+    _add_path("GI_TYPELIB_PATH",
+              os.path.join(config.lib_dir, "girepository-1.0"))
     _add_path("PKG_CONFIG_PATH",
               os.path.join(config.lib_dir, "pkgconfig"))
     _add_path("GST_PLUGIN_PATH",
@@ -44,7 +44,7 @@ def _setup_variables():
                                        plat_specific=True))
 
     _add_path("XDG_DATA_DIRS", "/usr/share")
-    _add_path("XDG_DATA_DIRS", config.share_dir)    
+    _add_path("XDG_DATA_DIRS", config.share_dir)
 
     _add_path("XDG_CONFIG_DIRS", "/etc")
     _add_path("XDG_CONFIG_DIRS", config.etc_dir)    
