@@ -23,6 +23,8 @@ def _setup_variables():
     _add_path("PATH", config.bin_dir)
     _add_path("PATH", config.commands_dir)
 
+    _add_path("XCURSOR_PATH",
+              os.path.join(config.share_dir, "icons"))
     _add_path("GIO_EXTRA_MODULES",
               os.path.join(config.system_lib_dir, "gio", "modules"))
     _add_path("GI_TYPELIB_PATH",
