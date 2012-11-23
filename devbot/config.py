@@ -18,12 +18,6 @@ dep_files = None
 module_files = None
 package_files = None
 prefs_path = None
-use_lib64 = os.uname()[4] == "x86_64"
-
-if use_lib64:
-    system_lib_dir = "/usr/lib64"
-else:
-    system_lib_dir = "/usr/lib"
 
 class Module:
     def __init__(self, info):
@@ -65,10 +59,12 @@ def set_install_dir(dir):
     bin_dir = os.path.join(install_dir, "bin")
     etc_dir = os.path.join(install_dir, "etc")
 
-    if use_lib64:
+    if distro.get_use_lib64():
         lib_dir = os.path.join(install_dir, "lib64")
+        system_lib_dir = "/usr/lib64"
     else:
         lib_dir = os.path.join(install_dir, "lib")
+        system_lib_dir = "/usr/lib"
 
 def set_source_dir(dir):
     global source_dir

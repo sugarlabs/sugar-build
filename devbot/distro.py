@@ -152,6 +152,9 @@ class UbuntuPackageManager:
 
         return result
 
+def get_use_lib64():
+    return os.uname()[4] == "x86_64" and get_distro_name() != "ubuntu"
+
 def get_package_manager(test=False, interactive=True):
     name, version = _get_distro_info()
 
