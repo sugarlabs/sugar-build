@@ -1,4 +1,7 @@
-[{ "name": "gobject-introspection",
+[{ "name": "glib",
+   "repo": "git://git.gnome.org/glib",
+   "branch": "2.34.2" },
+ { "name": "gobject-introspection",
    "repo": "git://git.gnome.org/gobject-introspection",
    "branch": "GOBJECT_INTROSPECTION_1_34_1_1" },
  { "name": "pygobject",
