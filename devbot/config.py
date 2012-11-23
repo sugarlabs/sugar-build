@@ -25,6 +25,7 @@ class Module:
         self.repo = info["repo"]
         self.branch = info.get("branch", "master")
         self.auto_install = info.get("auto-install", False)
+        self.options = info.get("options", [])
 
         if get_pref("BUILD_IN_SOURCE"):
             self.out_of_source = False

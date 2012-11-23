@@ -6,4 +6,9 @@
    "branch": "GOBJECT_INTROSPECTION_1_34_1_1" },
  { "name": "pygobject",
    "repo": "git://github.com/dnarvaez/pygobject.git",
-   "branch": "pygobject-3-4" }]
+   "branch": "pygobject-3-4" },
+ { "name": "metacity",
+   "repo": "git://git.gnome.org/metacity",
+   "branch": "METACITY_2_34_13",
+   "options": ["--disable-themes-documentation"] }]
+

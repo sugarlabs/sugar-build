@@ -33,4 +33,8 @@
    "out-of-source": false },
  { "name": "libxklavier",
    "repo": "git://anongit.freedesktop.org/libxklavier",
-   "branch": "libxklavier-5.3" }]
+   "branch": "libxklavier-5.3" },
+ { "name": "metacity",
+   "repo": "git://git.gnome.org/metacity",
+   "branch": "METACITY_2_34_13",
+   "options": ["--disable-themes-documentation"] }]

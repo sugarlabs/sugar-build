@@ -82,9 +82,12 @@ def build_autotools(module):
 
     jobs = multiprocessing.cpu_count() * 2
 
-    command.run([autogen,
-                 "--prefix", config.install_dir,
-                 "--libdir", config.lib_dir])
+    args = [autogen,
+            "--prefix", config.install_dir,
+            "--libdir", config.lib_dir]
+    args.extend(module.options)
+
+    command.run(args)
 
     command.run(["make", "-j", "%d" % jobs])
     command.run(["make", "install"])

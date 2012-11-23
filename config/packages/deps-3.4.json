@@ -217,6 +217,12 @@
   "tar":
   { "fedora": "tar",
     "ubuntu": "tar" },
+  "gsettings-desktop-schemas":
+  { "fedora": "gsettings-desktop-schemas-devel",
+    "ubuntu": "gsettings-desktop-schemas-dev" },
+  "libcanberra-gtk":
+  { "fedora": "libcanberra-devel",
+    "ubuntu": "libcanberra-gtk-dev" },
   "xrdb":
   { "fedora": "xorg-x11-server-utils",
     "ubuntu": "x11-xserver-utils" }

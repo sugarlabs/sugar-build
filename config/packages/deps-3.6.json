@@ -236,6 +236,12 @@
   "autodetect gstreamer":
   { "fedora": "gstreamer1-plugins-good",
     "ubuntu": "gstreamer1.0-plugins-good" },
+  "gsettings-desktop-schemas":
+  { "fedora": "gsettings-desktop-schemas-devel",
+    "ubuntu": "gsettings-desktop-schemas-dev" },
+  "libcanberra-gtk":
+  { "fedora": "libcanberra-devel",
+    "ubuntu": "libcanberra-gtk-dev" },
   "playback gstreamer":
   { "fedora": "gstreamer1-plugins-base",
     "ubuntu": "gstreamer1.0-plugins-base" }

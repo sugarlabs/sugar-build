@@ -46,5 +46,9 @@
    "checker": "pkgconfig" },
  { "check": "icon-naming-utils",
    "checker": "pkgconfig" },
+ { "check": "gsettings-desktop-schemas",
+   "checker": "pkgconfig" },
+ { "check": "libcanberra-gtk",
+   "checker": "pkgconfig" },
  { "check": "tar",
    "checker": "binary"}]
