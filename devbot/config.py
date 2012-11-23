@@ -30,8 +30,12 @@ class Module:
         self.name = info["name"]
         self.repo = info["repo"]
         self.branch = info.get("branch", "master")
-        self.out_of_source = info.get("out-of-source", True)
         self.auto_install = info.get("auto-install", False)
+
+        if get_pref("BUILD_IN_SOURCE"):
+            self.out_of_source = False
+        else:
+            self.out_of_source = info.get("out-of-source", True)
 
     def get_source_dir(self):
         return os.path.join(source_dir, self.name)
@@ -97,16 +101,16 @@ def set_prefs_path(path):
 def get_pref(name):
     prefs = {}
 
-    f = open(prefs_path)
+    if not os.path.exists(prefs_path):
+        return None
 
-    for line in f.readline():
-        splitted = line.split("=")
-        if len(splitted) == 2:
-            prefs[splitted[1]] = splitted[2]
+    with open(prefs_path) as f:
+        for line in f.readlines():
+            splitted = line.strip().split("=")
+            if len(splitted) == 2:
+                prefs[splitted[0]] = splitted[1]
 
-    f.close()
-
-    return prefs[name]
+    return prefs.get(name, None)
 
 def load_packages():
     packages = {}
