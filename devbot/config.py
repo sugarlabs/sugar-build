@@ -46,6 +46,7 @@ def set_logs_dir(dir):
     logs_dir = dir
 
 def set_install_dir(dir):
+    global system_lib_dir
     global install_dir
     global devbot_dir
     global share_dir
