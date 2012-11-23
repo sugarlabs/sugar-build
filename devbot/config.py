@@ -17,6 +17,7 @@ etc_dir = None
 dep_files = None
 module_files = None
 package_files = None
+prefs_path = None
 use_lib64 = os.uname()[4] == "x86_64"
 
 if use_lib64:
@@ -74,6 +75,24 @@ def set_module_files(files):
 def set_package_files(files):
     global package_files
     package_files = files
+
+def set_prefs_path(path):
+    global prefs_path
+    prefs_path = path
+
+def get_pref(name):
+    prefs = {}
+
+    f = open(prefs_path)
+
+    for line in f.readline():
+        splitted = line.split("=")
+        if len(splitted) == 2:
+            prefs[splitted[1]] = splitted[2]
+
+    f.close()
+
+    return prefs[name]
 
 def get_module_source_dir(module):
     return os.path.join(source_dir, module["name"])
