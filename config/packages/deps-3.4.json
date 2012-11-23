@@ -166,9 +166,6 @@
   "video4linux2":
   { "fedora": "gstreamer-plugins-good",
     "ubuntu": "gstreamer0.10-plugins-good" },
-  "abiword python":
-  { "fedora": "pyabiword",
-    "ubuntu": null },
   "c++":
   { "fedora": "gcc-c++",
     "ubuntu": "g++" },

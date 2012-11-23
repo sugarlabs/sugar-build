@@ -79,9 +79,6 @@
    "checker": "python" },
  { "check": "video4linux2",
    "checker": "gstreamer-0.10" },
- { "check_name": "abiword python",
-   "check": "import abiword",
-   "checker": "python" },
  { "check_name": "cairo typelib",
    "check": "from gi.repository import cairo",
    "checker": "python" }
