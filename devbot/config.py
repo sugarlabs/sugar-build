@@ -31,6 +31,7 @@ class Module:
         self.repo = info["repo"]
         self.branch = info.get("branch", "master")
         self.out_of_source = info.get("out-of-source", True)
+        self.auto_install = info.get("auto-install", False)
 
     def get_source_dir(self):
         return os.path.join(source_dir, self.name)
