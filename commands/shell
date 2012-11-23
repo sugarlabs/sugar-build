@@ -1,8 +1,10 @@
 #!/usr/bin/python
 
+import os
+
 import common
 
 from devbot import shell
 
 common.setup()
-shell.start()
+shell.start(os.path.join(common.helpers_dir, "bashrc"))
