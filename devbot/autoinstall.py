@@ -16,8 +16,8 @@ monitors = []
 def install(module, file):
     print "Installing %s" % file.get_path()
 
-    source_dir = config.get_module_source_dir(module)
-    build_dir = config.get_module_build_dir(module)
+    source_dir = module.get_source_dir()
+    build_dir = module.get_build_dir()
 
     dir = os.path.dirname(file.get_path())
     relative_path = os.path.relpath(dir, source_dir)
@@ -40,7 +40,7 @@ def observe():
         if module.get("autoinstall", False):
             print "Observing the %s module" % module["name"]
 
-            source_dir = config.get_module_source_dir(module)
+            source_dir = module.get_source_dir()
             for root, dirs, files in os.walk(source_dir):
                 for dir in dirs:
                     file = Gio.File.new_for_path(os.path.join(root, dir))

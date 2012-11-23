@@ -25,6 +25,19 @@ if use_lib64:
 else:
     system_lib_dir = "/usr/lib"
 
+class Module:
+    def __init__(self, info):
+        self.name = info["name"]
+        self.repo = info["repo"]
+        self.branch = info.get("branch", "master")
+        self.out_of_source = info.get("out-of-source", True)
+
+    def get_source_dir(self):
+        return os.path.join(source_dir, self.name)
+
+    def get_build_dir(self):
+        return os.path.join(build_dir, self.name)
+
 def set_config_dir(dir):
     global config_dir
     config_dir = dir
@@ -94,12 +107,6 @@ def get_pref(name):
 
     return prefs[name]
 
-def get_module_source_dir(module):
-    return os.path.join(source_dir, module["name"])
-
-def get_module_build_dir(module):
-    return os.path.join(build_dir, module["name"])
-
 def load_packages():
     packages = {}
 
@@ -134,6 +141,8 @@ def load_modules():
 
     for file in module_files:
         path = os.path.join(config_dir, "modules", file)
-        modules.extend(json.load(open(path)))
+
+        for info in json.load(open(path)):
+            modules.append(Module(info))
 
     return modules

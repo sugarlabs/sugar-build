@@ -38,15 +38,9 @@ def add_path(name, path):
 
     os.environ[name] = ":".join(splitted)
 
-def get_module_source_dir(module):
-    return os.path.join(config.source_dir, module["name"])
-
-def get_module_build_dir(module):
-    return os.path.join(config.build_dir, module["name"])
-
 def get_module_commit_id(module):
     orig_cwd = os.getcwd()
-    os.chdir(config.get_module_source_dir(module))
+    os.chdir(module.get_source_dir())
 
     commit_id = subprocess.check_output(["git", "rev-parse", "HEAD"])
 
@@ -64,28 +58,27 @@ def unlink_libtool_files():
     os.chdir(orig_cwd)
 
 def pull_source(module):
-    module_dir = config.get_module_source_dir(module)
+    module_dir = module.get_source_dir()
 
     if os.path.exists(module_dir):
         os.chdir(module_dir)
 
-        command.run(["git", "remote", "set-url", "origin", module["repo"]])
+        command.run(["git", "remote", "set-url", "origin", module.repo])
         command.run(["git", "remote", "update", "origin"], retry=10)
     else:
         os.chdir(config.source_dir)
         command.run(["git", "clone", "--progress",
-                     module["repo"], module["name"]],
+                     module.repo, module.name],
                     retry=10)
         os.chdir(module_dir)
 
-    branch = module.get("branch", "master")
-    command.run(["git", "checkout", branch])
+    command.run(["git", "checkout", module.branch])
 
 def build_make(module):
     command.run(["make"])
 
 def build_autotools(module):
-    autogen = os.path.join(config.get_module_source_dir(module), "autogen.sh")
+    autogen = os.path.join(module.get_source_dir(), "autogen.sh")
 
     jobs = multiprocessing.cpu_count() * 2
 
@@ -102,10 +95,10 @@ def build_activity(module):
     command.run(["./setup.py", "install", "--prefix", config.install_dir])
 
 def build_module(module):
-    module_source_dir = config.get_module_source_dir(module)
+    module_source_dir = module.get_source_dir()
 
-    if module.get("out-of-source", True):
-        module_build_dir = config.get_module_build_dir(module)
+    if module.out_of_source:
+        module_build_dir = module.get_build_dir()
 
         if not os.path.exists(module_build_dir):
             os.mkdir(module_build_dir)
@@ -124,13 +117,13 @@ def build_module(module):
         print "Unknown build system"
         sys.exit(1)
 
-    state["built_modules"][module["name"]] = get_module_commit_id(module)
+    state["built_modules"][module.name] = get_module_commit_id(module)
     save_state()
 
 def clear_built_modules(modules, index):
     if index < len(modules) - 1:
         for module in modules[index + 1:]:
-            name = module["name"]
+            name = module.name
             if name in state["built_modules"]:
                 del state["built_modules"][name]
 
@@ -145,12 +138,12 @@ def build():
     modules = config.load_modules()
 
     for i, module in enumerate(modules):
-        print "\n=== Building %s ===\n" % module["name"]
+        print "\n=== Building %s ===\n" % module.name
 
         try:
             pull_source(module)
 
-            old_commit_id = state["built_modules"].get(module["name"], None)
+            old_commit_id = state["built_modules"].get(module.name, None)
             new_commit_id = get_module_commit_id(module)
 
             if old_commit_id is None or old_commit_id != new_commit_id:
@@ -166,5 +159,5 @@ def clean():
     rmtree(config.build_dir)
 
     for module in config.load_modules():
-        if not module.get("out-of-source", True):
-            rmtree(config.get_module_source_dir(module))
+        if not module.out_of_source:
+            rmtree(module.get_source_dir())
