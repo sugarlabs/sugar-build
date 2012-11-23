@@ -1,3 +1,6 @@
-[{ "name": "pygobject",
-   "repo": "git://git.gnome.org/pygobject",
-   "branch": "a06e0d021d74c95cd517abb3e6ef5ff0037de679" }]
+[{ "name": "gobject-introspection",
+   "repo": "git://git.gnome.org/gobject-introspection",
+   "branch": "GOBJECT_INTROSPECTION_1_34_1_1" },
+ { "name": "pygobject",
+   "repo": "git://github.com/dnarvaez/pygobject.git",
+   "branch": "pygobject-3-4" }]
