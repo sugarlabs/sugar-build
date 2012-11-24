@@ -1,6 +1,6 @@
 #!/bin/bash
 
-commandsdir=`dirname "$0"`
+commandsdir=$(dirname $(readlink -f $0))
 helpersdir=$commandsdir/helpers
 rootdir=`dirname "$commandsdir"`
 display=`$helpersdir/find-free-display`
