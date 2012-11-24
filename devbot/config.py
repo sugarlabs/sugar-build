@@ -8,6 +8,7 @@ config_dir = None
 logs_dir = None
 commands_dir = None
 install_dir = None
+prefix_dir = None
 source_dir = None
 build_dir = None
 lib_dir = None
@@ -51,58 +52,60 @@ def set_logs_dir(dir):
     global logs_dir
     logs_dir = dir
 
-def _get_real_install_dir(dir, relocatable):
+def _get_prefix_dir(dir, relocatable):
     real_prefix_path = os.path.join(dir, "real_prefix")
 
     if os.path.exists(real_prefix_path):
         with open(real_prefix_path) as f:
-            install_dir = f.read()
+            prefix_dir = f.read()
     elif relocatable:
         tmp_dir = tempfile.mkdtemp(prefix="sugar-build")
-        install_dir = os.path.join(tmp_dir, "install")
+        prefix_dir = os.path.join(tmp_dir, "install")
         with open(real_prefix_path, "w") as f:
-            f.write(install_dir)
+            f.write(prefix_dir)
     else:
         return dir
 
-    tmp_dir = os.path.dirname(install_dir)
+    tmp_dir = os.path.dirname(prefix_dir)
     if not os.path.exists(tmp_dir):
         os.mkdir(tmp_dir)
 
-    if os.path.islink(install_dir):
-        os.remove(install_dir)
-    os.symlink(dir, install_dir)
+    if os.path.islink(prefix_dir):
+        os.remove(prefix_dir)
+    os.symlink(dir, prefix_dir)
 
-    return install_dir
+    return prefix_dir
 
 def set_install_dir(dir, relocatable=False):
     global system_lib_dir
     global install_dir
+    global prefix_dir
     global devbot_dir
     global share_dir
     global bin_dir
     global etc_dir
     global lib_dir
 
-    _ensure_dir(dir)
+    install_dir = dir
+    _ensure_dir(install_dir)
 
-    install_dir = _get_real_install_dir(dir, relocatable)
+    prefix_dir = _get_prefix_dir(dir, relocatable)
 
-    devbot_dir = os.path.join(install_dir, "devbot")
+    devbot_dir = os.path.join(prefix_dir, "devbot")
     _ensure_dir(devbot_dir)
 
-    share_dir = os.path.join(install_dir, "share")
+    share_dir = os.path.join(prefix_dir, "share")
     _ensure_dir(share_dir)
     _ensure_dir(os.path.join(share_dir, "aclocal"))
 
-    bin_dir = os.path.join(install_dir, "bin")
-    etc_dir = os.path.join(install_dir, "etc")
+    bin_dir = os.path.join(prefix_dir, "bin")
+    etc_dir = os.path.join(prefix_dir, "etc")
 
     if distro.get_use_lib64():
-        lib_dir = os.path.join(install_dir, "lib64")
+        lib_dir = os.path.join(prefix_dir, "lib64")
         system_lib_dir = "/usr/lib64"
     else:
-        lib_dir = os.path.join(install_dir, "lib")
+        lib_dir = os.path.join(prefix_dir, "lib")
         system_lib_dir = "/usr/lib"
 
 def set_source_dir(dir):

@@ -37,9 +37,9 @@ def _setup_variables():
     _add_path("GST_REGISTRY",
               os.path.join(config.devbot_dir, "gstreamer.registry"))
     _add_path("PYTHONPATH",
-              sysconfig.get_python_lib(prefix=config.install_dir))
+              sysconfig.get_python_lib(prefix=config.prefix_dir))
     _add_path("PYTHONPATH",
-              sysconfig.get_python_lib(prefix=config.install_dir,
+              sysconfig.get_python_lib(prefix=config.prefix_dir,
                                        plat_specific=True))
 
     _add_path("XDG_DATA_DIRS", "/usr/share")
@@ -48,7 +48,7 @@ def _setup_variables():
     _add_path("XDG_CONFIG_DIRS", "/etc")
     _add_path("XDG_CONFIG_DIRS", config.etc_dir)    
 
-    os.environ["GTK_DATA_PREFIX"] = config.install_dir
+    os.environ["GTK_DATA_PREFIX"] = config.prefix_dir
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")
 
 def _setup_gconf():

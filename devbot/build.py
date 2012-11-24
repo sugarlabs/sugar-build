@@ -83,7 +83,7 @@ def build_autotools(module):
     jobs = multiprocessing.cpu_count() * 2
 
     args = [autogen,
-            "--prefix", config.install_dir,
+            "--prefix", config.prefix_dir,
             "--libdir", config.lib_dir]
     args.extend(module.options)
 
@@ -95,7 +95,7 @@ def build_autotools(module):
     unlink_libtool_files()
 
 def build_activity(module):
-    command.run(["./setup.py", "install", "--prefix", config.install_dir])
+    command.run(["./setup.py", "install", "--prefix", config.prefix_dir])
 
 def build_module(module):
     module_source_dir = module.get_source_dir()
@@ -159,6 +159,7 @@ def build():
 
 def clean():
     rmtree(config.install_dir)
+    rmtree(config.prefix_dir)
     rmtree(config.build_dir)
 
     for module in config.load_modules():

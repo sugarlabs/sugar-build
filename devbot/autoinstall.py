@@ -27,8 +27,8 @@ def _install(module, file):
     for variable in makefile:
         if variable.endswith("_PYTHON"):
             dir_variable = "%sdir" % variable.replace("_PYTHON", "")
-            install_dir = makefile[dir_variable]
-            shutil.copy(file.get_path(), install_dir)
+            prefix_dir = makefile[dir_variable]
+            shutil.copy(file.get_path(), prefix_dir)
 
 def _changed_cb(monitor, file, other_file, event_flags, module):
     if event_flags == Gio.FileMonitorEvent.CHANGED:
