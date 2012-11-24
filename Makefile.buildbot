@@ -9,7 +9,7 @@ SNAPSHOT_DEST=$(SNAPSHOT_DEST_HOST):$(SNAPSHOT_DEST_DIR)$(SUGAR_BUILDBOT)
 upload-docs:
 	rsync -r --progress $(DOCS_SOURCE) $(DOCS_DEST)
 
-upload-snapshot:
+upload-snapshot: helpers-build
 	@TMP_DIR=`mktemp -td sugar-build-snapshot-XXXX` && \
         echo "Creating snapshot" && \
         SNAPSHOT_PATH=`commands/helpers/build-snapshot $$TMP_DIR` && \

@@ -65,4 +65,4 @@ rm -rf sugar-build
 
 xz $filename
 
-echo $filename.xz
+echo $destdir/$filename.xz
