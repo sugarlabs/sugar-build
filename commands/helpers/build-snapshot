@@ -1,0 +1,68 @@
+#!/bin/sh
+
+commandsdir=`dirname "$0"`
+basedir=`dirname "$commandsdir"`
+
+if [ "$#" -eq 0 ]; then
+    echo "build-snapshot [destination directory]"
+    exit 1
+fi
+
+destdir=$1
+filename=sugar-build-`date +%Y%m%d-%H%M%S.tar`
+
+ln -s `pwd` $destdir/sugar-build
+
+cd $destdir
+
+tar chf $filename \
+    sugar-build/config \
+    sugar-build/devbot \
+    sugar-build/install \
+    sugar-build/commands/helpers/bashrc \
+    sugar-build/commands/helpers/find-free-display \
+    sugar-build/commands/helpers/list-outputs \
+    sugar-build/commands/helpers/ubuntu-tweaks \
+    sugar-build/commands/helpers/xinitrc \
+    sugar-build/commands/helpers/xephyr-window \
+    sugar-build/commands/helpers/get-screen-dpi \
+    sugar-build/commands/helpers/run-with-keyring \
+    sugar-build/commands/check-system \
+    sugar-build/commands/run-command \
+    sugar-build/commands/common.py \
+    sugar-build/commands/run \
+    sugar-build/commands/shell
+
+rm sugar-build
+
+mkdir sugar-build
+
+runsugarscript=sugar-build/run-sugar.sh
+
+cat > $runsugarscript << "EOF"
+#!/bin/sh
+
+commands/check-system
+commands/run
+EOF
+
+chmod +x $runsugarscript
+
+runshellscript=sugar-build/run-shell.sh
+
+cat > $runshellscript << "EOF"
+#!/bin/sh
+
+commands/check-system
+commands/shell
+EOF
+
+chmod +x $runshellscript
+
+tar rh -f $filename $runshellscript $runsugarscript
+
+rm -rf sugar-build
+
+xz $filename
+
+echo $filename.xz

@@ -11,16 +11,10 @@ upload-docs:
 
 upload-snapshot:
 	@TMP_DIR=`mktemp -td sugar-build-snapshot-XXXX` && \
-        SNAPSHOT_FILENAME=sugar-build-`date +%Y%m%d-%H%M%S.tar.xz` && \
-        echo "Creating $$SNAPSHOT_FILENAME" && \
-        ln -s `pwd` $$TMP_DIR/sugar-build && \
-        cd $$TMP_DIR && \
-	tar chJ --exclude=source \
-                --exclude=build \
-                --exclude=logs \
-                --exclude=.git* \
-                -f $$TMP_DIR/$$SNAPSHOT_FILENAME sugar-build && \
-	echo "Uploading" && \
-        scp $$SNAPSHOT_FILENAME $(SNAPSHOT_DEST) && \
-	rm -f $$SNAPSHOT_FILENAME && \
+        echo "Creating snapshot" && \
+        SNAPSHOT_PATH=`commands/helpers/build-snapshot $$TMP_DIR` && \
+	echo "Uploading snapshot" && \
+        scp $$SNAPSHOT_PATH $(SNAPSHOT_DEST) && \
+	rm -rf $$TMP_DIR && \
+        echo "Notifying about upload completion" && \
         ssh $(SNAPSHOT_DEST_HOST) $(SNAPSHOT_DEST_DIR)/upload-completed 
