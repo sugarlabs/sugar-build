@@ -66,7 +66,7 @@ def pull_source(module):
         command.run(["git", "remote", "set-url", "origin", module.repo])
         command.run(["git", "remote", "update", "origin"], retry=10)
     else:
-        os.chdir(config.source_dir)
+        os.chdir(config.get_source_dir())
         command.run(["git", "clone", "--progress",
                      module.repo, module.name],
                     retry=10)
@@ -160,7 +160,7 @@ def build():
 def clean():
     rmtree(config.install_dir)
     rmtree(config.prefix_dir)
-    rmtree(config.build_dir)
+    rmtree(config.get_build_dir())
 
     for module in config.load_modules():
         if not module.out_of_source:

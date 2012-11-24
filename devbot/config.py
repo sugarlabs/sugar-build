@@ -9,8 +9,6 @@ logs_dir = None
 commands_dir = None
 install_dir = None
 prefix_dir = None
-source_dir = None
-build_dir = None
 lib_dir = None
 devbot_dir = None
 share_dir = None
@@ -20,6 +18,9 @@ dep_files = None
 module_files = None
 package_files = None
 prefs_path = None
+
+_source_dir = None
+_build_dir = None
 
 class Module:
     def __init__(self, info):
@@ -35,10 +36,10 @@ class Module:
             self.out_of_source = info.get("out-of-source", True)
 
     def get_source_dir(self):
-        return os.path.join(source_dir, self.name)
+        return os.path.join(get_source_dir(), self.name)
 
     def get_build_dir(self):
-        return os.path.join(build_dir, self.name)
+        return os.path.join(get_build_dir(), self.name)
 
 def _ensure_dir(dir):
     if not os.path.exists(dir):
@@ -109,16 +110,22 @@ def set_install_dir(dir, relocatable=False):
         system_lib_dir = "/usr/lib"
 
 def set_source_dir(dir):
-    global source_dir
-
-    source_dir = dir
-    _ensure_dir(source_dir)
+    global _source_dir
+    _source_dir = dir
 
 def set_build_dir(dir):
-    global build_dir
+    global _build_dir
+    _build_dir = dir
 
-    build_dir = dir
-    _ensure_dir(build_dir)
+def get_source_dir():
+    global _source_dir
+    _ensure_dir(_source_dir)
+    return _source_dir
+
+def get_build_dir():
+    global _build_dir
+    _ensure_dir(_build_dir)
+    return _build_dir
 
 def set_commands_dir(dir):
     global commands_dir
