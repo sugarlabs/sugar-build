@@ -1,7 +1,7 @@
 DOCS_SOURCE=$(SOURCE_DIR)/sugar-docs/build/
 DOCS_DEST=dnarvaez@shell.sugarlabs.org:~/public_html/sugar-docs/
 SNAPSHOT_DEST_HOST=dnarvaez@shell.sugarlabs.org
-SNAPSHOT_DEST_DIR=~/public_html/snapshots/
+SNAPSHOT_DEST_DIR=/home/dnarvaez/public_html/snapshots/
 SNAPSHOT_DEST=$(SNAPSHOT_DEST_HOST):$(SNAPSHOT_DEST_DIR)$(SUGAR_BUILDBOT)
 
 .PHONY: upload-docs upload-snapshot
