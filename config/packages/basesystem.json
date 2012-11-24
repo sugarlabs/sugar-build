@@ -77,6 +77,5 @@
                "bash",
                "diffutils",
                "grep",
-               "ncurses-base",
-               "openssh-client"] }
+               "ncurses-base"] }
 }
