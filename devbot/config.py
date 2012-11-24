@@ -1,5 +1,6 @@
 import json
 import os
+import tempfile
 
 from devbot import distro
 
@@ -38,6 +39,10 @@ class Module:
     def get_build_dir(self):
         return os.path.join(build_dir, self.name)
 
+def _ensure_dir(dir):
+    if not os.path.exists(dir):
+        os.mkdir(dir)
+
 def set_config_dir(dir):
     global config_dir
     config_dir = dir
@@ -46,7 +51,31 @@ def set_logs_dir(dir):
     global logs_dir
     logs_dir = dir
 
-def set_install_dir(dir):
+def _get_real_install_dir(dir, relocatable):
+    real_prefix_path = os.path.join(dir, "real_prefix")
+
+    if os.path.exists(real_prefix_path):
+        with open(real_prefix_path) as f:
+            install_dir = f.read()
+    elif relocatable:
+        tmp_dir = tempfile.mkdtemp(prefix="sugar-build")
+        install_dir = os.path.join(tmp_dir, "install")
+        with open(real_prefix_path, "w") as f:
+            f.write(install_dir)
+    else:
+        return dir
+
+    tmp_dir = os.path.dirname(install_dir)
+    if not os.path.exists(tmp_dir):
+        os.mkdir(tmpdir)
+
+    if os.path.islink(install_dir):
+        os.remove(install_dir)
+    os.symlink(dir, install_dir)
+
+    return install_dir
+
+def set_install_dir(dir, relocatable=False):
     global system_lib_dir
     global install_dir
     global devbot_dir
@@ -55,9 +84,17 @@ def set_install_dir(dir):
     global etc_dir
     global lib_dir
 
-    install_dir = dir
+    _ensure_dir(dir)
+
+    install_dir = _get_real_install_dir(dir, relocatable)
+
     devbot_dir = os.path.join(install_dir, "devbot")
+    _ensure_dir(devbot_dir)
+
     share_dir = os.path.join(install_dir, "share")
+    _ensure_dir(share_dir)
+    _ensure_dir(os.path.join(share_dir, "aclocal"))
+
     bin_dir = os.path.join(install_dir, "bin")
     etc_dir = os.path.join(install_dir, "etc")
 
@@ -70,11 +107,15 @@ def set_install_dir(dir):
 
 def set_source_dir(dir):
     global source_dir
+
     source_dir = dir
+    _ensure_dir(source_dir)
 
 def set_build_dir(dir):
     global build_dir
+
     build_dir = dir
+    _ensure_dir(build_dir)
 
 def set_commands_dir(dir):
     global commands_dir

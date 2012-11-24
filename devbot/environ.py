@@ -4,7 +4,6 @@ import os
 from devbot import config
 
 def setup():
-    _setup_dirs()
     _setup_gconf()
     _setup_variables()
 
@@ -76,13 +75,3 @@ def _setup_gconf():
 
     os.environ["GCONF_SCHEMA_INSTALL_SOURCE"] = \
         "xml:merged:" + os.path.join(gconf_dir, "gconf.xml.defaults")
-
-def _setup_dirs():
-    for dir in [config.source_dir,
-                config.install_dir,
-                config.build_dir,
-                config.share_dir,
-                config.devbot_dir,
-                os.path.join(config.share_dir, "aclocal")]:
-        if not os.path.exists(dir):
-            os.mkdir(dir)

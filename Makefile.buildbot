@@ -1,7 +1,24 @@
 DOCS_SOURCE=$(SOURCE_DIR)/sugar-docs/build/
 DOCS_DEST=dnarvaez@shell.sugarlabs.org:~/public_html/sugar-docs/
+SNAPSHOT_DEST_HOST=dnarvaez@shell.sugarlabs.org
+SNAPSHOT_DEST_DIR=~/public_html/snapshots/
+SNAPSHOT_DEST=$(SNAPSHOT_DEST_HOST):$(SNAPSHOT_DEST_DIR)$(SUGAR_BUILDBOT)
 
-.PHONY: upload-docs
+.PHONY: upload-docs upload-snapshot
 
 upload-docs:
 	rsync -r --progress $(DOCS_SOURCE) $(DOCS_DEST)
+
+upload-snapshot:
+	@TMP_DIR=`mktemp -td sugar-build-snapshot-XXXX` && \
+        SNAPSHOT_FILENAME=sugar-build-`date +%Y%m%d-%H%M%S.tar.xv` && \
+        echo "Creating $$SNAPSHOT_FILENAME" && \
+	tar cJ --exclude=source \
+               --exclude=build \
+               --exclude=logs \
+               --exclude=.git* \
+               -f $$TMP_DIR/$$SNAPSHOT_FILENAME . && \
+	echo "Uploading" && \
+        scp $$TMP_DIR/$$SNAPSHOT_FILENAME $(SNAPSHOT_DEST) && \
+	rm -f $$TMP_DIR/$$SNAPSHOT_FILENAME && \
+        ssh $(SNAPSHOT_DEST_HOST) $(SNAPSHOT_DEST_DIR)/upload-completed 
