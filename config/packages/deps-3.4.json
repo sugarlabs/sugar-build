@@ -55,6 +55,12 @@
   "gtk+-3.0":
   { "fedora": "gtk3-devel",
     "ubuntu": "libgtk-3-dev" },
+  "xz":
+  { "fedora": "xz",
+    "ubuntu": "xz-utils" },
+  "ssh":
+  { "fedora": "openssh-clients",
+    "ubuntu": "openssh-client" },
   "sm":
   { "fedora": "libSM-devel",
     "ubuntu": "libsm-dev" },

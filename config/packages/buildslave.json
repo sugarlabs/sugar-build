@@ -1,7 +1,5 @@
 { "buildslave":
   { "fedora": ["buildbot"],
     "ubuntu": ["buildbot",
-               "buildbot-slave",
-               "openssh-client",
-               "xz-utils"] }
+               "buildbot-slave"] }
 }

@@ -67,7 +67,7 @@ def _get_real_install_dir(dir, relocatable):
 
     tmp_dir = os.path.dirname(install_dir)
     if not os.path.exists(tmp_dir):
-        os.mkdir(tmpdir)
+        os.mkdir(tmp_dir)
 
     if os.path.islink(install_dir):
         os.remove(install_dir)

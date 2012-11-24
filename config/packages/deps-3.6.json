@@ -1,6 +1,12 @@
 { "Xvfb":
   { "fedora": "xorg-x11-server-Xvfb",
     "ubuntu": "xvfb" },
+  "xz":
+  { "fedora": "xz",
+    "ubuntu": "xz-utils" },
+  "ssh":
+  { "fedora": "openssh-clients",
+    "ubuntu": "openssh-client" },
   "sphinx-build":
   { "fedora": "python-sphinx",
     "ubuntu": "python-sphinx" },
