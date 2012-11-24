@@ -11,7 +11,7 @@ upload-docs:
 
 upload-snapshot:
 	@TMP_DIR=`mktemp -td sugar-build-snapshot-XXXX` && \
-        SNAPSHOT_FILENAME=sugar-build-`date +%Y%m%d-%H%M%S.tar.xv` && \
+        SNAPSHOT_FILENAME=sugar-build-`date +%Y%m%d-%H%M%S.tar.xz` && \
         echo "Creating $$SNAPSHOT_FILENAME" && \
         ln -s `pwd` $$TMP_DIR/sugar-build && \
         cd $$TMP_DIR && \
