@@ -13,12 +13,14 @@ upload-snapshot:
 	@TMP_DIR=`mktemp -td sugar-build-snapshot-XXXX` && \
         SNAPSHOT_FILENAME=sugar-build-`date +%Y%m%d-%H%M%S.tar.xv` && \
         echo "Creating $$SNAPSHOT_FILENAME" && \
-	tar cJ --exclude=source \
-               --exclude=build \
-               --exclude=logs \
-               --exclude=.git* \
-               -f $$TMP_DIR/$$SNAPSHOT_FILENAME . && \
+        ln -s `pwd` $$TMP_DIR/sugar-build && \
+        cd $$TMP_DIR && \
+	tar chJ --exclude=source \
+                --exclude=build \
+                --exclude=logs \
+                --exclude=.git* \
+                -f $$TMP_DIR/$$SNAPSHOT_FILENAME sugar-build && \
 	echo "Uploading" && \
-        scp $$TMP_DIR/$$SNAPSHOT_FILENAME $(SNAPSHOT_DEST) && \
-	rm -f $$TMP_DIR/$$SNAPSHOT_FILENAME && \
+        scp $$SNAPSHOT_FILENAME $(SNAPSHOT_DEST) && \
+	rm -f $$SNAPSHOT_FILENAME && \
         ssh $(SNAPSHOT_DEST_HOST) $(SNAPSHOT_DEST_DIR)/upload-completed 
