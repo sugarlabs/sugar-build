@@ -18,6 +18,7 @@ def setup():
     config.set_build_dir(os.path.join(base_dir, "build"))
     config.set_commands_dir(os.path.join(base_dir, "commands"))
     config.set_logs_dir(os.path.join(base_dir, "logs"))
+    config.set_home_dir(os.path.join(base_dir, "home"))
     config.set_prefs_path(os.path.join(base_dir, "prefs"))
 
     version = distro.get_system_version()

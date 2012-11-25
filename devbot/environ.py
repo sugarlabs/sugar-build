@@ -35,7 +35,7 @@ def _setup_variables():
     _add_path("GST_PLUGIN_PATH",
               os.path.join(config.lib_dir , "gstreamer-1.0"))
     _add_path("GST_REGISTRY",
-              os.path.join(config.devbot_dir, "gstreamer.registry"))
+              os.path.join(config.home_dir, "gstreamer.registry"))
     _add_path("PYTHONPATH",
               sysconfig.get_python_lib(prefix=config.prefix_dir))
     _add_path("PYTHONPATH",

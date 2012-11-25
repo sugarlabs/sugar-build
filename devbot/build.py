@@ -16,7 +16,7 @@ from devbot import environ
 state = { "built_modules": {} }
 
 def get_state_path():
-    return os.path.join(config.devbot_dir, "state.json")
+    return os.path.join(config.home_dir, "state.json")
 
 def load_state():
     global state

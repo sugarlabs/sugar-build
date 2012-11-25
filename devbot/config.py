@@ -10,10 +10,10 @@ commands_dir = None
 install_dir = None
 prefix_dir = None
 lib_dir = None
-devbot_dir = None
 share_dir = None
 bin_dir = None
 etc_dir = None
+home_dir = None
 dep_files = None
 module_files = None
 package_files = None
@@ -53,6 +53,11 @@ def set_logs_dir(dir):
     global logs_dir
     logs_dir = dir
 
+def set_home_dir(dir):
+    global home_dir
+    home_dir = dir
+    _ensure_dir(home_dir)
+
 def _get_prefix_dir(dir, relocatable):
     real_prefix_path = os.path.join(dir, "real_prefix")
 
@@ -81,7 +86,6 @@ def set_install_dir(dir, relocatable=False):
     global system_lib_dir
     global install_dir
     global prefix_dir
-    global devbot_dir
     global share_dir
     global bin_dir
     global etc_dir
@@ -91,9 +95,6 @@ def set_install_dir(dir, relocatable=False):
     _ensure_dir(install_dir)
 
     prefix_dir = _get_prefix_dir(dir, relocatable)
-
-    devbot_dir = os.path.join(prefix_dir, "devbot")
-    _ensure_dir(devbot_dir)
 
     share_dir = os.path.join(prefix_dir, "share")
     _ensure_dir(share_dir)
