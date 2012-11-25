@@ -1,7 +1,7 @@
 #!/usr/bin/python -u
 
 from distutils import sysconfig
-import glob
+import fnmatch
 import json
 import os
 import multiprocessing
@@ -49,13 +49,11 @@ def get_module_commit_id(module):
     return commit_id.strip()
 
 def unlink_libtool_files():
-    orig_cwd = os.getcwd()
-    os.chdir(config.lib_dir)
+    def func(arg, dirname, fnames):
+        for fname in fnmatch.filter(fnames, "*.la"):
+            os.unlink(os.path.join(dirname, fname))
 
-    for filename in glob.glob("*.la"):
-        os.unlink(filename)
-
-    os.chdir(orig_cwd)
+    os.path.walk(config.lib_dir, func, None)
 
 def pull_source(module):
     module_dir = module.get_source_dir()
