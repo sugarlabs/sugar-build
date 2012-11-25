@@ -8,9 +8,10 @@ if [ "$#" -eq 0 ]; then
     exit 1
 fi
 
-destdir=$1
-filename=sugar-build-`date +%Y%m%d-%H%M%S.tar`
+destdir=`dirname $1`
+filename=`basename $1`
 
+mkdir -p $destdir
 ln -s `pwd` $destdir/sugar-build
 
 cd $destdir
@@ -64,5 +65,3 @@ tar rh -f $filename $runshellscript $runsugarscript
 rm -rf sugar-build
 
 xz $filename
-
-echo $destdir/$filename.xz
