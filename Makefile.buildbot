@@ -28,6 +28,6 @@ snapshot-clean:
 snapshot-notify:
 	@echo "Notifying about upload completion"
 	@ssh $(SNAPSHOT_DEST_HOST) $(SNAPSHOT_DEST_ROOT)/upload-completed \
-	     $(SNAPSHOT_DEST_DIR) $(SNAPSHOT_FILENAME)
+	     $(SNAPSHOT_DEST_DIR) $(SNAPSHOT_FILENAME).xz
 
 snapshot-upload: snapshot-copy snapshot-clean snapshot-notify
