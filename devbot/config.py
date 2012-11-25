@@ -52,6 +52,7 @@ def set_config_dir(dir):
 def set_logs_dir(dir):
     global logs_dir
     logs_dir = dir
+    _ensure_dir(logs_dir)
 
 def set_home_dir(dir):
     global home_dir
@@ -205,5 +206,6 @@ def load_modules():
 def clean():
     try:
         os.rmdir(home_dir)
+        os.rmdir(logs_dir)
     except OSError:
         pass

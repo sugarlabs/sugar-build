@@ -4,9 +4,7 @@ home/
 install/
 build/
 source/
-logs/*.log
-logs/*.tar
-logs/all-logs.tar.bz2
+logs/
 commands/helpers/list-outputs
 commands/helpers/find-free-display
 commands/helpers/xephyr-window

@@ -2,10 +2,13 @@
 
 commandsdir=`dirname "$0"`
 rootdir=`dirname "$commandsdir"`
+logsdir=$rootdir/logs
 helpersdir=$commandsdir/helpers
 
 timestamp=`date +%Y%m%d-%H%M%S`
-logfile=$rootdir/logs/build-$timestamp.log
+logfile=$logsdir/build-$timestamp.log
+
+mkdir -p $logsdir
 
 PYTHONPATH=$commandsdir $helpersdir/build | tee -a $logfile
 
