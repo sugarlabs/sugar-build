@@ -6,7 +6,7 @@ auto-install:
 check-system:
 	@$(COMMANDS_DIR)/check-system $(ARGS)
 
-build: check-system
+build:
 	@$(COMMANDS_DIR)/build
 
 run: helpers-build

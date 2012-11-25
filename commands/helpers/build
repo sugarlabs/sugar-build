@@ -3,6 +3,8 @@
 import common
 
 from devbot import build
+from devbot import system
 
 common.setup()
+system.check()
 build.build()
