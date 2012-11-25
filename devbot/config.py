@@ -201,3 +201,9 @@ def load_modules():
             modules.append(Module(info))
 
     return modules
+
+def clean():
+    try:
+        os.rmdir(home_dir)
+    except OSError:
+        pass

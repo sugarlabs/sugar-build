@@ -17,10 +17,14 @@ def _add_path(name, path):
 
     os.environ[name] = ":".join(splitted)
 
+def _get_gst_registry_path():
+    return os.path.join(config.home_dir, "gstreamer.registry")
+
 def _setup_variables():
     _add_path("LD_LIBRARY_PATH", config.lib_dir)
     _add_path("PATH", config.bin_dir)
     _add_path("PATH", config.commands_dir)
+    _add_path("GST_REGISTRY", _get_gst_registry_path())
 
     _add_path("XCURSOR_PATH",
               os.path.join(config.share_dir, "icons"))
@@ -34,8 +38,6 @@ def _setup_variables():
               os.path.join(config.lib_dir, "pkgconfig"))
     _add_path("GST_PLUGIN_PATH",
               os.path.join(config.lib_dir , "gstreamer-1.0"))
-    _add_path("GST_REGISTRY",
-              os.path.join(config.home_dir, "gstreamer.registry"))
     _add_path("PYTHONPATH",
               sysconfig.get_python_lib(prefix=config.prefix_dir))
     _add_path("PYTHONPATH",
@@ -75,3 +77,11 @@ def _setup_gconf():
 
     os.environ["GCONF_SCHEMA_INSTALL_SOURCE"] = \
         "xml:merged:" + os.path.join(gconf_dir, "gconf.xml.defaults")
+
+def clean():
+    print "Deleting registry"
+
+    try:
+        os.unlink(_get_gst_registry_path())
+    except OSError:
+        pass

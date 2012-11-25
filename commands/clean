@@ -7,9 +7,15 @@ import common
 
 from devbot import build
 from devbot import config
+from devbot import environ
+from devbot import state
+from devbot import config
 
 common.setup()
 build.clean()
+environ.clean()
+state.clean()
+config.clean()
 
 os.chdir(config.logs_dir)
 

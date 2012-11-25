@@ -1,8 +1,4 @@
-#!/usr/bin/python -u
-
-from distutils import sysconfig
 import fnmatch
-import json
 import os
 import multiprocessing
 import shutil
@@ -12,31 +8,7 @@ import subprocess
 from devbot import command
 from devbot import config
 from devbot import environ
-
-state = { "built_modules": {} }
-
-def get_state_path():
-    return os.path.join(config.home_dir, "state.json")
-
-def load_state():
-    global state
-
-    state_path = get_state_path()
-    if os.path.exists(state_path):
-        state = json.load(open(state_path))
-
-def save_state():
-    json.dump(state, open(get_state_path(), "w+"))
-
-def add_path(name, path):
-    if name not in os.environ:
-        os.environ[name] = path
-        return
-
-    splitted = os.environ[name].split(":")
-    splitted.append(path)
-
-    os.environ[name] = ":".join(splitted)
+from devbot import state
 
 def get_module_commit_id(module):
     orig_cwd = os.getcwd()
@@ -118,15 +90,13 @@ def build_module(module):
         print "Unknown build system"
         sys.exit(1)
 
-    state["built_modules"][module.name] = get_module_commit_id(module)
-    save_state()
+    state.add_built_module(module.name, get_module_commit_id(module))
 
 def clear_built_modules(modules, index):
     if index < len(modules) - 1:
         for module in modules[index + 1:]:
-            name = module.name
-            if name in state["built_modules"]:
-                del state["built_modules"][name]
+            if state.get_built_module(module.name) is not None:
+                state.remove_built_module(module.name)
 
 def rmtree(dir):
     print "Deleting %s" % dir
@@ -134,7 +104,6 @@ def rmtree(dir):
 
 def build():
     environ.setup()
-    load_state()
 
     modules = config.load_modules()
 
@@ -144,7 +113,7 @@ def build():
         try:
             pull_source(module)
 
-            old_commit_id = state["built_modules"].get(module.name, None)
+            old_commit_id = state.get_built_module(module.name)
             new_commit_id = get_module_commit_id(module)
 
             if old_commit_id is None or old_commit_id != new_commit_id:
