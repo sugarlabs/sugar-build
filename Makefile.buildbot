@@ -2,8 +2,9 @@ DOCS_SOURCE=$(SOURCE_DIR)/sugar-docs/build/
 DOCS_DEST=dnarvaez@shell.sugarlabs.org:~/public_html/sugar-docs/
 
 SNAPSHOT_DEST_HOST=dnarvaez@shell.sugarlabs.org
-SNAPSHOT_DEST_DIR=/home/dnarvaez/public_html/snapshots/
-SNAPSHOT_DEST=$(SNAPSHOT_DEST_HOST):$(SNAPSHOT_DEST_DIR)$(SUGAR_BUILDBOT)
+SNAPSHOT_DEST_ROOT=/home/dnarvaez/public_html/snapshots/
+SNAPSHOT_DEST_DIR=$(SUGAR_BUILDBOT)
+SNAPSHOT_DEST_PATH=$(SNAPSHOT_DEST_ROOT)$(SNAPSHOT_DEST_DIR)
 SNAPSHOT_FILENAME=sugar-snapshot.tar
 SNAPSHOT_PATH=$(SNAPSHOT_TMP_DIR)/$(SNAPSHOT_FILENAME)
 SNAPSHOT_TMP_DIR:=$(shell mktemp -dut sugar-snapshot-XXXXXXXX)
@@ -19,13 +20,14 @@ snapshot-build: helpers-build
 
 snapshot-copy: snapshot-build
 	@echo "Uploading snapshot"
-	@scp $(SNAPSHOT_PATH).xz $(SNAPSHOT_DEST)
+	@scp $(SNAPSHOT_PATH).xz $(SNAPSHOT_DEST_HOST):$(SNAPSHOT_DEST_PATH)
 
 snapshot-clean:
 	@rm -rf $(SNAPSHOT_TMP_DIR)
 	
 snapshot-notify:
 	@echo "Notifying about upload completion"
-	@ssh $(SNAPSHOT_DEST_HOST) $(SNAPSHOT_DEST_DIR)/upload-completed
+	@ssh $(SNAPSHOT_DEST_HOST) $(SNAPSHOT_DEST_ROOT)/upload-completed \
+	     $(SNAPSHOT_DEST_DIR) $(SNAPSHOT_FILENAME)
 
 snapshot-upload: snapshot-copy snapshot-clean snapshot-notify
