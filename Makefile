@@ -6,6 +6,7 @@ HELPERS_DIR=$(COMMANDS_DIR)/helpers
 
 all: build
 
+include Makefile.config
 include Makefile.commands
 include Makefile.helpers
 include Makefile.buildbot

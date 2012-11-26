@@ -1,16 +1,31 @@
-[{ "name": "glib",
-   "repo": "git://git.gnome.org/glib",
-   "branch": "2.34.2",
-   "options": ["--disable-modular-tests"] },
- { "name": "gobject-introspection",
-   "repo": "git://git.gnome.org/gobject-introspection",
-   "branch": "GOBJECT_INTROSPECTION_1_34_1_1",
-   "options": ["--disable-tests"] },
- { "name": "pygobject",
-   "repo": "git://github.com/dnarvaez/pygobject.git",
-   "branch": "pygobject-3-4" },
- { "name": "metacity",
-   "repo": "git://git.gnome.org/metacity",
-   "branch": "METACITY_2_34_13",
-   "options": ["--disable-themes-documentation"] }]
-
+[
+    {
+        "branch": "2.34.2", 
+        "name": "glib", 
+        "options": [
+            "--disable-modular-tests"
+        ], 
+        "repo": "git://git.gnome.org/glib"
+    }, 
+    {
+        "branch": "GOBJECT_INTROSPECTION_1_34_1_1", 
+        "name": "gobject-introspection", 
+        "options": [
+            "--disable-tests"
+        ], 
+        "repo": "git://git.gnome.org/gobject-introspection"
+    }, 
+    {
+        "branch": "pygobject-3-4", 
+        "name": "pygobject", 
+        "repo": "git://github.com/dnarvaez/pygobject.git"
+    }, 
+    {
+        "branch": "METACITY_2_34_13", 
+        "name": "metacity", 
+        "options": [
+            "--disable-themes-documentation"
+        ], 
+        "repo": "git://git.gnome.org/metacity"
+    }
+]

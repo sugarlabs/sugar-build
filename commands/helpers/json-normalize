@@ -1,0 +1,23 @@
+#!/usr/bin/python
+
+import argparse
+import json
+from operator import itemgetter
+
+parser = argparse.ArgumentParser()
+parser.add_argument("paths", nargs="+", help="path to the json file")
+parser.add_argument("--sort-by", help="dictionary key to sort by")
+args = parser.parse_args()
+
+for path in args.paths:
+    in_file = open(path, "rb")
+    data = json.load(in_file)
+    in_file.close()
+
+    if args.sort_by is not None:
+        data.sort(key=itemgetter(args.sort_by))         
+
+    out_file = open(path, "wb")
+    json.dump(data, out_file, sort_keys=True, indent=4)
+    out_file.write('\n')
+    out_file.close()
