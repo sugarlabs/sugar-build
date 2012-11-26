@@ -8,6 +8,7 @@ from devbot import distro
 from devbot import utils
 from devbot import plugins
 
+devbot_dir = None
 config_dir = None
 logs_dir = None
 commands_dir = None
@@ -58,6 +59,10 @@ def get_commit_id():
         commit_id = "snapshot"
 
     return commit_id
+
+def set_devbot_dir(dir):
+    global devbot_dir
+    devbot_dir = dir
 
 def set_config_dir(dir):
     global config_dir

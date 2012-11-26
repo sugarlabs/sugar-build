@@ -13,6 +13,7 @@ from devbot import distro
 def setup():
     config.load_plugins()
 
+    config.set_devbot_dir(os.path.join(base_dir, "devbot"))
     config.set_config_dir(os.path.join(base_dir, "config"))
     config.set_install_dir(os.path.join(base_dir, "install"),
                            relocatable="SUGAR_BUILDBOT" in os.environ)
