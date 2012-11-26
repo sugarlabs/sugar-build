@@ -1,23 +1,57 @@
-[{ "check": "c++",
-   "checker": "binary" },
- { "check": "yasm",
-   "checker": "binary" },
- { "check": "flex",
-   "checker": "binary" },
- { "check": "xtst",
-   "checker": "pkgconfig" },
- { "check": "bison",
-   "checker": "binary" },
- { "check": "gtk-doc",
-   "checker": "pkgconfig" },
- { "check": "cairo-gobject",
-   "checker": "pkgconfig" },
- { "check": "iso-codes",
-   "checker": "pkgconfig" },
- { "check": "xkbfile",
-   "checker": "pkgconfig" },
- { "check_name": "espeak devel",
-   "check": "espeak/speak_lib.h",
-   "checker": "include" },
- { "check": "libxml-2.0",
-   "checker": "pkgconfig" }]
+[
+    {
+        "check": "bison", 
+        "checker": "binary", 
+        "name": "bison"
+    }, 
+    {
+        "check": "c++", 
+        "checker": "binary", 
+        "name": "c++"
+    }, 
+    {
+        "check": "cairo-gobject", 
+        "checker": "pkgconfig", 
+        "name": "cairo-gobject"
+    }, 
+    {
+        "check": "espeak/speak_lib.h", 
+        "checker": "include", 
+        "name": "espeak devel"
+    }, 
+    {
+        "check": "flex", 
+        "checker": "binary", 
+        "name": "flex"
+    }, 
+    {
+        "check": "gtk-doc", 
+        "checker": "pkgconfig", 
+        "name": "gtk-doc"
+    }, 
+    {
+        "check": "iso-codes", 
+        "checker": "pkgconfig", 
+        "name": "iso-codes"
+    }, 
+    {
+        "check": "libxml-2.0", 
+        "checker": "pkgconfig", 
+        "name": "libxml-2.0"
+    }, 
+    {
+        "check": "xkbfile", 
+        "checker": "pkgconfig", 
+        "name": "xkbfile"
+    }, 
+    {
+        "check": "xtst", 
+        "checker": "pkgconfig", 
+        "name": "xtst"
+    }, 
+    {
+        "check": "yasm", 
+        "checker": "binary", 
+        "name": "yasm"
+    }
+]

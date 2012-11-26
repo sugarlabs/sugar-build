@@ -83,9 +83,8 @@ def run_checks(package_manager, checks, packages):
     for check in checks:
         checker = checkers[check["checker"]]
         if checker(check["check"]):
-            check_name = check.get("check_name", check["check"])
-            if distro_name in packages[check_name]:
-                package_list = packages[check_name][distro_name]
+            if distro_name in packages[check["name"]]:
+                package_list = packages[check["name"]][distro_name]
                 if not isinstance(package_list, list):
                     package_list = [package_list]
 

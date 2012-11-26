@@ -1,22 +1,52 @@
-[{ "check": "atk-bridge",
-   "checker": "gtkmodule" },
- { "check_name": "gail gtkmodule",
-   "check": "gail",
-   "checker": "gtkmodule" },
- { "check": "xinit",
-   "checker": "binary" },
- { "check": "xz",
-   "checker": "binary" },
- { "check": "scp",
-   "checker": "binary" },
- { "check": "Xephyr",
-   "checker": "binary" },
- { "check": "dbus-launch",
-   "checker": "binary" },
- { "check_name": "atspi typelib",
-   "check": "from gi.repository import Atspi",
-   "checker": "python" },
- { "check": "xrandr",
-   "checker": "pkgconfig" },
- { "check": "x11",
-   "checker": "pkgconfig" }]
+[
+    {
+        "check": "Xephyr", 
+        "checker": "binary", 
+        "name": "Xephyr"
+    }, 
+    {
+        "check": "atk-bridge", 
+        "checker": "gtkmodule", 
+        "name": "atk-bridge"
+    }, 
+    {
+        "check": "from gi.repository import Atspi", 
+        "checker": "python", 
+        "name": "atspi typelib"
+    }, 
+    {
+        "check": "dbus-launch", 
+        "checker": "binary", 
+        "name": "dbus-launch"
+    }, 
+    {
+        "check": "gail", 
+        "checker": "gtkmodule", 
+        "name": "gail gtkmodule"
+    }, 
+    {
+        "check": "scp", 
+        "checker": "binary", 
+        "name": "scp"
+    }, 
+    {
+        "check": "x11", 
+        "checker": "pkgconfig", 
+        "name": "x11"
+    }, 
+    {
+        "check": "xinit", 
+        "checker": "binary", 
+        "name": "xinit"
+    }, 
+    {
+        "check": "xrandr", 
+        "checker": "pkgconfig", 
+        "name": "xrandr"
+    }, 
+    {
+        "check": "xz", 
+        "checker": "binary", 
+        "name": "xz"
+    }
+]

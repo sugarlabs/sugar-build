@@ -1,50 +1,127 @@
-[{ "check": "gcc",
-   "checker": "binary" },
- { "check": "autoreconf",
-   "checker": "binary" },
- { "check": "sphinx-build",
-   "checker": "binary" },
- { "check": "xrdb",
-   "checker": "binary" },
- { "check": "aclocal",
-   "checker": "binary" },
- { "check": "libtool",
-   "checker": "binary" },
- { "check": "icon-slicer",
-   "checker": "binary" },
- { "check": "intltoolize",
-   "checker": "binary" },
- { "check": "xcursorgen",
-   "checker": "binary" },
- { "check": "gnome-doc-common",
-   "checker": "binary" },
- { "check": "python",
-   "checker": "pkgconfig" },
- { "check": "glib-2.0",
-   "checker": "pkgconfig" },
- { "check": "gtk+-3.0",
-   "checker": "pkgconfig" },
- { "check": "sm",
-   "checker": "pkgconfig" },
- { "check": "ice",
-   "checker": "pkgconfig" },
- { "check": "alsa",
-   "checker": "pkgconfig" },
- { "check": "librsvg-2.0",
-   "checker": "pkgconfig" },
- { "check": "gobject-introspection-1.0",
-   "checker": "pkgconfig" },
- { "check": "pygtk-2.0",
-   "checker": "pkgconfig" },
- { "check": "gconf-2.0",
-   "checker": "pkgconfig" },
- { "check": "pycairo",
-   "checker": "pkgconfig" },
- { "check": "icon-naming-utils",
-   "checker": "pkgconfig" },
- { "check": "gsettings-desktop-schemas",
-   "checker": "pkgconfig" },
- { "check": "libcanberra-gtk",
-   "checker": "pkgconfig" },
- { "check": "tar",
-   "checker": "binary" }]
+[
+    {
+        "check": "aclocal", 
+        "checker": "binary", 
+        "name": "aclocal"
+    }, 
+    {
+        "check": "alsa", 
+        "checker": "pkgconfig", 
+        "name": "alsa"
+    }, 
+    {
+        "check": "autoreconf", 
+        "checker": "binary", 
+        "name": "autoreconf"
+    }, 
+    {
+        "check": "gcc", 
+        "checker": "binary", 
+        "name": "gcc"
+    }, 
+    {
+        "check": "gconf-2.0", 
+        "checker": "pkgconfig", 
+        "name": "gconf-2.0"
+    }, 
+    {
+        "check": "glib-2.0", 
+        "checker": "pkgconfig", 
+        "name": "glib-2.0"
+    }, 
+    {
+        "check": "gnome-doc-common", 
+        "checker": "binary", 
+        "name": "gnome-doc-common"
+    }, 
+    {
+        "check": "gobject-introspection-1.0", 
+        "checker": "pkgconfig", 
+        "name": "gobject-introspection-1.0"
+    }, 
+    {
+        "check": "gsettings-desktop-schemas", 
+        "checker": "pkgconfig", 
+        "name": "gsettings-desktop-schemas"
+    }, 
+    {
+        "check": "gtk+-3.0", 
+        "checker": "pkgconfig", 
+        "name": "gtk+-3.0"
+    }, 
+    {
+        "check": "ice", 
+        "checker": "pkgconfig", 
+        "name": "ice"
+    }, 
+    {
+        "check": "icon-naming-utils", 
+        "checker": "pkgconfig", 
+        "name": "icon-naming-utils"
+    }, 
+    {
+        "check": "icon-slicer", 
+        "checker": "binary", 
+        "name": "icon-slicer"
+    }, 
+    {
+        "check": "intltoolize", 
+        "checker": "binary", 
+        "name": "intltoolize"
+    }, 
+    {
+        "check": "libcanberra-gtk", 
+        "checker": "pkgconfig", 
+        "name": "libcanberra-gtk"
+    }, 
+    {
+        "check": "librsvg-2.0", 
+        "checker": "pkgconfig", 
+        "name": "librsvg-2.0"
+    }, 
+    {
+        "check": "libtool", 
+        "checker": "binary", 
+        "name": "libtool"
+    }, 
+    {
+        "check": "pycairo", 
+        "checker": "pkgconfig", 
+        "name": "pycairo"
+    }, 
+    {
+        "check": "pygtk-2.0", 
+        "checker": "pkgconfig", 
+        "name": "pygtk-2.0"
+    }, 
+    {
+        "check": "python", 
+        "checker": "pkgconfig", 
+        "name": "python"
+    }, 
+    {
+        "check": "sm", 
+        "checker": "pkgconfig", 
+        "name": "sm"
+    }, 
+    {
+        "check": "sphinx-build", 
+        "checker": "binary", 
+        "name": "sphinx-build"
+    }, 
+    {
+        "check": "tar", 
+        "checker": "binary", 
+        "name": "tar"
+    }, 
+    {
+        "check": "xcursorgen", 
+        "checker": "binary", 
+        "name": "xcursorgen"
+    }, 
+    {
+        "check": "xrdb", 
+        "checker": "binary", 
+        "name": "xrdb"
+    }
+]
