@@ -6,6 +6,9 @@ auto-install:
 check-system:
 	@$(COMMANDS_DIR)/check-system $(ARGS)
 
+pull:
+	@$(COMMANDS_DIR)/pull
+
 build:
 	@$(COMMANDS_DIR)/build
 
@@ -23,3 +26,9 @@ bug-report:
 
 clean: helpers-clean
 	@$(COMMANDS_DIR)/clean
+
+build-%:
+	@$(COMMANDS_DIR)/build $*
+
+pull-%:
+	@$(COMMANDS_DIR)/pull $*

@@ -10,6 +10,6 @@ logfile=$logsdir/build-$timestamp.log
 
 mkdir -p $logsdir
 
-PYTHONPATH=$commandsdir $helpersdir/build | tee -a $logfile
+PYTHONPATH=$commandsdir $helpersdir/build $@ | tee -a $logfile
 
 exit ${PIPESTATUS[0]} 

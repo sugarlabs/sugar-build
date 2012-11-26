@@ -4,7 +4,7 @@ HELPERS_DIR=$(COMMANDS_DIR)/helpers
 
 .PHONY: all
 
-all: build
+all: check-system pull build
 
 include Makefile.config
 include Makefile.commands

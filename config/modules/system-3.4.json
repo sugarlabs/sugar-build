@@ -44,7 +44,7 @@
         "branch": "1.0.2", 
         "name": "gstreamer", 
         "options": [
-            "--disable-gtk-doc-html"
+            "--disable-gtk-doc"
         ], 
         "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/gstreamer/gstreamer"
@@ -53,7 +53,7 @@
         "branch": "1.0.2", 
         "name": "gst-plugins-base", 
         "options": [
-            "--disable-gtk-doc-html"
+            "--disable-gtk-doc"
         ], 
         "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/gstreamer/gst-plugins-base"
@@ -62,7 +62,7 @@
         "branch": "1.0.2", 
         "name": "gst-plugins-good", 
         "options": [
-            "--disable-gtk-doc-html"
+            "--disable-gtk-doc"
         ], 
         "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/gstreamer/gst-plugins-good"
