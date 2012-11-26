@@ -89,7 +89,8 @@ class DistroInfo(interfaces.DistroInfo):
         self.system_version = None
         self.valid = False
         self.use_lib64 = False
-       
+      
+        arch = subprocess.check_output(["uname", "-i"]).strip() 
         if arch in ["i386", "i686", "x86_64"]:
             try:
                 if self._get_distributor() == "Ubuntu" and \
@@ -106,3 +107,5 @@ class DistroInfo(interfaces.DistroInfo):
 
     def _get_release(self):
         return subprocess.check_output(["lsb_release", "-sr"]).strip()
+
+distro.register_distro_info(DistroInfo)
