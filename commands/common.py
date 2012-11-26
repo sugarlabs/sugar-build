@@ -23,7 +23,7 @@ def setup():
     config.set_home_dir(os.path.join(base_dir, "home"))
     config.set_prefs_path(os.path.join(base_dir, "prefs"))
 
-    version = distro.get_system_version()
+    version = distro.get_distro_info().system_version
 
     module_files = ["system-%s.json" % version,
                     "sugar.json",

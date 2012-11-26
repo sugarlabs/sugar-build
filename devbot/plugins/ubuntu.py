@@ -80,3 +80,28 @@ class PackageManager:
         return result
 
 distro.register_package_manager("ubuntu", PackageManager)
+
+class DistroInfo:
+    def __init__(self):
+        self.name = None
+        self.version = None
+        self.system_version = None
+        self.valid = False
+        self.use_lib64 = False
+       
+        if arch in ["i386", "i686", "x86_64"]:
+            try:
+                if self._get_distributor() == "Ubuntu" and \
+                   self._get_release() == "12.10":
+                    self.name = "ubuntu"
+                    self.version = "12.10"
+                    self.system_version = "3.6"
+                    self.valid = True
+            except OSError:
+                pass
+
+    def _get_distributor(self):
+        return subprocess.check_output(["lsb_release", "-si"]).strip()
+
+    def _get_release(self):
+        return subprocess.check_output(["lsb_release", "-sr"]).strip()

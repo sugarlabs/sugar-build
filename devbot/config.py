@@ -118,7 +118,7 @@ def set_install_dir(dir, relocatable=False):
     bin_dir = os.path.join(prefix_dir, "bin")
     etc_dir = os.path.join(prefix_dir, "etc")
 
-    if distro.get_use_lib64():
+    if distro.get_distro_info().use_lib64:
         lib_dir = os.path.join(prefix_dir, "lib64")
         system_lib_dir = "/usr/lib64"
     else:
@@ -196,7 +196,7 @@ def load_prerequisites():
     return json.load(open(path))
 
 def load_checks():
-    version = distro.get_system_version()
+    version = distro.get_distro_info().system_version
 
     checks = []
     for file in dep_files:
@@ -206,7 +206,7 @@ def load_checks():
     return checks
 
 def load_modules():
-    version = distro.get_system_version()
+    version = distro.get_distro_info().system_version
 
     module_files = ["system-%s.json" % version,
                     "sugar.json",

@@ -75,7 +75,7 @@ checkers = { "binary": check_binary,
              "include": check_include }
 
 def run_checks(package_manager, checks, packages):
-    distro_name = distro.get_distro_name()
+    distro_name = distro.get_distro_info().name
 
     failed_checks = []
     to_install = []
@@ -137,7 +137,7 @@ def warn_if_unsupported(distro_name):
               "*********************************************************\n"
 
 def remove_packages(package_manager, packages):
-    distro_name = distro.get_distro_name()
+    distro_name = distro.get_distro_info().name
 
     to_keep = []
     for package_info in packages.values():
@@ -176,7 +176,7 @@ def check(remove=False, update=False, test=False, interactive=True,
     package_manager = \
         distro.get_package_manager(test=test, interactive=interactive)
 
-    distro_name = distro.get_distro_name()
+    distro_name = distro.get_distro_info().name
     packages = config.load_packages()
 
     checks = config.load_prerequisites()

@@ -79,3 +79,33 @@ class PackageManager:
                     self._find_deps(dep_package, result)
 
 distro.register_package_manager("fedora", PackageManager)
+
+class DistroInfo:
+    def __init__(self):
+        self.use_lib64 = os.uname()[4] == "x86_64"
+
+        arch = subprocess.check_output(["uname", "-i"]).strip()
+
+        self.name = "fedora"
+        self.version = None
+        self.system_version = None
+        self.valid = False
+        
+        if arch in ["i386", "i686", "x86_64"]:
+            fedora_release = self._get_fedora_release()
+            if fedora_release == "Fedora release 17 (Beefy Miracle)":
+                self.version = "17"
+                self.system_version = "3.4"
+                self.valid = True
+            elif fedora_release == "Fedora release 18 (Spherical Cow)":
+                self.version = "18"
+                self.system_version = "3.6"
+                self.valid = True
+
+    def _get_fedora_release(self):
+        try:
+            return open("/etc/fedora-release").read().strip()
+        except OSError:
+            return None
+ 
+distro.register_distro_info(DistroInfo)
