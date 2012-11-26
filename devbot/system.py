@@ -84,11 +84,7 @@ def run_checks(package_manager, checks, packages):
         checker = checkers[check["checker"]]
         if checker(check["check"]):
             if distro_name in packages[check["name"]]:
-                package_list = packages[check["name"]][distro_name]
-                if not isinstance(package_list, list):
-                    package_list = [package_list]
-
-                for package in package_list:
+                for package in packages[check["name"]][distro_name]:
                     # Might be none, if so skip on this distro_name
                     if package and package not in to_install:
                         to_install.append(package)
@@ -141,11 +137,7 @@ def remove_packages(package_manager, packages):
     to_keep = []
     for package_info in packages.values():
         if distro_name in package_info:
-            package_list = package_info[distro_name]
-            if not isinstance(package_list, list):
-                package_list = [package_list]
-
-            for package in package_list:
+            for package in package_info[distro_name]:
                 if package not in to_keep:
                     to_keep.append(package)
 

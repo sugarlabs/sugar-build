@@ -1,5 +1,11 @@
-{ "buildslave":
-  { "fedora": ["buildbot"],
-    "ubuntu": ["buildbot",
-               "buildbot-slave"] }
+{
+    "buildslave": {
+        "fedora": [
+            "buildbot"
+        ], 
+        "ubuntu": [
+            "buildbot", 
+            "buildbot-slave"
+        ]
+    }
 }

@@ -1,254 +1,675 @@
-{ "Xvfb":
-  { "fedora": "xorg-x11-server-Xvfb",
-    "ubuntu": "xvfb" },
-  "xz":
-  { "fedora": "xz",
-    "ubuntu": "xz-utils" },
-  "ssh":
-  { "fedora": "openssh-clients",
-    "ubuntu": "openssh-client" },
-  "sphinx-build":
-  { "fedora": "python-sphinx",
-    "ubuntu": "python-sphinx" },
-  "gconf python":
-  { "fedora": "gnome-python2-gconf",
-    "ubuntu": "python-gconf" },
-  "xinit":
-  { "fedora": "xorg-x11-xinit",
-    "ubuntu": "xinit" },
-  "gail gtkmodule":
-  { "fedora": "gtk2",
-    "ubuntu": "libgail-common" },
-  "cairo foreign":
-  { "fedora": "pygobject3",
-    "ubuntu": "python-gi-cairo" },
-  "cairo typelib":
-  { "fedora": "gobject-introspection",
-    "ubuntu": "gir1.2-freedesktop" },
-  "pkg-config":
-  { "fedora": "pkgconfig",
-    "ubuntu": "pkgconfig" },
-  "gcc":
-  { "fedora": "gcc",
-    "ubuntu": "gcc" },
-  "autoreconf":
-  { "fedora": "autoconf",
-    "ubuntu": "autoconf" },
-  "aclocal":
-  { "fedora": "automake",
-    "ubuntu": "automake" },
-  "libtool":
-  { "fedora": "libtool",
-    "ubuntu": "libtool" },
-  "icon-slicer":
-  { "fedora": "icon-slicer",
-    "ubuntu": "icon-slicer" },
-  "intltoolize":
-  { "fedora": "intltool",
-    "ubuntu": "intltool" },
-  "xcursorgen":
-  { "fedora": "xorg-x11-apps",
-    "ubuntu": "x11-apps" },
-  "gnome-doc-common":
-  { "fedora": "gnome-common",
-    "ubuntu": "gnome-common" },
-  "python":
-  { "fedora": "python-devel",
-    "ubuntu": "python-dev" },
-  "glib-2.0":
-  { "fedora": "glib2-devel",
-    "ubuntu": "libglib2.0-dev" },
-  "gtk+-3.0":
-  { "fedora": "gtk3-devel",
-    "ubuntu": "libgtk-3-dev" },
-  "sm":
-  { "fedora": "libSM-devel",
-    "ubuntu": "libsm-dev" },
-  "ice":
-  { "fedora": "libICE-devel",
-    "ubuntu": "libice-dev" },
-  "alsa":
-  { "fedora": "alsa-lib-devel",
-    "ubuntu": "libasound2-dev" },
-  "librsvg-2.0":
-  { "fedora": "librsvg2-devel",
-    "ubuntu": "librsvg2-dev" },
-  "gobject-introspection-1.0":
-   { "fedora": "gobject-introspection-devel",
-     "ubuntu": "libgirepository1.0-dev" },
-  "pygtk-2.0":
-  { "fedora": "pygtk2-devel",
-    "ubuntu": "python-gtk2-dev" },
-  "gconf-2.0":
-  { "fedora": "GConf2-devel",
-    "ubuntu": "libgconf2-dev" },
-  "pycairo":
-  { "fedora": "pycairo-devel",
-    "ubuntu": "python-cairo-dev" },
-  "icon-naming-utils":
-  { "fedora": "icon-naming-utils",
-    "ubuntu": "icon-naming-utils" },
-  "org.freedesktop.Telepathy.AccountManager":
-  { "fedora": "telepathy-mission-control",
-    "ubuntu": "telepathy-mission-control-5" },
-  "dconf":
-  { "fedora": "dconf",
-    "ubuntu": "dconf" },
-  "gnome-keyring-daemon":
-  { "fedora": "gnome-keyring",
-    "ubuntu": "gnome-keyring" },
-  "metacity":
-  { "fedora": "metacity",
-    "ubuntu": "metacity" },
-  "Adwaita":
-  { "fedora": "gnome-themes-standard",
-    "ubuntu": "gnome-themes-standard" },
-  "espeak":
-  { "fedora": "espeak",
-    "ubuntu": "espeak" },
-  "wnck python":
-  { "fedora": "gnome-python2-libwnck",
-    "ubuntu": "python-wnck" },
-  "simplejson python":
-  { "fedora": "python-simplejson",
-    "ubuntu": "python-simplejson" },
-  "hippo python":
-  { "fedora": "hippo-canvas-python",
-    "ubuntu": "python-hippocanvas" },
-  "telepathy python":
-  { "fedora": "python-telepathy",
-    "ubuntu": "python-telepathy" },
-  "xapian python":
-  { "fedora": "xapian-bindings-python",
-    "ubuntu": "python-xapian" },
-  "dateutil python":
-  { "fedora": "python-dateutil",
-    "ubuntu": "python-dateutil" },
-  "gtksourceview2 python":
-  { "fedora": "pygtksourceview",
-    "ubuntu": "python-gtksourceview2" },
-  "vte python":
-  { "fedora": "vte",
-    "ubuntu": "python-vte" },
-  "decorator python":
-  { "fedora": "python-decorator",
-    "ubuntu": "python-decorator" },
-  "gi python":
-  { "fedora": "pygobject3",
-    "ubuntu": "python-gi" },
-  "evince typelib":
-  { "fedora": "evince-libs",
-    "ubuntu": "gir1.2-evince-3.0" },
-  "gtksource typelib":
-  { "fedora": "gtksourceview3",
-    "ubuntu": "gir1.2-gtksource-3.0" },
-  "gconf typelib":
-  { "fedora": "GConf2",
-    "ubuntu": "gir1.2-gconf-2.0" },
-  "gst typelib":
-  { "fedora": "gstreamer",
-    "ubuntu": ["gir1.2-gstreamer-1.0",
-               "libgstreamer1.0-0"] },
-  "wnck typelib":
-  { "fedora": "libwnck3",
-    "ubuntu": "gir1.2-wnck-3.0" },
-  "rsvg python":
-  { "fedora": "gnome-python2-rsvg",
-    "ubuntu": "python-rsvg" },
-  "org.freedesktop.Telepathy.ConnectionManager.gabble":
-  { "fedora": "telepathy-gabble",
-    "ubuntu": "telepathy-gabble" },
-  "org.freedesktop.Telepathy.ConnectionManager.salut":
-  { "fedora": "telepathy-salut",
-    "ubuntu": "telepathy-salut" },
-  "webkit typelib":
-  { "fedora": "webkitgtk3",
-    "ubuntu": "gir1.2-webkit-3.0" },
-  "pygst python":
-  { "fedora": "gstreamer-python",
-    "ubuntu": "python-gst0.10" },
-  "vte typelib":
-  { "fedora": "vte3",
-    "ubuntu": "gir1.2-vte-2.90" },
-  "video4linux2":
-  { "fedora": "gstreamer-plugins-good",
-    "ubuntu": "gstreamer0.10-plugins-good" },
-  "c++":
-  { "fedora": "gcc-c++",
-    "ubuntu": "g++" },
-  "yasm":
-  { "fedora": "yasm",
-    "ubuntu": "yasm" },
-  "flex":
-  { "fedora": "flex",
-    "ubuntu": "flex" },
-  "xtst":
-  { "fedora": "libXtst-devel",
-    "ubuntu": "libxtst-dev" },
-  "bison":
-  { "fedora": "bison",
-    "ubuntu": "bison" },
-  "gtk-doc":
-  { "fedora": "gtk-doc",
-    "ubuntu": "gtk-doc-tools" },
-  "cairo-gobject":
-  { "fedora": "cairo-gobject-devel",
-    "ubuntu": "libcairo2-dev" },
-  "iso-codes":
-  { "fedora": "iso-codes-devel",
-    "ubuntu": "iso-codes" },
-  "xkbfile":
-  { "fedora": "libxkbfile-devel",
-    "ubuntu": "libxkbfile-dev" },
-  "espeak devel":
-  { "fedora": "espeak-devel",
-    "ubuntu": "libespeak-dev" },
-  "libxml-2.0":
-  { "fedora": "libxml2-devel",
-    "ubuntu": "libxml2-dev" },
-  "atk-bridge":
-  { "fedora": "at-spi2-atk",
-    "ubuntu": "libatk-adaptor" },
-  "Xephyr":
-  { "fedora": "xorg-x11-server-Xephyr",
-    "ubuntu": "xserver-xephyr" },
-  "dbus-launch":
-  { "fedora": "dbus-x11",
-    "ubuntu": "dbus-x11" },
-  "atspi typelib":
-  { "fedora": "at-spi2-core",
-    "ubuntu": "gir1.2-atspi-2.0" },
-  "xrandr":
-  { "fedora": "libXrandr-devel",
-    "ubuntu": "libxrandr-dev" },
-  "x11":
-  { "fedora": "libX11-devel",
-    "ubuntu": "libx11-dev" },
-  "tar":
-  { "fedora": "tar",
-    "ubuntu": "tar" },
-  "xrdb":
-  { "fedora": "xorg-x11-server-utils",
-    "ubuntu": "x11-xserver-utils" },
-  "gstreamer-plugins-base-1.0":
-  { "fedora": "gstreamer1-plugins-base-devel",
-    "ubuntu": "libgstreamer-plugins-base1.0-dev" },
-  "gstreamer-1.0":
-  { "fedora": "gstreamer1-devel",
-    "ubuntu": "libgstreamer1.0-dev" },
-  "pango gstreamer":
-  { "fedora": "gstreamer1-plugins-base",
-    "ubuntu": "gstreamer1.0-x" },
-  "autodetect gstreamer":
-  { "fedora": "gstreamer1-plugins-good",
-    "ubuntu": "gstreamer1.0-plugins-good" },
-  "gsettings-desktop-schemas":
-  { "fedora": "gsettings-desktop-schemas-devel",
-    "ubuntu": "gsettings-desktop-schemas-dev" },
-  "libcanberra-gtk":
-  { "fedora": "libcanberra-devel",
-    "ubuntu": "libcanberra-gtk-dev" },
-  "playback gstreamer":
-  { "fedora": "gstreamer1-plugins-base",
-    "ubuntu": "gstreamer1.0-plugins-base" }
+{
+    "Adwaita": {
+        "fedora": [
+            "gnome-themes-standard"
+        ], 
+        "ubuntu": [
+            "gnome-themes-standard"
+        ]
+    }, 
+    "Xephyr": {
+        "fedora": [
+            "xorg-x11-server-Xephyr"
+        ], 
+        "ubuntu": [
+            "xserver-xephyr"
+        ]
+    }, 
+    "Xvfb": {
+        "fedora": [
+            "xorg-x11-server-Xvfb"
+        ], 
+        "ubuntu": [
+            "xvfb"
+        ]
+    }, 
+    "aclocal": {
+        "fedora": [
+            "automake"
+        ], 
+        "ubuntu": [
+            "automake"
+        ]
+    }, 
+    "alsa": {
+        "fedora": [
+            "alsa-lib-devel"
+        ], 
+        "ubuntu": [
+            "libasound2-dev"
+        ]
+    }, 
+    "atk-bridge": {
+        "fedora": [
+            "at-spi2-atk"
+        ], 
+        "ubuntu": [
+            "libatk-adaptor"
+        ]
+    }, 
+    "atspi typelib": {
+        "fedora": [
+            "at-spi2-core"
+        ], 
+        "ubuntu": [
+            "gir1.2-atspi-2.0"
+        ]
+    }, 
+    "autodetect gstreamer": {
+        "fedora": [
+            "gstreamer1-plugins-good"
+        ], 
+        "ubuntu": [
+            "gstreamer1.0-plugins-good"
+        ]
+    }, 
+    "autoreconf": {
+        "fedora": [
+            "autoconf"
+        ], 
+        "ubuntu": [
+            "autoconf"
+        ]
+    }, 
+    "bison": {
+        "fedora": [
+            "bison"
+        ], 
+        "ubuntu": [
+            "bison"
+        ]
+    }, 
+    "c++": {
+        "fedora": [
+            "gcc-c++"
+        ], 
+        "ubuntu": [
+            "g++"
+        ]
+    }, 
+    "cairo foreign": {
+        "fedora": [
+            "pygobject3"
+        ], 
+        "ubuntu": [
+            "python-gi-cairo"
+        ]
+    }, 
+    "cairo typelib": {
+        "fedora": [
+            "gobject-introspection"
+        ], 
+        "ubuntu": [
+            "gir1.2-freedesktop"
+        ]
+    }, 
+    "cairo-gobject": {
+        "fedora": [
+            "cairo-gobject-devel"
+        ], 
+        "ubuntu": [
+            "libcairo2-dev"
+        ]
+    }, 
+    "dateutil python": {
+        "fedora": [
+            "python-dateutil"
+        ], 
+        "ubuntu": [
+            "python-dateutil"
+        ]
+    }, 
+    "dbus-launch": {
+        "fedora": [
+            "dbus-x11"
+        ], 
+        "ubuntu": [
+            "dbus-x11"
+        ]
+    }, 
+    "dconf": {
+        "fedora": [
+            "dconf"
+        ], 
+        "ubuntu": [
+            "dconf"
+        ]
+    }, 
+    "decorator python": {
+        "fedora": [
+            "python-decorator"
+        ], 
+        "ubuntu": [
+            "python-decorator"
+        ]
+    }, 
+    "espeak": {
+        "fedora": [
+            "espeak"
+        ], 
+        "ubuntu": [
+            "espeak"
+        ]
+    }, 
+    "espeak devel": {
+        "fedora": [
+            "espeak-devel"
+        ], 
+        "ubuntu": [
+            "libespeak-dev"
+        ]
+    }, 
+    "evince typelib": {
+        "fedora": [
+            "evince-libs"
+        ], 
+        "ubuntu": [
+            "gir1.2-evince-3.0"
+        ]
+    }, 
+    "flex": {
+        "fedora": [
+            "flex"
+        ], 
+        "ubuntu": [
+            "flex"
+        ]
+    }, 
+    "gail gtkmodule": {
+        "fedora": [
+            "gtk2"
+        ], 
+        "ubuntu": [
+            "libgail-common"
+        ]
+    }, 
+    "gcc": {
+        "fedora": [
+            "gcc"
+        ], 
+        "ubuntu": [
+            "gcc"
+        ]
+    }, 
+    "gconf python": {
+        "fedora": [
+            "gnome-python2-gconf"
+        ], 
+        "ubuntu": [
+            "python-gconf"
+        ]
+    }, 
+    "gconf typelib": {
+        "fedora": [
+            "GConf2"
+        ], 
+        "ubuntu": [
+            "gir1.2-gconf-2.0"
+        ]
+    }, 
+    "gconf-2.0": {
+        "fedora": [
+            "GConf2-devel"
+        ], 
+        "ubuntu": [
+            "libgconf2-dev"
+        ]
+    }, 
+    "gi python": {
+        "fedora": [
+            "pygobject3"
+        ], 
+        "ubuntu": [
+            "python-gi"
+        ]
+    }, 
+    "glib-2.0": {
+        "fedora": [
+            "glib2-devel"
+        ], 
+        "ubuntu": [
+            "libglib2.0-dev"
+        ]
+    }, 
+    "gnome-doc-common": {
+        "fedora": [
+            "gnome-common"
+        ], 
+        "ubuntu": [
+            "gnome-common"
+        ]
+    }, 
+    "gnome-keyring-daemon": {
+        "fedora": [
+            "gnome-keyring"
+        ], 
+        "ubuntu": [
+            "gnome-keyring"
+        ]
+    }, 
+    "gobject-introspection-1.0": {
+        "fedora": [
+            "gobject-introspection-devel"
+        ], 
+        "ubuntu": [
+            "libgirepository1.0-dev"
+        ]
+    }, 
+    "gsettings-desktop-schemas": {
+        "fedora": [
+            "gsettings-desktop-schemas-devel"
+        ], 
+        "ubuntu": [
+            "gsettings-desktop-schemas-dev"
+        ]
+    }, 
+    "gst typelib": {
+        "fedora": [
+            "gstreamer"
+        ], 
+        "ubuntu": [
+            "gir1.2-gstreamer-1.0", 
+            "libgstreamer1.0-0"
+        ]
+    }, 
+    "gstreamer-1.0": {
+        "fedora": [
+            "gstreamer1-devel"
+        ], 
+        "ubuntu": [
+            "libgstreamer1.0-dev"
+        ]
+    }, 
+    "gstreamer-plugins-base-1.0": {
+        "fedora": [
+            "gstreamer1-plugins-base-devel"
+        ], 
+        "ubuntu": [
+            "libgstreamer-plugins-base1.0-dev"
+        ]
+    }, 
+    "gtk+-3.0": {
+        "fedora": [
+            "gtk3-devel"
+        ], 
+        "ubuntu": [
+            "libgtk-3-dev"
+        ]
+    }, 
+    "gtk-doc": {
+        "fedora": [
+            "gtk-doc"
+        ], 
+        "ubuntu": [
+            "gtk-doc-tools"
+        ]
+    }, 
+    "gtksource typelib": {
+        "fedora": [
+            "gtksourceview3"
+        ], 
+        "ubuntu": [
+            "gir1.2-gtksource-3.0"
+        ]
+    }, 
+    "gtksourceview2 python": {
+        "fedora": [
+            "pygtksourceview"
+        ], 
+        "ubuntu": [
+            "python-gtksourceview2"
+        ]
+    }, 
+    "hippo python": {
+        "fedora": [
+            "hippo-canvas-python"
+        ], 
+        "ubuntu": [
+            "python-hippocanvas"
+        ]
+    }, 
+    "ice": {
+        "fedora": [
+            "libICE-devel"
+        ], 
+        "ubuntu": [
+            "libice-dev"
+        ]
+    }, 
+    "icon-naming-utils": {
+        "fedora": [
+            "icon-naming-utils"
+        ], 
+        "ubuntu": [
+            "icon-naming-utils"
+        ]
+    }, 
+    "icon-slicer": {
+        "fedora": [
+            "icon-slicer"
+        ], 
+        "ubuntu": [
+            "icon-slicer"
+        ]
+    }, 
+    "intltoolize": {
+        "fedora": [
+            "intltool"
+        ], 
+        "ubuntu": [
+            "intltool"
+        ]
+    }, 
+    "iso-codes": {
+        "fedora": [
+            "iso-codes-devel"
+        ], 
+        "ubuntu": [
+            "iso-codes"
+        ]
+    }, 
+    "libcanberra-gtk": {
+        "fedora": [
+            "libcanberra-devel"
+        ], 
+        "ubuntu": [
+            "libcanberra-gtk-dev"
+        ]
+    }, 
+    "librsvg-2.0": {
+        "fedora": [
+            "librsvg2-devel"
+        ], 
+        "ubuntu": [
+            "librsvg2-dev"
+        ]
+    }, 
+    "libtool": {
+        "fedora": [
+            "libtool"
+        ], 
+        "ubuntu": [
+            "libtool"
+        ]
+    }, 
+    "libxml-2.0": {
+        "fedora": [
+            "libxml2-devel"
+        ], 
+        "ubuntu": [
+            "libxml2-dev"
+        ]
+    }, 
+    "metacity": {
+        "fedora": [
+            "metacity"
+        ], 
+        "ubuntu": [
+            "metacity"
+        ]
+    }, 
+    "org.freedesktop.Telepathy.AccountManager": {
+        "fedora": [
+            "telepathy-mission-control"
+        ], 
+        "ubuntu": [
+            "telepathy-mission-control-5"
+        ]
+    }, 
+    "org.freedesktop.Telepathy.ConnectionManager.gabble": {
+        "fedora": [
+            "telepathy-gabble"
+        ], 
+        "ubuntu": [
+            "telepathy-gabble"
+        ]
+    }, 
+    "org.freedesktop.Telepathy.ConnectionManager.salut": {
+        "fedora": [
+            "telepathy-salut"
+        ], 
+        "ubuntu": [
+            "telepathy-salut"
+        ]
+    }, 
+    "pango gstreamer": {
+        "fedora": [
+            "gstreamer1-plugins-base"
+        ], 
+        "ubuntu": [
+            "gstreamer1.0-x"
+        ]
+    }, 
+    "pkg-config": {
+        "fedora": [
+            "pkgconfig"
+        ], 
+        "ubuntu": [
+            "pkgconfig"
+        ]
+    }, 
+    "playback gstreamer": {
+        "fedora": [
+            "gstreamer1-plugins-base"
+        ], 
+        "ubuntu": [
+            "gstreamer1.0-plugins-base"
+        ]
+    }, 
+    "pycairo": {
+        "fedora": [
+            "pycairo-devel"
+        ], 
+        "ubuntu": [
+            "python-cairo-dev"
+        ]
+    }, 
+    "pygst python": {
+        "fedora": [
+            "gstreamer-python"
+        ], 
+        "ubuntu": [
+            "python-gst0.10"
+        ]
+    }, 
+    "pygtk-2.0": {
+        "fedora": [
+            "pygtk2-devel"
+        ], 
+        "ubuntu": [
+            "python-gtk2-dev"
+        ]
+    }, 
+    "python": {
+        "fedora": [
+            "python-devel"
+        ], 
+        "ubuntu": [
+            "python-dev"
+        ]
+    }, 
+    "rsvg python": {
+        "fedora": [
+            "gnome-python2-rsvg"
+        ], 
+        "ubuntu": [
+            "python-rsvg"
+        ]
+    }, 
+    "simplejson python": {
+        "fedora": [
+            "python-simplejson"
+        ], 
+        "ubuntu": [
+            "python-simplejson"
+        ]
+    }, 
+    "sm": {
+        "fedora": [
+            "libSM-devel"
+        ], 
+        "ubuntu": [
+            "libsm-dev"
+        ]
+    }, 
+    "sphinx-build": {
+        "fedora": [
+            "python-sphinx"
+        ], 
+        "ubuntu": [
+            "python-sphinx"
+        ]
+    }, 
+    "ssh": {
+        "fedora": [
+            "openssh-clients"
+        ], 
+        "ubuntu": [
+            "openssh-client"
+        ]
+    }, 
+    "tar": {
+        "fedora": [
+            "tar"
+        ], 
+        "ubuntu": [
+            "tar"
+        ]
+    }, 
+    "telepathy python": {
+        "fedora": [
+            "python-telepathy"
+        ], 
+        "ubuntu": [
+            "python-telepathy"
+        ]
+    }, 
+    "video4linux2": {
+        "fedora": [
+            "gstreamer-plugins-good"
+        ], 
+        "ubuntu": [
+            "gstreamer0.10-plugins-good"
+        ]
+    }, 
+    "vte python": {
+        "fedora": [
+            "vte"
+        ], 
+        "ubuntu": [
+            "python-vte"
+        ]
+    }, 
+    "vte typelib": {
+        "fedora": [
+            "vte3"
+        ], 
+        "ubuntu": [
+            "gir1.2-vte-2.90"
+        ]
+    }, 
+    "webkit typelib": {
+        "fedora": [
+            "webkitgtk3"
+        ], 
+        "ubuntu": [
+            "gir1.2-webkit-3.0"
+        ]
+    }, 
+    "wnck python": {
+        "fedora": [
+            "gnome-python2-libwnck"
+        ], 
+        "ubuntu": [
+            "python-wnck"
+        ]
+    }, 
+    "wnck typelib": {
+        "fedora": [
+            "libwnck3"
+        ], 
+        "ubuntu": [
+            "gir1.2-wnck-3.0"
+        ]
+    }, 
+    "x11": {
+        "fedora": [
+            "libX11-devel"
+        ], 
+        "ubuntu": [
+            "libx11-dev"
+        ]
+    }, 
+    "xapian python": {
+        "fedora": [
+            "xapian-bindings-python"
+        ], 
+        "ubuntu": [
+            "python-xapian"
+        ]
+    }, 
+    "xcursorgen": {
+        "fedora": [
+            "xorg-x11-apps"
+        ], 
+        "ubuntu": [
+            "x11-apps"
+        ]
+    }, 
+    "xinit": {
+        "fedora": [
+            "xorg-x11-xinit"
+        ], 
+        "ubuntu": [
+            "xinit"
+        ]
+    }, 
+    "xkbfile": {
+        "fedora": [
+            "libxkbfile-devel"
+        ], 
+        "ubuntu": [
+            "libxkbfile-dev"
+        ]
+    }, 
+    "xrandr": {
+        "fedora": [
+            "libXrandr-devel"
+        ], 
+        "ubuntu": [
+            "libxrandr-dev"
+        ]
+    }, 
+    "xrdb": {
+        "fedora": [
+            "xorg-x11-server-utils"
+        ], 
+        "ubuntu": [
+            "x11-xserver-utils"
+        ]
+    }, 
+    "xtst": {
+        "fedora": [
+            "libXtst-devel"
+        ], 
+        "ubuntu": [
+            "libxtst-dev"
+        ]
+    }, 
+    "xz": {
+        "fedora": [
+            "xz"
+        ], 
+        "ubuntu": [
+            "xz-utils"
+        ]
+    }, 
+    "yasm": {
+        "fedora": [
+            "yasm"
+        ], 
+        "ubuntu": [
+            "yasm"
+        ]
+    }
 }
