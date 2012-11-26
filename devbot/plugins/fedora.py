@@ -3,8 +3,9 @@ import subprocess
 
 from devbot import command
 from devbot import distro
+from devbot.plugins import interfaces
 
-class PackageManager:
+class PackageManager(interfaces.PackageManager):
     def __init__(self, test=False, interactive=True):
         self._test = test
         self._interactive = interactive
@@ -80,7 +81,7 @@ class PackageManager:
 
 distro.register_package_manager("fedora", PackageManager)
 
-class DistroInfo:
+class DistroInfo(interfaces.DistroInfo):
     def __init__(self):
         self.use_lib64 = os.uname()[4] == "x86_64"
 

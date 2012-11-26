@@ -3,8 +3,9 @@ import subprocess
 
 from devbot import command
 from devbot import distro
+from devbot.plugins import interfaces
 
-class PackageManager:
+class PackageManager(interfaces.PackageManager):
     def __init__(self, test=False, interactive=True):
         import apt
 
@@ -81,7 +82,7 @@ class PackageManager:
 
 distro.register_package_manager("ubuntu", PackageManager)
 
-class DistroInfo:
+class DistroInfo(interfaces.DistroInfo):
     def __init__(self):
         self.name = None
         self.version = None
