@@ -1,9 +1,12 @@
+import imp
 import json
 import os
+import pkgutil
 import tempfile
 
 from devbot import distro
 from devbot import utils
+from devbot import plugins
 
 config_dir = None
 logs_dir = None
@@ -173,6 +176,11 @@ def get_pref(name):
                 prefs[splitted[0]] = splitted[1]
 
     return prefs.get(name, None)
+
+def load_plugins():
+    for loader, name, ispkg in pkgutil.iter_modules(plugins.__path__):
+        f, filename, desc = imp.find_module(name, plugins.__path__)
+        imp.load_module(name, f, filename, desc)
 
 def load_packages():
     packages = {}
