@@ -106,7 +106,7 @@ class DistroInfo(interfaces.DistroInfo):
     def _get_fedora_release(self):
         try:
             return open("/etc/fedora-release").read().strip()
-        except OSError:
+        except IOError:
             return None
  
 distro.register_distro_info(DistroInfo)
