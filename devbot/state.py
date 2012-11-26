@@ -25,16 +25,23 @@ def _get_state():
 def _state_changed():
     json.dump(_state, open(_get_state_path(), "w+"))
 
-def add_built_module(name, commit_id):
-    _get_state()["built_modules"][name] = commit_id
+def touch_built_commit_id(module):
+    _get_state()["built_modules"][module.name] = module.get_commit_id()
     _state_changed()
 
-def remove_built_module(name):
-    del _get_state()["built_modules"][name]
+def remove_built_commit_id(module):
+    del _get_state()["built_modules"][module.name]
     _state_changed()
 
-def get_built_module(name):
-    return _get_state()["built_modules"].get(name, None)
+def get_built_commit_id(module):
+    return _get_state()["built_modules"].get(module.name, None)
+
+def get_last_system_check():
+    return _get_state().get("last_system_check", None)
+
+def touch_last_system_check():
+    _get_state()["last_system_check"] = config.get_commit_id()
+    _state_changed()
 
 def clean():
     _state = None

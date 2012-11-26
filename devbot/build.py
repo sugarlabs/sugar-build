@@ -10,16 +10,6 @@ from devbot import config
 from devbot import environ
 from devbot import state
 
-def get_module_commit_id(module):
-    orig_cwd = os.getcwd()
-    os.chdir(module.get_source_dir())
-
-    commit_id = subprocess.check_output(["git", "rev-parse", "HEAD"])
-
-    os.chdir(orig_cwd)
-
-    return commit_id.strip()
-
 def unlink_libtool_files():
     def func(arg, dirname, fnames):
         for fname in fnmatch.filter(fnames, "*.la"):
@@ -90,13 +80,13 @@ def build_module(module):
         print "Unknown build system"
         sys.exit(1)
 
-    state.add_built_module(module.name, get_module_commit_id(module))
+    state.touch_built_commit_id(module)
 
 def clear_built_modules(modules, index):
     if index < len(modules) - 1:
         for module in modules[index + 1:]:
-            if state.get_built_module(module.name) is not None:
-                state.remove_built_module(module.name)
+            if state.get_built_commit_id(module) is not None:
+                state.remove_built_commit_id(module)
 
 def rmtree(dir):
     print "Deleting %s" % dir
@@ -113,8 +103,8 @@ def build():
         try:
             pull_source(module)
 
-            old_commit_id = state.get_built_module(module.name)
-            new_commit_id = get_module_commit_id(module)
+            old_commit_id = state.get_built_commit_id(module)
+            new_commit_id = module.get_commit_id()
 
             if old_commit_id is None or old_commit_id != new_commit_id:
                 clear_built_modules(modules, i)

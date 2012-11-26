@@ -5,7 +5,7 @@ helpersdir=$commandsdir/helpers
 rootdir=`dirname "$commandsdir"`
 display=`$helpersdir/find-free-display`
 
-$commandsdir/check-system
+$commandsdir/check-system --skip-if-unchanged
 
 if [ -f $rootdir/prefs ]; then
     source $rootdir/prefs

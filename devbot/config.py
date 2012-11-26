@@ -3,6 +3,7 @@ import os
 import tempfile
 
 from devbot import distro
+from devbot import utils
 
 config_dir = None
 logs_dir = None
@@ -41,9 +42,19 @@ class Module:
     def get_build_dir(self):
         return os.path.join(get_build_dir(), self.name)
 
+    def get_commit_id(self):
+        return utils.get_commit_id(get_source_dir())
+
 def _ensure_dir(dir):
     if not os.path.exists(dir):
         os.mkdir(dir)
+
+def get_commit_id():
+    commit_id = utils.get_commit_id(config_dir)
+    if commit_id is None:
+        commit_id = "snapshot"
+
+    return commit_id
 
 def set_config_dir(dir):
     global config_dir

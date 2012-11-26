@@ -6,8 +6,9 @@ import sys
 from devbot import config
 from devbot import distro
 from devbot import command
+from devbot import state
+from devbot import utils
 
-devnull = open("/dev/null", "w")
 xvfb_display = ":100"
 
 libdirs = ["lib",
@@ -17,7 +18,7 @@ libdirs = ["lib",
 
 def check_binary(check):
     return subprocess.call(["which", check],
-                           stdout=devnull,
+                           stdout=utils.devnull,
                            stderr=subprocess.STDOUT)
 
 def check_pkgconfig(check):
@@ -25,7 +26,8 @@ def check_pkgconfig(check):
 
 def check_python(check):
     return subprocess.call(["python", "-c", check],
-                           stdout=devnull, stderr=subprocess.STDOUT) == 1
+                           stdout=utils.devnull,
+                           stderr=subprocess.STDOUT) == 1
 
 def check_gtkmodule(check):
     # Not sure we can do better than this, the gtkmodule stuff is private
@@ -109,7 +111,7 @@ def run_checks(package_manager, checks, packages):
 
 def start_xvfb():
     xvfb_proc = subprocess.Popen(args=["Xvfb", xvfb_display],
-                                 stdout=devnull,
+                                 stdout=utils.devnull,
                                  stderr=subprocess.STDOUT)
     orig_display = os.environ.get("DISPLAY", None)
     os.environ["DISPLAY"] = xvfb_display
@@ -163,7 +165,12 @@ def remove_packages(package_manager, packages):
     if to_remove:
         package_manager.remove_packages(to_remove)
 
-def check(remove=False, update=False, test=False, interactive=True):
+def check(remove=False, update=False, test=False, interactive=True,
+          skip_if_unchanged=False):
+    if skip_if_unchanged:
+        if config.get_commit_id() == state.get_last_system_check():
+            return
+
     print "Checking the system"
 
     package_manager = \
@@ -188,4 +195,6 @@ def check(remove=False, update=False, test=False, interactive=True):
         package_manager.update()
 
     if remove:
-	remove_packages(package_manager, packages)
+        remove_packages(package_manager, packages)
+
+    state.touch_last_system_check()
