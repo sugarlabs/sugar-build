@@ -37,9 +37,11 @@ def build():
     skipped = []
 
     for module in modules[:]:
-        old_commit_id = state.get_built_commit_id(module)
         new_commit_id = module.get_commit_id()
+        if new_commit_id is None:
+            break
 
+        old_commit_id = state.get_built_commit_id(module)
         if old_commit_id == new_commit_id:
             modules.pop(0)
             skipped.append(module.name)
@@ -54,7 +56,8 @@ def build():
         state.remove_built_commit_id(module)
 
     for module in modules:
-        _build_module(module)
+        if not _build_module(module):
+            break
 
 def clean():
     _rmtree(config.install_dir)
@@ -125,31 +128,40 @@ def _build_activity(module):
 def _build_module(module):
     print "\n=== Building %s ===\n" % module.name
 
-    module_source_dir = module.get_source_dir()
+    source_dir = module.get_source_dir()
+
+    if not os.path.exists(source_dir):
+        print "Source directory does not exist. Please pull the sources " \
+              "before building."
+        return False
 
     if module.out_of_source:
-        module_build_dir = module.get_build_dir()
+        build_dir = module.get_build_dir()
 
-        if not os.path.exists(module_build_dir):
-            os.mkdir(module_build_dir)
+        if not os.path.exists(build_dir):
+            os.mkdir(build_dir)
 
-        os.chdir(module_build_dir)
+        os.chdir(build_dir)
     else:
-        os.chdir(module_source_dir)
+        os.chdir(source_dir)
 
     try:
-        if os.path.exists(os.path.join(module_source_dir, "setup.py")):
+        if os.path.exists(os.path.join(source_dir, "setup.py")):
             _build_activity(module)
-        elif os.path.exists(os.path.join(module_source_dir, "autogen.sh")):
+        elif os.path.exists(os.path.join(source_dir, "autogen.sh")):
             _build_autotools(module)
-        elif os.path.exists(os.path.join(module_source_dir, "Makefile")):
+        elif os.path.exists(os.path.join(source_dir, "Makefile")):
             _build_make(module)
         else:
-            raise RuntimeError("Unknown build system")
+            print "The source directory has unexpected content, please " \
+                  "delete it and pull\nthe source again."                
+            return False
     except subprocess.CalledProcessError:
-        sys.exit(1)
+        return False
 
     state.touch_built_commit_id(module)
+
+    return True
 
 def _rmtree(dir):
     print "Deleting %s" % dir

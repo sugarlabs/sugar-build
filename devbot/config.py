@@ -47,6 +47,9 @@ class Module:
         return os.path.join(get_build_dir(), self.name)
 
     def get_commit_id(self):
+        if not os.path.exists(self.get_source_dir()):
+            return None
+
         return utils.get_commit_id(self.get_source_dir())
 
 def _ensure_dir(dir):
