@@ -30,8 +30,11 @@ def touch_built_commit_id(module):
     _state_changed()
 
 def remove_built_commit_id(module):
-    del _get_state()["built_modules"][module.name]
-    _state_changed()
+    state = _get_state()
+
+    if module.name in state["built_modules"]:
+        del state["built_modules"][module.name]
+        _state_changed()
 
 def get_built_commit_id(module):
     return _get_state()["built_modules"].get(module.name, None)

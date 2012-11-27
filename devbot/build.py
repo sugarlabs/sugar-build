@@ -96,12 +96,6 @@ def build_module(module):
 
     state.touch_built_commit_id(module)
 
-def clear_built_modules(modules, index):
-    if index < len(modules) - 1:
-        for module in modules[index + 1:]:
-            if state.get_built_commit_id(module) is not None:
-                state.remove_built_commit_id(module)
-
 def rmtree(dir):
     print "Deleting %s" % dir
     shutil.rmtree(dir, ignore_errors=True)
@@ -130,16 +124,27 @@ def build():
     environ.setup()
 
     modules = config.load_modules()
+    skipped = []
 
-    for i, module in enumerate(modules):
+    for module in modules[:]:
         old_commit_id = state.get_built_commit_id(module)
         new_commit_id = module.get_commit_id()
 
-        if old_commit_id is None or old_commit_id != new_commit_id:
-            clear_built_modules(modules, i)
-            build_module(module)
+        if old_commit_id == new_commit_id:
+            modules.pop(0)
+            skipped.append(module.name)
         else:
-            print "\n* Already built, skipping *"
+            break
+
+    if skipped:
+        print "\n* Skipping unchanged modules *\n"
+        print "\n".join(skipped)
+
+    for module in modules:
+        state.remove_built_commit_id(module)
+
+    for module in modules:
+        build_module(module)
 
 def clean():
     rmtree(config.install_dir)
