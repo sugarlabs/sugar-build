@@ -75,7 +75,7 @@ def _unlink_libtool_files():
 def _pull_git_module(module):
     module_dir = module.get_source_dir()
 
-    if os.path.exists(module_dir):
+    if os.path.exists(os.path.join(module_dir, ".git")):
         os.chdir(module_dir)
 
         command.run(["git", "remote", "set-url", "origin", module.repo])
