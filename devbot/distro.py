@@ -19,7 +19,14 @@ def get_package_manager(test=False, interactive=True):
 
 def get_distro_info():
     global _distros_info
+
+    unknown_distro = None
+
     for info_class in _distros_info:
         info = info_class()
-        if info.valid:
+        if info.name == "unknown":
+            unknown_distro = info
+        elif info.valid:
             return info
+
+    return unknown_distro

@@ -95,7 +95,7 @@ def run_checks(package_manager, checks, packages):
         package_manager.install_packages(to_install)
 
     if failed_checks:
-        print "Failed checks\n"
+        print "\nFailed checks:"
     else:
         return True
 
