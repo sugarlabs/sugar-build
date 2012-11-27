@@ -121,16 +121,6 @@ def stop_xvfb(xvfb_proc, orig_display):
 
     xvfb_proc.terminate()
 
-def warn_if_unsupported(distro_name):
-    if distro_name == "unsupported":
-        print "*********************************************************\n" \
-              "You are running an unsupported distribution. You might be\n" \
-              "able to make sugar work by installing or building \n" \
-              "packages but it certainly won't work out of the box.\n" \
-              "You are strongly encouraged to pick one of the supported \n" \
-              "distributions listed in the README.\n" \
-              "*********************************************************\n"
-
 def remove_packages(package_manager, packages):
     distro_name = distro.get_distro_info().name
 
@@ -177,8 +167,6 @@ def check(remove=False, update=False, test=False, interactive=True,
     xvfb_proc, orig_display = start_xvfb()
 
     run_checks(package_manager, config.load_checks(), packages)
-
-    warn_if_unsupported(distro_name)
 
     stop_xvfb(xvfb_proc, orig_display)
 

@@ -2,11 +2,12 @@ import os
 import subprocess
 
 _package_managers = {}
-_distros_info = []
+_supported_distros = []
+_distro_info = None
 
 def register_distro_info(distro_info):
-     global _distros_info
-     _distros_info.append(distro_info)
+     global _supported_distros
+     _supported_distros.append(distro_info)
 
 def register_package_manager(name, package_manager):
     global _package_managers
@@ -18,15 +19,30 @@ def get_package_manager(test=False, interactive=True):
     return package_manager_class(test=test, interactive=interactive)
 
 def get_distro_info():
-    global _distros_info
+    global _supported_distros
+    global _distro_info
+
+    if _distro_info is not None:
+        return _distro_info
 
     unknown_distro = None
 
-    for info_class in _distros_info:
+    for info_class in _supported_distros:
         info = info_class()
         if info.name == "unknown":
             unknown_distro = info
         elif info.valid:
-            return info
+            _distro_info = info
 
-    return unknown_distro
+    if _distro_info is None:
+        _distro_info = unknown_distro
+       
+        print "*********************************************************\n" \
+              "You are running an unsupported distribution. You might be\n" \
+              "able to make sugar work by installing or building \n" \
+              "packages but it certainly won't work out of the box.\n" \
+              "You are strongly encouraged to pick one of the supported \n" \
+              "distributions listed in the README.\n" \
+              "*********************************************************\n"
+
+    return _distro_info
