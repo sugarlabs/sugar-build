@@ -26,6 +26,8 @@ def _setup_variables():
     _add_path("PATH", config.commands_dir)
     _add_path("GST_REGISTRY", _get_gst_registry_path())
 
+    _add_path("ACLOCAL_PATH",
+              os.path.join(config.share_dir, "aclocal"))  
     _add_path("XCURSOR_PATH",
               os.path.join(config.share_dir, "icons"))
     _add_path("GIO_EXTRA_MODULES",
