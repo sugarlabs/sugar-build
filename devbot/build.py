@@ -10,6 +10,61 @@ from devbot import config
 from devbot import environ
 from devbot import state
 
+def build_one(module_name):
+    environ.setup()
+
+    for module in config.load_modules():
+        if module.name == module_name:
+            _build_module(module)
+
+def pull_one(module_name):
+    environ.setup()
+
+    for module in config.load_modules():
+        if module.name == module_name:
+            _pull_module(module)
+
+def pull():
+    environ.setup()
+
+    for module in config.load_modules():
+        _pull_module(module)
+
+def build():
+    environ.setup()
+
+    modules = config.load_modules()
+    skipped = []
+
+    for module in modules[:]:
+        old_commit_id = state.get_built_commit_id(module)
+        new_commit_id = module.get_commit_id()
+
+        if old_commit_id == new_commit_id:
+            modules.pop(0)
+            skipped.append(module.name)
+        else:
+            break
+
+    if skipped:
+        print "\n* Skipping unchanged modules *\n"
+        print "\n".join(skipped)
+
+    for module in modules:
+        state.remove_built_commit_id(module)
+
+    for module in modules:
+        _build_module(module)
+
+def clean():
+    _rmtree(config.install_dir)
+    _rmtree(config.prefix_dir)
+    _rmtree(config.get_build_dir())
+
+    for module in config.load_modules():
+        if not module.out_of_source:
+            _rmtree(module.get_source_dir())
+
 def _unlink_libtool_files():
     def func(arg, dirname, fnames):
         for fname in fnmatch.filter(fnames, "*.la"):
@@ -99,58 +154,3 @@ def _build_module(module):
 def _rmtree(dir):
     print "Deleting %s" % dir
     shutil.rmtree(dir, ignore_errors=True)
-
-def build_one(module_name):
-    environ.setup()
-
-    for module in config.load_modules():
-        if module.name == module_name:
-            _build_module(module)
-
-def pull_one(module_name):
-    environ.setup()
-
-    for module in config.load_modules():
-        if module.name == module_name:
-            _pull_module(module)
-
-def pull():
-    environ.setup()
-
-    for module in config.load_modules():
-        _pull_module(module)
-
-def build():
-    environ.setup()
-
-    modules = config.load_modules()
-    skipped = []
-
-    for module in modules[:]:
-        old_commit_id = state.get_built_commit_id(module)
-        new_commit_id = module.get_commit_id()
-
-        if old_commit_id == new_commit_id:
-            modules.pop(0)
-            skipped.append(module.name)
-        else:
-            break
-
-    if skipped:
-        print "\n* Skipping unchanged modules *\n"
-        print "\n".join(skipped)
-
-    for module in modules:
-        state.remove_built_commit_id(module)
-
-    for module in modules:
-        _build_module(module)
-
-def clean():
-    _rmtree(config.install_dir)
-    _rmtree(config.prefix_dir)
-    _rmtree(config.get_build_dir())
-
-    for module in config.load_modules():
-        if not module.out_of_source:
-            _rmtree(module.get_source_dir())
