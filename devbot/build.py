@@ -10,14 +10,14 @@ from devbot import config
 from devbot import environ
 from devbot import state
 
-def unlink_libtool_files():
+def _unlink_libtool_files():
     def func(arg, dirname, fnames):
         for fname in fnmatch.filter(fnames, "*.la"):
             os.unlink(os.path.join(dirname, fname))
 
     os.path.walk(config.lib_dir, func, None)
 
-def pull_git_module(module):
+def _pull_git_module(module):
     module_dir = module.get_source_dir()
 
     if os.path.exists(module_dir):
@@ -33,18 +33,18 @@ def pull_git_module(module):
 
     command.run(["git", "checkout", module.branch])
 
-def pull_module(module):
+def _pull_module(module):
     print "\n=== Pulling %s ===\n" % module.name
 
     try:
-        pull_git_module(module)
+        _pull_git_module(module)
     except subprocess.CalledProcessError:
         sys.exit(1)
 
-def build_make(module):
+def _build_make(module):
     command.run(["make"])
 
-def build_autotools(module):
+def _build_autotools(module):
     makefile_path = os.path.join(module.get_build_dir(), "Makefile")
 
     if not os.path.exists(makefile_path):
@@ -62,12 +62,12 @@ def build_autotools(module):
     command.run(["make", "-j", "%d" % jobs])
     command.run(["make", "install"])
 
-    unlink_libtool_files()
+    _unlink_libtool_files()
 
-def build_activity(module):
+def _build_activity(module):
     command.run(["./setup.py", "install", "--prefix", config.prefix_dir])
 
-def build_module(module):
+def _build_module(module):
     print "\n=== Building %s ===\n" % module.name
 
     module_source_dir = module.get_source_dir()
@@ -84,11 +84,11 @@ def build_module(module):
 
     try:
         if os.path.exists(os.path.join(module_source_dir, "setup.py")):
-            build_activity(module)
+            _build_activity(module)
         elif os.path.exists(os.path.join(module_source_dir, "autogen.sh")):
-            build_autotools(module)
+            _build_autotools(module)
         elif os.path.exists(os.path.join(module_source_dir, "Makefile")):
-            build_make(module)
+            _build_make(module)
         else:
             raise RuntimeError("Unknown build system")
     except subprocess.CalledProcessError:
@@ -96,7 +96,7 @@ def build_module(module):
 
     state.touch_built_commit_id(module)
 
-def rmtree(dir):
+def _rmtree(dir):
     print "Deleting %s" % dir
     shutil.rmtree(dir, ignore_errors=True)
 
@@ -105,20 +105,20 @@ def build_one(module_name):
 
     for module in config.load_modules():
         if module.name == module_name:
-            build_module(module)
+            _build_module(module)
 
 def pull_one(module_name):
     environ.setup()
 
     for module in config.load_modules():
         if module.name == module_name:
-            pull_module(module)
+            _pull_module(module)
 
 def pull():
     environ.setup()
 
     for module in config.load_modules():
-        pull_module(module)
+        _pull_module(module)
 
 def build():
     environ.setup()
@@ -144,13 +144,13 @@ def build():
         state.remove_built_commit_id(module)
 
     for module in modules:
-        build_module(module)
+        _build_module(module)
 
 def clean():
-    rmtree(config.install_dir)
-    rmtree(config.prefix_dir)
-    rmtree(config.get_build_dir())
+    _rmtree(config.install_dir)
+    _rmtree(config.prefix_dir)
+    _rmtree(config.get_build_dir())
 
     for module in config.load_modules():
         if not module.out_of_source:
-            rmtree(module.get_source_dir())
+            _rmtree(module.get_source_dir())
