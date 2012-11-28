@@ -5,6 +5,7 @@ import os
 import common
 
 from devbot import shell
+from devbot import config
 
 common.setup()
-shell.start(os.path.join(common.helpers_dir, "bashrc"))
+shell.start(os.path.join(config.commands_dir, "bashrc"))

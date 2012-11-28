@@ -2,7 +2,6 @@ import os
 import sys
 
 base_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-helpers_dir = os.path.join(base_dir, "commands", "helpers")
 tests_dir = os.path.join(base_dir, "tests")
 
 sys.path.append(base_dir)
