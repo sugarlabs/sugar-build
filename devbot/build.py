@@ -127,7 +127,7 @@ def _build_autotools(module, log):
 def _build_activity(module, log):
     command.run(["./setup.py", "install", "--prefix", config.prefix_dir], log)
 
-def _build_module(module, log):
+def _build_module(module, log=None):
     print "\n=== Building %s ===\n" % module.name
 
     source_dir = module.get_source_dir()
