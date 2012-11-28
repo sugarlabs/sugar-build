@@ -106,8 +106,9 @@ def run_checks(package_manager, checks, packages):
         print "Failed checks\n"
         _print_checks(failed_checks)
 
-        print "\nYou might try to install the following packages\n"
-        print " ".join(to_install)
+        if to_install:
+            print "\nYou might try to install the following packages\n"
+            print " ".join(to_install)
 
         return False
 
