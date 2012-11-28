@@ -16,7 +16,7 @@ docs-upload:
 
 snapshot-build:
 	@echo "Creating snapshot"
-	@commands/helpers/build-snapshot $(SNAPSHOT_PATH)
+	@$(TOOLS_DIR)/build-snapshot $(SNAPSHOT_PATH)
 
 snapshot-copy: snapshot-build
 	@echo "Uploading snapshot"

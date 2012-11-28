@@ -1,6 +1,7 @@
 SOURCE_DIR=$(CURDIR)/source
 COMMANDS_DIR=$(CURDIR)/commands
 HELPERS_DIR=$(COMMANDS_DIR)/helpers
+TOOLS_DIR=$(CURDIR)/tools
 
 .PHONY: all
 
