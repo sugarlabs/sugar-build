@@ -18,6 +18,7 @@ lib_dir = None
 share_dir = None
 bin_dir = None
 etc_dir = None
+libexec_dir = None
 home_dir = None
 dep_files = None
 module_files = None
@@ -113,6 +114,7 @@ def set_install_dir(dir, relocatable=False):
     global bin_dir
     global etc_dir
     global lib_dir
+    global libexec_dir
 
     install_dir = dir
     _ensure_dir(install_dir)
@@ -125,6 +127,7 @@ def set_install_dir(dir, relocatable=False):
 
     bin_dir = os.path.join(prefix_dir, "bin")
     etc_dir = os.path.join(prefix_dir, "etc")
+    libexec_dir = os.path.join(prefix_dir, "libexec")
 
     if distro.get_distro_info().use_lib64:
         lib_dir = os.path.join(prefix_dir, "lib64")

@@ -13,16 +13,22 @@ from devbot import distro
 def setup():
     config.load_plugins()
 
+    relocatable = "SUGAR_BUILDBOT" in os.environ
+    logs_dir = os.path.join(base_dir, "logs")
+    install_dir = os.path.join(base_dir, "install")
+
     config.set_devbot_dir(os.path.join(base_dir, "devbot"))
     config.set_config_dir(os.path.join(base_dir, "config"))
-    config.set_install_dir(os.path.join(base_dir, "install"),
-                           relocatable="SUGAR_BUILDBOT" in os.environ)
+    config.set_install_dir(install_dir, relocatable=relocatable)
     config.set_source_dir(os.path.join(base_dir, "source"))
     config.set_build_dir(os.path.join(base_dir, "build"))
     config.set_commands_dir(os.path.join(base_dir, "commands"))
-    config.set_logs_dir(os.path.join(base_dir, "logs"))
     config.set_home_dir(os.path.join(base_dir, "home"))
     config.set_prefs_path(os.path.join(base_dir, "prefs"))
+    config.set_logs_dir(logs_dir)
+
+    os.environ["SB_LOGS_DIR"] = logs_dir
+    os.environ["SB_LIBEXEC_DIR"] = config.libexec_dir
 
     version = distro.get_distro_info().system_version
 
