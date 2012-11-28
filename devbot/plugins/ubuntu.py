@@ -101,7 +101,7 @@ class DistroInfo(interfaces.DistroInfo):
         if self.version != "12.10":
             self.supported = False
 
-        if self.version and self.version > "12.10":
+        if self.version and self.version >= "12.10":
             self.system_version = "3.6"
 
     def _get_distributor(self):
