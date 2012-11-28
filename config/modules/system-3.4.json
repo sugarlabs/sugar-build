@@ -16,9 +16,9 @@
         "repo": "git://git.gnome.org/gobject-introspection"
     }, 
     {
-        "branch": "pygobject-3-4", 
+        "branch": "776088b4d673183264893cf40bd3e4e359ba7a5", 
         "name": "pygobject", 
-        "repo": "git://github.com/dnarvaez/pygobject.git"
+        "repo": "git://git.gnome.org/pygobject"
     }, 
     {
         "branch": "ATK_2_6_0", 
