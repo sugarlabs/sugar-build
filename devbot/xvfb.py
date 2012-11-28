@@ -3,9 +3,15 @@ import subprocess
 
 from devbot import utils
 
-xvfb_display = ":100"
+_display_provider = None
+
+def set_display_provider(provider):
+    global _display_provider
+    _display_provider = provider
 
 def start():
+    xvfb_display = _display_provider.find_free_display()
+
     xvfb_proc = subprocess.Popen(args=["Xvfb", xvfb_display],
                                  stdout=utils.devnull,
                                  stderr=subprocess.STDOUT)
@@ -16,7 +22,7 @@ def start():
 
 def stop(xvfb_proc, orig_display):
     if orig_display:
-        os.environ["DISPLAY"] = xvfb_display
+        os.environ["DISPLAY"] = orig_display
     else:
         del os.environ["DISPLAY"]
 
