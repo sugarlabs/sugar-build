@@ -6,8 +6,6 @@ import os
 import common
 
 from devbot import system
-from devbot import config
-from devbot import distro
 
 common.setup()
 
@@ -21,19 +19,6 @@ parser.add_argument("--test", action="store_true",
 parser.add_argument("--skip-if-unchanged", action="store_true",
                     help="skip if unchanged from the last check")
 args = parser.parse_args()
-
-def apply_ubuntu_tweaks():
-    wrapper_config = open("/etc/X11/Xwrapper.config").read()
-    if "allowed_users=anybody" not in wrapper_config:
-        print "\nWe are going to allow anybody to run the X server"
-
-        ubuntu_tweaks = os.path.join(config.commands_dir,
-                                     "helpers", "ubuntu-tweaks")
-
-        command.run_with_sudo([ubuntu_tweaks])
-
-if distro.get_distro_info().name == "ubuntu":
-    apply_ubuntu_tweaks()
 
 interactive = "SUGAR_BUILDBOT" not in os.environ
 
