@@ -1,6 +1,5 @@
 import os
 import sys
-import subprocess
 
 base_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 helpers_dir = os.path.join(base_dir, "commands", "helpers")
@@ -10,13 +9,6 @@ sys.path.append(base_dir)
 from devbot import system
 from devbot import config
 from devbot import distro
-from devbot import xvfb
-
-class _DisplayProvider:
-    def find_free_display(self):
-        helper_path = os.path.join(config.libexec_dir,
-                                   "sugar-runner", "find-free-display")
-        return subprocess.check_output([helper_path])
 
 def setup():
     config.load_plugins()
@@ -60,5 +52,3 @@ def setup():
         package_files.append("buildslave")
 
     config.set_package_files(package_files)
-
-    xvfb.set_display_provider(_DisplayProvider())
