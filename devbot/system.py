@@ -166,7 +166,8 @@ def check(remove=False, update=False, test=False, interactive=True,
 
     xvfb_proc, orig_display = start_xvfb()
 
-    run_checks(package_manager, config.load_checks(), packages)
+    if not run_checks(package_manager, config.load_checks(), packages):
+        sys.exit(1)
 
     stop_xvfb(xvfb_proc, orig_display)
 
