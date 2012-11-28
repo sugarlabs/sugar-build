@@ -8,8 +8,7 @@ from devbot import distro
 from devbot import command
 from devbot import state
 from devbot import utils
-
-xvfb_display = ":100"
+from devbot import xvfb
 
 libdirs = ["lib",
            "lib64",
@@ -104,23 +103,6 @@ def run_checks(package_manager, checks, packages):
 
     return False
 
-def start_xvfb():
-    xvfb_proc = subprocess.Popen(args=["Xvfb", xvfb_display],
-                                 stdout=utils.devnull,
-                                 stderr=subprocess.STDOUT)
-    orig_display = os.environ.get("DISPLAY", None)
-    os.environ["DISPLAY"] = xvfb_display
-
-    return (xvfb_proc, orig_display)
-
-def stop_xvfb(xvfb_proc, orig_display):
-    if orig_display:
-        os.environ["DISPLAY"] = xvfb_display
-    else:
-        del os.environ["DISPLAY"]
-
-    xvfb_proc.terminate()
-
 def remove_packages(package_manager, packages):
     distro_name = distro.get_distro_info().name
 
@@ -164,12 +146,12 @@ def check(remove=False, update=False, test=False, interactive=True,
     if not run_checks(package_manager, checks, packages):
         sys.exit(1)
 
-    xvfb_proc, orig_display = start_xvfb()
+    xvfb_proc, orig_display = xvfb.start()
 
     if not run_checks(package_manager, config.load_checks(), packages):
         sys.exit(1)
 
-    stop_xvfb(xvfb_proc, orig_display)
+    xvfb.stop(xvfb_proc, orig_display)
 
     if update:
         package_manager.update()
