@@ -171,19 +171,36 @@ def set_prefs_path(path):
     global prefs_path
     prefs_path = path
 
-def get_pref(name):
-    prefs = {}
+def _read_prefs():
+    global prefs_path
 
     if not os.path.exists(prefs_path):
-        return None
+        return {}
 
+    prefs = {}
     with open(prefs_path) as f:
         for line in f.readlines():
             splitted = line.strip().split("=")
             if len(splitted) == 2:
                 prefs[splitted[0]] = splitted[1]
 
+    return prefs
+
+def _save_prefs(prefs):
+    global prefs_path
+
+    with open(prefs_path, "w") as f:
+        for pref in prefs.items():
+            f.write("%s\n" % "=".join(pref))
+
+def get_pref(name):
+    prefs = _read_prefs()
     return prefs.get(name, None)
+
+def set_pref(name, value):
+    prefs = _read_prefs()
+    prefs[name] = value
+    _save_prefs(prefs)
 
 def load_plugins():
     for loader, name, ispkg in pkgutil.iter_modules(plugins.__path__):

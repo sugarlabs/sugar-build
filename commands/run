@@ -1,50 +1,8 @@
-#!/bin/bash
+#!/usr/bin/python
 
-commandsdir=$(dirname $(readlink -f $0))
-helpersdir=$commandsdir/helpers
-rootdir=`dirname "$commandsdir"`
-display=`$helpersdir/find-free-display`
+import common
 
-$commandsdir/check-system --skip-if-unchanged
+from devbot import run
 
-if [ -f $rootdir/prefs ]; then
-    source $rootdir/prefs
-fi
-
-if [ ! -z $DISPLAY ]; then
-    SUGAR_XKBCONFIG=`mktemp -t sugar-xkbconfig-XXXXXX`
-    setxkbmap -print > $SUGAR_XKBCONFIG
-    export SUGAR_XKBCONFIG
-fi
-
-if [ ! -z $SUGAR_PROFILE ]; then
-    grep -q PROFILE $rootdir/prefs
-    if [ $? -eq 1 ]; then
-        randomstring=`</dev/urandom tr -cd A-Za-z0-9 | head -c10`
-        echo "PROFILE=$randomstring" >> $ROOT_DIR/prefs
-    fi
-fi
-
-if [ -z $DISPLAY ]; then
-    tty_num=`tty | grep -oE '[0-9]+$'`
-    x_options="vt$tty_num"
-
-    xinit $helpersdir/xinitrc -- $display $x_options
-else
-    screen_dpi=`$helpersdir/get-screen-dpi`
-    xephyr_options="-dpi $screen_dpi"
-
-    xidfile=`mktemp -t sugar-xephyr-xid-XXXXXX`
-    $helpersdir/xephyr-window $RESOLUTION > $xidfile &
-    xephyrwindowpid=$!
-
-    while [ ! -s $xidfile ]
-    do
-        sleep 1
-    done
-
-    xephyr_options="$xephyr_options -parent `cat $xidfile`"
-    xinit $helpersdir/xinitrc -- /usr/bin/Xephyr $display $xephyr_options
-
-    kill $xephyrwindowpid
-fi
+common.setup()
+run.run_sugar()

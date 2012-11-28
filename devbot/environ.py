@@ -58,6 +58,10 @@ def _setup_variables():
     os.environ["GTK_DATA_PREFIX"] = config.prefix_dir
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")
 
+    profile = config.get_pref("PROFILE")
+    if profile is not None:
+        os.environ["SUGAR_PROFILE"] = profile
+
 def _setup_gconf():
     gconf_dir = os.path.join(config.etc_dir, "gconf")
     gconf_pathdir = os.path.join(gconf_dir, "2")

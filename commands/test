@@ -1,47 +1,10 @@
-#!/bin/sh
+#!/usr/bin/python
 
-commandsdir=`dirname "$0"`
-helpersdir=$commandsdir/helpers
-rootdir=`dirname "$commandsdir"`
-testsdir=$rootdir/tests
-logsdir=$rootdir/logs
-display=`$helpersdir/find-free-display`
-resolution=1024x768x16
+import os
 
-xvfb=`which Xvfb`
-xserver="$xvfb $display -ac -noreset -shmem -screen 0 $resolution"
+import common
 
-if [ -z "$SUGAR_BUILDBOT" ]; then
-    xserver=$display
-fi
+from devbot import run
 
-export SUGAR_LOGGER_LEVEL=debug
-export GTK_MODULES=gail:atk-bridge
-export SUGAR_UI_TESTS=yes
-
-xinit $helpersdir/xinitrc -- $xserver &
-xinitpid=$!
-
-sleep 5
-
-DISPLAY=$display python -u $testsdir/shell.py
-result=$?
-
-kill $xinitpid
-
-if [ -z "$SUGAR_BUILDBOT" ]; then
-    LOGFILE=$logsdir/test-`date +%Y%m%d-%H%M%S`.log
-else
-    LOGFILE=$logsdir/test.log
-fi
-
-cd ~/.sugar/ui-tests/logs
-
-for logfile in *.log
-do
- echo -e "===== $logfile =====\n" >> $LOGFILE
- cat $logfile >> $LOGFILE
- echo >> $LOGFILE
-done
-
-exit $result
+common.setup()
+run.run([os.path.join(common.helpers_dir, "test")])

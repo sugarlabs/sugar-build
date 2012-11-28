@@ -1,6 +1,0 @@
-#!/usr/bin/python
-
-from gi.repository import Gtk
-
-settings = Gtk.Settings.get_default()
-print settings.get_property('gtk-xft-dpi') / 1024

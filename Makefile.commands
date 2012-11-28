@@ -12,19 +12,19 @@ pull:
 build:
 	@$(COMMANDS_DIR)/build
 
-run: helpers-build
+run:
 	@$(COMMANDS_DIR)/run
 
-test: helpers-build
+test:
 	@$(COMMANDS_DIR)/test
 
-shell: helpers-build
+shell:
 	@$(COMMANDS_DIR)/shell
 
 bug-report:
 	@$(COMMANDS_DIR)/bug-report
 
-clean: helpers-clean
+clean:
 	@$(COMMANDS_DIR)/clean
 
 build-%:

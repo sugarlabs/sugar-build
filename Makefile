@@ -8,5 +8,4 @@ all: check-system pull build
 
 include Makefile.config
 include Makefile.commands
-include Makefile.helpers
 include Makefile.buildbot

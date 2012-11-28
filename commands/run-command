@@ -1,9 +1,0 @@
-#!/usr/bin/python
-
-import common
-import sys
-
-from devbot import run
-
-common.setup()
-run.run_command(sys.argv[1:])
