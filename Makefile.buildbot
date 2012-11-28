@@ -14,7 +14,7 @@ SNAPSHOT_TMP_DIR:=$(shell mktemp -dut sugar-snapshot-XXXXXXXX)
 docs-upload:
 	rsync -r --progress $(DOCS_SOURCE) $(DOCS_DEST)
 
-snapshot-build: helpers-build
+snapshot-build:
 	@echo "Creating snapshot"
 	@commands/helpers/build-snapshot $(SNAPSHOT_PATH)
 
