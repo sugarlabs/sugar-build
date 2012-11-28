@@ -1,16 +1,27 @@
 import subprocess
 import time
 
-def run(args, test=False, retry=0):
+_logger = None
+
+def set_logger(logger):
+    global _logger
+    _logger = logger
+
+def run(args, log=None, test=False, retry=0):
     print " ".join(args)
     if test:
         return
+
+    full_args = args[:]
+    if log is not None:
+        full_args.insert(0, _logger)
+        full_args.append(log)
 
     tries = 0
     while tries < retry + 1:
         try:
             tries = tries + 1
-            subprocess.check_call(args)
+            subprocess.check_call(full_args)
             return
         except subprocess.CalledProcessError, e:
             if tries < retry + 1:

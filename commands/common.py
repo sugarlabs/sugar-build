@@ -9,6 +9,7 @@ sys.path.append(base_dir)
 from devbot import system
 from devbot import config
 from devbot import distro
+from devbot import command
 
 def setup():
     config.load_plugins()
@@ -16,6 +17,7 @@ def setup():
     relocatable = "SUGAR_BUILDBOT" in os.environ
     logs_dir = os.path.join(base_dir, "logs")
     install_dir = os.path.join(base_dir, "install")
+    tools_dir = os.path.join(base_dir, "tools")
 
     config.set_devbot_dir(os.path.join(base_dir, "devbot"))
     config.set_config_dir(os.path.join(base_dir, "config"))
@@ -52,3 +54,5 @@ def setup():
         package_files.append("buildslave")
 
     config.set_package_files(package_files)
+
+    command.set_logger(os.path.join(tools_dir, "log-command"))

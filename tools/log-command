@@ -1,0 +1,11 @@
+#!/bin/bash
+
+toolsdir=`dirname "$0"`
+rootdir=`dirname "$toolsdir"`
+logsdir=$rootdir/logs
+
+mkdir -p $logsdir
+
+${@:(-$#):($#-1)} | tee -a $logsdir/${@: -1:1}.log
+
+exit ${PIPESTATUS[0]} 

@@ -4,6 +4,7 @@ import multiprocessing
 import shutil
 import sys
 import subprocess
+import time
 
 from devbot import command
 from devbot import config
@@ -56,7 +57,8 @@ def build():
         state.remove_built_commit_id(module)
 
     for module in modules:
-        if not _build_module(module):
+        log = "build-%s" % time.strftime("%Y%m%d-%H%M%S")
+        if not _build_module(module, log):
             break
 
 def clean():
@@ -99,10 +101,10 @@ def _pull_module(module):
     except subprocess.CalledProcessError:
         sys.exit(1)
 
-def _build_make(module):
-    command.run(["make"])
+def _build_make(module, log):
+    command.run(["make"], log)
 
-def _build_autotools(module):
+def _build_autotools(module, log):
     makefile_path = os.path.join(module.get_build_dir(), "Makefile")
 
     if not os.path.exists(makefile_path):
@@ -113,19 +115,19 @@ def _build_autotools(module):
                 "--libdir", config.lib_dir]
         args.extend(module.options)
 
-        command.run(args)
+        command.run(args, log)
 
     jobs = multiprocessing.cpu_count() * 2
 
-    command.run(["make", "-j", "%d" % jobs])
-    command.run(["make", "install"])
+    command.run(["make", "-j", "%d" % jobs], log)
+    command.run(["make", "install"], log)
 
     _unlink_libtool_files()
 
-def _build_activity(module):
-    command.run(["./setup.py", "install", "--prefix", config.prefix_dir])
+def _build_activity(module, log):
+    command.run(["./setup.py", "install", "--prefix", config.prefix_dir], log)
 
-def _build_module(module):
+def _build_module(module, log):
     print "\n=== Building %s ===\n" % module.name
 
     source_dir = module.get_source_dir()
@@ -147,11 +149,11 @@ def _build_module(module):
 
     try:
         if os.path.exists(os.path.join(source_dir, "setup.py")):
-            _build_activity(module)
+            _build_activity(module, log)
         elif os.path.exists(os.path.join(source_dir, "autogen.sh")):
-            _build_autotools(module)
+            _build_autotools(module, log)
         elif os.path.exists(os.path.join(source_dir, "Makefile")):
-            _build_make(module)
+            _build_make(module, log)
         else:
             print "The source directory has unexpected content, please " \
                   "delete it and pull\nthe source again."                
