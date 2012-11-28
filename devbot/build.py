@@ -2,7 +2,6 @@ import fnmatch
 import os
 import multiprocessing
 import shutil
-import sys
 import subprocess
 import time
 
@@ -16,20 +15,27 @@ def build_one(module_name):
 
     for module in config.load_modules():
         if module.name == module_name:
-            _build_module(module)
+            return _build_module(module)
+
+    return False
 
 def pull_one(module_name):
     environ.setup()
 
     for module in config.load_modules():
         if module.name == module_name:
-            _pull_module(module)
+            return _pull_module(module)
+
+    return False
 
 def pull():
     environ.setup()
 
     for module in config.load_modules():
-        _pull_module(module)
+        if not _pull_module(module):
+            return False
+
+    return True
 
 def build():
     environ.setup()
@@ -59,7 +65,9 @@ def build():
     for module in modules:
         log = "build-%s" % time.strftime("%Y%m%d-%H%M%S")
         if not _build_module(module, log):
-            break
+            return False
+
+    return True
 
 def clean():
     _rmtree(config.install_dir)
@@ -99,7 +107,9 @@ def _pull_module(module):
     try:
         _pull_git_module(module)
     except subprocess.CalledProcessError:
-        sys.exit(1)
+        return False
+
+    return True
 
 def _build_autotools(module, log):
     makefile_path = os.path.join(module.get_build_dir(), "Makefile")

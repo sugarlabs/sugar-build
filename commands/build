@@ -1,6 +1,7 @@
 #!/usr/bin/python -u
 
 import argparse
+import sys
 
 import common
 
@@ -13,6 +14,9 @@ args = parser.parse_args()
 common.setup()
 
 if args.module:
-    build.build_one(args.module)
+    success = build.build_one(args.module)
 else:
-    build.build()
+    success = build.build()
+
+if not success:
+    sys.exit(1)
