@@ -9,5 +9,5 @@ from devbot import config
 
 common.setup()
 
-run.run([os.path.join(common.helpers_dir, "test"),
-         os.path.join(common.base_dir, "tests", "shell.py")])
+test = os.path.join(common.tests_dir, "shell.py")
+run.run(["sr-run-test", test, config.logs_dir])
