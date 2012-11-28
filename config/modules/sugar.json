@@ -1,7 +1,6 @@
 [
     {
         "name": "sugar-docs", 
-        "out-of-source": false, 
         "repo": "git://git.sugarlabs.org/sugar-docs/sugar-docs.git"
     }, 
     {

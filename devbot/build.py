@@ -101,9 +101,6 @@ def _pull_module(module):
     except subprocess.CalledProcessError:
         sys.exit(1)
 
-def _build_make(module, log):
-    command.run(["make"], log)
-
 def _build_autotools(module, log):
     makefile_path = os.path.join(module.get_build_dir(), "Makefile")
 
@@ -152,8 +149,6 @@ def _build_module(module, log=None):
             _build_activity(module, log)
         elif os.path.exists(os.path.join(source_dir, "autogen.sh")):
             _build_autotools(module, log)
-        elif os.path.exists(os.path.join(source_dir, "Makefile")):
-            _build_make(module, log)
         else:
             print "The source directory has unexpected content, please " \
                   "delete it and pull\nthe source again."                
