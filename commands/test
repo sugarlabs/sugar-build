@@ -5,6 +5,10 @@ import os
 import common
 
 from devbot import run
+from devbot import config
 
 common.setup()
+
+os.environ["SUGAR_BUILD_DIR"] = os.path.join(common.base_dir)
+
 run.run([os.path.join(common.helpers_dir, "test")])
