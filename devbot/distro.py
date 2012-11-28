@@ -36,7 +36,8 @@ def get_distro_info():
 
     if _distro_info is None:
         _distro_info = unknown_distro
-       
+
+    if not _distro_info.supported: 
         print "*********************************************************\n" \
               "You are running an unsupported distribution. You might be\n" \
               "able to make sugar work by installing or building \n" \

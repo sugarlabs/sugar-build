@@ -73,35 +73,45 @@ checkers = { "binary": check_binary,
              "metacity-theme": check_metacity_theme,
              "include": check_include }
 
+def _print_checks(checks):
+    for check in checks:
+        print "[%s] %s" % (check["checker"], check["check"])
+
 def run_checks(package_manager, checks, packages):
-    distro_name = distro.get_distro_info().name
+    distro_info = distro.get_distro_info()
 
     failed_checks = []
+    packages_not_found = []
     to_install = []
 
     for check in checks:
         checker = checkers[check["checker"]]
         if checker(check["check"]):
-            if distro_name in packages[check["name"]]:
-                for package in packages[check["name"]][distro_name]:
+            if distro_info.name in packages[check["name"]]:
+                for package in packages[check["name"]][distro_info.name]:
                     # Might be none, if so skip on this distro_name
                     if package and package not in to_install:
                         to_install.append(package)
             else:
-                failed_checks.append(check)
+                packages_not_found.append(check)
 
-    if to_install:
-        package_manager.install_packages(to_install)
+            failed_checks.append(check)
 
-    if failed_checks:
-        print "\nFailed checks:"
-    else:
-        return True
+    if distro_info.supported:
+        if packages_not_found:
+            print "\Packages not found for"
+            _print_checks(_packages_not_found)
+            return False
+    elif failed_checks:
+        print "Failed checks\n"
+        _print_checks(failed_checks)
 
-    for check in failed_checks:
-        print "[%s] %s" % (check["checker"], check["check"])
+        print "\nYou might try to install the following packages\n"
+        print " ".join(to_install)
 
-    return False
+        return False
+
+    return True
 
 def remove_packages(package_manager, packages):
     distro_name = distro.get_distro_info().name
@@ -134,8 +144,6 @@ def check(remove=False, update=False, test=False, interactive=True,
         if config.get_commit_id() == state.get_last_system_check():
             return
 
-    print "Checking the system"
-
     package_manager = \
         distro.get_package_manager(test=test, interactive=interactive)
 
@@ -152,6 +160,8 @@ def check(remove=False, update=False, test=False, interactive=True,
         sys.exit(1)
 
     xvfb.stop(xvfb_proc, orig_display)
+
+    print "All the required dependencies are installed."
 
     if update:
         package_manager.update()

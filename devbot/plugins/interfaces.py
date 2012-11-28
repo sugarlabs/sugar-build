@@ -55,3 +55,6 @@ class DistroInfo:
 
         self.use_lib64 = False
         """If set to True install libraries in the lib64 directory."""
+
+        self.supported = False
+        """If set to Trye the distribution is supported."""

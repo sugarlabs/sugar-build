@@ -33,5 +33,6 @@ class DistroInfo(interfaces.DistroInfo):
         self.version = "unknown"
         self.system_version = "3.4"
         self.valid = True
+        self.supported = False
  
 distro.register_distro_info(DistroInfo)
