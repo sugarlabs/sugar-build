@@ -95,7 +95,7 @@
         "name": "pygtk-2.0"
     }, 
     {
-        "check": "python", 
+        "check": "python-2.7", 
         "checker": "pkgconfig", 
         "name": "python"
     }, 
