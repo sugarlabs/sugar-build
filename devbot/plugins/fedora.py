@@ -95,6 +95,7 @@ class DistroInfo(interfaces.DistroInfo):
         try:
             release = open("/etc/fedora-release").read().strip()
         except IOError:
+            release = None
             self.valid = False
  
         if release == "Fedora release 17 (Beefy Miracle)":
