@@ -103,7 +103,8 @@ def run_checks(package_manager, checks, packages):
             _print_checks(_packages_not_found)
             return False
 
-        package_manager.install_packages(to_install)
+        if to_install:
+            package_manager.install_packages(to_install)
     elif failed_checks:
         print "Failed checks\n"
         _print_checks(failed_checks)
