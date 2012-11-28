@@ -22,15 +22,8 @@ tar chf $filename \
     $rootdir/devbot \
     $rootdir/install \
     $rootdir/commands/helpers/bashrc \
-    $rootdir/commands/helpers/find-free-display \
-    $rootdir/commands/helpers/list-outputs \
     $rootdir/commands/helpers/ubuntu-tweaks \
-    $rootdir/commands/helpers/xinitrc \
-    $rootdir/commands/helpers/xephyr-window \
-    $rootdir/commands/helpers/get-screen-dpi \
-    $rootdir/commands/helpers/run-with-keyring \
     $rootdir/commands/check-system \
-    $rootdir/commands/run-command \
     $rootdir/commands/common.py \
     $rootdir/commands/run \
     $rootdir/commands/shell
