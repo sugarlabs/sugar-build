@@ -233,8 +233,6 @@ def _filter_if(item):
     return eval(item["if"], globals)
 
 def load_checks():
-    version = distro.get_distro_info().system_version
-
     checks = []
     for file in dep_files:
         path = os.path.join(config_dir, "deps", "%s.json" % file)
@@ -243,11 +241,7 @@ def load_checks():
     return filter(_filter_if, checks)
 
 def load_modules():
-    version = distro.get_distro_info().system_version
-
-    module_files = ["system-%s.json" % version,
-                    "sugar.json",
-                    "activities.json"]
+    global module_files
 
     modules = []
 

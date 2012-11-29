@@ -43,10 +43,8 @@ class DistroInfo:
         self.version = None
         """The distribution version."""
     
-        self.system_version = None
-        """A distribution independent system version, normally the same
-           major version of GNOME installed on the system.
-        """
+        self.gnome_version = None
+        """The major version of GNOME shipped with the distribution."""
 
         self.gstreamer_version = None
         """The version of gstreamer shipped with the distribution."""

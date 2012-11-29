@@ -82,19 +82,19 @@
         ], 
         "fedora": [
             "at-spi2-core"
-        ],
+        ], 
         "ubuntu": [
             "gir1.2-atspi-2.0"
         ]
-    },
+    }, 
     "autodetect gstreamer": {
         "fedora": [
             "gstreamer1-plugins-good"
-        ],
+        ], 
         "ubuntu": [
             "gstreamer1.0-plugins-good"
         ]
-    },
+    }, 
     "autoreconf": {
         "debian": [
             "autoconf"
@@ -375,22 +375,22 @@
             "gstreamer"
         ], 
         "ubuntu": [
-            "gir1.2-gstreamer-1.0",
+            "gir1.2-gstreamer-1.0", 
             "libgstreamer1.0-0"
         ]
-    },
+    }, 
     "gstreamer-1.0": {
         "fedora": [
             "gstreamer1-devel"
-        ],
+        ], 
         "ubuntu": [
             "libgstreamer1.0-dev"
         ]
-    },
+    }, 
     "gstreamer-plugins-base-1.0": {
         "fedora": [
             "gstreamer1-plugins-base-devel"
-        ],
+        ], 
         "ubuntu": [
             "libgstreamer-plugins-base1.0-dev"
         ]
@@ -592,23 +592,15 @@
         "ubuntu": [
             "telepathy-salut"
         ]
-    },
+    }, 
     "pango gstreamer": {
         "fedora": [
             "gstreamer1-plugins-base"
-        ],
+        ], 
         "ubuntu": [
             "gstreamer1.0-x"
         ]
-    },
-    "playback gstreamer": {
-        "fedora": [
-            "gstreamer1-plugins-base"
-        ],
-        "ubuntu": [
-            "gstreamer1.0-plugins-base"
-        ]
-    },
+    }, 
     "pkg-config": {
         "debian": [
             "pkg-config"
@@ -618,6 +610,14 @@
         ], 
         "ubuntu": [
             "pkgconfig"
+        ]
+    }, 
+    "playback gstreamer": {
+        "fedora": [
+            "gstreamer1-plugins-base"
+        ], 
+        "ubuntu": [
+            "gstreamer1.0-plugins-base"
         ]
     }, 
     "pycairo": {

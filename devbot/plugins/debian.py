@@ -89,7 +89,7 @@ class DistroInfo(interfaces.DistroInfo):
  
         self.name = "debian"
         self.version = "unknown"
-        self.system_version = "3.4"
+        self.gnome_version = "3.4"
         self.gstreamer_version = "0.10"
         self.valid = True
         self.supported = (arch in ["i686", "x86_64"])

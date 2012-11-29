@@ -6,9 +6,7 @@ tests_dir = os.path.join(base_dir, "tests")
 
 sys.path.append(base_dir)
 
-from devbot import system
 from devbot import config
-from devbot import distro
 from devbot import command
 
 def setup():
@@ -29,12 +27,7 @@ def setup():
     config.set_prefs_path(os.path.join(base_dir, "prefs"))
     config.set_logs_dir(logs_dir)
 
-    os.environ["SB_LOGS_DIR"] = logs_dir
-    os.environ["SB_LIBEXEC_DIR"] = config.libexec_dir
-
-    version = distro.get_distro_info().system_version
-
-    module_files = ["system-%s.json" % version,
+    module_files = ["system.json",
                     "sugar.json",
                     "activities.json"]
 

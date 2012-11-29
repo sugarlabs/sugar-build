@@ -31,7 +31,7 @@ class DistroInfo(interfaces.DistroInfo):
         self.use_lib64 = os.path.exists("/usr/lib64")
         self.name = "unknown"
         self.version = "unknown"
-        self.system_version = "3.4"
+        self.gnome_version = "3.4"
         self.gstreamer_version = "0.10"
         self.valid = True
         self.supported = False

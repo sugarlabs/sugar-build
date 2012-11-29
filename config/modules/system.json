@@ -22,26 +22,31 @@
     }, 
     {
         "branch": "ATK_2_6_0", 
+        "if": "gnome_version == '3.4'", 
         "name": "atk", 
         "repo": "git://git.gnome.org/atk"
     }, 
     {
         "branch": "AT_SPI2_CORE_2_6_1", 
+        "if": "gnome_version == '3.4'", 
         "name": "at-spi2-core", 
         "repo": "git://git.gnome.org/at-spi2-core"
     }, 
     {
         "branch": "AT_SPI2_ATK_2_6_1", 
+        "if": "gnome_version == '3.4'", 
         "name": "at-spi2-atk", 
         "repo": "git://git.gnome.org/at-spi2-atk"
     }, 
     {
         "branch": "3.6.1", 
+        "if": "gnome_version == '3.4'", 
         "name": "gtk+", 
         "repo": "git://git.gnome.org/gtk+"
     }, 
     {
         "branch": "1.0.2", 
+        "if": "gstreamer_version != '1.0'", 
         "name": "gstreamer", 
         "options": [
             "--disable-gtk-doc"
@@ -51,6 +56,7 @@
     }, 
     {
         "branch": "1.0.2", 
+        "if": "gstreamer_version != '1.0'", 
         "name": "gst-plugins-base", 
         "options": [
             "--disable-gtk-doc"
@@ -60,6 +66,7 @@
     }, 
     {
         "branch": "1.0.2", 
+        "if": "gstreamer_version != '1.0'", 
         "name": "gst-plugins-good", 
         "options": [
             "--disable-gtk-doc"
@@ -69,6 +76,7 @@
     }, 
     {
         "branch": "libxklavier-5.3", 
+        "if": "gnome_version == '3.4'", 
         "name": "libxklavier", 
         "repo": "git://anongit.freedesktop.org/libxklavier"
     }, 

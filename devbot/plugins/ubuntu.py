@@ -12,7 +12,7 @@ class DistroInfo(interfaces.DistroInfo):
  
         self.name = "ubuntu"
         self.version = "unknown"
-        self.system_version = "3.4"
+        self.gnome_version = "3.4"
         self.gstreamer_version = "1.0"
         self.valid = True
         self.supported = (arch in ["i386", "i686", "x86_64"])
@@ -27,7 +27,7 @@ class DistroInfo(interfaces.DistroInfo):
             self.supported = False
 
         if self.version and self.version >= "12.10":
-            self.system_version = "3.6"
+            self.gnome_version = "3.6"
 
     def _get_distributor(self):
         try:
