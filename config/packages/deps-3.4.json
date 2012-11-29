@@ -18,7 +18,7 @@
             "xorg-x11-server-Xorg"
         ], 
         "ubuntu": [
-            "xvfb"
+            "xserver-xorg"
         ]
     }, 
     "Xephyr": {

@@ -9,7 +9,7 @@
     }, 
     "X": {
         "fedora": [
-            "xorg-x11-server-Xor"
+            "xorg-x11-server-Xorg"
         ], 
         "ubuntu": [
             "xserver-xorg"
