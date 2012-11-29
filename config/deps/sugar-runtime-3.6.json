@@ -168,5 +168,10 @@
         "check": "import xapian", 
         "checker": "python", 
         "name": "xapian python"
+    }, 
+    {
+        "check": "X", 
+        "checker": "binary", 
+        "name": "X"
     }
 ]

@@ -80,6 +80,7 @@ class PackageManager(interfaces.PackageManager):
 
         return result
 
+
 distro.register_package_manager("debian", PackageManager)
 
 class DistroInfo(interfaces.DistroInfo):
@@ -88,29 +89,23 @@ class DistroInfo(interfaces.DistroInfo):
  
         self.name = "debian"
         self.version = "unknown"
-        self.system_version = "3.6"
+        self.system_version = "3.4"
         self.valid = True
         self.supported = (arch in ["i686", "x86_64"])
         self.use_lib64 = False
- 
-        if self._get_distributor() != "debian":
+
+        try:
+            with open("/etc/debian_version") as f:
+                debian_version = f.read()
+        except IOError:
+            debian_version = None
+
+        if debian_version is None:
             self.valid = False
-       
-        self.version = self._get_release()
 
-        if self.version != "wheezy":
+        if debian_version.startswith("wheezy"):
+            self.version = "wheezy"
+        else:
             self.supported = False
-
-    def _get_distributor(self):
-        try:
-            return subprocess.check_output(["lsb_release", "-si"]).strip()
-        except OSError:
-            None
-
-    def _get_release(self):
-        try:
-            return subprocess.check_output(["lsb_release", "-sc"]).strip()
-        except OSError:
-            return None
 
 distro.register_distro_info(DistroInfo)

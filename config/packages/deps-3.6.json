@@ -15,6 +15,14 @@
             "xserver-xephyr"
         ]
     }, 
+    "X": {
+        "fedora": [
+            "xorg-x11-server-Xor"
+        ], 
+        "ubuntu": [
+            "xserver-xorg"
+        ]
+    }, 
     "Xvfb": {
         "fedora": [
             "xorg-x11-server-Xvfb"

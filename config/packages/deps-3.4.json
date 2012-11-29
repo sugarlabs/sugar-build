@@ -1,5 +1,8 @@
 {
     "Adwaita": {
+        "debian": [
+            "gnome-themes-standard"
+        ], 
         "fedora": [
             "gnome-themes-standard"
         ], 
@@ -8,6 +11,9 @@
         ]
     }, 
     "Xephyr": {
+        "debian": [
+            "xserver-xephyr"
+        ], 
         "fedora": [
             "xorg-x11-server-Xephyr"
         ], 
@@ -15,7 +21,21 @@
             "xserver-xephyr"
         ]
     }, 
+    "X": {
+        "debian": [
+            "xserver-xorg"
+        ], 
+        "fedora": [
+            "xorg-x11-server-Xorg"
+        ], 
+        "ubuntu": [
+            "xvfb"
+        ]
+    },  
     "Xvfb": {
+        "debian": [
+            "xvfb"
+        ], 
         "fedora": [
             "xorg-x11-server-Xvfb"
         ], 
@@ -24,6 +44,9 @@
         ]
     }, 
     "aclocal": {
+        "debian": [
+            "automake"
+        ], 
         "fedora": [
             "automake"
         ], 
@@ -32,6 +55,9 @@
         ]
     }, 
     "alsa": {
+        "debian": [
+            "libasound2-dev"
+        ], 
         "fedora": [
             "alsa-lib-devel"
         ], 
@@ -40,6 +66,9 @@
         ]
     }, 
     "atk-bridge": {
+        "debian": [
+            "libatk-adaptor"
+        ], 
         "fedora": [
             "at-spi2-atk"
         ], 
@@ -48,6 +77,9 @@
         ]
     }, 
     "autoreconf": {
+        "debian": [
+            "autoconf"
+        ], 
         "fedora": [
             "autoconf"
         ], 
@@ -56,6 +88,9 @@
         ]
     }, 
     "bison": {
+        "debian": [
+            "bison"
+        ], 
         "fedora": [
             "bison"
         ], 
@@ -64,6 +99,9 @@
         ]
     }, 
     "c++": {
+        "debian": [
+            "g++"
+        ], 
         "fedora": [
             "gcc-c++"
         ], 
@@ -72,6 +110,9 @@
         ]
     }, 
     "cairo foreign": {
+        "debian": [
+            "python-gi-cairo"
+        ], 
         "fedora": [
             "pygobject3"
         ], 
@@ -80,6 +121,9 @@
         ]
     }, 
     "cairo typelib": {
+        "debian": [
+            "gir1.2-freedesktop"
+        ], 
         "fedora": [
             "gobject-introspection"
         ], 
@@ -88,6 +132,9 @@
         ]
     }, 
     "cairo-gobject": {
+        "debian": [
+            "libcairo2-dev"
+        ], 
         "fedora": [
             "cairo-gobject-devel"
         ], 
@@ -96,6 +143,9 @@
         ]
     }, 
     "dateutil python": {
+        "debian": [
+            "python-dateutil"
+        ], 
         "fedora": [
             "python-dateutil"
         ], 
@@ -104,6 +154,9 @@
         ]
     }, 
     "dbus-launch": {
+        "debian": [
+            "dbus-x11"
+        ], 
         "fedora": [
             "dbus-x11"
         ], 
@@ -112,6 +165,9 @@
         ]
     }, 
     "dconf": {
+        "debian": [
+            "dconf-tools"
+        ], 
         "fedora": [
             "dconf"
         ], 
@@ -120,6 +176,9 @@
         ]
     }, 
     "decorator python": {
+        "debian": [
+            "python-decorator"
+        ], 
         "fedora": [
             "python-decorator"
         ], 
@@ -128,6 +187,9 @@
         ]
     }, 
     "espeak": {
+        "debian": [
+            "espeak"
+        ], 
         "fedora": [
             "espeak"
         ], 
@@ -136,6 +198,9 @@
         ]
     }, 
     "espeak devel": {
+        "debian": [
+            "libespeak-dev"
+        ], 
         "fedora": [
             "espeak-devel"
         ], 
@@ -144,6 +209,9 @@
         ]
     }, 
     "evince typelib": {
+        "debian": [
+            "gir1.2-evince-3.0"
+        ], 
         "fedora": [
             "evince-libs"
         ], 
@@ -152,6 +220,9 @@
         ]
     }, 
     "flex": {
+        "debian": [
+            "flex"
+        ], 
         "fedora": [
             "flex"
         ], 
@@ -160,6 +231,9 @@
         ]
     }, 
     "gail gtkmodule": {
+        "debian": [
+            "libgail-common"
+        ], 
         "fedora": [
             "gtk2"
         ], 
@@ -168,6 +242,9 @@
         ]
     }, 
     "gcc": {
+        "debian": [
+            "gcc"
+        ], 
         "fedora": [
             "gcc"
         ], 
@@ -176,6 +253,9 @@
         ]
     }, 
     "gconf python": {
+        "debian": [
+            "python-gconf"
+        ], 
         "fedora": [
             "gnome-python2-gconf"
         ], 
@@ -184,6 +264,9 @@
         ]
     }, 
     "gconf typelib": {
+        "debian": [
+            "gir1.2-gconf-2.0"
+        ], 
         "fedora": [
             "GConf2"
         ], 
@@ -192,6 +275,9 @@
         ]
     }, 
     "gconf-2.0": {
+        "debian": [
+            "libgconf2-dev"
+        ], 
         "fedora": [
             "GConf2-devel"
         ], 
@@ -200,6 +286,9 @@
         ]
     }, 
     "gi python": {
+        "debian": [
+            "pygobject"
+        ], 
         "fedora": [
             "pygobject3"
         ], 
@@ -208,6 +297,9 @@
         ]
     }, 
     "glib-2.0": {
+        "debian": [
+            "libglib2.0-dev"
+        ], 
         "fedora": [
             "glib2-devel"
         ], 
@@ -216,6 +308,9 @@
         ]
     }, 
     "gnome-doc-common": {
+        "debian": [
+            "gnome-common"
+        ], 
         "fedora": [
             "gnome-common"
         ], 
@@ -224,6 +319,9 @@
         ]
     }, 
     "gnome-keyring-daemon": {
+        "debian": [
+            "gnome-keyring"
+        ], 
         "fedora": [
             "gnome-keyring"
         ], 
@@ -232,6 +330,9 @@
         ]
     }, 
     "gobject-introspection-1.0": {
+        "debian": [
+            "libgirepository1.0-dev"
+        ], 
         "fedora": [
             "gobject-introspection-devel"
         ], 
@@ -240,6 +341,9 @@
         ]
     }, 
     "gsettings-desktop-schemas": {
+        "debian": [
+            "gsettings-desktop-schemas-dev"
+        ], 
         "fedora": [
             "gsettings-desktop-schemas-devel"
         ], 
@@ -248,6 +352,9 @@
         ]
     }, 
     "gst typelib": {
+        "debian": [
+            "gir1.2-gstreamer-1.0"
+        ], 
         "fedora": [
             "gstreamer"
         ], 
@@ -256,6 +363,9 @@
         ]
     }, 
     "gtk+-3.0": {
+        "debian": [
+            "libgtk-3-dev"
+        ], 
         "fedora": [
             "gtk3-devel"
         ], 
@@ -264,6 +374,9 @@
         ]
     }, 
     "gtk-doc": {
+        "debian": [
+            "gtk-doc-tools"
+        ], 
         "fedora": [
             "gtk-doc"
         ], 
@@ -272,6 +385,9 @@
         ]
     }, 
     "gtksource typelib": {
+        "debian": [
+            "gir1.2-gtksource-3.0"
+        ], 
         "fedora": [
             "gtksourceview3"
         ], 
@@ -280,6 +396,9 @@
         ]
     }, 
     "gtksourceview2 python": {
+        "debian": [
+            "python-gtksourceview2"
+        ], 
         "fedora": [
             "pygtksourceview"
         ], 
@@ -288,6 +407,9 @@
         ]
     }, 
     "hippo python": {
+        "debian": [
+            "python-hippocanvas"
+        ], 
         "fedora": [
             "hippo-canvas-python"
         ], 
@@ -296,6 +418,9 @@
         ]
     }, 
     "ice": {
+        "debian": [
+            "libice-dev"
+        ], 
         "fedora": [
             "libICE-devel"
         ], 
@@ -304,6 +429,9 @@
         ]
     }, 
     "icon-naming-utils": {
+        "debian": [
+            "icon-naming-utils"
+        ], 
         "fedora": [
             "icon-naming-utils"
         ], 
@@ -312,6 +440,9 @@
         ]
     }, 
     "icon-slicer": {
+        "debian": [
+            "icon-slicer"
+        ], 
         "fedora": [
             "icon-slicer"
         ], 
@@ -320,6 +451,9 @@
         ]
     }, 
     "intltoolize": {
+        "debian": [
+            "intltool"
+        ], 
         "fedora": [
             "intltool"
         ], 
@@ -328,6 +462,9 @@
         ]
     }, 
     "iso-codes": {
+        "debian": [
+            "iso-codes"
+        ], 
         "fedora": [
             "iso-codes-devel"
         ], 
@@ -336,6 +473,9 @@
         ]
     }, 
     "libcanberra-gtk": {
+        "debian": [
+            "libcanberra-gtk-dev"
+        ], 
         "fedora": [
             "libcanberra-devel"
         ], 
@@ -344,6 +484,9 @@
         ]
     }, 
     "librsvg-2.0": {
+        "debian": [
+            "librsvg2-dev"
+        ], 
         "fedora": [
             "librsvg2-devel"
         ], 
@@ -352,6 +495,9 @@
         ]
     }, 
     "libtool": {
+        "debian": [
+            "libtool"
+        ], 
         "fedora": [
             "libtool"
         ], 
@@ -360,6 +506,9 @@
         ]
     }, 
     "libxml-2.0": {
+        "debian": [
+            "libxml2-dev"
+        ], 
         "fedora": [
             "libxml2-devel"
         ], 
@@ -368,6 +517,9 @@
         ]
     }, 
     "metacity": {
+        "debian": [
+            "metacity"
+        ], 
         "fedora": [
             "metacity"
         ], 
@@ -376,6 +528,9 @@
         ]
     }, 
     "org.freedesktop.Telepathy.AccountManager": {
+        "debian": [
+            "telepathy-mission-control-5"
+        ], 
         "fedora": [
             "telepathy-mission-control"
         ], 
@@ -384,6 +539,9 @@
         ]
     }, 
     "org.freedesktop.Telepathy.ConnectionManager.gabble": {
+        "debian": [
+            "telepathy-gabble"
+        ], 
         "fedora": [
             "telepathy-gabble"
         ], 
@@ -392,6 +550,9 @@
         ]
     }, 
     "org.freedesktop.Telepathy.ConnectionManager.salut": {
+        "debian": [
+            "telepathy-salut"
+        ], 
         "fedora": [
             "telepathy-salut"
         ], 
@@ -400,6 +561,9 @@
         ]
     }, 
     "pkg-config": {
+        "debian": [
+            "pkg-config"
+        ], 
         "fedora": [
             "pkgconfig"
         ], 
@@ -408,6 +572,9 @@
         ]
     }, 
     "pycairo": {
+        "debian": [
+            "python-cairo-dev"
+        ], 
         "fedora": [
             "pycairo-devel"
         ], 
@@ -416,6 +583,9 @@
         ]
     }, 
     "pygst python": {
+        "debian": [
+            "python-gst0.10"
+        ], 
         "fedora": [
             "gstreamer-python"
         ], 
@@ -424,6 +594,9 @@
         ]
     }, 
     "pygtk-2.0": {
+        "debian": [
+            "python-gtk2-dev"
+        ], 
         "fedora": [
             "pygtk2-devel"
         ], 
@@ -432,6 +605,9 @@
         ]
     }, 
     "python": {
+        "debian": [
+            "python-dev"
+        ], 
         "fedora": [
             "python-devel"
         ], 
@@ -440,6 +616,9 @@
         ]
     }, 
     "rsvg python": {
+        "debian": [
+            "python-rsvg"
+        ], 
         "fedora": [
             "gnome-python2-rsvg"
         ], 
@@ -448,6 +627,9 @@
         ]
     }, 
     "simplejson python": {
+        "debian": [
+            "python-simplejson"
+        ], 
         "fedora": [
             "python-simplejson"
         ], 
@@ -456,6 +638,9 @@
         ]
     }, 
     "sm": {
+        "debian": [
+            "libsm-dev"
+        ], 
         "fedora": [
             "libSM-devel"
         ], 
@@ -464,6 +649,9 @@
         ]
     }, 
     "sphinx-build": {
+        "debian": [
+            "python-sphinx"
+        ], 
         "fedora": [
             "python-sphinx"
         ], 
@@ -472,6 +660,9 @@
         ]
     }, 
     "ssh": {
+        "debian": [
+            "openssh-client"
+        ], 
         "fedora": [
             "openssh-clients"
         ], 
@@ -480,6 +671,9 @@
         ]
     }, 
     "tar": {
+        "debian": [
+            "tar"
+        ], 
         "fedora": [
             "tar"
         ], 
@@ -488,6 +682,9 @@
         ]
     }, 
     "telepathy python": {
+        "debian": [
+            "python-telepathy"
+        ], 
         "fedora": [
             "python-telepathy"
         ], 
@@ -496,6 +693,9 @@
         ]
     }, 
     "video4linux2": {
+        "debian": [
+            "gstreamer0.10-plugins-good"
+        ], 
         "fedora": [
             "gstreamer-plugins-good"
         ], 
@@ -504,6 +704,9 @@
         ]
     }, 
     "vte python": {
+        "debian": [
+            "python-vte"
+        ], 
         "fedora": [
             "vte"
         ], 
@@ -512,6 +715,9 @@
         ]
     }, 
     "vte typelib": {
+        "debian": [
+            "gir1.2-vte-2.90"
+        ], 
         "fedora": [
             "vte3"
         ], 
@@ -520,6 +726,9 @@
         ]
     }, 
     "webkit typelib": {
+        "debian": [
+            "gir1.2-webkit-3.0"
+        ], 
         "fedora": [
             "webkitgtk3"
         ], 
@@ -528,6 +737,9 @@
         ]
     }, 
     "wnck python": {
+        "debian": [
+            "python-wnck"
+        ], 
         "fedora": [
             "gnome-python2-libwnck"
         ], 
@@ -536,6 +748,9 @@
         ]
     }, 
     "wnck typelib": {
+        "debian": [
+            "gir1.2-wnck-3.0"
+        ], 
         "fedora": [
             "libwnck3"
         ], 
@@ -544,6 +759,9 @@
         ]
     }, 
     "x11": {
+        "debian": [
+            "libx11-dev"
+        ], 
         "fedora": [
             "libX11-devel"
         ], 
@@ -552,6 +770,9 @@
         ]
     }, 
     "xapian python": {
+        "debian": [
+            "python-xapian"
+        ], 
         "fedora": [
             "xapian-bindings-python"
         ], 
@@ -560,6 +781,9 @@
         ]
     }, 
     "xcursorgen": {
+        "debian": [
+            "x11-apps"
+        ], 
         "fedora": [
             "xorg-x11-apps"
         ], 
@@ -568,6 +792,9 @@
         ]
     }, 
     "xinit": {
+        "debian": [
+            "xinit"
+        ], 
         "fedora": [
             "xorg-x11-xinit"
         ], 
@@ -576,6 +803,9 @@
         ]
     }, 
     "xkbfile": {
+        "debian": [
+            "libxkbfile-dev"
+        ], 
         "fedora": [
             "libxkbfile-devel"
         ], 
@@ -584,6 +814,9 @@
         ]
     }, 
     "xrandr": {
+        "debian": [
+            "libxrandr-dev"
+        ], 
         "fedora": [
             "libXrandr-devel"
         ], 
@@ -592,6 +825,9 @@
         ]
     }, 
     "xrdb": {
+        "debian": [
+            "x11-xserver-utils"
+        ], 
         "fedora": [
             "xorg-x11-server-utils"
         ], 
@@ -600,6 +836,9 @@
         ]
     }, 
     "xtst": {
+        "debian": [
+            "libxtst-dev"
+        ], 
         "fedora": [
             "libXtst-devel"
         ], 
@@ -608,6 +847,9 @@
         ]
     }, 
     "xz": {
+        "debian": [
+            "xz-utils"
+        ], 
         "fedora": [
             "xz"
         ], 
@@ -616,6 +858,9 @@
         ]
     }, 
     "yasm": {
+        "debian": [
+            "yasm"
+        ], 
         "fedora": [
             "yasm"
         ], 
