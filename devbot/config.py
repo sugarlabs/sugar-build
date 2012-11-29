@@ -7,6 +7,7 @@ import tempfile
 from devbot import distro
 from devbot import utils
 from devbot import plugins
+from devbot import git
 
 devbot_dir = None
 config_dir = None
@@ -53,6 +54,9 @@ class Module:
             return None
 
         return utils.get_commit_id(self.get_source_dir())
+
+    def get_git_module(self):
+        return git.Module(get_source_dir(), self.name, self.repo, self.tag)
 
 def _ensure_dir(dir):
     if not os.path.exists(dir):

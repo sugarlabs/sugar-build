@@ -36,3 +36,13 @@ class Module:
             command.run(["git", "checkout", self.tag])
         else:
             command.run(["git", "merge", "origin", self._branch])
+
+    def clean(self):
+        try:
+            os.chdir(self.local)
+        except OSError:
+            return False
+
+        command.run(["git", "clean", "-fdx"])
+
+        return True

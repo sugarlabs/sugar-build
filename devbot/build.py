@@ -8,7 +8,6 @@ import time
 from devbot import command
 from devbot import config
 from devbot import environ
-from devbot import git
 from devbot import state
 from devbot import utils
 
@@ -78,7 +77,8 @@ def clean():
 
     for module in config.load_modules():
         if not module.out_of_source:
-            _rmtree(module.get_source_dir())
+            if module.get_git_module().clean():
+                print "Cleaned %s git repository." % module.name
 
 def _unlink_libtool_files():
     def func(arg, dirname, fnames):
@@ -91,9 +91,7 @@ def _pull_module(module):
     print "\n=== Pulling %s ===\n" % module.name
 
     try:
-        git_module = git.Module(config.get_source_dir(), module.name,
-                                module.repo, module.tag)
-        git_module.update()
+        module.get_git_module().update()
     except subprocess.CalledProcessError:
         return False
 

@@ -102,5 +102,19 @@ class TestGit(unittest.TestCase):
 
         self.assertEquals("detachedchange", self._read_file(module))
 
+    def test_clean(self):
+        module = self._setup_module() 
+        module.update()
+
+        to_clean_path = os.path.join(module.local, "changetoclean")
+
+        f = open(to_clean_path, "w")
+        f.write("")
+        f.close()
+
+        self.assertTrue(os.path.exists(to_clean_path))
+        module.clean()
+        self.assertFalse(os.path.exists(to_clean_path))
+
 if __name__ == '__main__':
     unittest.main()
