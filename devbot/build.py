@@ -93,6 +93,7 @@ def _pull_git_module(module):
 
         command.run(["git", "remote", "set-url", "origin", module.repo])
         command.run(["git", "remote", "update", "origin"], retry=10)
+        command.run(["git", "pull"], retry=10)
     else:
         os.chdir(config.get_source_dir())
         command.run(["git", "clone", "--progress", module.repo, module.name],
