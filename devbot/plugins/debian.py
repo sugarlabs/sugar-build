@@ -103,7 +103,7 @@ class DistroInfo(interfaces.DistroInfo):
         if debian_version is None:
             self.valid = False
 
-        if debian_version.startswith("wheezy"):
+        if debian_version and debian_version.startswith("wheezy"):
             self.version = "wheezy"
         else:
             self.supported = False
