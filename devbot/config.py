@@ -33,6 +33,7 @@ class Module:
         self.name = info["name"]
         self.repo = info["repo"]
         self.branch = info.get("branch", "master")
+        self.tag = info.get("tag", None)
         self.auto_install = info.get("auto-install", False)
         self.options = info.get("options", [])
 

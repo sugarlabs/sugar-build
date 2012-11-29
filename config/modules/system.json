@@ -1,6 +1,6 @@
 [
     {
-        "branch": "2.34.2", 
+        "tag": "2.34.2", 
         "name": "glib", 
         "options": [
             "--disable-modular-tests"
@@ -8,7 +8,7 @@
         "repo": "git://git.gnome.org/glib"
     }, 
     {
-        "branch": "GOBJECT_INTROSPECTION_1_34_1_1", 
+        "tag": "GOBJECT_INTROSPECTION_1_34_1_1", 
         "name": "gobject-introspection", 
         "options": [
             "--disable-tests"
@@ -16,36 +16,36 @@
         "repo": "git://git.gnome.org/gobject-introspection"
     }, 
     {
-        "branch": "776088b4d673183264893cf40bd3e4e359ba7a5", 
+        "tag": "776088b4d673183264893cf40bd3e4e359ba7a5", 
         "name": "pygobject", 
         "repo": "git://git.gnome.org/pygobject"
     }, 
     {
-        "branch": "ATK_2_6_0", 
+        "tag": "ATK_2_6_0", 
         "if": "gnome_version == '3.4'", 
         "name": "atk", 
         "repo": "git://git.gnome.org/atk"
     }, 
     {
-        "branch": "AT_SPI2_CORE_2_6_1", 
+        "tag": "AT_SPI2_CORE_2_6_1", 
         "if": "gnome_version == '3.4'", 
         "name": "at-spi2-core", 
         "repo": "git://git.gnome.org/at-spi2-core"
     }, 
     {
-        "branch": "AT_SPI2_ATK_2_6_1", 
+        "tag": "AT_SPI2_ATK_2_6_1", 
         "if": "gnome_version == '3.4'", 
         "name": "at-spi2-atk", 
         "repo": "git://git.gnome.org/at-spi2-atk"
     }, 
     {
-        "branch": "3.6.1", 
+        "tag": "3.6.1", 
         "if": "gnome_version == '3.4'", 
         "name": "gtk+", 
         "repo": "git://git.gnome.org/gtk+"
     }, 
     {
-        "branch": "1.0.2", 
+        "tag": "1.0.2", 
         "if": "gstreamer_version != '1.0'", 
         "name": "gstreamer", 
         "options": [
@@ -55,7 +55,7 @@
         "repo": "git://anongit.freedesktop.org/gstreamer/gstreamer"
     }, 
     {
-        "branch": "1.0.2", 
+        "tag": "1.0.2", 
         "if": "gstreamer_version != '1.0'", 
         "name": "gst-plugins-base", 
         "options": [
@@ -65,7 +65,7 @@
         "repo": "git://anongit.freedesktop.org/gstreamer/gst-plugins-base"
     }, 
     {
-        "branch": "1.0.2", 
+        "tag": "1.0.2", 
         "if": "gstreamer_version != '1.0'", 
         "name": "gst-plugins-good", 
         "options": [
@@ -75,13 +75,13 @@
         "repo": "git://anongit.freedesktop.org/gstreamer/gst-plugins-good"
     }, 
     {
-        "branch": "libxklavier-5.3", 
+        "tag": "libxklavier-5.3", 
         "if": "gnome_version == '3.4'", 
         "name": "libxklavier", 
         "repo": "git://anongit.freedesktop.org/libxklavier"
     }, 
     {
-        "branch": "METACITY_2_34_13", 
+        "tag": "METACITY_2_34_13", 
         "name": "metacity", 
         "options": [
             "--disable-themes-documentation"

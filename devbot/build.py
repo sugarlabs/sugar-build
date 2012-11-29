@@ -8,6 +8,7 @@ import time
 from devbot import command
 from devbot import config
 from devbot import environ
+from devbot import git
 from devbot import state
 from devbot import utils
 
@@ -86,39 +87,13 @@ def _unlink_libtool_files():
 
     os.path.walk(config.lib_dir, func, None)
 
-def _is_detached_head():
-    return subprocess.call(["git", "symbolic-ref", "-q", "HEAD"],
-                           stdout=utils.devnull,
-                           stderr=subprocess.STDOUT) != 0
-
-def _pull_git_module(module):
-    module_dir = module.get_source_dir()
-
-    if os.path.exists(os.path.join(module_dir, ".git")):
-        os.chdir(module_dir)
-
-        command.run(["git", "remote", "set-url", "origin", module.repo])
-
-        if _is_detached_head():
-            command.run(["git", "remote", "update", "origin"], retry=10)
-            command.run(["git", "checkout", module.branch])
-        else:
-            command.run(["git", "checkout", module.branch])
-            command.run(["git", "pull"], retry=10)
-    else:
-        os.chdir(config.get_source_dir())
-
-        command.run(["git", "clone", "--progress", module.repo, module.name],
-                    retry=10)
-
-        os.chdir(module_dir)
-        command.run(["git", "checkout", module.branch])
-
 def _pull_module(module):
     print "\n=== Pulling %s ===\n" % module.name
 
     try:
-        _pull_git_module(module)
+        git_module = git.Module(config.get_source_dir(), module.name,
+                                module.repo, module.tag)
+        git_module.update()
     except subprocess.CalledProcessError:
         return False
 
