@@ -5,6 +5,11 @@
         "name": "Adwaita"
     }, 
     {
+        "check": "X", 
+        "checker": "binary", 
+        "name": "X"
+    }, 
+    {
         "check": "from gi.repository import Gdk, Gtk; window = Gtk.Window(0); window.realize();context = Gdk.cairo_create(window.get_window())", 
         "checker": "python", 
         "name": "cairo foreign"
@@ -153,10 +158,5 @@
         "check": "import xapian", 
         "checker": "python", 
         "name": "xapian python"
-    }, 
-    {
-        "check": "X", 
-        "checker": "binary", 
-        "name": "X"
     }
 ]
