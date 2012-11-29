@@ -15,8 +15,8 @@ build:
 run:
 	@$(COMMANDS_DIR)/run
 
-test:
-	@$(COMMANDS_DIR)/test
+test-ui:
+	@$(COMMANDS_DIR)/test-ui
 
 shell:
 	@$(COMMANDS_DIR)/shell
