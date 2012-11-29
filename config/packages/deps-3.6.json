@@ -7,20 +7,20 @@
             "gnome-themes-standard"
         ]
     }, 
-    "Xephyr": {
-        "fedora": [
-            "xorg-x11-server-Xephyr"
-        ], 
-        "ubuntu": [
-            "xserver-xephyr"
-        ]
-    }, 
     "X": {
         "fedora": [
             "xorg-x11-server-Xor"
         ], 
         "ubuntu": [
             "xserver-xorg"
+        ]
+    }, 
+    "Xephyr": {
+        "fedora": [
+            "xorg-x11-server-Xephyr"
+        ], 
+        "ubuntu": [
+            "xserver-xephyr"
         ]
     }, 
     "Xvfb": {

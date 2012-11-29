@@ -42,8 +42,8 @@ def setup():
 
     dep_files = ["system",
                  "sugar-build",
-                 "sugar-buildtime-%s" % version,
-                 "sugar-runtime-%s" % version]
+                 "sugar-buildtime",
+                 "sugar-runtime"]
 
     config.set_dep_files(dep_files)
 

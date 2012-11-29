@@ -77,6 +77,17 @@ def _print_checks(checks):
     for check in checks:
         print "[%s] %s" % (check["checker"], check["check"])
 
+def _eval_check_if(check):
+    if "check_if" not in check:
+        return True
+
+    distro_info = distro.get_distro_info()
+    globals = { "distro": "%s-%s" % (distro_info.name, distro_info.version) }
+
+    print eval(check["check_if"], globals)
+
+    return eval(check["check_if"], globals) == "True"
+
 def run_checks(package_manager, checks, packages):
     distro_info = distro.get_distro_info()
 
@@ -85,6 +96,10 @@ def run_checks(package_manager, checks, packages):
     to_install = []
 
     for check in checks:
+        if not _eval_check_if(check):
+            print "uuuuu"
+            continue
+
         checker = checkers[check["checker"]]
         if checker(check["check"]):
             if distro_info.name in packages[check["name"]]:

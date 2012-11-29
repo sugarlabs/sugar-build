@@ -10,6 +10,17 @@
             "gnome-themes-standard"
         ]
     }, 
+    "X": {
+        "debian": [
+            "xserver-xorg"
+        ], 
+        "fedora": [
+            "xorg-x11-server-Xorg"
+        ], 
+        "ubuntu": [
+            "xvfb"
+        ]
+    }, 
     "Xephyr": {
         "debian": [
             "xserver-xephyr"
@@ -21,17 +32,6 @@
             "xserver-xephyr"
         ]
     }, 
-    "X": {
-        "debian": [
-            "xserver-xorg"
-        ], 
-        "fedora": [
-            "xorg-x11-server-Xorg"
-        ], 
-        "ubuntu": [
-            "xvfb"
-        ]
-    },  
     "Xvfb": {
         "debian": [
             "xvfb"

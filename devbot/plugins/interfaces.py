@@ -48,6 +48,9 @@ class DistroInfo:
            major version of GNOME installed on the system.
         """
 
+        self.gstreamer_version = None
+        """The version of gstreamer shipped with the distribution."""
+
         self.valid = False
         """If set to True we are running on this distribution and the
            attributes are all valid.

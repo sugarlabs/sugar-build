@@ -12,6 +12,7 @@
     {
         "check": "autodetect", 
         "checker": "gstreamer-1.0", 
+        "if": "gstreamer_version == '1.0'", 
         "name": "autodetect gstreamer"
     }, 
     {
@@ -70,8 +71,21 @@
         "name": "gnome-keyring-daemon"
     }, 
     {
+        "check": "from gi.repository import Gst", 
+        "checker": "python", 
+        "if": "gstreamer_version == '1.0'", 
+        "name": "gst typelib"
+    }, 
+    {
+        "check": "from gi.repository import Gst", 
+        "checker": "python", 
+        "if": "gstreamer_version == '0.10'", 
+        "name": "gst typelib"
+    }, 
+    {
         "check": "import gi; gi.require_version('Gst', '1.0'); from gi.repository import Gst; Gst.init([])", 
         "checker": "python", 
+        "if": "gstreamer_version == '1.0'", 
         "name": "gst typelib"
     }, 
     {
@@ -112,11 +126,13 @@
     {
         "check": "pango", 
         "checker": "gstreamer-1.0", 
+        "if": "gstreamer_version == '1.0'", 
         "name": "pango gstreamer"
     }, 
     {
         "check": "playback", 
         "checker": "gstreamer-1.0", 
+        "if": "gstreamer_version == '1.0'", 
         "name": "playback gstreamer"
     }, 
     {

@@ -88,6 +88,7 @@ class DistroInfo(interfaces.DistroInfo):
         self.name = "fedora"
         self.version = "unknown"
         self.system_version = "3.6"
+        self.gstreamer_version = "1.0"
         self.use_lib64 = (arch == "x86_64")
         self.valid = True
         self.supported = (arch in ["i386", "i686", "x86_64"])
@@ -101,6 +102,7 @@ class DistroInfo(interfaces.DistroInfo):
         if release == "Fedora release 17 (Beefy Miracle)":
             self.version = "17"
             self.system_version = "3.4"
+            self.gstreamer_version = "0.10"
         elif release == "Fedora release 18 (Spherical Cow)":
             self.version = "18"
         else:

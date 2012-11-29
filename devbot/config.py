@@ -223,6 +223,15 @@ def load_prerequisites():
     path = os.path.join(config_dir, "deps", "prerequisites.json")
     return json.load(open(path))
 
+def _filter_if(item):
+    if "if" not in item:
+        return True
+
+    distro_info = distro.get_distro_info()
+    globals = { "gstreamer_version": distro_info.gstreamer_version }
+
+    return eval(item["if"], globals)
+
 def load_checks():
     version = distro.get_distro_info().system_version
 
@@ -231,7 +240,7 @@ def load_checks():
         path = os.path.join(config_dir, "deps", "%s.json" % file)
         checks.extend(json.load(open(path)))
 
-    return checks
+    return filter(_filter_if, checks)
 
 def load_modules():
     version = distro.get_distro_info().system_version
