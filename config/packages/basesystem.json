@@ -45,7 +45,7 @@
             "attr", 
             "gpg-pubkey"
         ], 
-        "ubuntu": [
+        "debian": [
             "apt", 
             "make", 
             "apt-utils", 
