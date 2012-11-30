@@ -48,7 +48,8 @@
             "iptables", 
             "net-tools", 
             "iputils-ping", 
-            "isc-dhcp-client"
+            "isc-dhcp-client",
+            "vim"
         ], 
         "fedora": [
             "kernel", 
