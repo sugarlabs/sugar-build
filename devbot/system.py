@@ -114,8 +114,8 @@ def run_checks(package_manager, checks, packages):
 
     if distro_info.supported:
         if packages_not_found:
-            print "\Packages not found for"
-            _print_checks(_packages_not_found)
+            print "\nPackages not found for"
+            _print_checks(packages_not_found)
             return False
 
         if to_install:
