@@ -130,11 +130,6 @@
         "name": "playback gstreamer"
     }, 
     {
-        "check": "import pygst", 
-        "checker": "python", 
-        "name": "pygst python"
-    }, 
-    {
         "check": "import rsvg", 
         "checker": "python", 
         "name": "rsvg python"
