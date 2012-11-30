@@ -51,7 +51,8 @@ class TestGit(unittest.TestCase):
         path = tempfile.mkdtemp()
         name = "test"
        
-        return git.Module(path, name, remote, branch, tag)
+        return git.Module(path=path, name=name, remote=remote, branch=branch,
+                          tag=tag)
 
     def _setup_module(self):
         remote = self._create_repo()
