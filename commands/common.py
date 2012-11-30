@@ -27,12 +27,6 @@ def setup():
     config.set_prefs_path(os.path.join(base_dir, "prefs"))
     config.set_logs_dir(logs_dir)
 
-    module_files = ["system.json",
-                    "sugar.json",
-                    "activities.json"]
-
-    config.set_module_files(module_files)
-
     dep_files = ["system",
                  "sugar-build",
                  "sugar-buildtime",

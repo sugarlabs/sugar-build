@@ -2,6 +2,7 @@ SOURCE_DIR=$(CURDIR)/source
 COMMANDS_DIR=$(CURDIR)/commands
 HOME_DIR=$(CURDIR)/home
 TOOLS_DIR=$(CURDIR)/tools
+BASE_DIR=$(CURDIR)
 
 .PHONY: all
 

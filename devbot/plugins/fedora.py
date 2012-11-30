@@ -82,6 +82,8 @@ class PackageManager(interfaces.PackageManager):
 distro.register_package_manager("fedora", PackageManager)
 
 class DistroInfo(interfaces.DistroInfo):
+    _FEDORA_RELEASE_PATH = "/etc/fedora-release"
+
     def __init__(self):
         arch = subprocess.check_output(["uname", "-i"]).strip()
 
@@ -94,7 +96,7 @@ class DistroInfo(interfaces.DistroInfo):
         self.supported = (arch in ["i386", "i686", "x86_64"])
 
         try:
-            release = open("/etc/fedora-release").read().strip()
+            release = open(_FEDORA_RELEASE_PATH).read().strip()
         except IOError:
             release = None
             self.valid = False

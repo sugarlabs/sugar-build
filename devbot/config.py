@@ -22,7 +22,6 @@ etc_dir = None
 libexec_dir = None
 home_dir = None
 dep_files = None
-module_files = None
 package_files = None
 prefs_path = None
 
@@ -169,10 +168,6 @@ def set_dep_files(files):
     global dep_files
     dep_files = files
 
-def set_module_files(files):
-    global module_files
-    module_files = files
-
 def set_package_files(files):
     global package_files
     package_files = files
@@ -184,7 +179,7 @@ def set_prefs_path(path):
 def _read_prefs():
     global prefs_path
 
-    if not os.path.exists(prefs_path):
+    if prefs_path is None or not os.path.exists(prefs_path):
         return {}
 
     prefs = {}
@@ -198,6 +193,9 @@ def _read_prefs():
 
 def _save_prefs(prefs):
     global prefs_path
+
+    if prefs_path is None:
+        return
 
     with open(prefs_path, "w") as f:
         for pref in prefs.items():
@@ -248,17 +246,17 @@ def load_checks():
     return filter(_filter_if, checks)
 
 def load_modules():
-    global module_files
+    module_dir = os.path.join(config_dir, "modules")
 
-    modules = []
+    with open(os.path.join(module_dir, "index.json")) as f:
+        modules = []
+        for module_file in json.load(f):
+            path = os.path.join(module_dir, module_file)
 
-    for file in module_files:
-        path = os.path.join(config_dir, "modules", file)
+            for info in json.load(open(path)):
+                modules.append(Module(info))
 
-        for info in json.load(open(path)):
-            modules.append(Module(info))
-
-    return modules
+        return modules
 
 def clean():
     try:

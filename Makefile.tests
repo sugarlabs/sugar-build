@@ -1,8 +1,9 @@
 TESTS_DATA=$(HOME_DIR)/testsdata
 
 test-devbot:
-	mkdir -p $(TESTS_DATA)
-	TMPDIR=$(TESTS_DATA) PYTHONPATH=. python tests/devbot/test_git.py
+	mkdir -p $(TESTS_DATA) && \
+	cd tests/devbot && \
+	TMPDIR=$(TESTS_DATA) PYTHONPATH=$(BASE_DIR) python -m unittest discover
 	rm -rf $(TESTS_DATA)
 
 check: test-devbot test-ui

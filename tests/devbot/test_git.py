@@ -116,6 +116,3 @@ class TestGit(unittest.TestCase):
         self.assertTrue(os.path.exists(to_clean_path))
         module.clean()
         self.assertFalse(os.path.exists(to_clean_path))
-
-if __name__ == '__main__':
-    unittest.main()
