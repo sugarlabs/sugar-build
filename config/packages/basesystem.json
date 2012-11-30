@@ -55,7 +55,8 @@
             "sudo", 
             "sysvinit", 
             "time",
-            "ncurses-bin"
+            "ncurses-bin",
+            "ifupdown"
         ], 
         "fedora": [
             "kernel", 
