@@ -15,7 +15,7 @@ class PackageManager(interfaces.PackageManager):
         self._cache = apt.cache.Cache()
 
     def install_packages(self, packages):
-        args = ["apt-get"]
+        args = ["apt-get", "--no-install-recommends"]
 
         if not self._interactive:
             args.append("-y")
