@@ -44,7 +44,11 @@
             "sysvinit", 
             "time",
             "ncurses-bin",
-            "ifupdown"
+            "ifupdown",
+            "iptables",
+            "net-tools",
+            "iputils-ping",
+            "isc-dhcp-client"
         ], 
         "fedora": [
             "kernel", 
