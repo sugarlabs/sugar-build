@@ -54,7 +54,8 @@
             "rsyslog", 
             "sudo", 
             "sysvinit", 
-            "time"
+            "time",
+            "ncurses-bin"
         ], 
         "fedora": [
             "kernel", 
