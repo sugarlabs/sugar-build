@@ -44,7 +44,7 @@
             "sysvinit", 
             "time",
             "ncurses-bin",
-            "netbase"
+            "ifupdown"
         ], 
         "fedora": [
             "kernel", 
