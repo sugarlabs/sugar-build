@@ -39,7 +39,8 @@ class Module:
         if self.tag:
             command.run(["git", "checkout", self.tag])
         else:
-            command.run(["git", "merge", "--ff-only", "origin", self._branch],
+            command.run(["git", "merge", "--ff-only",
+                         "origin/%s" % self._branch],
                         retry=self._retry)
 
     def clean(self):
