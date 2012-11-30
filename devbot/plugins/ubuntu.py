@@ -9,7 +9,7 @@ distro.register_package_manager("ubuntu", debian.PackageManager)
 class DistroInfo(interfaces.DistroInfo):
     _OS_RELEASE_PATH="/etc/os-release"
     def __init__(self):
-        arch = subprocess.check_output(["uname", "-i"]).strip() 
+        arch = self._get_architecture()
  
         self.name = "ubuntu"
         self.version = "unknown"
@@ -39,5 +39,8 @@ class DistroInfo(interfaces.DistroInfo):
 
         if self.version and self.version >= "12.10":
             self.gnome_version = "3.6"
+
+    def _get_architecture(self):
+        return subprocess.check_output(["uname", "-i"]).strip() 
 
 distro.register_distro_info(DistroInfo)

@@ -32,12 +32,19 @@ class TestConfig(unittest.TestCase):
                 info_class._OS_RELEASE_PATH = \
                     os.path.join(data_dir, "os-release-ubuntu-12.10") 
 
+            def _get_architecture(self):
+                return "x86_64"
+
+            info_class._get_architecture = _get_architecture
+
         for info_class in distro._supported_distros:
             info = info_class()
             if info.name == name and info.version == version:
                 distro._supported_distros = [info_class]
                 distro._distro_info = None
                 break
+
+        self._check_distro_info()
 
     def _unset_distro(self):
         distro._supported_distros = self._orig
@@ -54,6 +61,11 @@ class TestConfig(unittest.TestCase):
 
     def _assert_no_module(self, modules, name):
         self.assertIsNone(self._find_module(modules, name))
+
+    def _check_distro_info(self):
+        distro_info = distro.get_distro_info()
+        self.assertTrue(distro_info.supported)
+        self.assertTrue(distro_info.valid)
 
     def test_fedora_17_modules(self):
         self._set_distro("fedora", "17")

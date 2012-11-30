@@ -86,7 +86,7 @@ distro.register_package_manager("debian", PackageManager)
 class DistroInfo(interfaces.DistroInfo):
     _DEBIAN_VERSION_PATH = "/etc/debian_version"
     def __init__(self):
-        arch = subprocess.check_output(["arch"]).strip() 
+        arch = self._get_architecture() 
  
         self.name = "debian"
         self.version = "unknown"
@@ -109,5 +109,8 @@ class DistroInfo(interfaces.DistroInfo):
             self.version = "wheezy"
         else:
             self.supported = False
+
+    def _get_architecture(self):
+        return subprocess.check_output(["arch"]).strip() 
 
 distro.register_distro_info(DistroInfo)

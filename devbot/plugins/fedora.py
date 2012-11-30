@@ -85,7 +85,7 @@ class DistroInfo(interfaces.DistroInfo):
     _FEDORA_RELEASE_PATH = "/etc/fedora-release"
 
     def __init__(self):
-        arch = subprocess.check_output(["uname", "-i"]).strip()
+        arch = self._get_architecture()
 
         self.name = "fedora"
         self.version = "unknown"
@@ -109,5 +109,8 @@ class DistroInfo(interfaces.DistroInfo):
             self.version = "18"
         else:
             self.supported = False
+
+    def _get_architecture(self):
+        return subprocess.check_output(["uname", "-i"]).strip()
 
 distro.register_distro_info(DistroInfo)
