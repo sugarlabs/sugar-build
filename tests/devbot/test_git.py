@@ -12,6 +12,9 @@ class TestGit(unittest.TestCase):
 
         subprocess.check_call(["git", "init"])
 
+        subprocess.check_call(["git", "config", "user.name", "Test Test"])
+        subprocess.check_call(["git", "config", "user.email", "test@test.org"])
+
         with open("README", "w") as f:
             f.write("")
 
