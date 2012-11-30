@@ -1,5 +1,28 @@
 {
     "base-system": {
+        "debian": [
+            "apt", 
+            "make", 
+            "apt-utils", 
+            "apt-xapian-index", 
+            "aptdaemon", 
+            "at", 
+            "base-files", 
+            "dash", 
+            "e2fslibs", 
+            "e2fsprogs", 
+            "grub-pc", 
+            "gzip", 
+            "hostname", 
+            "krb5-locales", 
+            "login", 
+            "logrotate", 
+            "git", 
+            "bash", 
+            "diffutils", 
+            "grep", 
+            "ncurses-base"
+        ], 
         "fedora": [
             "kernel", 
             "kernel-PAE", 
@@ -44,29 +67,6 @@
             "audit", 
             "attr", 
             "gpg-pubkey"
-        ], 
-        "debian": [
-            "apt", 
-            "make", 
-            "apt-utils", 
-            "apt-xapian-index", 
-            "aptdaemon", 
-            "at", 
-            "base-files", 
-            "dash", 
-            "e2fslibs", 
-            "e2fsprogs", 
-            "grub-pc", 
-            "gzip", 
-            "hostname", 
-            "krb5-locales", 
-            "login", 
-            "logrotate", 
-            "git", 
-            "bash", 
-            "diffutils", 
-            "grep", 
-            "ncurses-base"
         ], 
         "ubuntu": [
             "apt", 
