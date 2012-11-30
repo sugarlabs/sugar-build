@@ -233,7 +233,8 @@ def _filter_if(item):
         return True
 
     distro_info = distro.get_distro_info()
-    globals = { "gstreamer_version": distro_info.gstreamer_version }
+    globals = { "gstreamer_version": distro_info.gstreamer_version,
+                "gnome_version": distro_info.gnome_version }
 
     return eval(item["if"], globals)
 
@@ -248,15 +249,14 @@ def load_checks():
 def load_modules():
     module_dir = os.path.join(config_dir, "modules")
 
+    modules = []
     with open(os.path.join(module_dir, "index.json")) as f:
-        modules = []
         for module_file in json.load(f):
             path = os.path.join(module_dir, module_file)
-
             for info in json.load(open(path)):
-                modules.append(Module(info))
+                modules.append(info)
 
-        return modules
+    return [Module(info) for info in filter(_filter_if, modules)]
 
 def clean():
     try:

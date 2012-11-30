@@ -97,7 +97,7 @@ class DistroInfo(interfaces.DistroInfo):
         self.use_lib64 = False
 
         try:
-            with open(_DEBIAN_VERSION_PATH) as f:
+            with open(self._DEBIAN_VERSION_PATH) as f:
                 debian_version = f.read()
         except IOError:
             debian_version = None

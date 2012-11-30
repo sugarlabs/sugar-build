@@ -96,11 +96,11 @@ class DistroInfo(interfaces.DistroInfo):
         self.supported = (arch in ["i386", "i686", "x86_64"])
 
         try:
-            release = open(_FEDORA_RELEASE_PATH).read().strip()
+            release = open(self._FEDORA_RELEASE_PATH).read().strip()
         except IOError:
             release = None
             self.valid = False
- 
+
         if release == "Fedora release 17 (Beefy Miracle)":
             self.version = "17"
             self.gnome_version = "3.4"

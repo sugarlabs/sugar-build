@@ -7,6 +7,7 @@ from devbot.plugins import debian
 distro.register_package_manager("ubuntu", debian.PackageManager)
 
 class DistroInfo(interfaces.DistroInfo):
+    _OS_RELEASE_PATH="/etc/os-release"
     def __init__(self):
         arch = subprocess.check_output(["uname", "-i"]).strip() 
  
@@ -17,28 +18,26 @@ class DistroInfo(interfaces.DistroInfo):
         self.valid = True
         self.supported = (arch in ["i386", "i686", "x86_64"])
         self.use_lib64 = False
+
+        try:
+            release = open(self._OS_RELEASE_PATH).read().strip()
+            os_info = {}
+            for line in release.split("\n"):
+                split = line.strip().split("=")
+                os_info[split[0]] = split[1].replace("\"", "")
+        except IOError:
+            release = None
+            self.valid = False
  
-        if self._get_distributor() != "Ubuntu":
+        if os_info["ID"] != "ubuntu":
             self.valid = False
        
-        self.version = self._get_release()
+        self.version = os_info.get("VERSION_ID", None)
 
         if self.version != "12.10":
             self.supported = False
 
         if self.version and self.version >= "12.10":
             self.gnome_version = "3.6"
-
-    def _get_distributor(self):
-        try:
-            return subprocess.check_output(["lsb_release", "-si"]).strip()
-        except OSError:
-            None
-
-    def _get_release(self):
-        try:
-            return subprocess.check_output(["lsb_release", "-sr"]).strip()
-        except OSError:
-            return None
 
 distro.register_distro_info(DistroInfo)
