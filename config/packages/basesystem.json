@@ -42,12 +42,12 @@
             "rsyslog", 
             "sudo", 
             "sysvinit", 
-            "time",
-            "ncurses-bin",
-            "ifupdown",
-            "iptables",
-            "net-tools",
-            "iputils-ping",
+            "time", 
+            "ncurses-bin", 
+            "ifupdown", 
+            "iptables", 
+            "net-tools", 
+            "iputils-ping", 
             "isc-dhcp-client"
         ], 
         "fedora": [

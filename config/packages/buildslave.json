@@ -1,11 +1,13 @@
 {
     "buildslave": {
+        "debian": [
+            "buildbot"
+        ], 
         "fedora": [
             "buildbot"
         ], 
         "ubuntu": [
-            "buildbot", 
-            "buildbot-slave"
+            "buildbot"
         ]
     }
 }
