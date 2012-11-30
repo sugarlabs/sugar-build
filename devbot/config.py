@@ -56,7 +56,8 @@ class Module:
         return utils.get_commit_id(self.get_source_dir())
 
     def get_git_module(self):
-        return git.Module(get_source_dir(), self.name, self.repo, self.tag)
+        return git.Module(get_source_dir(), self.name, self.repo,
+                          self.branch, self.tag)
 
 def _ensure_dir(dir):
     if not os.path.exists(dir):
