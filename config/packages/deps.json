@@ -306,7 +306,7 @@
     }, 
     "gi python": {
         "debian": [
-            "pygobject"
+            "python-gobject-2"
         ], 
         "fedora": [
             "pygobject3"
