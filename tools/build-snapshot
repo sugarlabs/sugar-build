@@ -23,6 +23,7 @@ tar chf $filename \
     $rootdir/install \
     $rootdir/commands/check-system \
     $rootdir/commands/common.py \
+    $rootdir/commands/bashrc \
     $rootdir/commands/run \
     $rootdir/commands/shell
 
