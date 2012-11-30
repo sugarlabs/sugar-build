@@ -42,7 +42,7 @@
             "klibc-utils", 
             "kmod", 
             "linux-base", 
-            "linux-image", 
+            "linux-image-amd64", 
             "locales", 
             "lsof", 
             "mawk", 
