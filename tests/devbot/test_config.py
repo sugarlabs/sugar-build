@@ -23,6 +23,10 @@ class TestConfig(unittest.TestCase):
                 info_class._FEDORA_RELEASE_PATH = \
                     os.path.join(data_dir, "fedora-release-18") 
 
+            if "_DEBIAN_VERSION_PATH" in distro_info_class:
+                info_class._DEBIAN_VERSION_PATH = \
+                    os.path.join(data_dir, "debian_version-wheezy") 
+
             info = info_class()
             if info.name == name and info.version == version:
                 self._supported_distros = [info]
@@ -44,7 +48,7 @@ class TestConfig(unittest.TestCase):
     def _assert_no_module(self, modules, name):
         self.assertIsNotNone(self._find_module(modules, name))
 
-    def test_fedora_17_info(self):
+    def test_fedora_17_modules(self):
         self._set_distro("fedora", "17")
 
         modules = config.load_modules()
@@ -55,8 +59,19 @@ class TestConfig(unittest.TestCase):
  
         self._unset_distro()
 
-    def test_fedora_18_info(self):
+    def test_fedora_18_modules(self):
         self._set_distro("fedora", "18")
+
+        modules = config.load_modules()
+        self._assert_module(modules, "glib") 
+        self._assert_module(modules, "gtk+")
+        self._assert_module(modules, "gstreamer")
+        self._assert_module(modules, "sugar") 
+
+        self._unset_distro()
+
+    def test_debian_wheezy_modules(self):
+        self._set_distro("debian", "wheezy")
 
         modules = config.load_modules()
         self._assert_module(modules, "glib") 

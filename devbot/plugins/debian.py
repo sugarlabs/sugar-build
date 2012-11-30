@@ -84,6 +84,7 @@ class PackageManager(interfaces.PackageManager):
 distro.register_package_manager("debian", PackageManager)
 
 class DistroInfo(interfaces.DistroInfo):
+    _DEBIAN_VERSION_PATH = "/etc/debian_version"
     def __init__(self):
         arch = subprocess.check_output(["arch"]).strip() 
  
@@ -96,7 +97,7 @@ class DistroInfo(interfaces.DistroInfo):
         self.use_lib64 = False
 
         try:
-            with open("/etc/debian_version") as f:
+            with open(_DEBIAN_VERSION_PATH) as f:
                 debian_version = f.read()
         except IOError:
             debian_version = None
