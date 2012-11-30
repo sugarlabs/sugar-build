@@ -77,12 +77,6 @@
         "name": "gst typelib"
     }, 
     {
-        "check": "from gi.repository import Gst", 
-        "checker": "python", 
-        "if": "gstreamer_version == '0.10'", 
-        "name": "gst typelib"
-    }, 
-    {
         "check": "import gi; gi.require_version('Gst', '1.0'); from gi.repository import Gst; Gst.init([])", 
         "checker": "python", 
         "if": "gstreamer_version == '1.0'", 
@@ -154,11 +148,6 @@
         "check": "import telepathy", 
         "checker": "python", 
         "name": "telepathy python"
-    }, 
-    {
-        "check": "video4linux2", 
-        "checker": "gstreamer-0.10", 
-        "name": "video4linux2"
     }, 
     {
         "check": "import vte", 

@@ -370,15 +370,6 @@
             "gsettings-desktop-schemas-dev"
         ]
     }, 
-    "gst typelib": {
-        "fedora": [
-            "gstreamer"
-        ], 
-        "ubuntu": [
-            "gir1.2-gstreamer-1.0", 
-            "libgstreamer1.0-0"
-        ]
-    }, 
     "gstreamer-1.0": {
         "fedora": [
             "gstreamer1-devel"
@@ -631,17 +622,6 @@
             "python-cairo-dev"
         ]
     }, 
-    "pygst python": {
-        "debian": [
-            "python-gst0.10"
-        ], 
-        "fedora": [
-            "gstreamer-python"
-        ], 
-        "ubuntu": [
-            "python-gst0.10"
-        ]
-    }, 
     "pygtk-2.0": {
         "debian": [
             "python-gtk2-dev"
@@ -739,17 +719,6 @@
         ], 
         "ubuntu": [
             "python-telepathy"
-        ]
-    }, 
-    "video4linux2": {
-        "debian": [
-            "gstreamer0.10-plugins-good"
-        ], 
-        "fedora": [
-            "gstreamer-plugins-good"
-        ], 
-        "ubuntu": [
-            "gstreamer0.10-plugins-good"
         ]
     }, 
     "vte python": {
