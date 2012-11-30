@@ -25,7 +25,10 @@ class Module:
 
         os.chdir(self.local)
 
-        command.run(["git", "checkout", self._branch])
+        if self.tag:
+            command.run(["git", "checkout", self.tag])
+        else: 
+            command.run(["git", "checkout", self._branch])
 
     def update(self):
         if not os.path.exists(os.path.join(self.local, ".git")):
