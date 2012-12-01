@@ -1,4 +1,5 @@
 SOURCE_DIR=$(CURDIR)/source
+BUILD_DIR=$(CURDIR)/build
 COMMANDS_DIR=$(CURDIR)/commands
 HOME_DIR=$(CURDIR)/home
 TOOLS_DIR=$(CURDIR)/tools
