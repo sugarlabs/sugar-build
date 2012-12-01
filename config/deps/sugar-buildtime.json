@@ -10,6 +10,11 @@
         "name": "alsa"
     }, 
     {
+        "check": "asn1Parser", 
+        "checker": "binary", 
+        "name": "asn1Parser"
+    }, 
+    {
         "check": "autoreconf", 
         "checker": "binary", 
         "name": "autoreconf"

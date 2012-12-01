@@ -65,6 +65,14 @@
             "libasound2-dev"
         ]
     }, 
+    "asn1Parser": {
+        "debian": [
+            "libtasn-1-3-bin"
+        ], 
+        "fedora": [
+            "libtasn1-tools"
+        ]
+    }, 
     "atk-bridge": {
         "debian": [
             "libatk-adaptor"
