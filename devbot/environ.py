@@ -47,7 +47,8 @@ def _setup_variables():
                                        plat_specific=True))
     _add_path("PYTHONPATH",
               os.path.dirname(config.devbot_dir))
-
+    _add_path("XDG_DATA_HOME",
+              os.path.join(config.home_dir, "data"))
 
     _add_path("XDG_DATA_DIRS", "/usr/share")
     _add_path("XDG_DATA_DIRS", config.share_dir)

@@ -1,5 +1,15 @@
 [
     {
+        "branch": "gnome-3-4", 
+        "if": "gnome_version == '3.4'", 
+        "name": "gnome-keyring", 
+        "options_evaluated": [
+            "'--with-pkcs11-config=%s/etc' % prefix", 
+            "'--with-pkcs11-modules=%s/etc' % prefix"
+        ], 
+        "repo": "git://github.com/dnarvaez/gnome-keyring.git"
+    }, 
+    {
         "name": "glib", 
         "options": [
             "--disable-modular-tests"

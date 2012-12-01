@@ -97,6 +97,9 @@ def _pull_module(module):
 
     return True
 
+def _eval_option(option):
+    return eval(option, {"prefix": config.prefix_dir})
+
 def _build_autotools(module, log):
     makefile_path = os.path.join(module.get_build_dir(), "Makefile")
 
@@ -107,6 +110,9 @@ def _build_autotools(module, log):
                 "--prefix", config.prefix_dir,
                 "--libdir", config.lib_dir]
         args.extend(module.options)
+
+        for option in module.options_evaluated:
+            args.append(_eval_option(option))
 
         command.run(args, log)
 
