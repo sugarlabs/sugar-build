@@ -87,6 +87,18 @@
         "name": "libcanberra-gtk"
     }, 
     {
+        "check": "gcr-3", 
+        "checker": "pkgconfig", 
+        "if": "gnome_version == '3.4'", 
+        "name": "libgcr"
+    }, 
+    {
+        "check": "gcrypt.h", 
+        "checker": "include", 
+        "if": "gnome_version == '3.4'", 
+        "name": "libgcrypt"
+    }, 
+    {
         "check": "librsvg-2.0", 
         "checker": "pkgconfig", 
         "name": "librsvg-2.0"

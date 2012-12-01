@@ -512,6 +512,22 @@
             "libcanberra-gtk-dev"
         ]
     }, 
+    "libgcr": {
+        "debian": [
+            "libgcr-3-dev"
+        ], 
+        "fedora": [
+            "gcr-devel"
+        ]
+    }, 
+    "libgcrypt": {
+        "debian": [
+            "libgcrypt11-dev"
+        ], 
+        "fedora": [
+            "libgcrypt-devel"
+        ]
+    }, 
     "librsvg-2.0": {
         "debian": [
             "librsvg2-dev"
