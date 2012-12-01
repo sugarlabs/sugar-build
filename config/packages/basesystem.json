@@ -2,6 +2,8 @@
     "base-system": {
         "debian": [
             "apt", 
+            "ibritish", 
+            "bsdutils", 
             "make", 
             "apt-utils", 
             "apt-xapian-index", 
