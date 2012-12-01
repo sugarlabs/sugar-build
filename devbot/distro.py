@@ -18,6 +18,16 @@ def get_package_manager(test=False, interactive=True):
     package_manager_class = _package_managers[get_distro_info().name]
     return package_manager_class(test=test, interactive=interactive)
 
+def print_distro_info():
+    info = get_distro_info()
+    print "== Distribution information ==\n"
+    print "Name: %s" % info.name
+    print "Version: %s" % info.version
+    print "GNOME version: %s" % info.gnome_version
+    print "Gstreamer version: %s" % info.gstreamer_version 
+    print "Use lib64: %s" % info.use_lib64
+    print "Supported: %s\n" % info.supported
+
 def get_distro_info():
     global _supported_distros
     global _distro_info
