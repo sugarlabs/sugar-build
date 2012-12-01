@@ -71,12 +71,6 @@
         "name": "gnome-keyring-daemon"
     }, 
     {
-        "check": "from gi.repository import Gst", 
-        "checker": "python", 
-        "if": "gstreamer_version == '1.0'", 
-        "name": "gst typelib"
-    }, 
-    {
         "check": "import gi; gi.require_version('Gst', '1.0'); from gi.repository import Gst; Gst.init([])", 
         "checker": "python", 
         "if": "gstreamer_version == '1.0'", 

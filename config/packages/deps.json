@@ -370,6 +370,11 @@
             "gsettings-desktop-schemas-dev"
         ]
     }, 
+    "gst typelib": {
+        "ubuntu": [
+            "gir1.2-gstreamer-1.0"
+        ]
+    }, 
     "gstreamer-1.0": {
         "fedora": [
             "gstreamer1-devel"
