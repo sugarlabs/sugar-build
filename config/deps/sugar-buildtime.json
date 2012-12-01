@@ -104,6 +104,11 @@
         "name": "librsvg-2.0"
     }, 
     {
+        "check": "libtasn1", 
+        "checker": "pkgconfig", 
+        "name": "libtasn1"
+    }, 
+    {
         "check": "libtool", 
         "checker": "binary", 
         "name": "libtool"

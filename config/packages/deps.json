@@ -539,6 +539,14 @@
             "librsvg2-dev"
         ]
     }, 
+    "libtasn1": {
+        "debian": [
+            "libtasn1-3-dev"
+        ], 
+        "fedora": [
+            "libtasn1-devel"
+        ]
+    }, 
     "libtool": {
         "debian": [
             "libtool"
