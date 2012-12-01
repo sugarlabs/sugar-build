@@ -97,18 +97,19 @@ def run_checks(package_manager, checks, packages):
 
     for check in checks:
         if not _eval_check_if(check):
-            print "uuuuu"
             continue
 
         checker = checkers[check["checker"]]
         if checker(check["check"]):
-            if distro_info.name in packages[check["name"]]:
-                for package in packages[check["name"]][distro_info.name]:
-                    # Might be none, if so skip on this distro_name
-                    if package and package not in to_install:
-                        to_install.append(package)
-            else:
+            try:
+                packages_for_check = packages[check["name"]][distro_info.name]
+            except KeyError:
+                packages_for_check = []
                 packages_not_found.append(check)
+
+            for package in packages_for_check:
+                if package not in to_install:
+                    to_install.append(package)
 
             failed_checks.append(check)
 
