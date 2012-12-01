@@ -12,6 +12,7 @@
     {
         "check": "asn1Parser", 
         "checker": "binary", 
+        "if": "gnome_version == '3.4'", 
         "name": "asn1Parser"
     }, 
     {
@@ -111,6 +112,7 @@
     {
         "check": "libtasn1", 
         "checker": "pkgconfig", 
+        "if": "gnome_version == '3.4'", 
         "name": "libtasn1"
     }, 
     {
