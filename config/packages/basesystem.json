@@ -33,8 +33,8 @@
             "klibc-utils", 
             "kmod", 
             "linux-base", 
-            "linux-image-amd64",
-            "linux-image-3.2.0-4-686-pae" 
+            "linux-image-amd64", 
+            "linux-image-3.2.0-4-686-pae", 
             "locales", 
             "lsof", 
             "mawk", 
