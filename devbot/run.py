@@ -30,26 +30,24 @@ def run_test(command, test_path, virtual=False):
     environ.setup()
 
     temp_dir = tempfile.mkdtemp("sugar-build-test")
-    env_path = os.path.join(temp_dir, "environment")
+    display_path = os.path.join(temp_dir, "display")
 
-    args = [command, "--env-path", env_path]
+    args = [command, "--display-path", display_path]
     if virtual:
         args.append("--virtual")
 
     command_process = subprocess.Popen(args, stdout=subprocess.PIPE)
 
     while True:
-        if not os.path.exists(env_path):
+        if not os.path.exists(display_path):
             time.sleep(1)
         else:
             break
 
-    with open(env_path) as f:
-        for line in f.readlines():
-            name, value = line.split("=", 1)
-            os.environ[name.strip()] = value.strip()
+    with open(display_path) as f:
+        os.environ["DISPLAY"] = f.read()
 
-    os.unlink(env_path)
+    os.unlink(display_path)
     os.rmdir(temp_dir)
 
     try:
