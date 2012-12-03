@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import os
+import shutil
 import sys
 
 import common
@@ -9,7 +10,20 @@ from devbot import run
 
 common.setup()
 
+os.environ["SUGAR_LOGGER_LEVEL"] = "debug"
+os.environ["SUGAR_PROFILE"] = "uitests"
+os.environ["GTK_MODULES"] = "gail:atk-bridge"
+
+profile_path = os.path.expanduser("~/.sugar/uitests")
+shutil.rmtree(profile_path, ignore_errors=True)
+
 virtual = "SUGAR_BUILDBOT" in os.environ
 test_path = os.path.join(common.tests_dir, "sugar", "shell.py")
-if not run.run_test(test_path, virtual):
+
+result = run.run_test("sugar-runner", test_path, virtual)
+
+logs_path = os.path.join(profile_path, "logs")
+run.merge_logs(logs_path, "test.log")
+
+if not result:
     sys.exit(1)

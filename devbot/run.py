@@ -10,20 +10,10 @@ import time
 from devbot import environ
 from devbot import config
 
-def run_sugar():
-    profile_env = os.environ.get("SUGAR_PROFILE", None)
-    profile_pref = config.get_pref("PROFILE")
-
-    if profile_env is not None:
-        if profile_pref is None:
-            config.set_pref("PROFILE", _get_random_id()) 
-        elif profile_pref == profile_env:
-            print "Cannot run two instances with the same profile."
-            return
-
+def run(command):
     environ.setup()
 
-    args = ["sugar-runner"]
+    args = [command]
 
     resolution = config.get_pref("RESOLUTION")
     if resolution:
@@ -35,25 +25,18 @@ def run_sugar():
 
     os.execlp(args[0], *args)
 
-def run_test(test_path, virtual=False):
-    os.environ["SUGAR_LOGGER_LEVEL"] = "debug"
-    os.environ["SUGAR_PROFILE"] = "uitests"
-    os.environ["GTK_MODULES"] = "gail:atk-bridge"
-
+def run_test(command, test_path, virtual=False):
     environ.setup()
 
-    args = ["sugar-runner"]
+    args = [command]
     if virtual:
         args.append("--virtual")
 
-    sugar_process = subprocess.Popen(args, stdout=subprocess.PIPE)
+    command_process = subprocess.Popen(args, stdout=subprocess.PIPE)
     for i in range(0, 2):
-        line = sugar_process.stdout.readline()
+        line = command_process.stdout.readline()
         name, value = line.split("=", 1)
         os.environ[name.strip()] = value.strip()
-
-    profile_path = os.path.expanduser("~/.sugar/uitests")
-    shutil.rmtree(profile_path, ignore_errors=True)
 
     time.sleep(5)
 
@@ -63,21 +46,21 @@ def run_test(test_path, virtual=False):
     except subprocess.CalledProcessError:
         result = False
 
-    sugar_proces.terminate()
+    command_process.terminate()
 
+    return result
+
+def merge_logs(logs_path, log_name):
     logs = {}
-    logs_path = os.path.join(profile_path, "logs")
     for filename in os.listdir(logs_path):
         if filename.endswith(".log"):
             path = os.path.join(logs_path, filename)
             with open(path) as f:
                 logs[filename] = f.read()
 
-    with open(os.path.join(config.logs_dir, "test.log"), "w") as f:
+    with open(os.path.join(config.logs_dir, log_name), "w") as f:
         for filename, log in logs.items():
             f.write("===== %s =====\n\n%s" % (filename, log))
-
-    return result
 
 def _get_random_id():
     return ''.join(random.choice(string.letters) for i in xrange(8))

@@ -1,8 +1,23 @@
 #!/usr/bin/python
 
+import os
+import sys
+
 import common
 
 from devbot import run
+from devbot import config
 
 common.setup()
-run.run_sugar()
+
+profile_env = os.environ.get("SUGAR_PROFILE", None)
+profile_pref = config.get_pref("PROFILE")
+
+if profile_env is not None:
+    if profile_pref is None:
+        config.set_pref("PROFILE", _get_random_id())
+    elif profile_pref == profile_env:
+        print "Cannot run two instances with the same profile."
+        sys.exit(1)
+
+run.run("sugar-runner")
