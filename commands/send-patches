@@ -90,7 +90,7 @@ def setup():
 
 common.setup()
 
-if os.path.dirname(os.getcwd()) != config.source_dir:
+if os.path.dirname(os.getcwd()) != config.get_source_dir():
     print "The command must be run inside one of the source modules."
     sys.exit(1)
 
