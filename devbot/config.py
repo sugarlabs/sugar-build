@@ -202,6 +202,21 @@ def _save_prefs(prefs):
         for pref in prefs.items():
             f.write("%s\n" % "=".join(pref))
 
+def get_log_path(prefix):
+    logfile_path = None
+    number = 0
+
+    while logfile_path is None:
+        name = "%s-%d.log" % (prefix, number)
+        path = os.path.join(logs_dir, name)
+
+        if not os.path.exists(path):
+            logfile_path = path
+
+        number = number + 1
+
+    return logfile_path
+
 def get_pref(name):
     prefs = _read_prefs()
     return prefs.get(name, None)

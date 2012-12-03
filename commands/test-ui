@@ -23,7 +23,7 @@ test_path = os.path.join(common.tests_dir, "sugar", "shell.py")
 result = run.run_test("sugar-runner", test_path, virtual)
 
 logs_path = os.path.join(profile_path, "logs")
-run.merge_logs(logs_path, "test.log")
+run.collect_logs(logs_path, "test")
 
 if not result:
     sys.exit(1)

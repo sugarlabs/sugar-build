@@ -2,10 +2,7 @@
 
 toolsdir=`dirname "$0"`
 rootdir=`dirname "$toolsdir"`
-logsdir=$rootdir/logs
 
-mkdir -p $logsdir
-
-${@:(-$#):($#-1)} | tee -a $logsdir/${@: -1:1}.log
+${@:(-$#):($#-1)} | tee -a ${@: -1:1}
 
 exit ${PIPESTATUS[0]} 

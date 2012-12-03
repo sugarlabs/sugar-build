@@ -62,17 +62,27 @@ def run_test(command, test_path, virtual=False):
 
     return result
 
-def merge_logs(logs_path, log_name):
+def collect_logs(source_path, log_name):
     logs = {}
-    for filename in os.listdir(logs_path):
+    for filename in os.listdir(source_path):
         if filename.endswith(".log"):
-            path = os.path.join(logs_path, filename)
+            path = os.path.join(source_path, filename)
             with open(path) as f:
                 logs[filename] = f.read()
 
-    with open(os.path.join(config.logs_dir, log_name), "w") as f:
+    log_path = config.get_log_path(log_name)
+    with open(log_path, "w") as f:
         for filename, log in logs.items():
             f.write("===== %s =====\n\n%s" % (filename, log))
+
+    last_log_path = os.path.join(config.logs_dir, "%s.log" % log_name)
+
+    try:
+        os.unlink(last_log_path)
+    except OSError:
+        pass
+
+    os.symlink(log_path, last_log_path)
 
 def _get_random_id():
     return ''.join(random.choice(string.letters) for i in xrange(8))

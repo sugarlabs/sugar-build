@@ -3,7 +3,6 @@ import os
 import multiprocessing
 import shutil
 import subprocess
-import time
 
 from devbot import command
 from devbot import config
@@ -64,8 +63,7 @@ def build():
         state.remove_built_commit_id(module)
 
     for module in modules:
-        log = "build-%s" % time.strftime("%Y%m%d-%H%M%S")
-        if not _build_module(module, log):
+        if not _build_module(module, config.get_log_path("build")):
             return False
 
     return True
