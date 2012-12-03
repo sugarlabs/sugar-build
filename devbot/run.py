@@ -22,15 +22,17 @@ def run_sugar():
             print "Cannot run two instances with the same profile."
             return
 
+    args = ["sugar-runner"]
+
     resolution = config.get_pref("RESOLUTION")
     if resolution:
-        os.environ["SUGAR_RUNNER_RESOLUTION"] = resolution
+        args.extend(["--resolution", resolution])
 
     output = config.get_pref("OUTPUT")
     if output:
-        os.environ["SUGAR_RUNNER_OUTPUT"] = output
+        args.extend(["--output", output])
 
-    run(["sugar-runner"])
+    run(args)
 
 def _get_random_id():
     return ''.join(random.choice(string.letters) for i in xrange(8))
