@@ -6,6 +6,7 @@ import random
 import shutil
 import subprocess
 import time
+import tempfile
 
 from devbot import environ
 from devbot import config
@@ -28,17 +29,28 @@ def run(command):
 def run_test(command, test_path, virtual=False):
     environ.setup()
 
-    args = [command]
+    temp_dir = tempfile.mkdtemp("sugar-build-test")
+    env_path = os.path.join(temp_dir, "environment")
+
+    args = [command, "--env-path", env_path]
     if virtual:
         args.append("--virtual")
 
     command_process = subprocess.Popen(args, stdout=subprocess.PIPE)
-    for i in range(0, 2):
-        line = command_process.stdout.readline()
-        name, value = line.split("=", 1)
-        os.environ[name.strip()] = value.strip()
 
-    time.sleep(5)
+    while True:
+        if not os.path.exists(env_path):
+            time.sleep(1)
+        else:
+            break
+
+    with open(env_path) as f:
+        for line in f.readlines():
+            name, value = line.split("=", 1)
+            os.environ[name.strip()] = value.strip()
+
+    os.unlink(env_path)
+    os.rmdir(temp_dir)
 
     try:
         subprocess.check_call(["python", test_path])
