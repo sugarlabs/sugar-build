@@ -5,7 +5,4 @@ install/
 build/
 source/
 logs/
-commands/helpers/list-outputs
-commands/helpers/find-free-display
-commands/helpers/xephyr-window
 prefs
