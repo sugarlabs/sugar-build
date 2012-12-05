@@ -71,7 +71,7 @@ def collect_logs(source_path, log_name):
     log_path = config.get_log_path(log_name)
     with open(log_path, "w") as f:
         for filename, log in logs.items():
-            f.write("===== %s =====\n\n%s" % (filename, log))
+            f.write("\n===== %s =====\n\n%s" % (filename, log))
 
     last_log_path = os.path.join(config.logs_dir, "%s.log" % log_name)
 
