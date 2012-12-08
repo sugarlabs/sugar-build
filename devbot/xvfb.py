@@ -1,12 +1,19 @@
 import os
 import subprocess
 
-from gi.repository import SugarRunner
-
 from devbot import utils
 
+def _find_free_display():
+    for i in range (100, 1000):
+        display = ":%s" % i
+        result = subprocess.call(args=["xdpyinfo", "--display", display],
+                                 stdout=utils.devnull,
+                                 stderr=subprocess.STDOUT)
+        if result > 0:
+            return display          
+
 def start():
-    xvfb_display = SugarRunner.find_free_display()
+    xvfb_display = _find_free_display()
     xvfb_proc = subprocess.Popen(args=["Xvfb", xvfb_display],
                                  stdout=utils.devnull,
                                  stderr=subprocess.STDOUT)

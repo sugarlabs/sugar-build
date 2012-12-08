@@ -5,6 +5,11 @@
         "name": "Xvfb"
     }, 
     {
+        "check": "xdpyinfo", 
+        "checker": "binary", 
+        "name": "Xvfb"
+    }, 
+    {
         "check": "pkg-config", 
         "checker": "binary", 
         "name": "pkg-config"
