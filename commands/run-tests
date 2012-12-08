@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import argparse
 import os
 import shutil
 import sys
@@ -11,23 +12,33 @@ from devbot import test
 
 common.setup()
 
+def _run_ui_tests():
+    profile_path = os.path.expanduser("~/.sugar/uitests")
+    shutil.rmtree(profile_path, ignore_errors=True)
+
+    virtual = "SUGAR_BUILDBOT" in os.environ
+    test_path = os.path.join(common.tests_dir, "sugar", "shell.py")
+
+    result = run.run_test("sugar-runner", test_path, virtual)
+
+    logs_path = os.path.join(profile_path, "logs")
+    run.collect_logs(logs_path, "test")
+
+    if not result:
+        sys.exit(1)
+
+parser = argparse.ArgumentParser()
+parser.add_argument("module", nargs="?", help="name of the module to test")
+args = parser.parse_args()
+
 os.environ["SUGAR_LOGGER_LEVEL"] = "debug"
 os.environ["SUGAR_PROFILE"] = "uitests"
 os.environ["GTK_MODULES"] = "gail:atk-bridge"
 
-if not test.test():
-    sys.exit(1)
+if args.module:
+    test.test_one(args.module)
+else:
+    if not test.test():
+        sys.exit(1)
 
-profile_path = os.path.expanduser("~/.sugar/uitests")
-shutil.rmtree(profile_path, ignore_errors=True)
-
-virtual = "SUGAR_BUILDBOT" in os.environ
-test_path = os.path.join(common.tests_dir, "sugar", "shell.py")
-
-result = run.run_test("sugar-runner", test_path, virtual)
-
-logs_path = os.path.join(profile_path, "logs")
-run.collect_logs(logs_path, "test")
-
-if not result:
-    sys.exit(1)
+    _run_ui_tests()

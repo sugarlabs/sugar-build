@@ -32,3 +32,6 @@ build-%:
 
 pull-%:
 	@$(COMMANDS_DIR)/pull $*
+
+run-tests-%:
+	@$(COMMANDS_DIR)/run-tests $*
