@@ -7,7 +7,7 @@
     {
         "check": "xdpyinfo", 
         "checker": "binary", 
-        "name": "Xvfb"
+        "name": "xdpyinfo"
     }, 
     {
         "check": "pkg-config", 
