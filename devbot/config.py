@@ -37,6 +37,7 @@ class Module:
         self.auto_install = info.get("auto-install", False)
         self.options = info.get("options", [])
         self.options_evaluated = info.get("options_evaluated", [])
+        self.has_tests = info.get("has_tests", False)
 
         if get_pref("BUILD_IN_SOURCE"):
             self.out_of_source = False

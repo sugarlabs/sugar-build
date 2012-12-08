@@ -6,4 +6,4 @@ test-devbot:
 	TMPDIR=$(TESTS_DATA) PYTHONPATH=$(BASE_DIR) python -m unittest discover
 	rm -rf $(TESTS_DATA)
 
-check: test-devbot test-ui
+check: test-devbot run-tests

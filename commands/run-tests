@@ -7,12 +7,16 @@ import sys
 import common
 
 from devbot import run
+from devbot import test
 
 common.setup()
 
 os.environ["SUGAR_LOGGER_LEVEL"] = "debug"
 os.environ["SUGAR_PROFILE"] = "uitests"
 os.environ["GTK_MODULES"] = "gail:atk-bridge"
+
+if not test.test():
+    sys.exit(1)
 
 profile_path = os.path.expanduser("~/.sugar/uitests")
 shutil.rmtree(profile_path, ignore_errors=True)
