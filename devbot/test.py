@@ -20,7 +20,6 @@ def test():
 
     modules = config.load_modules()
     for module in modules:
-        print module.name
         if not _test_module(module):
             return False
 
