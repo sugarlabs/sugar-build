@@ -1,13 +1,13 @@
 [
     {
-        "branch": "gnome-3-4", 
         "if": "gnome_version == '3.4'", 
         "name": "gnome-keyring", 
         "options_evaluated": [
             "'--with-pkcs11-config=%s/etc' % prefix", 
             "'--with-pkcs11-modules=%s/etc' % prefix"
         ], 
-        "repo": "git://github.com/dnarvaez/gnome-keyring.git"
+        "repo": "git://github.com/dnarvaez/gnome-keyring.git", 
+        "tag": "3.4.1"
     }, 
     {
         "name": "glib", 
@@ -15,7 +15,7 @@
             "--disable-modular-tests"
         ], 
         "repo": "git://git.gnome.org/glib", 
-        "tag": "2.34.2"
+        "tag": "2.34.3"
     }, 
     {
         "name": "gobject-introspection", 
@@ -23,12 +23,12 @@
             "--disable-tests"
         ], 
         "repo": "git://git.gnome.org/gobject-introspection", 
-        "tag": "GOBJECT_INTROSPECTION_1_34_1_1"
+        "tag": "GOBJECT_INTROSPECTION_1_34_2"
     }, 
     {
         "name": "pygobject", 
         "repo": "git://git.gnome.org/pygobject", 
-        "tag": "776088b4d673183264893cf40bd3e4e359ba7a5"
+        "tag": "c36e12368bb430ca1fb6eafd7d86f59c44965a31"
     }, 
     {
         "if": "gnome_version == '3.4'", 
@@ -52,7 +52,7 @@
         "if": "gnome_version == '3.4'", 
         "name": "gtk+", 
         "repo": "git://git.gnome.org/gtk+", 
-        "tag": "3.6.1"
+        "tag": "3.6.2"
     }, 
     {
         "if": "gstreamer_version != '1.0'", 
@@ -62,7 +62,7 @@
         ], 
         "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/gstreamer/gstreamer", 
-        "tag": "1.0.2"
+        "tag": "1.0.3"
     }, 
     {
         "if": "gstreamer_version != '1.0'", 
@@ -72,7 +72,7 @@
         ], 
         "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/gstreamer/gst-plugins-base", 
-        "tag": "1.0.2"
+        "tag": "1.0.3"
     }, 
     {
         "if": "gstreamer_version != '1.0'", 
@@ -82,7 +82,7 @@
         ], 
         "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/gstreamer/gst-plugins-good", 
-        "tag": "1.0.2"
+        "tag": "1.0.3"
     }, 
     {
         "if": "gnome_version == '3.4'", 
