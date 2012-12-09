@@ -23,5 +23,7 @@ def start():
     return (xvfb_proc, orig_display)
 
 def stop(xvfb_proc, orig_display):
-    os.environ["DISPLAY"] = orig_display
+    if orig_display is not None:
+        os.environ["DISPLAY"] = orig_display
+
     xvfb_proc.terminate()
