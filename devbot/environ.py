@@ -8,12 +8,16 @@ def setup():
     _setup_variables()
 
 def _add_path(name, path):
+    if not path.endswith("/"):
+        path = "%s/" % path
+
     if name not in os.environ:
         os.environ[name] = path
         return
 
     splitted = os.environ[name].split(":")
-    splitted.insert(0, path)
+    if path not in splitted:
+        splitted.insert(0, path)
 
     os.environ[name] = ":".join(splitted)
 
