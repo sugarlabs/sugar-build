@@ -122,7 +122,8 @@ def _build_autotools(module, log):
     _unlink_libtool_files()
 
 def _build_activity(module, log):
-    command.run(["./setup.py", "install", "--prefix", config.prefix_dir], log)
+    setup = os.path.join(module.get_source_dir(), "setup.py")
+    command.run([setup, "install", "--prefix", config.prefix_dir], log)
 
 def _build_module(module, log=None):
     print "\n=== Building %s ===\n" % module.name
