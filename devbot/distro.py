@@ -25,7 +25,7 @@ def print_distro_info():
     print "Version: %s" % info.version
     print "GNOME version: %s" % info.gnome_version
     print "Gstreamer version: %s" % info.gstreamer_version 
-    print "Use lib64: %s" % info.use_lib64
+    print "Lib directory: %s" % info.lib_dir
     print "Supported: %s\n" % info.supported
 
 def get_distro_info():

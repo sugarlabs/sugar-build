@@ -34,12 +34,6 @@ def _setup_variables():
               os.path.join(config.share_dir, "aclocal"))  
     _add_path("XCURSOR_PATH",
               os.path.join(config.share_dir, "icons"))
-    _add_path("GIO_EXTRA_MODULES",
-              os.path.join(config.system_lib_dir, "gio", "modules"))
-    _add_path("GI_TYPELIB_PATH",
-              os.path.join(config.system_lib_dir, "girepository-1.0"))
-    _add_path("GI_TYPELIB_PATH",
-              os.path.join(config.lib_dir, "girepository-1.0"))
     _add_path("PKG_CONFIG_PATH",
               os.path.join(config.lib_dir, "pkgconfig"))
     _add_path("GST_PLUGIN_PATH",
@@ -58,6 +52,18 @@ def _setup_variables():
     _add_path("XDG_CONFIG_DIRS", "/etc")
     _add_path("XDG_CONFIG_DIRS", config.etc_dir)    
 
+    for system_lib_dir in config.system_lib_dirs:
+        modules_path = os.path.join(system_lib_dir, "gio", "modules")
+        if os.path.exists(modules_path): 
+            _add_path("GIO_EXTRA_MODULES", modules_path)
+
+        typelib_path = os.path.join(system_lib_dir, "girepository-1.0")
+        if os.path.exists(typelib_path):  
+            _add_path("GI_TYPELIB_PATH", typelib_path)
+
+    _add_path("GI_TYPELIB_PATH",
+              os.path.join(config.lib_dir, "girepository-1.0"))
+ 
     os.environ["GTK_DATA_PREFIX"] = config.prefix_dir
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")
     os.environ["XDG_DATA_HOME"] = os.path.join(config.home_dir, "data")

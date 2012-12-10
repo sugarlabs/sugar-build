@@ -17,7 +17,12 @@ class DistroInfo(interfaces.DistroInfo):
         self.gstreamer_version = "1.0"
         self.valid = True
         self.supported = (arch in ["i386", "i686", "x86_64"])
-        self.use_lib64 = False
+        self.lib_dir = None
+
+        if arch in ["i386", "i686"]:
+            self.lib_dir = "lib/i386-linux-gnu"
+        elif arch == "x86_64":
+            self.lib_dir = "lib/x86_64-linux-gnu"
 
         try:
             release = open(self._OS_RELEASE_PATH).read().strip()

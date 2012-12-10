@@ -54,8 +54,10 @@ class DistroInfo:
            attributes are all valid.
         """
 
-        self.use_lib64 = False
-        """If set to True install libraries in the lib64 directory."""
+        self.lib_dir = False
+        """Path to the architecture specific lib directory, relative
+           to the prefix.
+        """
 
         self.supported = False
         """If set to Trye the distribution is supported."""

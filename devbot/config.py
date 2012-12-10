@@ -24,6 +24,7 @@ home_dir = None
 dep_files = None
 package_files = None
 prefs_path = None
+system_lib_dirs = None
 
 _source_dir = None
 _build_dir = None
@@ -115,7 +116,7 @@ def _get_prefix_dir(dir, relocatable):
     return prefix_dir
 
 def set_install_dir(dir, relocatable=False):
-    global system_lib_dir
+    global system_lib_dirs
     global install_dir
     global prefix_dir
     global share_dir
@@ -137,12 +138,17 @@ def set_install_dir(dir, relocatable=False):
     etc_dir = os.path.join(prefix_dir, "etc")
     libexec_dir = os.path.join(prefix_dir, "libexec")
 
-    if distro.get_distro_info().use_lib64:
-        lib_dir = os.path.join(prefix_dir, "lib64")
-        system_lib_dir = "/usr/lib64"
-    else:
-        lib_dir = os.path.join(prefix_dir, "lib")
-        system_lib_dir = "/usr/lib"
+    distro_info = distro.get_distro_info()
+
+    relative_lib_dir = distro_info.lib_dir
+    if relative_lib_dir is None:
+        relative_lib_dir = "/usr"
+
+    lib_dir = os.path.join(prefix_dir, relative_lib_dir)
+
+    system_lib_dirs = ["/usr/lib"]
+    if distro_info.lib_dir is not None:
+        system_lib_dirs.append(os.path.join("/usr", distro_info.lib_dir))
 
 def set_source_dir(dir):
     global _source_dir

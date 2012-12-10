@@ -94,7 +94,12 @@ class DistroInfo(interfaces.DistroInfo):
         self.gstreamer_version = "0.10"
         self.valid = True
         self.supported = (arch in ["i686", "x86_64"])
-        self.use_lib64 = False
+        self.lib_dir = None
+
+        if arch == "i686":
+            self.lib_dir = "lib/i386-linux-gnu"
+        elif arch == "x86_64":
+            self.lib_dir = "lib/x86_64-linux-gnu"
 
         try:
             with open(self._DEBIAN_VERSION_PATH) as f:

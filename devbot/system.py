@@ -10,11 +10,6 @@ from devbot import state
 from devbot import utils
 from devbot import xvfb
 
-libdirs = ["lib",
-           "lib64",
-           "lib/x86_64-linux-gnu",
-           "lib/i386-linux-gnu"]
-
 def check_binary(check):
     return subprocess.call(["which", check],
                            stdout=utils.devnull,
@@ -32,8 +27,8 @@ def check_gtkmodule(check):
     # Not sure we can do better than this, the gtkmodule stuff is private
     missing = True
     
-    for libdir in libdirs:
-        if os.path.exists("/usr/%s/gtk-2.0/modules/lib%s.so" % (libdir, check)):
+    for libdir in config.system_lib_dirs:
+        if os.path.exists("%s/gtk-2.0/modules/lib%s.so" % (libdir, check)):
             missing = False
 
     return missing
@@ -50,8 +45,8 @@ def check_metacity_theme(check):
 def check_gstreamer(check, version):
     missing = True
     
-    for libdir in libdirs:
-        if os.path.exists("/usr/%s/gstreamer-%s/libgst%s.so" % \
+    for libdir in config.system_lib_dirs:
+        if os.path.exists("%s/gstreamer-%s/libgst%s.so" % \
                           (libdir, version, check)):
             missing = False
 

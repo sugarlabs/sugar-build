@@ -28,7 +28,7 @@ distro.register_package_manager("unknown", PackageManager)
 
 class DistroInfo(interfaces.DistroInfo):
     def __init__(self):
-        self.use_lib64 = os.path.exists("/usr/lib64")
+        self.lib_dir = None
         self.name = "unknown"
         self.version = "unknown"
         self.gnome_version = "3.4"
