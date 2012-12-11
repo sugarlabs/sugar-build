@@ -142,7 +142,7 @@ def set_install_dir(dir, relocatable=False):
 
     relative_lib_dir = distro_info.lib_dir
     if relative_lib_dir is None:
-        relative_lib_dir = "/usr"
+        relative_lib_dir = "lib"
 
     lib_dir = os.path.join(prefix_dir, relative_lib_dir)
 
