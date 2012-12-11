@@ -7,7 +7,7 @@ ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read", "Jukebox"]
 
 def build_activities_list():
     root = tree.get_root()
-    shell = root.find_child(name="sugar-session", role_name="application")
+    shell = root.find_child(name="main.py", role_name="application")
 
     activities = []
 
@@ -26,7 +26,7 @@ def launch_and_stop_activity(activity_name):
     print "Launching %s" % activity_name 
 
     root = tree.get_root()
-    shell = root.find_child(name="sugar-session", role_name="application")
+    shell = root.find_child(name="main.py", role_name="application")
 
     table = shell.find_child(role_name="table")
     cells = table.find_children(role_name="table cell")
@@ -60,7 +60,7 @@ def launch_and_stop_activity(activity_name):
 
 def go_to_list_view():
     root = tree.get_root()
-    shell = root.find_child(name="sugar-session", role_name="application")
+    shell = root.find_child(name="main.py", role_name="application")
 
     done_button = shell.find_child(name="Done", role_name="push button")
     done_button.do_action("click")
