@@ -68,6 +68,7 @@ def _setup_variables():
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")
     os.environ["XDG_DATA_HOME"] = os.path.join(config.home_dir, "data")
     os.environ["XDG_CONFIG_HOME"] = os.path.join(config.home_dir, "config")
+    os.environ["CC"] = "ccache gcc"
 
     profile = config.get_pref("PROFILE")
     if profile is not None:

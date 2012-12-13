@@ -169,6 +169,17 @@
             "libcairo2-dev"
         ]
     }, 
+    "ccache": {
+        "debian": [
+            "ccache"
+        ], 
+        "fedora": [
+            "ccache"
+        ], 
+        "ubuntu": [
+            "ccache"
+        ]
+    }, 
     "dateutil python": {
         "debian": [
             "python-dateutil"

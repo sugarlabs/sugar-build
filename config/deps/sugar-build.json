@@ -15,6 +15,11 @@
         "name": "atspi typelib"
     }, 
     {
+        "check": "ccache", 
+        "checker": "binary", 
+        "name": "ccache"
+    }, 
+    {
         "check": "dbus-launch", 
         "checker": "binary", 
         "name": "dbus-launch"
