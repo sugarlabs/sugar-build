@@ -1,38 +1,46 @@
 [
     {
         "name": "browse", 
+        "out-of-source": false, 
         "repo": "git://git.sugarlabs.org/browse/mainline.git"
     }, 
     {
         "branch": "gtk3", 
         "name": "chat", 
+        "out-of-source": false, 
         "repo": "git://git.sugarlabs.org/chat/mainline.git"
     }, 
     {
         "name": "read", 
+        "out-of-source": false, 
         "repo": "git://git.sugarlabs.org/read/mainline.git"
     }, 
     {
         "name": "log", 
+        "out-of-source": false, 
         "repo": "git://git.sugarlabs.org/log/mainline.git"
     }, 
     {
         "branch": "gtk3", 
         "name": "terminal", 
+        "out-of-source": false, 
         "repo": "git://git.sugarlabs.org/terminal/mainline.git"
     }, 
     {
         "branch": "gtk3", 
         "name": "pippy", 
+        "out-of-source": false, 
         "repo": "git://git.sugarlabs.org/pippy/mainline.git"
     }, 
     {
         "branch": "gtk3", 
         "name": "imageviewer", 
+        "out-of-source": false, 
         "repo": "git://git.sugarlabs.org/imageviewer/mainline.git"
     }, 
     {
         "name": "jukebox", 
+        "out-of-source": false, 
         "repo": "git://git.sugarlabs.org/jukebox/mainline.git"
     }
 ]
