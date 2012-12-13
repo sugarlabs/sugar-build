@@ -102,9 +102,12 @@ def _build_autotools(module, log):
     makefile_path = os.path.join(module.get_build_dir(), "Makefile")
 
     if not os.path.exists(makefile_path):
-        autogen = os.path.join(module.get_source_dir(), "autogen.sh")
+        configure = os.path.join(module.get_source_dir(), "configure")
+        if not os.path.exists(configure):
+            configure = os.path.join(module.get_source_dir(), "autogen.sh")
 
-        args = [autogen,
+        args = [configure,
+                "--cache-file=/tmp/cache-%s" % module.name,
                 "--prefix", config.prefix_dir,
                 "--libdir", config.lib_dir]
         args.extend(module.options)
