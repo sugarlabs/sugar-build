@@ -107,7 +107,6 @@ def _build_autotools(module, log):
             configure = os.path.join(module.get_source_dir(), "autogen.sh")
 
         args = [configure,
-                "--cache-file=/tmp/cache-%s" % module.name,
                 "--prefix", config.prefix_dir,
                 "--libdir", config.lib_dir]
         args.extend(module.options)
