@@ -40,6 +40,8 @@ def pull():
 def build():
     environ.setup()
 
+    _ccache_reset()
+
     modules = config.load_modules()
     skipped = []
 
@@ -66,6 +68,8 @@ def build():
         if not _build_module(module, config.get_log_path("build")):
             return False
 
+    _ccache_print_stats()
+
     return True
 
 def clean():
@@ -77,6 +81,13 @@ def clean():
         if not module.out_of_source:
             if module.get_git_module().clean():
                 print "Cleaned %s git repository." % module.name
+
+def _ccache_reset():
+    subprocess.check_call(["ccache", "-z"], stdout=utils.devnull)
+
+def _ccache_print_stats():
+    print "\n=== ccache statistics ===\n"
+    subprocess.check_call(["ccache", "-s"])
 
 def _unlink_libtool_files():
     def func(arg, dirname, fnames):
