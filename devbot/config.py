@@ -26,6 +26,7 @@ system_lib_dirs = None
 cache_home_dir = None
 config_home_dir = None
 data_home_dir = None
+build_state_dir = None
 
 _source_dir = None
 _build_dir = None
@@ -100,28 +101,35 @@ def setup(**kwargs):
     global _build_dir
     _build_dir = kwargs["build_dir"]
 
-    _setup_home_dir(kwargs["home_dir"])
+    _setup_state_dir(kwargs["state_dir"])
     _setup_install_dir(kwargs["install_dir"], kwargs["relocatable"])
 
-def _setup_home_dir(dir):
-    _ensure_dir(dir)
+def _setup_state_dir(state_dir):
+    _ensure_dir(state_dir)
+
+    global build_state_dir
+    build_state_dir = os.path.join(state_dir, "build")
+    _ensure_dir(build_state_dir)
+
+    home_dir = os.path.join(state_dir, "home")
+    _ensure_dir(home_dir)
 
     global cache_home_dir
-    cache_home_dir = os.path.join(dir, "cache")
+    cache_home_dir = os.path.join(home_dir, "cache")
     _ensure_dir(cache_home_dir)
 
     global config_home_dir
-    config_home_dir = os.path.join(dir, "config")
+    config_home_dir = os.path.join(home_dir, "config")
     _ensure_dir(config_home_dir)
 
     global data_home_dir
-    data_home_dir = os.path.join(dir, "data")
+    data_home_dir = os.path.join(home_dir, "data")
     _ensure_dir(data_home_dir)
 
 def _setup_prefix_dir(dir, relocatable):
     global prefix_dir
 
-    real_prefix_path = os.path.join(config_home_dir, "real_prefix")
+    real_prefix_path = os.path.join(build_state_dir, "real_prefix")
 
     if os.path.exists(real_prefix_path):
         with open(real_prefix_path) as f:

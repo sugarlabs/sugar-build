@@ -1,6 +1,6 @@
 *~
 *.pyc
-home/
+state/
 install/
 build/
 source/

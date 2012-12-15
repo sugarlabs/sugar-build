@@ -21,7 +21,7 @@ def setup():
                  source_dir=os.path.join(base_dir, "source"),
                  build_dir=os.path.join(base_dir, "build"),
                  commands_dir=os.path.join(base_dir, "commands"),
-                 home_dir=os.path.join(base_dir, "home"),
+                 state_dir=os.path.join(base_dir, "state"),
                  prefs_path=os.path.join(base_dir, "prefs"),
                  logs_dir=logs_dir,
                  relocatable=relocatable)
