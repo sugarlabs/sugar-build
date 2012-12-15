@@ -65,11 +65,8 @@ def _setup_variables():
     os.environ["XDG_CACHE_HOME"] = config.cache_home_dir
     os.environ["XDG_DATA_HOME"] = config.data_home_dir
     os.environ["XDG_CONFIG_HOME"] = config.config_home_dir
+    os.environ["SUGAR_PROFILE"] = config.get_pref("PROFILE")
     os.environ["CC"] = "ccache gcc"
-
-    profile = config.get_pref("PROFILE")
-    if profile is not None:
-        os.environ["SUGAR_PROFILE"] = profile
 
 def _setup_gconf():
     gconf_dir = os.path.join(config.etc_dir, "gconf")

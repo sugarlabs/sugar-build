@@ -111,7 +111,10 @@ def _setup_state_dir(state_dir):
     build_state_dir = os.path.join(state_dir, "build")
     _ensure_dir(build_state_dir)
 
-    home_dir = os.path.join(state_dir, "home")
+    base_home_dir = os.path.join(state_dir, "home")
+    _ensure_dir(base_home_dir)
+
+    home_dir = os.path.join(base_home_dir, get_pref("PROFILE"))
     _ensure_dir(home_dir)
 
     global cache_home_dir
@@ -245,8 +248,10 @@ def get_log_path(prefix):
     return logfile_path
 
 def get_pref(name):
+    defaults = { "PROFILE": "default" }
+
     prefs = _read_prefs()
-    return prefs.get(name, None)
+    return prefs.get(name, defaults.get(name, None))
 
 def set_pref(name, value):
     prefs = _read_prefs()
