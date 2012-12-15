@@ -78,14 +78,14 @@ def setup(**kwargs):
     _load_plugins()
 
     global config_dir
-    config_dir = kwargs["config_dir"]
+    config_dir = kwargs.get("config_dir", None)
 
     global logs_dir
     logs_dir = kwargs["logs_dir"]
     _ensure_dir(logs_dir)
 
     global _prefs_path
-    _prefs_path = kwargs["prefs_path"]
+    _prefs_path = kwargs.get("prefs_path", None)
 
     global _source_dir
     _source_dir = kwargs["source_dir"]
@@ -253,9 +253,12 @@ def _load_plugins():
         imp.load_module(name, f, filename, desc)
 
 def _read_index(dir_name, extra=[]):
-    index_dir = os.path.join(config_dir, dir_name)
     files = extra[:]
 
+    if config_dir is None:
+        return files
+
+    index_dir = os.path.join(config_dir, dir_name)
     with open(os.path.join(index_dir, "index.json")) as f:
         files.extend(json.load(f))
         return [os.path.join(index_dir, json_file) for json_file in files]

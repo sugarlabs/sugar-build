@@ -1,23 +1,23 @@
 import os
 import tempfile
-import unittest
 import subprocess
 
 from devbot import git
 from devbot import config
 from devbot import distro
 
+import common
+
 tests_dir = os.path.abspath(os.path.dirname(__file__))
 base_dir = os.path.dirname(os.path.dirname(tests_dir))
 config_dir = os.path.join(base_dir, "config")
 data_dir = os.path.join(tests_dir, "data")
 
-class TestConfig(unittest.TestCase):
-    def _set_distro(self, name, version):
-        if config.config_dir is None:
-            config.set_config_dir(config_dir)
-            config.load_plugins()
+class TestConfig(common.DevbotTestCase):
+    def setUp(self):
+        self.setup_config({"config_dir": config_dir})
 
+    def _set_distro(self, name, version):
         self._orig = distro._supported_distros
         for info_class in distro._supported_distros:
             if info_class.__module__.endswith("fedora"):
