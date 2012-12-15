@@ -17,7 +17,7 @@ def _run_ui_tests():
     shutil.rmtree(profile_path, ignore_errors=True)
 
     virtual = "SUGAR_BUILDBOT" in os.environ
-    test_path = os.path.join(common.tests_dir, "sugar", "shell.py")
+    test_path = os.path.join(common.base_dir, "tests", "sugar", "shell.py")
 
     result = run.run_test("sugar-runner", test_path, virtual)
 

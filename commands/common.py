@@ -2,7 +2,6 @@ import os
 import sys
 
 base_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-tests_dir = os.path.join(base_dir, "tests")
 
 sys.path.append(base_dir)
 
@@ -19,7 +18,6 @@ def setup():
                  install_dir=install_dir,
                  source_dir=os.path.join(base_dir, "source"),
                  build_dir=os.path.join(base_dir, "build"),
-                 commands_dir=os.path.join(base_dir, "commands"),
                  state_dir=os.path.join(base_dir, "state"),
                  prefs_path=os.path.join(base_dir, "prefs"),
                  logs_dir=logs_dir,

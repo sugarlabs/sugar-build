@@ -6,6 +6,11 @@ import common
 
 from devbot import shell
 from devbot import config
+from devbot import environ
 
 common.setup()
-shell.start(os.path.join(config.commands_dir, "bashrc"))
+
+commands_dir = os.path.join(common.base_dir, "commands")
+
+environ.add_path("PATH", commands_dir)
+shell.start(os.path.join(commands_dir, "bashrc"))

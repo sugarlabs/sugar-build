@@ -7,7 +7,7 @@ def setup():
     _setup_gconf()
     _setup_variables()
 
-def _add_path(name, path):
+def add_path(name, path):
     if not path.endswith("/"):
         path = "%s/" % path
 
@@ -22,43 +22,42 @@ def _add_path(name, path):
     os.environ[name] = ":".join(splitted)
 
 def _setup_variables():
-    _add_path("LD_LIBRARY_PATH", config.lib_dir)
-    _add_path("PATH", config.bin_dir)
-    _add_path("PATH", config.commands_dir)
+    add_path("LD_LIBRARY_PATH", config.lib_dir)
+    add_path("PATH", config.bin_dir)
 
-    _add_path("ACLOCAL_PATH",
-              os.path.join(config.share_dir, "aclocal"))  
-    _add_path("XCURSOR_PATH",
-              os.path.join(config.share_dir, "icons"))
-    _add_path("PKG_CONFIG_PATH",
-              os.path.join(config.lib_dir, "pkgconfig"))
-    _add_path("GST_PLUGIN_PATH",
-              os.path.join(config.lib_dir , "gstreamer-1.0"))
-    _add_path("PYTHONPATH",
-              sysconfig.get_python_lib(prefix=config.prefix_dir))
-    _add_path("PYTHONPATH",
-              sysconfig.get_python_lib(prefix=config.prefix_dir,
-                                       plat_specific=True))
-    _add_path("PYTHONPATH",
-              os.path.dirname(os.path.dirname(__file__)))
+    add_path("ACLOCAL_PATH",
+             os.path.join(config.share_dir, "aclocal"))  
+    add_path("XCURSOR_PATH",
+             os.path.join(config.share_dir, "icons"))
+    add_path("PKG_CONFIG_PATH",
+             os.path.join(config.lib_dir, "pkgconfig"))
+    add_path("GST_PLUGIN_PATH",
+             os.path.join(config.lib_dir , "gstreamer-1.0"))
+    add_path("PYTHONPATH",
+             sysconfig.get_python_lib(prefix=config.prefix_dir))
+    add_path("PYTHONPATH",
+             sysconfig.get_python_lib(prefix=config.prefix_dir,
+                                      plat_specific=True))
+    add_path("PYTHONPATH",
+             os.path.dirname(os.path.dirname(__file__)))
 
-    _add_path("XDG_DATA_DIRS", "/usr/share")
-    _add_path("XDG_DATA_DIRS", config.share_dir)
+    add_path("XDG_DATA_DIRS", "/usr/share")
+    add_path("XDG_DATA_DIRS", config.share_dir)
 
-    _add_path("XDG_CONFIG_DIRS", "/etc")
-    _add_path("XDG_CONFIG_DIRS", config.etc_dir)    
+    add_path("XDG_CONFIG_DIRS", "/etc")
+    add_path("XDG_CONFIG_DIRS", config.etc_dir)    
 
     for system_lib_dir in config.system_lib_dirs:
         modules_path = os.path.join(system_lib_dir, "gio", "modules")
         if os.path.exists(modules_path): 
-            _add_path("GIO_EXTRA_MODULES", modules_path)
+            add_path("GIO_EXTRA_MODULES", modules_path)
 
         typelib_path = os.path.join(system_lib_dir, "girepository-1.0")
         if os.path.exists(typelib_path):  
-            _add_path("GI_TYPELIB_PATH", typelib_path)
+            add_path("GI_TYPELIB_PATH", typelib_path)
 
-    _add_path("GI_TYPELIB_PATH",
-              os.path.join(config.lib_dir, "girepository-1.0"))
+    add_path("GI_TYPELIB_PATH",
+             os.path.join(config.lib_dir, "girepository-1.0"))
  
     os.environ["GTK_DATA_PREFIX"] = config.prefix_dir
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")

@@ -11,7 +11,6 @@ from devbot import git
 
 config_dir = None
 logs_dir = None
-commands_dir = None
 install_dir = None
 prefix_dir = None
 lib_dir = None
@@ -84,9 +83,6 @@ def setup(**kwargs):
     global logs_dir
     logs_dir = kwargs["logs_dir"]
     _ensure_dir(logs_dir)
-
-    global commands_dir
-    commands_dir = kwargs["commands_dir"]
 
     global _prefs_path
     _prefs_path = kwargs["prefs_path"]
