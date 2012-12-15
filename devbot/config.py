@@ -20,9 +20,7 @@ etc_dir = None
 libexec_dir = None
 package_files = None
 system_lib_dirs = None
-cache_home_dir = None
-config_home_dir = None
-data_home_dir = None
+home_dir = None
 build_state_dir = None
 
 _source_dir = None
@@ -111,20 +109,9 @@ def _setup_state_dir(state_dir):
     base_home_dir = os.path.join(state_dir, "home")
     _ensure_dir(base_home_dir)
 
+    global home_dir
     home_dir = os.path.join(base_home_dir, get_pref("PROFILE"))
     _ensure_dir(home_dir)
-
-    global cache_home_dir
-    cache_home_dir = os.path.join(home_dir, "cache")
-    _ensure_dir(cache_home_dir)
-
-    global config_home_dir
-    config_home_dir = os.path.join(home_dir, "config")
-    _ensure_dir(config_home_dir)
-
-    global data_home_dir
-    data_home_dir = os.path.join(home_dir, "data")
-    _ensure_dir(data_home_dir)
 
 def _setup_prefix_dir(dir, relocatable):
     global prefix_dir

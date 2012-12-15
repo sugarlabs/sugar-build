@@ -14,7 +14,7 @@ from devbot import config
 def run(command):
     environ.setup()
 
-    args = [command]
+    args = [command, "--home-dir", config.home_dir]
 
     resolution = config.get_pref("RESOLUTION")
     if resolution:

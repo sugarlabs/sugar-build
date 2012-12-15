@@ -61,10 +61,6 @@ def _setup_variables():
  
     os.environ["GTK_DATA_PREFIX"] = config.prefix_dir
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")
-    os.environ["XDG_CACHE_HOME"] = config.cache_home_dir
-    os.environ["XDG_DATA_HOME"] = config.data_home_dir
-    os.environ["XDG_CONFIG_HOME"] = config.config_home_dir
-    os.environ["SUGAR_PROFILE"] = config.get_pref("PROFILE")
     os.environ["CC"] = "ccache gcc"
 
 def _setup_gconf():
