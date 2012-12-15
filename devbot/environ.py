@@ -40,7 +40,7 @@ def _setup_variables():
               sysconfig.get_python_lib(prefix=config.prefix_dir,
                                        plat_specific=True))
     _add_path("PYTHONPATH",
-              os.path.dirname(config.devbot_dir))
+              os.path.dirname(os.path.dirname(__file__)))
 
     _add_path("XDG_DATA_DIRS", "/usr/share")
     _add_path("XDG_DATA_DIRS", config.share_dir)

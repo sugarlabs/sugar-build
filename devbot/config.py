@@ -9,7 +9,6 @@ from devbot import utils
 from devbot import plugins
 from devbot import git
 
-devbot_dir = None
 config_dir = None
 logs_dir = None
 commands_dir = None
@@ -78,9 +77,6 @@ def get_commit_id():
 
 def setup(**kwargs):
     _load_plugins()
-
-    global devbot_dir
-    devbot_dir = kwargs["devbot_dir"]
 
     global config_dir
     config_dir = kwargs["config_dir"]

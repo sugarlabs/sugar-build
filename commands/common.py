@@ -15,8 +15,7 @@ def setup():
     install_dir = os.path.join(base_dir, "install")
     tools_dir = os.path.join(base_dir, "tools")
 
-    config.setup(devbot_dir=os.path.join(base_dir, "devbot"),
-                 config_dir=os.path.join(base_dir, "config"),
+    config.setup(config_dir=os.path.join(base_dir, "config"),
                  install_dir=install_dir,
                  source_dir=os.path.join(base_dir, "source"),
                  build_dir=os.path.join(base_dir, "build"),
