@@ -31,6 +31,5 @@ for filename in glob.glob("*.log"):
         pass
 
 build.clean()
-environ.clean()
 state.clean()
 config.clean()

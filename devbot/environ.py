@@ -21,14 +21,10 @@ def _add_path(name, path):
 
     os.environ[name] = ":".join(splitted)
 
-def _get_gst_registry_path():
-    return os.path.join(config.home_dir, "gstreamer.registry")
-
 def _setup_variables():
     _add_path("LD_LIBRARY_PATH", config.lib_dir)
     _add_path("PATH", config.bin_dir)
     _add_path("PATH", config.commands_dir)
-    _add_path("GST_REGISTRY", _get_gst_registry_path())
 
     _add_path("ACLOCAL_PATH",
               os.path.join(config.share_dir, "aclocal"))  
@@ -66,8 +62,9 @@ def _setup_variables():
  
     os.environ["GTK_DATA_PREFIX"] = config.prefix_dir
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")
-    os.environ["XDG_DATA_HOME"] = os.path.join(config.home_dir, "data")
-    os.environ["XDG_CONFIG_HOME"] = os.path.join(config.home_dir, "config")
+    os.environ["XDG_CACHE_HOME"] = config.cache_home_dir
+    os.environ["XDG_DATA_HOME"] = config.data_home_dir
+    os.environ["XDG_CONFIG_HOME"] = config.config_home_dir
     os.environ["CC"] = "ccache gcc"
 
     profile = config.get_pref("PROFILE")
@@ -98,11 +95,3 @@ def _setup_gconf():
 
     os.environ["GCONF_SCHEMA_INSTALL_SOURCE"] = \
         "xml:merged:" + os.path.join(gconf_dir, "gconf.xml.defaults")
-
-def clean():
-    print "Deleting registry"
-
-    try:
-        os.unlink(_get_gst_registry_path())
-    except OSError:
-        pass

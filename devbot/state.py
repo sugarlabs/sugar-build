@@ -6,7 +6,7 @@ from devbot import config
 _state = None
 
 def _get_state_path():
-    return os.path.join(config.home_dir, "state.json")
+    return os.path.join(config.data_home_dir, "state.json")
 
 def _get_state():
     global _state

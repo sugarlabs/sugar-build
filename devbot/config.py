@@ -20,11 +20,13 @@ share_dir = None
 bin_dir = None
 etc_dir = None
 libexec_dir = None
-home_dir = None
 dep_files = None
 package_files = None
 prefs_path = None
 system_lib_dirs = None
+cache_home_dir = None
+config_home_dir = None
+data_home_dir = None
 
 _source_dir = None
 _build_dir = None
@@ -87,9 +89,19 @@ def set_logs_dir(dir):
     _ensure_dir(logs_dir)
 
 def set_home_dir(dir):
-    global home_dir
-    home_dir = dir
-    _ensure_dir(home_dir)
+    _ensure_dir(dir)
+
+    global cache_home_dir
+    cache_home_dir = os.path.join(dir, "cache")
+    _ensure_dir(cache_home_dir)
+
+    global config_home_dir
+    config_home_dir = os.path.join(dir, "config")
+    _ensure_dir(config_home_dir)
+
+    global data_home_dir
+    data_home_dir = os.path.join(dir, "data")
+    _ensure_dir(data_home_dir)
 
 def _get_prefix_dir(dir, relocatable):
     real_prefix_path = os.path.join(dir, "real_prefix")
@@ -283,7 +295,6 @@ def load_modules():
 
 def clean():
     try:
-        os.rmdir(home_dir)
         os.rmdir(logs_dir)
     except OSError:
         pass
