@@ -121,7 +121,7 @@ def _setup_home_dir(dir):
 def _setup_prefix_dir(dir, relocatable):
     global prefix_dir
 
-    real_prefix_path = os.path.join(dir, "real_prefix")
+    real_prefix_path = os.path.join(config_home_dir, "real_prefix")
 
     if os.path.exists(real_prefix_path):
         with open(real_prefix_path) as f:
