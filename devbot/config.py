@@ -18,7 +18,6 @@ share_dir = None
 bin_dir = None
 etc_dir = None
 libexec_dir = None
-dep_files = None
 package_files = None
 system_lib_dirs = None
 cache_home_dir = None
@@ -29,6 +28,7 @@ build_state_dir = None
 _source_dir = None
 _build_dir = None
 _prefs_path = None
+_extra_packages_files = []
 
 class Module:
     def __init__(self, info):
@@ -93,8 +93,13 @@ def setup(**kwargs):
     global _build_dir
     _build_dir = kwargs["build_dir"]
 
+    global _extra_packages_files
+    _extra_packages_files = kwargs.get("extra_packages_files", [])
+
+    relocatable = kwargs.get("relocatable", False)
+
     _setup_state_dir(kwargs["state_dir"])
-    _setup_install_dir(kwargs["install_dir"], kwargs["relocatable"])
+    _setup_install_dir(kwargs["install_dir"], relocatable)
 
 def _setup_state_dir(state_dir):
     _ensure_dir(state_dir)
@@ -191,14 +196,6 @@ def get_build_dir():
     _ensure_dir(_build_dir)
     return _build_dir
 
-def set_dep_files(files):
-    global dep_files
-    dep_files = files
-
-def set_package_files(files):
-    global package_files
-    package_files = files
-
 def _read_prefs():
     global _prefs_path
 
@@ -255,11 +252,18 @@ def _load_plugins():
         f, filename, desc = imp.find_module(name, plugins.__path__)
         imp.load_module(name, f, filename, desc)
 
+def _read_index(dir_name, extra=[]):
+    index_dir = os.path.join(config_dir, dir_name)
+    files = extra[:]
+
+    with open(os.path.join(index_dir, "index.json")) as f:
+        files.extend(json.load(f))
+        return [os.path.join(index_dir, json_file) for json_file in files]
+ 
 def load_packages():
     packages = {}
 
-    for file in package_files:
-        path = os.path.join(config_dir, "packages", "%s.json" % file)
+    for path in _read_index("packages", _extra_packages_files):
         packages.update(json.load(open(path)))
 
     return packages
@@ -280,21 +284,16 @@ def _filter_if(item):
 
 def load_checks():
     checks = []
-    for file in dep_files:
-        path = os.path.join(config_dir, "deps", "%s.json" % file)
+    for path in _read_index("deps"):
         checks.extend(json.load(open(path)))
 
     return filter(_filter_if, checks)
 
 def load_modules():
-    module_dir = os.path.join(config_dir, "modules")
-
     modules = []
-    with open(os.path.join(module_dir, "index.json")) as f:
-        for module_file in json.load(f):
-            path = os.path.join(module_dir, module_file)
-            for info in json.load(open(path)):
-                modules.append(info)
+    for path in _read_index("modules"):
+        for info in json.load(open(path)):
+            modules.append(info)
 
     return [Module(info) for info in filter(_filter_if, modules)]
 
