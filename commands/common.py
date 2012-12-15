@@ -10,22 +10,21 @@ from devbot import config
 from devbot import command
 
 def setup():
-    config.load_plugins()
-
     relocatable = "SUGAR_BUILDBOT" in os.environ
     logs_dir = os.path.join(base_dir, "logs")
     install_dir = os.path.join(base_dir, "install")
     tools_dir = os.path.join(base_dir, "tools")
 
-    config.set_devbot_dir(os.path.join(base_dir, "devbot"))
-    config.set_config_dir(os.path.join(base_dir, "config"))
-    config.set_install_dir(install_dir, relocatable=relocatable)
-    config.set_source_dir(os.path.join(base_dir, "source"))
-    config.set_build_dir(os.path.join(base_dir, "build"))
-    config.set_commands_dir(os.path.join(base_dir, "commands"))
-    config.set_home_dir(os.path.join(base_dir, "home"))
-    config.set_prefs_path(os.path.join(base_dir, "prefs"))
-    config.set_logs_dir(logs_dir)
+    config.setup(devbot_dir=os.path.join(base_dir, "devbot"),
+                 config_dir=os.path.join(base_dir, "config"),
+                 install_dir=install_dir,
+                 source_dir=os.path.join(base_dir, "source"),
+                 build_dir=os.path.join(base_dir, "build"),
+                 commands_dir=os.path.join(base_dir, "commands"),
+                 home_dir=os.path.join(base_dir, "home"),
+                 prefs_path=os.path.join(base_dir, "prefs"),
+                 logs_dir=logs_dir,
+                 relocatable=relocatable)
 
     dep_files = ["system",
                  "sugar-build",

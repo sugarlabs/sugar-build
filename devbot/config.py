@@ -22,7 +22,6 @@ etc_dir = None
 libexec_dir = None
 dep_files = None
 package_files = None
-prefs_path = None
 system_lib_dirs = None
 cache_home_dir = None
 config_home_dir = None
@@ -30,6 +29,7 @@ data_home_dir = None
 
 _source_dir = None
 _build_dir = None
+_prefs_path = None
 
 class Module:
     def __init__(self, info):
@@ -75,20 +75,35 @@ def get_commit_id():
 
     return commit_id
 
-def set_devbot_dir(dir):
+def setup(**kwargs):
+    _load_plugins()
+
     global devbot_dir
-    devbot_dir = dir
+    devbot_dir = kwargs["devbot_dir"]
 
-def set_config_dir(dir):
     global config_dir
-    config_dir = dir
+    config_dir = kwargs["config_dir"]
 
-def set_logs_dir(dir):
     global logs_dir
-    logs_dir = dir
+    logs_dir = kwargs["logs_dir"]
     _ensure_dir(logs_dir)
 
-def set_home_dir(dir):
+    global commands_dir
+    commands_dir = kwargs["commands_dir"]
+
+    global _prefs_path
+    _prefs_path = kwargs["prefs_path"]
+
+    global _source_dir
+    _source_dir = kwargs["source_dir"]
+
+    global _build_dir
+    _build_dir = kwargs["build_dir"]
+
+    _setup_home_dir(kwargs["home_dir"])
+    _setup_install_dir(kwargs["install_dir"], kwargs["relocatable"])
+
+def _setup_home_dir(dir):
     _ensure_dir(dir)
 
     global cache_home_dir
@@ -103,7 +118,9 @@ def set_home_dir(dir):
     data_home_dir = os.path.join(dir, "data")
     _ensure_dir(data_home_dir)
 
-def _get_prefix_dir(dir, relocatable):
+def _setup_prefix_dir(dir, relocatable):
+    global prefix_dir
+
     real_prefix_path = os.path.join(dir, "real_prefix")
 
     if os.path.exists(real_prefix_path):
@@ -115,7 +132,8 @@ def _get_prefix_dir(dir, relocatable):
         with open(real_prefix_path, "w") as f:
             f.write(prefix_dir)
     else:
-        return dir
+        prefix_dir = dir
+        return
 
     tmp_dir = os.path.dirname(prefix_dir)
     if not os.path.exists(tmp_dir):
@@ -125,9 +143,7 @@ def _get_prefix_dir(dir, relocatable):
         os.remove(prefix_dir)
     os.symlink(dir, prefix_dir)
 
-    return prefix_dir
-
-def set_install_dir(dir, relocatable=False):
+def _setup_install_dir(dir, relocatable=False):
     global system_lib_dirs
     global install_dir
     global prefix_dir
@@ -140,7 +156,7 @@ def set_install_dir(dir, relocatable=False):
     install_dir = dir
     _ensure_dir(install_dir)
 
-    prefix_dir = _get_prefix_dir(dir, relocatable)
+    _setup_prefix_dir(dir, relocatable)
 
     share_dir = os.path.join(prefix_dir, "share")
     _ensure_dir(share_dir)
@@ -162,14 +178,6 @@ def set_install_dir(dir, relocatable=False):
     if distro_info.lib_dir is not None:
         system_lib_dirs.append(os.path.join("/usr", distro_info.lib_dir))
 
-def set_source_dir(dir):
-    global _source_dir
-    _source_dir = dir
-
-def set_build_dir(dir):
-    global _build_dir
-    _build_dir = dir
-
 def get_source_dir():
     global _source_dir
     _ensure_dir(_source_dir)
@@ -180,10 +188,6 @@ def get_build_dir():
     _ensure_dir(_build_dir)
     return _build_dir
 
-def set_commands_dir(dir):
-    global commands_dir
-    commands_dir = dir
-
 def set_dep_files(files):
     global dep_files
     dep_files = files
@@ -192,18 +196,14 @@ def set_package_files(files):
     global package_files
     package_files = files
 
-def set_prefs_path(path):
-    global prefs_path
-    prefs_path = path
-
 def _read_prefs():
-    global prefs_path
+    global _prefs_path
 
-    if prefs_path is None or not os.path.exists(prefs_path):
+    if _prefs_path is None or not os.path.exists(_prefs_path):
         return {}
 
     prefs = {}
-    with open(prefs_path) as f:
+    with open(_prefs_path) as f:
         for line in f.readlines():
             splitted = line.strip().split("=")
             if len(splitted) == 2:
@@ -212,12 +212,12 @@ def _read_prefs():
     return prefs
 
 def _save_prefs(prefs):
-    global prefs_path
+    global _prefs_path
 
-    if prefs_path is None:
+    if _prefs_path is None:
         return
 
-    with open(prefs_path, "w") as f:
+    with open(_prefs_path, "w") as f:
         for pref in prefs.items():
             f.write("%s\n" % "=".join(pref))
 
@@ -245,7 +245,7 @@ def set_pref(name, value):
     prefs[name] = value
     _save_prefs(prefs)
 
-def load_plugins():
+def _load_plugins():
     for loader, name, ispkg in pkgutil.iter_modules(plugins.__path__):
         f, filename, desc = imp.find_module(name, plugins.__path__)
         imp.load_module(name, f, filename, desc)
