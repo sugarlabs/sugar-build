@@ -27,6 +27,9 @@ bug-report:
 clean:
 	@$(COMMANDS_DIR)/clean
 
+distribute:
+	@$(COMMANDS_DIR)/distribute
+
 build-%:
 	@$(COMMANDS_DIR)/build $*
 

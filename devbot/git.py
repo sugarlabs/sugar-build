@@ -1,6 +1,19 @@
 import os
+import subprocess
 
 from devbot import command
+
+def _chdir(func):
+    def wrapped(*args, **kwargs):
+        orig_cwd = os.getcwd()
+
+        os.chdir(args[0].local)
+        result = func(*args, **kwargs)
+        os.chdir(orig_cwd)
+
+        return result
+
+    return wrapped
 
 class Module:
     def __init__(self, path=None, name=None, remote=None,
@@ -44,6 +57,40 @@ class Module:
         else:
             command.run(["git", "merge", "--ff-only",
                          "origin/%s" % self._branch])
+
+    @_chdir
+    def checkout(self, revision=None):
+        if revision is None:
+            revision = self.tag
+            if revision is None:
+                revision = self._branch
+
+        command.run(["git", "checkout", revision]) 
+
+    @_chdir
+    def describe(self):
+        return subprocess.check_output(["git", "describe"]).strip()
+
+    @_chdir
+    def get_annotation(self, tag):
+        # FIXME this is fragile, there must be a better way
+
+        show = subprocess.check_output(["git", "show", tag]) 
+
+        annotation = []
+        for line in show.split("\n"):
+            ignore = False
+            for start in ["tag ", "Tagger: ", "Date: "]:
+                if line.startswith(start):
+                    ignore = True
+
+            if line.startswith("commit "):
+                break
+
+            if not ignore:
+                annotation.append(line)
+
+        return "\n".join(annotation)
 
     def clean(self):
         try:

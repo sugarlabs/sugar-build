@@ -1,0 +1,12 @@
+#!/usr/bin/python -u
+
+import sys
+
+import common
+
+from devbot import build
+
+common.setup()
+
+if not build.distribute():
+    sys.exit(1)

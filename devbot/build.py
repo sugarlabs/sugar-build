@@ -1,14 +1,20 @@
 import fnmatch
+import re
 import os
 import multiprocessing
 import shutil
 import subprocess
+from distutils.sysconfig import parse_makefile
 
 from devbot import command
 from devbot import config
 from devbot import environ
 from devbot import state
 from devbot import utils
+from devbot import release
+
+_builders = {}
+_distributors = {}
 
 def build_one(module_name):
     environ.setup()
@@ -69,6 +75,16 @@ def build():
             return False
 
     _ccache_print_stats()
+
+    return True
+
+def distribute():
+    environ.setup()
+
+    for module in config.load_modules():
+        if module.distribute:
+            if not _distribute_module(module):
+                break
 
     return True
 
@@ -134,9 +150,52 @@ def _build_autotools(module, log):
 
     _unlink_libtool_files()
 
+_builders["autotools"] = _build_autotools
+
 def _build_activity(module, log):
     setup = os.path.join(module.get_source_dir(), "setup.py")
     command.run([setup, "install", "--prefix", config.prefix_dir], log)
+
+_builders["activity"] = _build_activity
+
+def _distribute_autotools(module):
+    makefile = parse_makefile("Makefile")
+    filename = makefile["DIST_ARCHIVES"]
+    version = makefile["VERSION"]
+
+    git_module = module.get_git_module()
+
+    version_revision = None
+    description = git_module.describe()
+    if description != "v%s" % version:
+        match = re.match(r"(v[\d\.]+)", description)
+        if match is None:
+            print "No version tag was found"
+            return False
+        else:
+            version_revision = match.groups()[0]
+
+    if version_revision is not None:
+        git_module.checkout(version_revision)
+
+    command.run(["make", "distcheck"])
+
+    result = False
+
+    if not release.exists(module, filename):
+        path = os.path.join(os.getcwd(), filename)
+        if release.upload(module, path):
+            annotation = git_module.get_annotation("v%s" % version)
+            result = release.announce(module, filename, version, annotation)
+    else:
+        print "Release already uploaded"
+
+    if version_revision is not None:
+        git_module.checkout()
+
+    return result
+
+_distributors["autotools"] = _distribute_autotools
 
 def _build_module(module, log=None):
     print "\n=== Building %s ===\n" % module.name
@@ -159,18 +218,38 @@ def _build_module(module, log=None):
         os.chdir(source_dir)
 
     try:
-        if os.path.exists(os.path.join(source_dir, "setup.py")):
-            _build_activity(module, log)
-        elif os.path.exists(os.path.join(source_dir, "autogen.sh")):
-            _build_autotools(module, log)
-        else:
-            print "The source directory has unexpected content, please " \
-                  "delete it and pull\nthe source again."                
+        build_system = module.get_build_system()
+        if build_system is None:
             return False
+
+        _builders[build_system](module, log)
     except subprocess.CalledProcessError:
         return False
 
     state.touch_built_commit_id(module)
+
+    return True
+
+def _distribute_module(module, log=None):
+    print "\n=== Distribute %s ===\n" % module.name
+
+    build_dir = module.get_build_dir()
+
+    if not os.path.exists(build_dir):
+        print "Build directory does not exist. Please build before " \
+              "distributing."
+        return False
+
+    os.chdir(build_dir)
+
+    try:
+        build_system = module.get_build_system()
+        if build_system is None:
+            return False
+
+        _distributors[build_system](module)
+    except subprocess.CalledProcessError:
+        return False
 
     return True
 

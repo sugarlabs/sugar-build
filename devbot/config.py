@@ -38,6 +38,7 @@ class Module:
         self.options = info.get("options", [])
         self.options_evaluated = info.get("options_evaluated", [])
         self.has_tests = info.get("has_tests", False)
+        self.distribute = info.get("distribute", False)
 
         if get_pref("BUILD_IN_SOURCE"):
             self.out_of_source = False
@@ -50,7 +51,7 @@ class Module:
     def get_build_dir(self):
         return os.path.join(get_build_dir(), self.name)
 
-    def get_commit_id(self):
+    def get_commit_id(self, tag="HEAD"):
         if not os.path.exists(self.get_source_dir()):
             return None
 
@@ -60,6 +61,17 @@ class Module:
         return git.Module(path=get_source_dir(), name=self.name,
                           remote=self.repo, branch=self.branch, tag=self.tag,
                           retry=10)
+
+    def get_build_system(self):
+        source_dir = self.get_source_dir()
+        if os.path.exists(os.path.join(source_dir, "setup.py")):
+            return "activity"
+        elif os.path.exists(os.path.join(source_dir, "autogen.sh")):
+            return "autotools"
+        else:
+            print "The source directory has unexpected content, please " \
+                  "delete it and pull\nthe source again."
+            return None
 
 def _ensure_dir(dir):
     if not os.path.exists(dir):
