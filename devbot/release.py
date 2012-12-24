@@ -3,11 +3,9 @@ import subprocess
 import tempfile
 
 upload_host = "shell.sugarlabs.org"
-#upload_root = "/upload/sources/sucrose/glucose"
-upload_root = "~/"
+upload_root = "/upload/sources/sucrose/glucose"
 download_uri = "http://download.sugarlabs.org/sources/sucrose/glucose"
-#announce_to = "sugar-devel@lists.sugarlabs.org"
-announce_to = "dwnarvaez@gmail.com"
+announce_to = "sugar-devel@lists.sugarlabs.org"
 
 def exists(module, filename):
     release_path = os.path.join(upload_root, module.name, filename)
