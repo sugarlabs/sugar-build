@@ -18,7 +18,7 @@ def upload(module, path):
     return subprocess.call(["scp", path, upload_dest]) == 0
 
 def announce(module, filename, version, annotation):
-    fd, announce_path = tempfile.mkstemp("announce-")
+    fd, announce_path = tempfile.mkstemp(prefix="announce-")
 
     with os.fdopen(fd, "w") as f:
         f.write("From: %s\n" % _get_email())
@@ -33,9 +33,13 @@ def announce(module, filename, version, annotation):
 
     upload_dest = "%s:~" % upload_host
     if subprocess.call(["scp", announce_path, upload_dest]) == 0:
+        announce_basename = os.path.basename(announce_path)
+ 
         if subprocess.call(["ssh", upload_host, "sendmail", "-t",
-                            "<", os.path.basename(announce_path)]):
+                            "<", announce_basename]):
             result = True
+
+        subprocess.check_call(["ssh", upload_host, "rm", announce_basename])
 
     os.unlink(announce_path)
 
