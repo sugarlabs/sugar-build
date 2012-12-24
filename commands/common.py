@@ -19,7 +19,7 @@ def setup():
 
     if "SUGAR_BUILDBOT" in os.environ:
         args["relocatable"] = True
-        args["extra_package_files"] = ["buildslave.json"]
+        args["extra_packages_files"] = ["buildslave.json"]
 
     config.setup(**args)
 
