@@ -3,48 +3,56 @@ import json
 
 from devbot import config
 
-_state = None
+_BUILT_MODULES = "builtmodules"
+_SYSTEM_CHECK = "syscheck"
 
-def _get_state_path():
-    return os.path.join(config.build_state_dir, "state.json")
+def _get_state_path(name):
+    return os.path.join(config.build_state_dir, "%s.json" % name)
 
-def _get_state():
-    global _state
+def _load_state(name, default=None):
+    state = default
 
-    if _state is not None:
-        return _state
+    try:
+        with open(_get_state_path(name)) as f:
+            state = json.load(f)
+    except IOError:
+        pass
 
-    state_path = _get_state_path()
-    if os.path.exists(state_path):
-        _state = json.load(open(state_path))
-    else:
-        _state = { "built_modules": {} }
+    return state
 
-    return _state
-
-def _state_changed():
-    json.dump(_state, open(_get_state_path(), "w+"))
+def _save_state(name, state):
+    with open(_get_state_path(name), "w+") as f:
+        json.dump(state, f, indent=4)
+        f.write('\n')
 
 def touch_built_commit_id(module):
-    _get_state()["built_modules"][module.name] = module.get_commit_id()
-    _state_changed()
+    built_modules = _load_state(_BUILT_MODULES, {})
+
+    built_modules[module.name] = module.get_commit_id()
+
+    _save_state(_BUILT_MODULES, built_modules)
 
 def remove_built_commit_id(module):
-    state = _get_state()
+    built_modules = _load_state(_BUILT_MODULES)
 
-    if module.name in state["built_modules"]:
-        del state["built_modules"][module.name]
-        _state_changed()
+    if built_modules and module.name in built_modules:
+        del built_modules[module.name]
+        _save_state(_BUILT_MODULES, built_modules)
 
 def get_built_commit_id(module):
-    return _get_state()["built_modules"].get(module.name, None)
+    built_modules = _load_state(_BUILT_MODULES, {})
+    return built_modules.get(module.name, None)
 
 def get_last_system_check():
-    return _get_state().get("last_system_check", None)
+    system_check = _load_state(_SYSTEM_CHECK, {})
+    return system_check.get("commit", None)
 
 def touch_last_system_check():
-    _get_state()["last_system_check"] = config.get_commit_id()
-    _state_changed()
+    system_check = _load_state(_SYSTEM_CHECK, {})
+
+    system_check["commit"] = config.get_commit_id()
+
+    _save_state(_SYSTEM_CHECK, system_check)
 
 def clean():
     _state = None
@@ -52,6 +60,7 @@ def clean():
     print "Deleting state"
 
     try:
-        os.unlink(_get_state_path())
+        for name in _BUILT_MODULES, _SYSTEM_CHECK:
+            os.unlink(_get_state_path(name))
     except OSError:
         pass
