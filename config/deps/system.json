@@ -40,6 +40,11 @@
         "name": "libxml-2.0"
     }, 
     {
+        "check": "makeinfo", 
+        "checker": "binary", 
+        "name": "makeinfo"
+    }, 
+    {
         "check": "xkbfile", 
         "checker": "pkgconfig", 
         "name": "xkbfile"

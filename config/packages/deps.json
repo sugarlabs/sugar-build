@@ -588,6 +588,17 @@
             "libxml2-dev"
         ]
     }, 
+    "makeinfo": {
+        "debian": [
+            "texinfo"
+        ], 
+        "fedora": [
+            "texinfo"
+        ], 
+        "ubuntu": [
+            "texinfo"
+        ]
+    }, 
     "metacity": {
         "debian": [
             "metacity"
