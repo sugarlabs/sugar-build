@@ -72,6 +72,10 @@ class Module:
         return subprocess.check_output(["git", "describe"]).strip()
 
     @_chdir
+    def diff(self):
+        return subprocess.check_output(["git", "diff"])
+
+    @_chdir
     def get_annotation(self, tag):
         # FIXME this is fragile, there must be a better way
 

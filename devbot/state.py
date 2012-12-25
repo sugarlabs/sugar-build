@@ -1,3 +1,4 @@
+import hashlib
 import os
 import json
 
@@ -25,10 +26,19 @@ def _save_state(name, state):
         json.dump(state, f, indent=4)
         f.write('\n')
 
+def _get_diff_hash(git_module):
+    diff = git_module.diff().strip()
+    if diff:
+        return hashlib.sha256(diff).hexdigest()
+    else:
+        return None
+
 def touch_built_module(module):
+    git_module = module.get_git_module()
     built_modules = _load_state(_BUILT_MODULES, {})
 
-    info = {"commit": module.get_commit_id()}
+    info = {"commit": module.get_commit_id(),
+            "diff_hash": _get_diff_hash(git_module)}
     built_modules[module.name] = info
 
     _save_state(_BUILT_MODULES, built_modules)
@@ -41,9 +51,15 @@ def remove_built_module(module):
         _save_state(_BUILT_MODULES, built_modules)
 
 def check_built_module(module):
+    git_module = module.get_git_module()
     built_modules = _load_state(_BUILT_MODULES, {})
-    info = built_modules.get(module.name, {})
-    return module.get_commit_id() == info.get("commit", None)
+    if module.name not in built_modules:
+        return False
+
+    info = built_modules[module.name]
+
+    return info["diff_hash"] == _get_diff_hash(git_module) and \
+           info["commit"] == module.get_commit_id()
 
 def get_last_system_check():
     system_check = _load_state(_SYSTEM_CHECK, {})
