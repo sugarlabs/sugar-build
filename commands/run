@@ -6,8 +6,11 @@ import sys
 import common
 
 from devbot import run
-from devbot import config
+from devbot import build
 
 common.setup()
+
+if not build.build():
+    sys.exit(1)
 
 run.run("sugar-runner")
