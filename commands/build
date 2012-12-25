@@ -10,6 +10,7 @@ from devbot import build
 
 parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to build")
+parser.add_argument("--full", action="store_true", help="force a full build")
 args = parser.parse_args()
 
 common.setup()
@@ -20,7 +21,7 @@ if not system.check(skip_if_unchanged=True):
 if args.module:
     success = build.build_one(args.module)
 else:
-    success = build.build()
+    success = build.build(full=args.full)
 
 if not success:
     sys.exit(1)
