@@ -1,8 +1,0 @@
-#!/usr/bin/python
-
-import common
-
-from devbot import autoinstall
-
-common.setup()
-autoinstall.observe()

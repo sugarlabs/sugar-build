@@ -12,17 +12,10 @@
         "repo": "git://git.sugarlabs.org/sugar-toolkit/mainline.git"
     }, 
     {
-        "auto-install": [
-            "src"
-        ], 
         "name": "sugar-toolkit-gtk3", 
         "repo": "git://git.sugarlabs.org/sugar-toolkit-gtk3/sugar-toolkit-gtk3.git"
     }, 
     {
-        "auto-install": [
-            "src", 
-            "extensions"
-        ], 
         "name": "sugar", 
         "repo": "git://git.sugarlabs.org/sugar/mainline.git"
     }, 
@@ -31,9 +24,6 @@
         "repo": "git://git.sugarlabs.org/sugar-artwork/mainline.git"
     }, 
     {
-        "auto-install": [
-            "src"
-        ], 
         "name": "sugar-datastore", 
         "repo": "git://git.sugarlabs.org/sugar-datastore/mainline.git"
     }, 
