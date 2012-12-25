@@ -4,6 +4,7 @@ import subprocess
 import sys
 
 from devbot import config
+from devbot import git
 from devbot import distro
 from devbot import command
 from devbot import state
@@ -156,7 +157,7 @@ def remove_packages(package_manager, packages):
 def check(remove=False, update=False, test=False, interactive=True,
           skip_if_unchanged=False):
     if skip_if_unchanged:
-        if config.get_commit_id() == state.get_last_system_check():
+        if state.system_check_is_unchanged():
             return
 
     package_manager = \
@@ -185,4 +186,4 @@ def check(remove=False, update=False, test=False, interactive=True,
     if remove:
         remove_packages(package_manager, packages)
 
-    state.touch_last_system_check()
+    state.system_check_touch()

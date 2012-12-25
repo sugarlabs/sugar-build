@@ -5,7 +5,6 @@ import pkgutil
 import tempfile
 
 from devbot import distro
-from devbot import utils
 from devbot import plugins
 from devbot import git
 
@@ -51,12 +50,6 @@ class Module:
     def get_build_dir(self):
         return os.path.join(get_build_dir(), self.name)
 
-    def get_commit_id(self, tag="HEAD"):
-        if not os.path.exists(self.get_source_dir()):
-            return None
-
-        return utils.get_commit_id(self.get_source_dir())
-
     def get_git_module(self):
         return git.Module(path=get_source_dir(), name=self.name,
                           remote=self.repo, branch=self.branch, tag=self.tag,
@@ -76,13 +69,6 @@ class Module:
 def _ensure_dir(dir):
     if not os.path.exists(dir):
         os.mkdir(dir)
-
-def get_commit_id():
-    commit_id = utils.get_commit_id(config_dir)
-    if commit_id is None:
-        commit_id = "snapshot"
-
-    return commit_id
 
 def setup(**kwargs):
     _load_plugins()

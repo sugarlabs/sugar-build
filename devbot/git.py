@@ -2,6 +2,9 @@ import os
 import subprocess
 
 from devbot import command
+from devbot import utils
+
+_root_path = None
 
 def _chdir(func):
     def wrapped(*args, **kwargs):
@@ -76,6 +79,17 @@ class Module:
         return subprocess.check_output(["git", "diff"])
 
     @_chdir
+    def is_valid(self):
+        result = subprocess.call(["git", "rev-parse", "HEAD"],
+                                 stdout=utils.devnull,
+                                 stderr=utils.devnull)
+        return result == 0
+
+    @_chdir
+    def get_commit_id(self):
+        return subprocess.check_output(["git", "rev-parse", "HEAD"]).strip()
+
+    @_chdir
     def get_annotation(self, tag):
         # FIXME this is fragile, there must be a better way
 
@@ -105,3 +119,18 @@ class Module:
         command.run(["git", "clean", "-fdx"])
 
         return True
+
+def set_root_path(path):
+    global _root_path
+    _root_path = path
+
+def get_root_module():
+    remote = "git://git.sugarlabs.org/sugar-build/sugar-build.git"
+
+    module = Module(name=os.path.basename(_root_path),
+                    remote=remote,
+                    path=os.path.dirname(_root_path))
+    if not module.is_valid():
+        return None
+
+    return module

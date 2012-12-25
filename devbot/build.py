@@ -52,7 +52,7 @@ def build():
     skipped = []
 
     for module in modules[:]:
-        if state.check_built_module(module):
+        if state.built_module_is_unchanged(module):
             modules.pop(0)
             skipped.append(module.name)
         else:
@@ -63,7 +63,7 @@ def build():
         print "\n".join(skipped)
 
     for module in modules:
-        state.remove_built_module(module)
+        state.built_module_remove(module)
 
     for module in modules:
         if not _build_module(module, config.get_log_path("build")):
@@ -221,7 +221,7 @@ def _build_module(module, log=None):
     except subprocess.CalledProcessError:
         return False
 
-    state.touch_built_module(module)
+    state.built_module_touch(module)
 
     return True
 
