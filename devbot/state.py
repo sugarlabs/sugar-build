@@ -53,13 +53,6 @@ def built_module_touch(module):
 
     _save_state(_BUILT_MODULES, built_modules)
 
-def built_module_remove(module):
-    built_modules = _load_state(_BUILT_MODULES)
-
-    if built_modules and module.name in built_modules:
-        del built_modules[module.name]
-        _save_state(_BUILT_MODULES, built_modules)
-
 def built_module_is_unchanged(module):
     git_module = module.get_git_module()
     built_modules = _load_state(_BUILT_MODULES, {})

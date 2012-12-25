@@ -48,25 +48,10 @@ def build():
 
     _ccache_reset()
 
-    modules = config.load_modules()
-    skipped = []
-
-    for module in modules[:]:
+    for module in config.load_modules():
         if state.built_module_is_unchanged(module):
-            modules.pop(0)
-            skipped.append(module.name)
-        else:
-            break
-
-    if skipped:
-        print "\n* Skipping unchanged modules *\n"
-        print "\n".join(skipped)
-
-    for module in modules:
-        state.built_module_remove(module)
-
-    for module in modules:
-        if not _build_module(module, config.get_log_path("build")):
+            print "\n* Skipping unchanged module %s *" % module.name
+        elif not _build_module(module, config.get_log_path("build")):
             return False
 
     _ccache_print_stats()
