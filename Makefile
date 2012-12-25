@@ -7,7 +7,7 @@ BASE_DIR=$(CURDIR)
 
 .PHONY: all
 
-all: check-system pull build
+all: pull build
 
 include Makefile.config
 include Makefile.commands

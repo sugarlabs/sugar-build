@@ -1,50 +1,93 @@
+import hashlib
 import os
 import json
 
 from devbot import config
+from devbot import git
 
-_state = None
+_BUILT_MODULES = "builtmodules"
+_FULL_BUILD = "fullbuild"
+_SYSTEM_CHECK = "syscheck"
 
-def _get_state_path():
-    return os.path.join(config.build_state_dir, "state.json")
+def _get_state_path(name):
+    return os.path.join(config.build_state_dir, "%s.json" % name)
 
-def _get_state():
-    global _state
+def _load_state(name, default=None):
+    state = default
 
-    if _state is not None:
-        return _state
+    try:
+        with open(_get_state_path(name)) as f:
+            state = json.load(f)
+    except IOError:
+        pass
 
-    state_path = _get_state_path()
-    if os.path.exists(state_path):
-        _state = json.load(open(state_path))
+    return state
+
+def _save_state(name, state):
+    with open(_get_state_path(name), "w+") as f:
+        json.dump(state, f, indent=4)
+        f.write('\n')
+
+def _get_diff_hash(git_module):
+    diff = git_module.diff().strip()
+    if diff:
+        return hashlib.sha256(diff).hexdigest()
     else:
-        _state = { "built_modules": {} }
+        return None
 
-    return _state
+def _get_root_commit_id():
+    git_module = git.get_root_module()
+    if git_module:
+        commit_id = git_module.get_commit_id()
+    else:
+        commit_id = "snapshot"
 
-def _state_changed():
-    json.dump(_state, open(_get_state_path(), "w+"))
+    return commit_id
 
-def touch_built_commit_id(module):
-    _get_state()["built_modules"][module.name] = module.get_commit_id()
-    _state_changed()
+def built_module_touch(module):
+    git_module = module.get_git_module()
+    built_modules = _load_state(_BUILT_MODULES, {})
 
-def remove_built_commit_id(module):
-    state = _get_state()
+    info = {"commit": git_module.get_commit_id(),
+            "diff_hash": _get_diff_hash(git_module)}
+    built_modules[module.name] = info
 
-    if module.name in state["built_modules"]:
-        del state["built_modules"][module.name]
-        _state_changed()
+    _save_state(_BUILT_MODULES, built_modules)
 
-def get_built_commit_id(module):
-    return _get_state()["built_modules"].get(module.name, None)
+def built_module_is_unchanged(module):
+    git_module = module.get_git_module()
+    built_modules = _load_state(_BUILT_MODULES, {})
+    if module.name not in built_modules:
+        return False
 
-def get_last_system_check():
-    return _get_state().get("last_system_check", None)
+    info = built_modules[module.name]
 
-def touch_last_system_check():
-    _get_state()["last_system_check"] = config.get_commit_id()
-    _state_changed()
+    return info["diff_hash"] == _get_diff_hash(git_module) and \
+           info["commit"] == git_module.get_commit_id()
+
+def system_check_is_unchanged():
+    system_check = _load_state(_SYSTEM_CHECK)
+    if not system_check:
+        return False
+
+    return system_check["commit"] == _get_root_commit_id()
+
+def system_check_touch():
+    system_check = _load_state(_SYSTEM_CHECK, {})
+    system_check["commit"] = _get_root_commit_id()
+    _save_state(_SYSTEM_CHECK, system_check)
+
+def full_build_is_required():
+    full_build = _load_state(_FULL_BUILD)
+    if not full_build:
+        return True
+
+    return not (full_build["last"] == config.get_full_build())
+
+def full_build_touch():
+    full_build = _load_state(_FULL_BUILD, {})
+    full_build["last"] = config.get_full_build()
+    _save_state(_FULL_BUILD, full_build)
 
 def clean():
     _state = None
@@ -52,6 +95,7 @@ def clean():
     print "Deleting state"
 
     try:
-        os.unlink(_get_state_path())
+        for name in _BUILT_MODULES, _SYSTEM_CHECK, _FULL_BUILD:
+            os.unlink(_get_state_path(name))
     except OSError:
         pass

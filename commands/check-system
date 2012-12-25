@@ -1,6 +1,7 @@
 #!/usr/bin/python -u
 
 import argparse
+import sys
 import os
 
 import common
@@ -16,14 +17,12 @@ parser.add_argument("--remove", action="store_true",
                     help="remove all the unnecessary packages")
 parser.add_argument("--test", action="store_true",
                     help="don't add or remove packages, test only")
-parser.add_argument("--skip-if-unchanged", action="store_true",
-                    help="skip if unchanged from the last check")
 args = parser.parse_args()
 
 interactive = "SUGAR_BUILDBOT" not in os.environ
 
-system.check(update=args.update,
-             remove=args.remove,
-             test=args.test,
-             interactive=interactive,
-             skip_if_unchanged=args.skip_if_unchanged)
+if not system.check(update=args.update,
+                   remove=args.remove,
+                   test=args.test,
+                   interactive=interactive):
+    sys.exit(1)

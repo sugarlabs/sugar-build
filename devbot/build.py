@@ -43,35 +43,20 @@ def pull():
 
     return True
 
-def build():
+def build(full=False):
     environ.setup()
 
     _ccache_reset()
 
-    modules = config.load_modules()
-    skipped = []
+    if full or state.full_build_is_required():
+        clean()
 
-    for module in modules[:]:
-        new_commit_id = module.get_commit_id()
-        if new_commit_id is None:
-            break
+    state.full_build_touch()
 
-        old_commit_id = state.get_built_commit_id(module)
-        if old_commit_id == new_commit_id:
-            modules.pop(0)
-            skipped.append(module.name)
-        else:
-            break
-
-    if skipped:
-        print "\n* Skipping unchanged modules *\n"
-        print "\n".join(skipped)
-
-    for module in modules:
-        state.remove_built_commit_id(module)
-
-    for module in modules:
-        if not _build_module(module, config.get_log_path("build")):
+    for module in config.load_modules():
+        if state.built_module_is_unchanged(module):
+            print "\n* Skipping unchanged module %s *" % module.name
+        elif not _build_module(module, config.get_log_path("build")):
             return False
 
     _ccache_print_stats()
@@ -226,7 +211,7 @@ def _build_module(module, log=None):
     except subprocess.CalledProcessError:
         return False
 
-    state.touch_built_commit_id(module)
+    state.built_module_touch(module)
 
     return True
 
