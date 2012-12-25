@@ -48,6 +48,11 @@ def build():
 
     _ccache_reset()
 
+    if state.full_build_is_required():
+        clean()
+
+    state.full_build_touch()
+
     for module in config.load_modules():
         if state.built_module_is_unchanged(module):
             print "\n* Skipping unchanged module %s *" % module.name

@@ -247,7 +247,14 @@ def _read_index(dir_name, extra=[]):
     with open(os.path.join(index_dir, "index.json")) as f:
         files.extend(json.load(f))
         return [os.path.join(index_dir, json_file) for json_file in files]
- 
+
+def get_full_build():
+    config = None
+    with open(os.path.join(config_dir, "config.json")) as f:
+        config = json.load(f)
+
+    return config["full_build"]
+
 def load_packages():
     packages = {}
 

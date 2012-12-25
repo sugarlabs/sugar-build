@@ -6,6 +6,7 @@ from devbot import config
 from devbot import git
 
 _BUILT_MODULES = "builtmodules"
+_FULL_BUILD = "fullbuild"
 _SYSTEM_CHECK = "syscheck"
 
 def _get_state_path(name):
@@ -76,13 +77,25 @@ def system_check_touch():
     system_check["commit"] = _get_root_commit_id()
     _save_state(_SYSTEM_CHECK, system_check)
 
+def full_build_is_required():
+    full_build = _load_state(_FULL_BUILD)
+    if not full_build:
+        return True
+
+    return not (full_build["last"] == config.get_full_build())
+
+def full_build_touch():
+    full_build = _load_state(_FULL_BUILD, {})
+    full_build["last"] = config.get_full_build()
+    _save_state(_FULL_BUILD, full_build)
+
 def clean():
     _state = None
 
     print "Deleting state"
 
     try:
-        for name in _BUILT_MODULES, _SYSTEM_CHECK:
+        for name in _BUILT_MODULES, _SYSTEM_CHECK, _FULL_BUILD:
             os.unlink(_get_state_path(name))
     except OSError:
         pass
