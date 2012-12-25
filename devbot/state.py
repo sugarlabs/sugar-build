@@ -89,13 +89,21 @@ def full_build_touch():
     full_build["last"] = config.get_full_build()
     _save_state(_FULL_BUILD, full_build)
 
+def clean_build_state():
+    try:
+        for name in _BUILT_MODULES, _FULL_BUILD:
+            os.unlink(_get_state_path(name))
+    except OSError:
+        pass
+
 def clean():
     _state = None
 
     print "Deleting state"
 
+    clean_build_state()
+
     try:
-        for name in _BUILT_MODULES, _SYSTEM_CHECK, _FULL_BUILD:
-            os.unlink(_get_state_path(name))
+        os.unlink(_get_state_path(_SYSTEM_CHECK))
     except OSError:
         pass

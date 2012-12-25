@@ -49,6 +49,7 @@ def build(full=False):
     _ccache_reset()
 
     if full or state.full_build_is_required():
+        state.clean_build_state()
         clean()
 
     state.full_build_touch()
