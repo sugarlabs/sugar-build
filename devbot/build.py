@@ -75,9 +75,8 @@ def distribute():
     return True
 
 def clean():
-    _rmtree(config.install_dir)
-    _rmtree(config.prefix_dir)
-    _rmtree(config.get_build_dir())
+    _empty_dir(config.install_dir)
+    _empty_dir(config.get_build_dir())
 
     for module in config.load_modules():
         if not module.out_of_source:
@@ -237,6 +236,7 @@ def _distribute_module(module, log=None):
 
     return True
 
-def _rmtree(dir):
-    print "Deleting %s" % dir
-    shutil.rmtree(dir, ignore_errors=True)
+def _empty_dir(dir_path):
+    print "Emptying %s directory" % dir_path
+    shutil.rmtree(dir_path, ignore_errors=True)
+    os.mkdir(dir_path)
