@@ -152,9 +152,6 @@ def _setup_install_dir(dir, relocatable=False):
     _setup_prefix_dir(dir, relocatable)
 
     share_dir = os.path.join(prefix_dir, "share")
-    _ensure_dir(share_dir)
-    _ensure_dir(os.path.join(share_dir, "aclocal"))
-
     bin_dir = os.path.join(prefix_dir, "bin")
     etc_dir = os.path.join(prefix_dir, "etc")
     libexec_dir = os.path.join(prefix_dir, "libexec")
