@@ -115,9 +115,7 @@ def _build_autotools(module, log):
     makefile_path = os.path.join(module.get_build_dir(), "Makefile")
 
     if not os.path.exists(makefile_path):
-        configure = os.path.join(module.get_source_dir(), "configure")
-        if not os.path.exists(configure):
-            configure = os.path.join(module.get_source_dir(), "autogen.sh")
+        configure = os.path.join(module.get_source_dir(), "autogen.sh")
 
         args = [configure,
                 "--prefix", config.prefix_dir,
