@@ -25,8 +25,6 @@ def _setup_variables():
     add_path("LD_LIBRARY_PATH", config.lib_dir)
     add_path("PATH", config.bin_dir)
 
-    add_path("ACLOCAL_PATH",
-             os.path.join(config.share_dir, "aclocal"))  
     add_path("XCURSOR_PATH",
              os.path.join(config.share_dir, "icons"))
     add_path("PKG_CONFIG_PATH",
@@ -40,6 +38,9 @@ def _setup_variables():
                                       plat_specific=True))
     add_path("PYTHONPATH",
              os.path.dirname(os.path.dirname(__file__)))
+
+    add_path("ACLOCAL_PATH", "/usr/share/aclocal")
+    add_path("ACLOCAL_FLAGS", "-I /usr/share/aclocal") 
 
     add_path("XDG_DATA_DIRS", "/usr/share")
     add_path("XDG_DATA_DIRS", config.share_dir)
