@@ -52,12 +52,7 @@ def build():
     skipped = []
 
     for module in modules[:]:
-        new_commit_id = module.get_commit_id()
-        if new_commit_id is None:
-            break
-
-        old_commit_id = state.get_built_commit_id(module)
-        if old_commit_id == new_commit_id:
+        if state.check_built_module(module):
             modules.pop(0)
             skipped.append(module.name)
         else:
@@ -68,7 +63,7 @@ def build():
         print "\n".join(skipped)
 
     for module in modules:
-        state.remove_built_commit_id(module)
+        state.remove_built_module(module)
 
     for module in modules:
         if not _build_module(module, config.get_log_path("build")):
@@ -226,7 +221,7 @@ def _build_module(module, log=None):
     except subprocess.CalledProcessError:
         return False
 
-    state.touch_built_commit_id(module)
+    state.touch_built_module(module)
 
     return True
 

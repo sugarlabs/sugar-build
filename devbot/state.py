@@ -25,23 +25,25 @@ def _save_state(name, state):
         json.dump(state, f, indent=4)
         f.write('\n')
 
-def touch_built_commit_id(module):
+def touch_built_module(module):
     built_modules = _load_state(_BUILT_MODULES, {})
 
-    built_modules[module.name] = module.get_commit_id()
+    info = {"commit": module.get_commit_id()}
+    built_modules[module.name] = info
 
     _save_state(_BUILT_MODULES, built_modules)
 
-def remove_built_commit_id(module):
+def remove_built_module(module):
     built_modules = _load_state(_BUILT_MODULES)
 
     if built_modules and module.name in built_modules:
         del built_modules[module.name]
         _save_state(_BUILT_MODULES, built_modules)
 
-def get_built_commit_id(module):
+def check_built_module(module):
     built_modules = _load_state(_BUILT_MODULES, {})
-    return built_modules.get(module.name, None)
+    info = built_modules.get(module.name, {})
+    return module.get_commit_id() == info.get("commit", None)
 
 def get_last_system_check():
     system_check = _load_state(_SYSTEM_CHECK, {})
