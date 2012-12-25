@@ -1,6 +1,7 @@
 #!/usr/bin/python -u
 
 import argparse
+import sys
 import os
 
 import common
@@ -20,7 +21,8 @@ args = parser.parse_args()
 
 interactive = "SUGAR_BUILDBOT" not in os.environ
 
-system.check(update=args.update,
-             remove=args.remove,
-             test=args.test,
-             interactive=interactive)
+if not system.check(update=args.update,
+                   remove=args.remove,
+                   test=args.test,
+                   interactive=interactive):
+    sys.exit(1)

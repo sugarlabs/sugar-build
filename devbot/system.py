@@ -158,7 +158,7 @@ def check(remove=False, update=False, test=False, interactive=True,
           skip_if_unchanged=False):
     if skip_if_unchanged:
         if state.system_check_is_unchanged():
-            return
+            return True
 
     package_manager = \
         distro.get_package_manager(test=test, interactive=interactive)
@@ -169,12 +169,12 @@ def check(remove=False, update=False, test=False, interactive=True,
 
     checks = config.load_prerequisites()
     if not run_checks(package_manager, checks, packages):
-        sys.exit(1)
+        return False
 
     xvfb_proc, orig_display = xvfb.start()
 
     if not run_checks(package_manager, config.load_checks(), packages):
-        sys.exit(1)
+        return False
 
     xvfb.stop(xvfb_proc, orig_display)
 
@@ -187,3 +187,5 @@ def check(remove=False, update=False, test=False, interactive=True,
         remove_packages(package_manager, packages)
 
     state.system_check_touch()
+
+    return True
