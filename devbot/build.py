@@ -44,13 +44,13 @@ def pull():
     return True
 
 def build(full=False):
-    environ.setup()
-
-    _ccache_reset()
-
     if full or state.full_build_is_required():
         state.clean_build_state()
         clean()
+
+    environ.setup()
+
+    _ccache_reset()
 
     state.full_build_touch()
 
