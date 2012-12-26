@@ -10,46 +10,6 @@ _FULL_BUILD = "fullbuild"
 _SYSTEM_CHECK = "syscheck"
 
 
-def _get_state_path(name):
-    return os.path.join(config.build_state_dir, "%s.json" % name)
-
-
-def _load_state(name, default=None):
-    state = default
-
-    try:
-        with open(_get_state_path(name)) as f:
-            state = json.load(f)
-    except IOError:
-        pass
-
-    return state
-
-
-def _save_state(name, state):
-    with open(_get_state_path(name), "w+") as f:
-        json.dump(state, f, indent=4)
-        f.write('\n')
-
-
-def _get_diff_hash(git_module):
-    diff = git_module.diff().strip()
-    if diff:
-        return hashlib.sha256(diff).hexdigest()
-    else:
-        return None
-
-
-def _get_root_commit_id():
-    git_module = git.get_root_module()
-    if git_module:
-        commit_id = git_module.get_commit_id()
-    else:
-        commit_id = "snapshot"
-
-    return commit_id
-
-
 def built_module_touch(module):
     git_module = module.get_git_module()
     built_modules = _load_state(_BUILT_MODULES, {})
@@ -113,3 +73,43 @@ def clean(build_only=False):
             os.unlink(_get_state_path(name))
     except OSError:
         pass
+
+
+def _get_state_path(name):
+    return os.path.join(config.build_state_dir, "%s.json" % name)
+
+
+def _load_state(name, default=None):
+    state = default
+
+    try:
+        with open(_get_state_path(name)) as f:
+            state = json.load(f)
+    except IOError:
+        pass
+
+    return state
+
+
+def _save_state(name, state):
+    with open(_get_state_path(name), "w+") as f:
+        json.dump(state, f, indent=4)
+        f.write('\n')
+
+
+def _get_diff_hash(git_module):
+    diff = git_module.diff().strip()
+    if diff:
+        return hashlib.sha256(diff).hexdigest()
+    else:
+        return None
+
+
+def _get_root_commit_id():
+    git_module = git.get_root_module()
+    if git_module:
+        commit_id = git_module.get_commit_id()
+    else:
+        commit_id = "snapshot"
+
+    return commit_id
