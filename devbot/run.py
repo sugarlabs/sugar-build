@@ -11,6 +11,7 @@ import tempfile
 from devbot import environ
 from devbot import config
 
+
 def run(command):
     environ.setup()
 
@@ -25,6 +26,7 @@ def run(command):
         args.extend(["--output", output])
 
     os.execlp(args[0], *args)
+
 
 def run_test(command, test_path, virtual=False):
     environ.setup()
@@ -60,6 +62,7 @@ def run_test(command, test_path, virtual=False):
 
     return result
 
+
 def collect_logs(source_path, log_name):
     logs = {}
     for filename in os.listdir(source_path):
@@ -82,6 +85,6 @@ def collect_logs(source_path, log_name):
 
     os.symlink(log_path, last_log_path)
 
+
 def _get_random_id():
     return ''.join(random.choice(string.letters) for i in xrange(8))
-

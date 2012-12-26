@@ -16,7 +16,7 @@ args = parser.parse_args()
 common.setup()
 
 if not system.check(skip_if_unchanged=True):
-   sys.exit(1)
+    sys.exit(1)
 
 if args.module:
     success = build.build_one(args.module)

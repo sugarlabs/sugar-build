@@ -9,6 +9,7 @@ from devbot import config
 from devbot import command
 from devbot import git
 
+
 def setup():
     git.set_root_path(base_dir)
 

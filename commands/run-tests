@@ -12,6 +12,7 @@ from devbot import test
 
 common.setup()
 
+
 def _run_ui_tests():
     profile_path = os.path.expanduser("~/.sugar/uitests")
     shutil.rmtree(profile_path, ignore_errors=True)

@@ -9,8 +9,10 @@ _BUILT_MODULES = "builtmodules"
 _FULL_BUILD = "fullbuild"
 _SYSTEM_CHECK = "syscheck"
 
+
 def _get_state_path(name):
     return os.path.join(config.build_state_dir, "%s.json" % name)
+
 
 def _load_state(name, default=None):
     state = default
@@ -23,10 +25,12 @@ def _load_state(name, default=None):
 
     return state
 
+
 def _save_state(name, state):
     with open(_get_state_path(name), "w+") as f:
         json.dump(state, f, indent=4)
         f.write('\n')
+
 
 def _get_diff_hash(git_module):
     diff = git_module.diff().strip()
@@ -34,6 +38,7 @@ def _get_diff_hash(git_module):
         return hashlib.sha256(diff).hexdigest()
     else:
         return None
+
 
 def _get_root_commit_id():
     git_module = git.get_root_module()
@@ -44,6 +49,7 @@ def _get_root_commit_id():
 
     return commit_id
 
+
 def built_module_touch(module):
     git_module = module.get_git_module()
     built_modules = _load_state(_BUILT_MODULES, {})
@@ -53,6 +59,7 @@ def built_module_touch(module):
     built_modules[module.name] = info
 
     _save_state(_BUILT_MODULES, built_modules)
+
 
 def built_module_is_unchanged(module):
     git_module = module.get_git_module()
@@ -65,6 +72,7 @@ def built_module_is_unchanged(module):
     return info["diff_hash"] == _get_diff_hash(git_module) and \
            info["commit"] == git_module.get_commit_id()
 
+
 def system_check_is_unchanged():
     system_check = _load_state(_SYSTEM_CHECK)
     if not system_check:
@@ -72,10 +80,12 @@ def system_check_is_unchanged():
 
     return system_check["commit"] == _get_root_commit_id()
 
+
 def system_check_touch():
     system_check = _load_state(_SYSTEM_CHECK, {})
     system_check["commit"] = _get_root_commit_id()
     _save_state(_SYSTEM_CHECK, system_check)
+
 
 def full_build_is_required():
     full_build = _load_state(_FULL_BUILD)
@@ -84,10 +94,12 @@ def full_build_is_required():
 
     return not (full_build["last"] == config.get_full_build())
 
+
 def full_build_touch():
     full_build = _load_state(_FULL_BUILD, {})
     full_build["last"] = config.get_full_build()
     _save_state(_FULL_BUILD, full_build)
+
 
 def clean_build_state():
     try:
@@ -95,6 +107,7 @@ def clean_build_state():
             os.unlink(_get_state_path(name))
     except OSError:
         pass
+
 
 def clean():
     _state = None

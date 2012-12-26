@@ -5,6 +5,7 @@ from devbot import command
 from devbot import distro
 from devbot.plugins import interfaces
 
+
 class PackageManager(interfaces.PackageManager):
     def __init__(self, test=False, interactive=True):
         import apt
@@ -70,7 +71,7 @@ class PackageManager(interfaces.PackageManager):
                     self._find_deps(dependency_name, result)
 
     def find_with_deps(self, package_names):
-        result =  []
+        result = []
 
         for package in package_names:
             if package is not None:
@@ -83,11 +84,13 @@ class PackageManager(interfaces.PackageManager):
 
 distro.register_package_manager("debian", PackageManager)
 
+
 class DistroInfo(interfaces.DistroInfo):
     _DEBIAN_VERSION_PATH = "/etc/debian_version"
+
     def __init__(self):
-        arch = self._get_architecture() 
- 
+        arch = self._get_architecture()
+
         self.name = "debian"
         self.version = "unknown"
         self.gnome_version = "3.4"
@@ -116,6 +119,6 @@ class DistroInfo(interfaces.DistroInfo):
             self.supported = False
 
     def _get_architecture(self):
-        return subprocess.check_output(["arch"]).strip() 
+        return subprocess.check_output(["arch"]).strip()
 
 distro.register_distro_info(DistroInfo)

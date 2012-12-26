@@ -12,6 +12,7 @@ from devbot import config
 
 GIT_CONFIG_SETUP = "sugar-build.send-patches.setup"
 
+
 def get_git_config(name, is_global=False):
     args = ["git", "config"]
 
@@ -25,8 +26,10 @@ def get_git_config(name, is_global=False):
     except subprocess.CalledProcessError:
         return None
 
+
 def set_git_config(name, value):
     return subprocess.check_output(["git", "config", name, value])
+
 
 def unset_git_config(name):
     try:
@@ -34,6 +37,7 @@ def unset_git_config(name):
         return True
     except subprocess.CalledProcessError:
         return False
+
 
 def get_from():
     name = get_git_config("user.name", is_global=True)
@@ -47,11 +51,13 @@ def get_from():
 
     return "%s <%s>" % (name, email)
 
+
 def get_module():
     for line in open("configure.ac"):
         m = re.match("AC_INIT\((.+)\)", line)
         if m:
-            return m.group(1).split(",")[-1][1:-1]    
+            return m.group(1).split(",")[-1][1:-1]
+
 
 def setup():
     print "Choose how to send email \n\n" \

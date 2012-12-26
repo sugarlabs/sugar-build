@@ -6,6 +6,7 @@ from devbot import utils
 
 _root_path = None
 
+
 def _chdir(func):
     def wrapped(*args, **kwargs):
         orig_cwd = os.getcwd()
@@ -17,6 +18,7 @@ def _chdir(func):
         return result
 
     return wrapped
+
 
 class Module:
     def __init__(self, path=None, name=None, remote=None,
@@ -43,7 +45,7 @@ class Module:
 
         if self.tag:
             command.run(["git", "checkout", self.tag])
-        else: 
+        else:
             command.run(["git", "checkout", self._branch])
 
     def update(self):
@@ -68,7 +70,7 @@ class Module:
             if revision is None:
                 revision = self._branch
 
-        command.run(["git", "checkout", revision]) 
+        command.run(["git", "checkout", revision])
 
     @_chdir
     def describe(self):
@@ -93,7 +95,7 @@ class Module:
     def get_annotation(self, tag):
         # FIXME this is fragile, there must be a better way
 
-        show = subprocess.check_output(["git", "show", tag]) 
+        show = subprocess.check_output(["git", "show", tag])
 
         annotation = []
         for line in show.split("\n"):
@@ -120,9 +122,11 @@ class Module:
 
         return True
 
+
 def set_root_path(path):
     global _root_path
     _root_path = path
+
 
 def get_root_module():
     remote = "git://git.sugarlabs.org/sugar-build/sugar-build.git"

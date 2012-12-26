@@ -4,6 +4,7 @@ import subprocess
 from devbot import command
 from devbot import distro
 
+
 class PackageManager:
     """Package management"""
 
@@ -33,6 +34,7 @@ class PackageManager:
            :returns: list of packages with all the dependencies
         """
 
+
 class DistroInfo:
     """Informations about the distribution"""
 
@@ -42,7 +44,7 @@ class DistroInfo:
 
         self.version = None
         """The distribution version."""
-    
+
         self.gnome_version = None
         """The major version of GNOME shipped with the distribution."""
 

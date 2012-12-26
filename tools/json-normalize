@@ -15,7 +15,7 @@ for path in args.paths:
     in_file.close()
 
     if args.sort_by is not None:
-        data.sort(key=itemgetter(args.sort_by))         
+        data.sort(key=itemgetter(args.sort_by))
 
     out_file = open(path, "wb")
     json.dump(data, out_file, sort_keys=True, indent=4)

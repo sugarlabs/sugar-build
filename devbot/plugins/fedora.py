@@ -5,6 +5,7 @@ from devbot import command
 from devbot import distro
 from devbot.plugins import interfaces
 
+
 class PackageManager(interfaces.PackageManager):
     def __init__(self, test=False, interactive=True):
         self._test = test
@@ -72,7 +73,7 @@ class PackageManager(interfaces.PackageManager):
                     "--queryformat=[%{NAME} ]",
                     "--whatprovides"]
             args.extend(filtered)
-            
+
             deps_packages = subprocess.check_output(args).strip()
             for dep_package in deps_packages.split(" "):
                 if dep_package not in result:
@@ -80,6 +81,7 @@ class PackageManager(interfaces.PackageManager):
                     self._find_deps(dep_package, result)
 
 distro.register_package_manager("fedora", PackageManager)
+
 
 class DistroInfo(interfaces.DistroInfo):
     _FEDORA_RELEASE_PATH = "/etc/fedora-release"

@@ -5,6 +5,7 @@ from devbot import command
 from devbot import distro
 from devbot.plugins import interfaces
 
+
 class PackageManager(interfaces.PackageManager):
     def __init__(self, test=False, interactive=True):
         pass
@@ -26,6 +27,7 @@ class PackageManager(interfaces.PackageManager):
 
 distro.register_package_manager("unknown", PackageManager)
 
+
 class DistroInfo(interfaces.DistroInfo):
     def __init__(self):
         self.lib_dir = None
@@ -35,5 +37,5 @@ class DistroInfo(interfaces.DistroInfo):
         self.gstreamer_version = "0.10"
         self.valid = True
         self.supported = False
- 
+
 distro.register_distro_info(DistroInfo)

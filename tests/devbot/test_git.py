@@ -5,6 +5,7 @@ import subprocess
 
 from devbot import git
 
+
 class TestGit(unittest.TestCase):
     def _create_repo(self):
         path = tempfile.mkdtemp()
@@ -53,7 +54,7 @@ class TestGit(unittest.TestCase):
     def _create_module(self, remote, branch="master", tag=None):
         path = tempfile.mkdtemp()
         name = "test"
-       
+
         return git.Module(path=path, name=name, remote=remote, branch=branch,
                           tag=tag)
 
@@ -66,12 +67,12 @@ class TestGit(unittest.TestCase):
         return module
 
     def test_clone(self):
-        module = self._setup_module() 
+        module = self._setup_module()
         self.assertTrue(os.path.exists(os.path.join(module.local, "README")))
 
     def test_update_on_master(self):
-        module = self._setup_module() 
-       
+        module = self._setup_module()
+
         self._write_file(module.remote, "masterchange")
         self._commit(module.remote, "masterchange")
 
@@ -94,7 +95,7 @@ class TestGit(unittest.TestCase):
 
     def test_update_detached(self):
         remote = self._create_repo()
-       
+
         module = self._create_module(remote, tag=self._get_head(remote))
         module.update()
 
@@ -107,7 +108,7 @@ class TestGit(unittest.TestCase):
         self.assertEquals("detachedchange", self._read_file(module))
 
     def test_clean(self):
-        module = self._setup_module() 
+        module = self._setup_module()
         module.update()
 
         to_clean_path = os.path.join(module.local, "changetoclean")

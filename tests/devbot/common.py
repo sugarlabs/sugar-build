@@ -4,6 +4,7 @@ import tempfile
 
 from devbot import config
 
+
 class DevbotTestCase(unittest.TestCase):
     def setUp(self):
         self.setup_config()

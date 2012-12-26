@@ -25,7 +25,7 @@ except OSError:
 
 for filename in glob.glob("*.log"):
     try:
-      os.unlink(filename)
+        os.unlink(filename)
     except OSError:
         # Files migth not exist
         pass

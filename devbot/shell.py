@@ -5,6 +5,7 @@ import os
 from devbot import environ
 from devbot import config
 
+
 def start(rcfile):
     environ.setup()
 

@@ -3,9 +3,11 @@ import os
 
 from devbot import config
 
+
 def setup():
     _setup_gconf()
     _setup_variables()
+
 
 def add_path(name, path):
     if not path.endswith("/"):
@@ -21,6 +23,7 @@ def add_path(name, path):
 
     os.environ[name] = ":".join(splitted)
 
+
 def _setup_variables():
     add_path("LD_LIBRARY_PATH", config.lib_dir)
     add_path("PATH", config.bin_dir)
@@ -30,7 +33,7 @@ def _setup_variables():
     add_path("PKG_CONFIG_PATH",
              os.path.join(config.lib_dir, "pkgconfig"))
     add_path("GST_PLUGIN_PATH",
-             os.path.join(config.lib_dir , "gstreamer-1.0"))
+             os.path.join(config.lib_dir, "gstreamer-1.0"))
     add_path("PYTHONPATH",
              sysconfig.get_python_lib(prefix=config.prefix_dir))
     add_path("PYTHONPATH",
@@ -40,29 +43,30 @@ def _setup_variables():
              os.path.dirname(os.path.dirname(__file__)))
 
     add_path("ACLOCAL_PATH", "/usr/share/aclocal")
-    add_path("ACLOCAL_FLAGS", "-I /usr/share/aclocal") 
+    add_path("ACLOCAL_FLAGS", "-I /usr/share/aclocal")
 
     add_path("XDG_DATA_DIRS", "/usr/share")
     add_path("XDG_DATA_DIRS", config.share_dir)
 
     add_path("XDG_CONFIG_DIRS", "/etc")
-    add_path("XDG_CONFIG_DIRS", config.etc_dir)    
+    add_path("XDG_CONFIG_DIRS", config.etc_dir)
 
     for system_lib_dir in config.system_lib_dirs:
         modules_path = os.path.join(system_lib_dir, "gio", "modules")
-        if os.path.exists(modules_path): 
+        if os.path.exists(modules_path):
             add_path("GIO_EXTRA_MODULES", modules_path)
 
         typelib_path = os.path.join(system_lib_dir, "girepository-1.0")
-        if os.path.exists(typelib_path):  
+        if os.path.exists(typelib_path):
             add_path("GI_TYPELIB_PATH", typelib_path)
 
     add_path("GI_TYPELIB_PATH",
              os.path.join(config.lib_dir, "girepository-1.0"))
- 
+
     os.environ["GTK_DATA_PREFIX"] = config.prefix_dir
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")
     os.environ["CC"] = "ccache gcc"
+
 
 def _setup_gconf():
     gconf_dir = os.path.join(config.etc_dir, "gconf")

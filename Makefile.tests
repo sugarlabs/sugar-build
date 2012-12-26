@@ -6,4 +6,19 @@ test-devbot:
 	TMPDIR=$(TESTS_DATA) PYTHONPATH=$(BASE_DIR) python -m unittest discover
 	rm -rf $(TESTS_DATA)
 
-check: test-devbot run-tests
+PYTHON_SCRIPTS = \
+    $(COMMANDS_DIR)/build \
+    $(COMMANDS_DIR)/clean \
+    $(COMMANDS_DIR)/pull \
+    $(COMMANDS_DIR)/run-tests \
+    $(COMMANDS_DIR)/shell \
+    $(COMMANDS_DIR)/check-system \
+    $(COMMANDS_DIR)/distribute \
+    $(COMMANDS_DIR)/run \
+    $(COMMANDS_DIR)/send-patches \
+    $(TOOLS_DIR)/json-normalize
+
+pep8:
+	pep8 commands devbot tests $(PYTHON_SCRIPTS)
+
+check: test pep8 run-tests

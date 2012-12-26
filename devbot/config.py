@@ -27,6 +27,7 @@ _source_dir = None
 _build_dir = None
 _prefs_path = None
 
+
 class Module:
     def __init__(self, info):
         self.name = info["name"]
@@ -66,6 +67,7 @@ class Module:
                   "delete it and pull\nthe source again."
             return None
 
+
 def setup(**kwargs):
     _load_plugins()
 
@@ -90,6 +92,7 @@ def setup(**kwargs):
     _setup_state_dir(kwargs["state_dir"])
     _setup_install_dir(kwargs["install_dir"], relocatable)
 
+
 def _setup_state_dir(state_dir):
     utils.ensure_dir(state_dir)
 
@@ -103,6 +106,7 @@ def _setup_state_dir(state_dir):
     global home_dir
     home_dir = os.path.join(base_home_dir, get_pref("PROFILE"))
     utils.ensure_dir(home_dir)
+
 
 def _setup_prefix_dir(dir, relocatable):
     global prefix_dir
@@ -128,6 +132,7 @@ def _setup_prefix_dir(dir, relocatable):
     if os.path.islink(prefix_dir):
         os.remove(prefix_dir)
     os.symlink(dir, prefix_dir)
+
 
 def _setup_install_dir(dir, relocatable=False):
     global system_lib_dirs
@@ -161,15 +166,18 @@ def _setup_install_dir(dir, relocatable=False):
     if distro_info.lib_dir is not None:
         system_lib_dirs.append(os.path.join("/usr", distro_info.lib_dir))
 
+
 def get_source_dir():
     global _source_dir
     utils.ensure_dir(_source_dir)
     return _source_dir
 
+
 def get_build_dir():
     global _build_dir
     utils.ensure_dir(_build_dir)
     return _build_dir
+
 
 def _read_prefs():
     global _prefs_path
@@ -186,6 +194,7 @@ def _read_prefs():
 
     return prefs
 
+
 def _save_prefs(prefs):
     global _prefs_path
 
@@ -195,6 +204,7 @@ def _save_prefs(prefs):
     with open(_prefs_path, "w") as f:
         for pref in prefs.items():
             f.write("%s\n" % "=".join(pref))
+
 
 def get_log_path(prefix):
     logfile_path = None
@@ -211,21 +221,25 @@ def get_log_path(prefix):
 
     return logfile_path
 
+
 def get_pref(name):
-    defaults = { "PROFILE": "default" }
+    defaults = {"PROFILE": "default"}
 
     prefs = _read_prefs()
     return prefs.get(name, defaults.get(name, None))
+
 
 def set_pref(name, value):
     prefs = _read_prefs()
     prefs[name] = value
     _save_prefs(prefs)
 
+
 def _load_plugins():
     for loader, name, ispkg in pkgutil.iter_modules(plugins.__path__):
         f, filename, desc = imp.find_module(name, plugins.__path__)
         imp.load_module(name, f, filename, desc)
+
 
 def _read_index(dir_name):
     if config_dir is None:
@@ -233,8 +247,9 @@ def _read_index(dir_name):
 
     index_dir = os.path.join(config_dir, dir_name)
     with open(os.path.join(index_dir, "index.json")) as f:
-        return [os.path.join(index_dir, json_file) \
+        return [os.path.join(index_dir, json_file)
                 for json_file in json.load(f)]
+
 
 def get_full_build():
     config = None
@@ -242,6 +257,7 @@ def get_full_build():
         config = json.load(f)
 
     return config["full_build"]
+
 
 def load_packages():
     packages = {}
@@ -251,19 +267,22 @@ def load_packages():
 
     return packages
 
+
 def load_prerequisites():
     path = os.path.join(config_dir, "deps", "prerequisites.json")
     return json.load(open(path))
+
 
 def _filter_if(item):
     if "if" not in item:
         return True
 
     distro_info = distro.get_distro_info()
-    globals = { "gstreamer_version": distro_info.gstreamer_version,
-                "gnome_version": distro_info.gnome_version }
+    globals = {"gstreamer_version": distro_info.gstreamer_version,
+               "gnome_version": distro_info.gnome_version}
 
     return eval(item["if"], globals)
+
 
 def load_checks():
     checks = []
@@ -272,6 +291,7 @@ def load_checks():
 
     return filter(_filter_if, checks)
 
+
 def load_modules():
     modules = []
     for path in _read_index("modules"):
@@ -279,6 +299,7 @@ def load_modules():
             modules.append(info)
 
     return [Module(info) for info in filter(_filter_if, modules)]
+
 
 def clean():
     try:

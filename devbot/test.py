@@ -6,6 +6,7 @@ from devbot import environ
 from devbot import command
 from devbot import xvfb
 
+
 def test_one(module_name):
     environ.setup()
 
@@ -14,6 +15,7 @@ def test_one(module_name):
             return _test_module(module)
 
     return False
+
 
 def test():
     environ.setup()
@@ -24,6 +26,7 @@ def test():
             return False
 
     return True
+
 
 def _test_module(module):
     result = True

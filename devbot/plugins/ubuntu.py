@@ -6,11 +6,13 @@ from devbot.plugins import debian
 
 distro.register_package_manager("ubuntu", debian.PackageManager)
 
+
 class DistroInfo(interfaces.DistroInfo):
-    _OS_RELEASE_PATH="/etc/os-release"
+    _OS_RELEASE_PATH = "/etc/os-release"
+
     def __init__(self):
         arch = self._get_architecture()
- 
+
         self.name = "ubuntu"
         self.version = "unknown"
         self.gnome_version = "3.4"
@@ -33,10 +35,10 @@ class DistroInfo(interfaces.DistroInfo):
         except IOError:
             release = None
             self.valid = False
- 
+
         if os_info["ID"] != "ubuntu":
             self.valid = False
-       
+
         self.version = os_info.get("VERSION_ID", None)
 
         if self.version != "12.10":
@@ -46,6 +48,6 @@ class DistroInfo(interfaces.DistroInfo):
             self.gnome_version = "3.6"
 
     def _get_architecture(self):
-        return subprocess.check_output(["uname", "-i"]).strip() 
+        return subprocess.check_output(["uname", "-i"]).strip()
 
 distro.register_distro_info(DistroInfo)

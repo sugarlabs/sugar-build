@@ -5,6 +5,7 @@ import tree
 
 ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read", "Jukebox"]
 
+
 def build_activities_list():
     root = tree.get_root()
     shell = root.find_child(name="sugar-session", role_name="application")
@@ -14,7 +15,7 @@ def build_activities_list():
     table = shell.find_child(role_name="table")
     cells = table.find_children(role_name="table cell")
 
-    for row in [cells[i:i+5] for i in range(0, len(cells), 5)]:
+    for row in [cells[i:i + 5] for i in range(0, len(cells), 5)]:
         activity_name = row[2].text
         activities.append(activity_name)
 
@@ -22,8 +23,9 @@ def build_activities_list():
 
     return activities
 
+
 def launch_and_stop_activity(activity_name):
-    print "Launching %s" % activity_name 
+    print "Launching %s" % activity_name
 
     root = tree.get_root()
     shell = root.find_child(name="sugar-session", role_name="application")
@@ -31,14 +33,14 @@ def launch_and_stop_activity(activity_name):
     table = shell.find_child(role_name="table")
     cells = table.find_children(role_name="table cell")
 
-    for row in [cells[i:i+5] for i in range(0, len(cells), 5)]:
+    for row in [cells[i:i + 5] for i in range(0, len(cells), 5)]:
         name = row[2].name
         icon = row[1]
 
         if name == activity_name:
             icon.click()
 
-            print "Stopping %s" % activity_name 
+            print "Stopping %s" % activity_name
 
             if activity_name in ACTIVITIES_WITH_OBJECT_CHOOSER:
                 close_button = shell.find_child(name="Close",
@@ -58,6 +60,7 @@ def launch_and_stop_activity(activity_name):
             if activity is not None:
                 raise RuntimeError
 
+
 def go_to_list_view():
     root = tree.get_root()
     shell = root.find_child(name="sugar-session", role_name="application")
@@ -67,6 +70,7 @@ def go_to_list_view():
 
     radio_button = shell.find_child(name="List view", role_name="radio button")
     radio_button.do_action("click")
+
 
 def main():
     go_to_list_view()

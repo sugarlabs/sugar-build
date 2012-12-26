@@ -3,9 +3,11 @@ import time
 
 _logger = None
 
+
 def set_logger(logger):
     global _logger
     _logger = logger
+
 
 def run(args, log=None, test=False, retry=0):
     print " ".join(args)
@@ -29,6 +31,7 @@ def run(args, log=None, test=False, retry=0):
                 time.sleep(60)
             else:
                 raise e
+
 
 def run_with_sudo(args, test=False, retry=0):
     args_with_sudo = ["sudo"]

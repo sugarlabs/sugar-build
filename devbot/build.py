@@ -16,6 +16,7 @@ from devbot import release
 _builders = {}
 _distributors = {}
 
+
 def build_one(module_name):
     environ.setup()
 
@@ -24,6 +25,7 @@ def build_one(module_name):
             return _build_module(module)
 
     return False
+
 
 def pull_one(module_name):
     environ.setup()
@@ -34,6 +36,7 @@ def pull_one(module_name):
 
     return False
 
+
 def pull():
     environ.setup()
 
@@ -42,6 +45,7 @@ def pull():
             return False
 
     return True
+
 
 def build(full=False):
     if full or state.full_build_is_required():
@@ -64,6 +68,7 @@ def build(full=False):
 
     return True
 
+
 def distribute():
     environ.setup()
 
@@ -74,6 +79,7 @@ def distribute():
 
     return True
 
+
 def clean():
     _empty_dir(config.install_dir)
     _empty_dir(config.get_build_dir())
@@ -83,12 +89,15 @@ def clean():
             if module.get_git_module().clean():
                 print "Cleaned %s git repository." % module.name
 
+
 def _ccache_reset():
     subprocess.check_call(["ccache", "-z"], stdout=utils.devnull)
+
 
 def _ccache_print_stats():
     print "\n=== ccache statistics ===\n"
     subprocess.check_call(["ccache", "-s"])
+
 
 def _unlink_libtool_files():
     def func(arg, dirname, fnames):
@@ -96,6 +105,7 @@ def _unlink_libtool_files():
             os.unlink(os.path.join(dirname, fname))
 
     os.path.walk(config.lib_dir, func, None)
+
 
 def _pull_module(module):
     print "\n=== Pulling %s ===\n" % module.name
@@ -107,8 +117,10 @@ def _pull_module(module):
 
     return True
 
+
 def _eval_option(option):
     return eval(option, {"prefix": config.prefix_dir})
+
 
 def _build_autotools(module, log):
     # Workaround for aclocal 1.11 (fixed in 1.12)
@@ -139,11 +151,13 @@ def _build_autotools(module, log):
 
 _builders["autotools"] = _build_autotools
 
+
 def _build_activity(module, log):
     setup = os.path.join(module.get_source_dir(), "setup.py")
     command.run([setup, "install", "--prefix", config.prefix_dir], log)
 
 _builders["activity"] = _build_activity
+
 
 def _distribute_autotools(module):
     makefile = parse_makefile("Makefile")
@@ -184,6 +198,7 @@ def _distribute_autotools(module):
 
 _distributors["autotools"] = _distribute_autotools
 
+
 def _build_module(module, log=None):
     print "\n=== Building %s ===\n" % module.name
 
@@ -217,6 +232,7 @@ def _build_module(module, log=None):
 
     return True
 
+
 def _distribute_module(module, log=None):
     print "\n=== Distribute %s ===\n" % module.name
 
@@ -239,6 +255,7 @@ def _distribute_module(module, log=None):
         return False
 
     return True
+
 
 def _empty_dir(dir_path):
     print "Emptying %s directory" % dir_path

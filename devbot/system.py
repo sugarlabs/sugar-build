@@ -11,78 +11,92 @@ from devbot import state
 from devbot import utils
 from devbot import xvfb
 
+
 def check_binary(check):
     return subprocess.call(["which", check],
                            stdout=utils.devnull,
                            stderr=subprocess.STDOUT)
 
+
 def check_pkgconfig(check):
     return subprocess.call(["pkg-config", "--exists", check]) == 1
+
 
 def check_python(check):
     return subprocess.call(["python", "-c", check],
                            stdout=utils.devnull,
                            stderr=subprocess.STDOUT) == 1
 
+
 def check_gtkmodule(check):
     # Not sure we can do better than this, the gtkmodule stuff is private
     missing = True
-    
+
     for libdir in config.system_lib_dirs:
         if os.path.exists("%s/gtk-2.0/modules/lib%s.so" % (libdir, check)):
             missing = False
 
     return missing
 
+
 def check_include(check):
     return not os.path.exists(os.path.join("/usr/include/", check))
+
 
 def check_dbus(check):
     return not os.path.exists("/usr/share/dbus-1/services/%s.service" % check)
 
+
 def check_metacity_theme(check):
-    return not os.path.exists("/usr/share/themes/%s/metacity-1/metacity-theme-3.xml" % check)
+    theme = "/usr/share/themes/%s/metacity-1/metacity-theme-3.xml"
+    return not os.path.exists(theme % check)
+
 
 def check_gstreamer(check, version):
     missing = True
-    
+
     for libdir in config.system_lib_dirs:
-        if os.path.exists("%s/gstreamer-%s/libgst%s.so" % \
+        if os.path.exists("%s/gstreamer-%s/libgst%s.so" %
                           (libdir, version, check)):
             missing = False
 
     return missing
 
+
 def check_gstreamer_0_10(check):
     return check_gstreamer(check, "0.10")
+
 
 def check_gstreamer_1_0(check):
     return check_gstreamer(check, "1.0")
 
-checkers = { "binary": check_binary,
-             "python": check_python,
-             "pkgconfig": check_pkgconfig,
-             "gtkmodule": check_gtkmodule,
-             "dbus": check_dbus,
-             "gstreamer-0.10": check_gstreamer_0_10,
-             "gstreamer-1.0": check_gstreamer_1_0,
-             "metacity-theme": check_metacity_theme,
-             "include": check_include }
+checkers = {"binary": check_binary,
+            "python": check_python,
+            "pkgconfig": check_pkgconfig,
+            "gtkmodule": check_gtkmodule,
+            "dbus": check_dbus,
+            "gstreamer-0.10": check_gstreamer_0_10,
+            "gstreamer-1.0": check_gstreamer_1_0,
+            "metacity-theme": check_metacity_theme,
+            "include": check_include}
+
 
 def _print_checks(checks):
     for check in checks:
         print "[%s] %s" % (check["checker"], check["check"])
+
 
 def _eval_check_if(check):
     if "check_if" not in check:
         return True
 
     distro_info = distro.get_distro_info()
-    globals = { "distro": "%s-%s" % (distro_info.name, distro_info.version) }
+    globals = {"distro": "%s-%s" % (distro_info.name, distro_info.version)}
 
     print eval(check["check_if"], globals)
 
     return eval(check["check_if"], globals) == "True"
+
 
 def run_checks(package_manager, checks, packages):
     distro_info = distro.get_distro_info()
@@ -129,6 +143,7 @@ def run_checks(package_manager, checks, packages):
 
     return True
 
+
 def remove_packages(package_manager, packages):
     distro_name = distro.get_distro_info().name
 
@@ -153,6 +168,7 @@ def remove_packages(package_manager, packages):
 
     if to_remove:
         package_manager.remove_packages(to_remove)
+
 
 def check(remove=False, update=False, test=False, interactive=True,
           skip_if_unchanged=False):
