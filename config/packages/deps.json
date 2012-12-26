@@ -780,6 +780,17 @@
             "python-telepathy"
         ]
     }, 
+    "time": {
+        "debian": [
+            "time"
+        ], 
+        "fedora": [
+            "time"
+        ], 
+        "ubuntu": [
+            "time"
+        ]
+    }, 
     "vte python": {
         "debian": [
             "python-vte"

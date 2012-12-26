@@ -35,6 +35,11 @@
         "name": "scp"
     }, 
     {
+        "check": "time", 
+        "checker": "binary", 
+        "name": "time"
+    }, 
+    {
         "check": "x11", 
         "checker": "pkgconfig", 
         "name": "x11"
