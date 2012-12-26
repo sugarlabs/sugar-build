@@ -30,6 +30,11 @@
         "name": "gail gtkmodule"
     }, 
     {
+        "check": "pep8", 
+        "checker": "binary", 
+        "name": "pep8"
+    }, 
+    {
         "check": "scp", 
         "checker": "binary", 
         "name": "scp"
