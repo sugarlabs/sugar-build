@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to pull")
 args = parser.parse_args()
 
-common.setup()
+common.setup(log_name="pull")
 
 if args.module:
     success = build.pull_one(args.module)

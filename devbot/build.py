@@ -40,8 +40,17 @@ def pull_one(module_name):
 def pull(lazy=False):
     environ.setup()
 
+    to_pull = []
     for module in config.load_modules():
-        if not _pull_module(module, lazy):
+        git_module = module.get_git_module()
+        if not lazy or not os.path.exists(git_module.local):
+            to_pull.append(module)
+
+    if to_pull:
+        print "\n= Pulling =\n"
+
+    for module in to_pull:
+        if not _pull_module(module):
             return False
 
     return True
@@ -60,11 +69,12 @@ def build(full=False):
 
     pull(lazy=True)
 
+    print "\n= Building =\n"
+
     for module in config.load_modules():
-        if state.built_module_is_unchanged(module):
-            print "\n* Skipping unchanged module %s *" % module.name
-        elif not _build_module(module, config.get_log_path("build")):
-            return False
+        if not state.built_module_is_unchanged(module):
+            if not _build_module(module):
+                return False
 
     _ccache_print_stats()
 
@@ -83,13 +93,15 @@ def distribute():
 
 
 def clean():
+    print "= Cleaning =\n"
+
     _empty_dir(config.install_dir)
     _empty_dir(config.get_build_dir())
 
     for module in config.load_modules():
         if not module.out_of_source:
             if module.get_git_module().clean():
-                print "Cleaned %s git repository." % module.name
+                print "* Cleaning %s git repository" % module.name
 
 
 def _ccache_reset():
@@ -97,7 +109,7 @@ def _ccache_reset():
 
 
 def _ccache_print_stats():
-    print "\n=== ccache statistics ===\n"
+    print "= ccache statistics ="
     subprocess.check_call(["ccache", "-s"])
 
 
@@ -109,12 +121,10 @@ def _unlink_libtool_files():
     os.path.walk(config.lib_dir, func, None)
 
 
-def _pull_module(module, lazy=False):
-    git_module = module.get_git_module()
-    if lazy and os.path.exists(git_module.local):
-        return True
+def _pull_module(module):
+    print "* Pulling %s" % module.name
 
-    print "\n=== Pulling %s ===\n" % module.name
+    git_module = module.get_git_module()
 
     try:
         git_module.update()
@@ -206,7 +216,7 @@ _distributors["autotools"] = _distribute_autotools
 
 
 def _build_module(module, log=None):
-    print "\n=== Building %s ===\n" % module.name
+    print "* Building %s" % module.name
 
     source_dir = module.get_source_dir()
 

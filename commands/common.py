@@ -10,7 +10,7 @@ from devbot import command
 from devbot import git
 
 
-def setup():
+def setup(log_name=None):
     git.set_root_path(base_dir)
 
     args = {"config_dir": os.path.join(base_dir, "config"),
@@ -21,10 +21,10 @@ def setup():
             "prefs_path": os.path.join(base_dir, "prefs"),
             "logs_dir": os.path.join(base_dir, "logs")}
 
+    if log_name:
+        args["log_name"] = log_name
+
     if "SUGAR_BUILDBOT" in os.environ:
         args["relocatable"] = True
 
     config.setup(**args)
-
-    tools_dir = os.path.join(base_dir, "tools")
-    command.set_logger(os.path.join(tools_dir, "log-command"))

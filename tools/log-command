@@ -1,8 +1,0 @@
-#!/bin/bash
-
-toolsdir=`dirname "$0"`
-rootdir=`dirname "$toolsdir"`
-
-${@:(-$#):($#-1)} | tee -a ${@: -1:1}
-
-exit ${PIPESTATUS[0]} 
