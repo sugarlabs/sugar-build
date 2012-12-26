@@ -189,13 +189,6 @@ def load_modules():
     return [Module(info) for info in filter(_filter_if, modules)]
 
 
-def clean():
-    try:
-        os.rmdir(logs_dir)
-    except OSError:
-        pass
-
-
 def _filter_if(item):
     if "if" not in item:
         return True

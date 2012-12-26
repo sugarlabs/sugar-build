@@ -1,35 +1,9 @@
 #!/usr/bin/python
 
-import glob
-import os
-
 import common
 
-from devbot import build
-from devbot import config
-from devbot import environ
-from devbot import state
-from devbot import config
+from devbot import clean
 
 common.setup()
 
-os.chdir(config.logs_dir)
-
-print "Deleting logs"
-
-try:
-    os.unlink("all-logs.tar.bz2")
-except OSError:
-    # Migth not exist
-    pass
-
-for filename in glob.glob("*.log"):
-    try:
-        os.unlink(filename)
-    except OSError:
-        # Files migth not exist
-        pass
-
-build.clean()
-state.clean()
-config.clean()
+clean.clean()

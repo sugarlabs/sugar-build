@@ -101,22 +101,15 @@ def full_build_touch():
     _save_state(_FULL_BUILD, full_build)
 
 
-def clean_build_state():
+def clean(build_only=False):
+    print "* Deleting state"
+
+    names = [_BUILT_MODULES, _FULL_BUILD]
+    if not build_only:
+        names.append(_SYSTEM_CHECK)
+
     try:
-        for name in _BUILT_MODULES, _FULL_BUILD:
+        for name in names:
             os.unlink(_get_state_path(name))
-    except OSError:
-        pass
-
-
-def clean():
-    _state = None
-
-    print "Deleting state"
-
-    clean_build_state()
-
-    try:
-        os.unlink(_get_state_path(_SYSTEM_CHECK))
     except OSError:
         pass

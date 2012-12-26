@@ -58,7 +58,6 @@ def pull(lazy=False):
 
 def build(full=False):
     if full or state.full_build_is_required():
-        state.clean_build_state()
         clean()
 
     environ.setup()
@@ -93,15 +92,20 @@ def distribute():
 
 
 def clean():
-    print "= Cleaning =\n"
+    print "\n= Clean =\n"
 
+    state.clean(build_only=True)
+
+    print "* Deleting install directory"
     _empty_dir(config.install_dir)
+
+    print "* Deleting build directory"
     _empty_dir(config.get_build_dir())
 
     for module in config.load_modules():
         if not module.out_of_source:
             if module.get_git_module().clean():
-                print "* Cleaning %s git repository" % module.name
+                print "* Deleting %s" % module.name
 
 
 def _ccache_reset():
@@ -274,6 +278,5 @@ def _distribute_module(module, log=None):
 
 
 def _empty_dir(dir_path):
-    print "Emptying %s directory" % dir_path
     shutil.rmtree(dir_path, ignore_errors=True)
     os.mkdir(dir_path)
