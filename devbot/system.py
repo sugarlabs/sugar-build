@@ -117,13 +117,13 @@ def _check_gstreamer(check, version):
 
 
 def _check_gstreamer_0_10(check):
-    return check_gstreamer(check, "0.10")
+    return _check_gstreamer(check, "0.10")
 
 _checkers["gstreamer-0.10"] = _check_gstreamer_0_10
 
 
 def _check_gstreamer_1_0(check):
-    return check_gstreamer(check, "1.0")
+    return _check_gstreamer(check, "1.0")
 
 _checkers["gstreamer-1.0"] = _check_gstreamer_1_0
 
