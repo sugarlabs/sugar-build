@@ -98,7 +98,7 @@ def _eval_check_if(check):
     return eval(check["check_if"], globals) == "True"
 
 
-def run_checks(package_manager, checks, packages):
+def _run_checks(package_manager, checks, packages):
     distro_info = distro.get_distro_info()
 
     failed_checks = []
@@ -144,7 +144,7 @@ def run_checks(package_manager, checks, packages):
     return True
 
 
-def remove_packages(package_manager, packages):
+def _remove_packages(package_manager, packages):
     distro_name = distro.get_distro_info().name
 
     to_keep = []
@@ -184,12 +184,12 @@ def check(remove=False, update=False, test=False, interactive=True,
     packages = config.load_packages()
 
     checks = config.load_prerequisites()
-    if not run_checks(package_manager, checks, packages):
+    if not _run_checks(package_manager, checks, packages):
         return False
 
     xvfb_proc, orig_display = xvfb.start()
 
-    if not run_checks(package_manager, config.load_checks(), packages):
+    if not _run_checks(package_manager, config.load_checks(), packages):
         return False
 
     xvfb.stop(xvfb_proc, orig_display)
@@ -200,7 +200,7 @@ def check(remove=False, update=False, test=False, interactive=True,
         package_manager.update()
 
     if remove:
-        remove_packages(package_manager, packages)
+        _remove_packages(package_manager, packages)
 
     state.system_check_touch()
 
