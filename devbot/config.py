@@ -93,6 +93,120 @@ def setup(**kwargs):
     _setup_install_dir(kwargs["install_dir"], relocatable)
 
 
+def get_source_dir():
+    global _source_dir
+    utils.ensure_dir(_source_dir)
+    return _source_dir
+
+
+def get_build_dir():
+    global _build_dir
+    utils.ensure_dir(_build_dir)
+    return _build_dir
+
+
+def get_log_path(prefix):
+    logfile_path = None
+    number = 0
+
+    while logfile_path is None:
+        name = "%s-%d.log" % (prefix, number)
+        path = os.path.join(logs_dir, name)
+
+        if not os.path.exists(path):
+            logfile_path = path
+
+        number = number + 1
+
+    return logfile_path
+
+
+def get_pref(name):
+    defaults = {"PROFILE": "default"}
+
+    prefs = _read_prefs()
+    return prefs.get(name, defaults.get(name, None))
+
+
+def set_pref(name, value):
+    prefs = _read_prefs()
+    prefs[name] = value
+    _save_prefs(prefs)
+
+
+def get_full_build():
+    config = None
+    with open(os.path.join(config_dir, "config.json")) as f:
+        config = json.load(f)
+
+    return config["full_build"]
+
+
+def load_packages():
+    packages = {}
+
+    for path in _read_index("packages"):
+        packages.update(json.load(open(path)))
+
+    return packages
+
+
+def load_prerequisites():
+    path = os.path.join(config_dir, "deps", "prerequisites.json")
+    return json.load(open(path))
+
+
+def load_checks():
+    checks = []
+    for path in _read_index("deps"):
+        checks.extend(json.load(open(path)))
+
+    return filter(_filter_if, checks)
+
+
+def load_modules():
+    modules = []
+    for path in _read_index("modules"):
+        for info in json.load(open(path)):
+            modules.append(info)
+
+    return [Module(info) for info in filter(_filter_if, modules)]
+
+
+def clean():
+    try:
+        os.rmdir(logs_dir)
+    except OSError:
+        pass
+
+
+def _filter_if(item):
+    if "if" not in item:
+        return True
+
+    distro_info = distro.get_distro_info()
+    globals = {"gstreamer_version": distro_info.gstreamer_version,
+               "gnome_version": distro_info.gnome_version}
+
+    return eval(item["if"], globals)
+
+
+def _load_plugins():
+    for loader, name, ispkg in pkgutil.iter_modules(plugins.__path__):
+        f, filename, desc = imp.find_module(name, plugins.__path__)
+        imp.load_module(name, f, filename, desc)
+
+
+def _read_index(dir_name):
+    if config_dir is None:
+        return []
+
+    index_dir = os.path.join(config_dir, dir_name)
+    with open(os.path.join(index_dir, "index.json")) as f:
+        return [os.path.join(index_dir, json_file)
+                for json_file in json.load(f)]
+
+
 def _setup_state_dir(state_dir):
     utils.ensure_dir(state_dir)
 
@@ -167,18 +281,6 @@ def _setup_install_dir(dir, relocatable=False):
         system_lib_dirs.append(os.path.join("/usr", distro_info.lib_dir))
 
 
-def get_source_dir():
-    global _source_dir
-    utils.ensure_dir(_source_dir)
-    return _source_dir
-
-
-def get_build_dir():
-    global _build_dir
-    utils.ensure_dir(_build_dir)
-    return _build_dir
-
-
 def _read_prefs():
     global _prefs_path
 
@@ -204,105 +306,3 @@ def _save_prefs(prefs):
     with open(_prefs_path, "w") as f:
         for pref in prefs.items():
             f.write("%s\n" % "=".join(pref))
-
-
-def get_log_path(prefix):
-    logfile_path = None
-    number = 0
-
-    while logfile_path is None:
-        name = "%s-%d.log" % (prefix, number)
-        path = os.path.join(logs_dir, name)
-
-        if not os.path.exists(path):
-            logfile_path = path
-
-        number = number + 1
-
-    return logfile_path
-
-
-def get_pref(name):
-    defaults = {"PROFILE": "default"}
-
-    prefs = _read_prefs()
-    return prefs.get(name, defaults.get(name, None))
-
-
-def set_pref(name, value):
-    prefs = _read_prefs()
-    prefs[name] = value
-    _save_prefs(prefs)
-
-
-def _load_plugins():
-    for loader, name, ispkg in pkgutil.iter_modules(plugins.__path__):
-        f, filename, desc = imp.find_module(name, plugins.__path__)
-        imp.load_module(name, f, filename, desc)
-
-
-def _read_index(dir_name):
-    if config_dir is None:
-        return []
-
-    index_dir = os.path.join(config_dir, dir_name)
-    with open(os.path.join(index_dir, "index.json")) as f:
-        return [os.path.join(index_dir, json_file)
-                for json_file in json.load(f)]
-
-
-def get_full_build():
-    config = None
-    with open(os.path.join(config_dir, "config.json")) as f:
-        config = json.load(f)
-
-    return config["full_build"]
-
-
-def load_packages():
-    packages = {}
-
-    for path in _read_index("packages"):
-        packages.update(json.load(open(path)))
-
-    return packages
-
-
-def load_prerequisites():
-    path = os.path.join(config_dir, "deps", "prerequisites.json")
-    return json.load(open(path))
-
-
-def _filter_if(item):
-    if "if" not in item:
-        return True
-
-    distro_info = distro.get_distro_info()
-    globals = {"gstreamer_version": distro_info.gstreamer_version,
-               "gnome_version": distro_info.gnome_version}
-
-    return eval(item["if"], globals)
-
-
-def load_checks():
-    checks = []
-    for path in _read_index("deps"):
-        checks.extend(json.load(open(path)))
-
-    return filter(_filter_if, checks)
-
-
-def load_modules():
-    modules = []
-    for path in _read_index("modules"):
-        for info in json.load(open(path)):
-            modules.append(info)
-
-    return [Module(info) for info in filter(_filter_if, modules)]
-
-
-def clean():
-    try:
-        os.rmdir(logs_dir)
-    except OSError:
-        pass
