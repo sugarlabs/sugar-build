@@ -10,7 +10,7 @@ pull:
 	@$(COMMANDS_DIR)/pull
 
 build:
-	@$(COMMANDS_DIR)/build $(ARGS)
+	@$(TIME) $(COMMANDS_DIR)/build $(ARGS)
 
 run:
 	@$(COMMANDS_DIR)/run

@@ -4,6 +4,7 @@ COMMANDS_DIR=$(CURDIR)/commands
 HOME_DIR=$(CURDIR)/home
 TOOLS_DIR=$(CURDIR)/tools
 BASE_DIR=$(CURDIR)
+TIME=time -f "\n=== time ===\n\nreal\t%e\nuser\t%U\nsys\t%S\n"
 
 .PHONY: all
 
