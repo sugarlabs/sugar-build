@@ -37,11 +37,11 @@ def pull_one(module_name):
     return False
 
 
-def pull():
+def pull(lazy=False):
     environ.setup()
 
     for module in config.load_modules():
-        if not _pull_module(module):
+        if not _pull_module(module, lazy):
             return False
 
     return True
@@ -57,6 +57,8 @@ def build(full=False):
     _ccache_reset()
 
     state.full_build_touch()
+
+    pull(lazy=True)
 
     for module in config.load_modules():
         if state.built_module_is_unchanged(module):
@@ -107,11 +109,15 @@ def _unlink_libtool_files():
     os.path.walk(config.lib_dir, func, None)
 
 
-def _pull_module(module):
+def _pull_module(module, lazy=False):
+    git_module = module.get_git_module()
+    if lazy and os.path.exists(git_module.local):
+        return True
+
     print "\n=== Pulling %s ===\n" % module.name
 
     try:
-        module.get_git_module().update()
+        git_module.update()
     except subprocess.CalledProcessError:
         return False
 

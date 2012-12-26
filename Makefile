@@ -8,7 +8,7 @@ TIME=time -f "\n=== time ===\n\nreal\t%e\nuser\t%U\nsys\t%S\n"
 
 .PHONY: all
 
-all: pull build
+all: build
 
 include Makefile.config
 include Makefile.commands
