@@ -1,10 +1,10 @@
-TESTS_DATA=$(HOME_DIR)/testsdata
+TESTS_TMP=$(TESTS_DIR)/tmp
 
 test-devbot:
-	mkdir -p $(TESTS_DATA) && \
+	mkdir -p $(TESTS_TMP) && \
 	cd tests/devbot && \
-	TMPDIR=$(TESTS_DATA) PYTHONPATH=$(BASE_DIR) python -m unittest discover
-	rm -rf $(TESTS_DATA)
+	TMPDIR=$(TESTS_TMP) PYTHONPATH=$(BASE_DIR) python -m unittest discover
+	rm -rf $(TESTS_TMP)
 
 PYTHON_SCRIPTS = \
     $(COMMANDS_DIR)/build \
@@ -21,4 +21,4 @@ PYTHON_SCRIPTS = \
 pep8:
 	pep8 commands devbot tests $(PYTHON_SCRIPTS)
 
-check: test pep8 run-tests
+check: test-devbot pep8 run-tests

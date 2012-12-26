@@ -1,7 +1,7 @@
 SOURCE_DIR=$(CURDIR)/source
 BUILD_DIR=$(CURDIR)/build
 COMMANDS_DIR=$(CURDIR)/commands
-HOME_DIR=$(CURDIR)/home
+TESTS_DIR=$(CURDIR)/tests
 TOOLS_DIR=$(CURDIR)/tools
 BASE_DIR=$(CURDIR)
 TIME=time -f "\n= Time =\n\nreal\t%e\nuser\t%U\nsys\t%S\n"
