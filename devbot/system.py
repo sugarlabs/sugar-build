@@ -11,24 +11,32 @@ from devbot import state
 from devbot import utils
 from devbot import xvfb
 
+_checkers = {}
 
-def check_binary(check):
+
+def _check_binary(check):
     return subprocess.call(["which", check],
                            stdout=utils.devnull,
                            stderr=subprocess.STDOUT)
 
+_checkers["binary"] = _check_binary
 
-def check_pkgconfig(check):
+
+def _check_pkgconfig(check):
     return subprocess.call(["pkg-config", "--exists", check]) == 1
 
+_checkers["pkgconfig"] = _check_pkgconfig
 
-def check_python(check):
+
+def _check_python(check):
     return subprocess.call(["python", "-c", check],
                            stdout=utils.devnull,
                            stderr=subprocess.STDOUT) == 1
 
+_checkers["python"] = _check_python
 
-def check_gtkmodule(check):
+
+def _check_gtkmodule(check):
     # Not sure we can do better than this, the gtkmodule stuff is private
     missing = True
 
@@ -38,21 +46,29 @@ def check_gtkmodule(check):
 
     return missing
 
+_checkers["gtkmodule"] = _check_gtkmodule
 
-def check_include(check):
+
+def _check_include(check):
     return not os.path.exists(os.path.join("/usr/include/", check))
 
+_checkers["include"] = _check_include
 
-def check_dbus(check):
+
+def _check_dbus(check):
     return not os.path.exists("/usr/share/dbus-1/services/%s.service" % check)
 
+_checkers["dbus"] = _check_dbus
 
-def check_metacity_theme(check):
+
+def _check_metacity_theme(check):
     theme = "/usr/share/themes/%s/metacity-1/metacity-theme-3.xml"
     return not os.path.exists(theme % check)
 
+_checkers["metacity-theme"] = _check_metacity_theme
 
-def check_gstreamer(check, version):
+
+def _check_gstreamer(check, version):
     missing = True
 
     for libdir in config.system_lib_dirs:
@@ -63,22 +79,16 @@ def check_gstreamer(check, version):
     return missing
 
 
-def check_gstreamer_0_10(check):
+def _check_gstreamer_0_10(check):
     return check_gstreamer(check, "0.10")
 
+_checkers["gstreamer-0.10"] = _check_gstreamer_0_10
 
-def check_gstreamer_1_0(check):
+
+def _check_gstreamer_1_0(check):
     return check_gstreamer(check, "1.0")
 
-checkers = {"binary": check_binary,
-            "python": check_python,
-            "pkgconfig": check_pkgconfig,
-            "gtkmodule": check_gtkmodule,
-            "dbus": check_dbus,
-            "gstreamer-0.10": check_gstreamer_0_10,
-            "gstreamer-1.0": check_gstreamer_1_0,
-            "metacity-theme": check_metacity_theme,
-            "include": check_include}
+_checkers["gstreamer-1.0"] = _check_gstreamer_1_0
 
 
 def _print_checks(checks):
@@ -109,7 +119,7 @@ def _run_checks(package_manager, checks, packages):
         if not _eval_check_if(check):
             continue
 
-        checker = checkers[check["checker"]]
+        checker = _checkers[check["checker"]]
         if checker(check["check"]):
             try:
                 packages_for_check = packages[check["name"]][distro_info.name]
