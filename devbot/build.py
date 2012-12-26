@@ -111,6 +111,10 @@ def _eval_option(option):
     return eval(option, {"prefix": config.prefix_dir})
 
 def _build_autotools(module, log):
+    # Workaround for aclocal 1.11 (fixed in 1.12)
+    aclocal_path = os.path.join(config.share_dir, "aclocal")
+    utils.ensure_dir(aclocal_path)
+
     makefile_path = os.path.join(module.get_build_dir(), "Makefile")
 
     if not os.path.exists(makefile_path):

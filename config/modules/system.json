@@ -1,6 +1,6 @@
 [
     {
-        "branch": "v1.12.6", 
+        "branch": "sugar-build-v1.11.6", 
         "name": "automake", 
         "repo": "git://github.com/dnarvaez/automake.git"
     }, 

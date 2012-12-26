@@ -7,6 +7,7 @@ import tempfile
 from devbot import distro
 from devbot import plugins
 from devbot import git
+from devbot import utils
 
 config_dir = None
 logs_dir = None
@@ -66,10 +67,6 @@ class Module:
                   "delete it and pull\nthe source again."
             return None
 
-def _ensure_dir(dir):
-    if not os.path.exists(dir):
-        os.mkdir(dir)
-
 def setup(**kwargs):
     _load_plugins()
 
@@ -78,7 +75,7 @@ def setup(**kwargs):
 
     global logs_dir
     logs_dir = kwargs["logs_dir"]
-    _ensure_dir(logs_dir)
+    utils.ensure_dir(logs_dir)
 
     global _prefs_path
     _prefs_path = kwargs.get("prefs_path", None)
@@ -98,18 +95,18 @@ def setup(**kwargs):
     _setup_install_dir(kwargs["install_dir"], relocatable)
 
 def _setup_state_dir(state_dir):
-    _ensure_dir(state_dir)
+    utils.ensure_dir(state_dir)
 
     global build_state_dir
     build_state_dir = os.path.join(state_dir, "build")
-    _ensure_dir(build_state_dir)
+    utils.ensure_dir(build_state_dir)
 
     base_home_dir = os.path.join(state_dir, "home")
-    _ensure_dir(base_home_dir)
+    utils.ensure_dir(base_home_dir)
 
     global home_dir
     home_dir = os.path.join(base_home_dir, get_pref("PROFILE"))
-    _ensure_dir(home_dir)
+    utils.ensure_dir(home_dir)
 
 def _setup_prefix_dir(dir, relocatable):
     global prefix_dir
@@ -147,7 +144,7 @@ def _setup_install_dir(dir, relocatable=False):
     global libexec_dir
 
     install_dir = dir
-    _ensure_dir(install_dir)
+    utils.ensure_dir(install_dir)
 
     _setup_prefix_dir(dir, relocatable)
 
@@ -170,12 +167,12 @@ def _setup_install_dir(dir, relocatable=False):
 
 def get_source_dir():
     global _source_dir
-    _ensure_dir(_source_dir)
+    utils.ensure_dir(_source_dir)
     return _source_dir
 
 def get_build_dir():
     global _build_dir
-    _ensure_dir(_build_dir)
+    utils.ensure_dir(_build_dir)
     return _build_dir
 
 def _read_prefs():
