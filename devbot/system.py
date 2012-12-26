@@ -14,6 +14,43 @@ from devbot import xvfb
 _checkers = {}
 
 
+def check(remove=False, update=False, test=False, interactive=True,
+          skip_if_unchanged=False):
+    if skip_if_unchanged:
+        if state.system_check_is_unchanged():
+            return True
+
+    package_manager = \
+        distro.get_package_manager(test=test, interactive=interactive)
+
+    distro.print_distro_info()
+    distro_name = distro.get_distro_info().name
+    packages = config.load_packages()
+
+    checks = config.load_prerequisites()
+    if not _run_checks(package_manager, checks, packages):
+        return False
+
+    xvfb_proc, orig_display = xvfb.start()
+
+    if not _run_checks(package_manager, config.load_checks(), packages):
+        return False
+
+    xvfb.stop(xvfb_proc, orig_display)
+
+    print "All the required dependencies are installed."
+
+    if update:
+        package_manager.update()
+
+    if remove:
+        _remove_packages(package_manager, packages)
+
+    state.system_check_touch()
+
+    return True
+
+
 def _check_binary(check):
     return subprocess.call(["which", check],
                            stdout=utils.devnull,
@@ -178,40 +215,3 @@ def _remove_packages(package_manager, packages):
 
     if to_remove:
         package_manager.remove_packages(to_remove)
-
-
-def check(remove=False, update=False, test=False, interactive=True,
-          skip_if_unchanged=False):
-    if skip_if_unchanged:
-        if state.system_check_is_unchanged():
-            return True
-
-    package_manager = \
-        distro.get_package_manager(test=test, interactive=interactive)
-
-    distro.print_distro_info()
-    distro_name = distro.get_distro_info().name
-    packages = config.load_packages()
-
-    checks = config.load_prerequisites()
-    if not _run_checks(package_manager, checks, packages):
-        return False
-
-    xvfb_proc, orig_display = xvfb.start()
-
-    if not _run_checks(package_manager, config.load_checks(), packages):
-        return False
-
-    xvfb.stop(xvfb_proc, orig_display)
-
-    print "All the required dependencies are installed."
-
-    if update:
-        package_manager.update()
-
-    if remove:
-        _remove_packages(package_manager, packages)
-
-    state.system_check_touch()
-
-    return True
