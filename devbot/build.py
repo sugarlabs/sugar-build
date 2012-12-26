@@ -96,16 +96,16 @@ def clean():
 
     state.clean(build_only=True)
 
-    print "* Deleting install directory"
+    print "* Emptying install directory"
     _empty_dir(config.install_dir)
 
-    print "* Deleting build directory"
+    print "* Emptying build directory"
     _empty_dir(config.get_build_dir())
 
     for module in config.load_modules():
         if not module.out_of_source:
             if module.get_git_module().clean():
-                print "* Deleting %s" % module.name
+                print "* Cleaning %s" % module.name
 
 
 def _ccache_reset():
