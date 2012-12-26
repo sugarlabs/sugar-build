@@ -106,15 +106,15 @@ class DistroInfo(interfaces.DistroInfo):
 
         try:
             with open(self._DEBIAN_VERSION_PATH) as f:
-                debian_version = f.read()
+                debian_version = f.read().strip()
         except IOError:
             debian_version = None
 
         if debian_version is None:
             self.valid = False
 
-        if debian_version and debian_version.startswith("wheezy"):
-            self.version = "wheezy"
+        if debian_version and debian_version == "7.0":
+            self.version = "7.0"
         else:
             self.supported = False
 
