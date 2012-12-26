@@ -23,7 +23,7 @@ def run(args, test=False, retry=0):
         return
 
     if _log_path:
-        stdout = open(_log_path, "w")
+        stdout = open(_log_path, "a")
         stderr = subprocess.STDOUT
     else:
         stdout = None
