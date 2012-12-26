@@ -26,7 +26,6 @@ build_state_dir = None
 _source_dir = None
 _build_dir = None
 _prefs_path = None
-_extra_packages_files = []
 
 class Module:
     def __init__(self, info):
@@ -85,9 +84,6 @@ def setup(**kwargs):
 
     global _build_dir
     _build_dir = kwargs["build_dir"]
-
-    global _extra_packages_files
-    _extra_packages_files = kwargs.get("extra_packages_files", [])
 
     relocatable = kwargs.get("relocatable", False)
 
@@ -231,16 +227,14 @@ def _load_plugins():
         f, filename, desc = imp.find_module(name, plugins.__path__)
         imp.load_module(name, f, filename, desc)
 
-def _read_index(dir_name, extra=[]):
-    files = extra[:]
-
+def _read_index(dir_name):
     if config_dir is None:
-        return files
+        return []
 
     index_dir = os.path.join(config_dir, dir_name)
     with open(os.path.join(index_dir, "index.json")) as f:
-        files.extend(json.load(f))
-        return [os.path.join(index_dir, json_file) for json_file in files]
+        return [os.path.join(index_dir, json_file) \
+                for json_file in json.load(f)]
 
 def get_full_build():
     config = None
@@ -252,7 +246,7 @@ def get_full_build():
 def load_packages():
     packages = {}
 
-    for path in _read_index("packages", _extra_packages_files):
+    for path in _read_index("packages"):
         packages.update(json.load(open(path)))
 
     return packages

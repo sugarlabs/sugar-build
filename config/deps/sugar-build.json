@@ -40,6 +40,11 @@
         "name": "time"
     }, 
     {
+        "check": "virtualenv", 
+        "checker": "binary", 
+        "name": "virtualenv"
+    }, 
+    {
         "check": "x11", 
         "checker": "pkgconfig", 
         "name": "x11"

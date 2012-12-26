@@ -791,6 +791,17 @@
             "time"
         ]
     }, 
+    "virtualenv": {
+        "debian": [
+            "python-virtualenv"
+        ], 
+        "fedora": [
+            "python-virtualenv"
+        ], 
+        "ubuntu": [
+            "python-virtualenv"
+        ]
+    }, 
     "vte python": {
         "debian": [
             "python-vte"
