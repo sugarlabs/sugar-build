@@ -3,6 +3,7 @@ import subprocess
 
 from devbot import command
 from devbot import utils
+from devbot import config
 
 _root_path = None
 
@@ -126,6 +127,15 @@ class Module:
 def set_root_path(path):
     global _root_path
     _root_path = path
+
+
+def get_module(module):
+    return Module(path=config.get_source_dir(),
+                  name=module.name,
+                  remote=module.repo,
+                  branch=module.branch,
+                  tag=module.tag,
+                  retry=10)
 
 
 def get_root_module():

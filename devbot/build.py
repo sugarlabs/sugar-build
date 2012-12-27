@@ -12,6 +12,7 @@ from devbot import environ
 from devbot import state
 from devbot import utils
 from devbot import release
+from devbot import git
 
 _builders = {}
 _distributors = {}
@@ -42,7 +43,7 @@ def pull(lazy=False):
 
     to_pull = []
     for module in config.load_modules():
-        git_module = module.get_git_module()
+        git_module = git.get_module(module)
         if not lazy or not os.path.exists(git_module.local):
             to_pull.append(module)
 
@@ -111,7 +112,7 @@ def clean():
 
     for module in config.load_modules():
         if not module.out_of_source:
-            if module.get_git_module().clean():
+            if git.get_module(module).clean():
                 print "* Cleaning %s" % module.name
 
 
@@ -135,7 +136,7 @@ def _unlink_libtool_files():
 def _pull_module(module):
     print "* Pulling %s" % module.name
 
-    git_module = module.get_git_module()
+    git_module = git.get_module(module)
 
     try:
         git_module.update()
@@ -191,7 +192,7 @@ def _distribute_autotools(module):
     filename = makefile["DIST_ARCHIVES"]
     version = makefile["VERSION"]
 
-    git_module = module.get_git_module()
+    git_module = git.get_module(module)
 
     version_revision = None
     description = git_module.describe()

@@ -6,7 +6,6 @@ import tempfile
 
 from devbot import distro
 from devbot import plugins
-from devbot import git
 from devbot import utils
 from devbot import command
 
@@ -51,11 +50,6 @@ class Module:
 
     def get_build_dir(self):
         return os.path.join(get_build_dir(), self.name)
-
-    def get_git_module(self):
-        return git.Module(path=get_source_dir(), name=self.name,
-                          remote=self.repo, branch=self.branch, tag=self.tag,
-                          retry=10)
 
     def get_build_system(self):
         source_dir = self.get_source_dir()

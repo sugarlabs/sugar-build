@@ -11,7 +11,7 @@ _SYSTEM_CHECK = "syscheck"
 
 
 def built_module_touch(module):
-    git_module = module.get_git_module()
+    git_module = git.get_module(module)
     built_modules = _load_state(_BUILT_MODULES, {})
 
     info = {"commit": git_module.get_commit_id(),
@@ -22,7 +22,7 @@ def built_module_touch(module):
 
 
 def built_module_is_unchanged(module):
-    git_module = module.get_git_module()
+    git_module = git.get_module(module)
     built_modules = _load_state(_BUILT_MODULES, {})
     if module.name not in built_modules:
         return False
