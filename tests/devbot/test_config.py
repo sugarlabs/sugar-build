@@ -107,7 +107,7 @@ class TestConfig(common.DevbotTestCase):
         self._unset_distro()
 
     def test_debian_wheezy_modules(self):
-        self._set_distro("debian", "wheezy")
+        self._set_distro("debian", "7.0")
 
         modules = config.load_modules()
         self._assert_module(modules, "gnome-keyring")
