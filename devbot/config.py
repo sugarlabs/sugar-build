@@ -89,7 +89,7 @@ def setup(**kwargs):
 
     global log_path
     if "log_name" in kwargs:
-        log_path = create_log(kwargs["log_name"])
+        log_path = _create_log(kwargs["log_name"])
 
 
 def get_source_dir():
@@ -102,31 +102,6 @@ def get_build_dir():
     global _build_dir
     utils.ensure_dir(_build_dir)
     return _build_dir
-
-
-def create_log(prefix):
-    logfile_path = None
-    number = 0
-
-    while logfile_path is None:
-        name = "%s-%d.log" % (prefix, number)
-        path = os.path.join(logs_dir, name)
-
-        if not os.path.exists(path):
-            logfile_path = path
-
-        number = number + 1
-
-    link_path = os.path.join(logs_dir, "%s.log" % prefix)
-
-    try:
-        os.unlink(link_path)
-    except OSError:
-        pass
-
-    os.symlink(logfile_path, link_path)
-
-    return logfile_path
 
 
 def get_pref(name):
@@ -179,6 +154,31 @@ def load_modules():
             modules.append(info)
 
     return [Module(info) for info in filter(_filter_if, modules)]
+
+
+def create_log(prefix):
+    logfile_path = None
+    number = 0
+
+    while logfile_path is None:
+        name = "%s-%d.log" % (prefix, number)
+        path = os.path.join(logs_dir, name)
+
+        if not os.path.exists(path):
+            logfile_path = path
+
+        number = number + 1
+
+    link_path = os.path.join(logs_dir, "%s.log" % prefix)
+
+    try:
+        os.unlink(link_path)
+    except OSError:
+        pass
+
+    os.symlink(logfile_path, link_path)
+
+    return logfile_path
 
 
 def _filter_if(item):
