@@ -53,7 +53,7 @@ def run_test(command, test_path, virtual=False):
     os.rmdir(temp_dir)
 
     try:
-        subprocess.check_call(["python", test_path])
+        subprocess.check_call(["python", "-u", test_path])
         result = True
     except subprocess.CalledProcessError:
         result = False
