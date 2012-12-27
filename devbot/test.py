@@ -37,7 +37,7 @@ def _test_module(module):
         xvfb_proc, orig_display = xvfb.start()
 
         try:
-            command.run(["make", "test"])
+            command.run(["make", "check"])
         except subprocess.CalledProcessError:
             result = False
 
