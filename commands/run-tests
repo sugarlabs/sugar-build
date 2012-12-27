@@ -10,7 +10,7 @@ import common
 from devbot import run
 from devbot import test
 
-common.setup()
+common.setup(log_name="test")
 
 
 def _run_ui_tests():
@@ -23,7 +23,7 @@ def _run_ui_tests():
     result = run.run_test("sugar-runner", test_path, virtual)
 
     logs_path = os.path.join(profile_path, "logs")
-    run.collect_logs(logs_path, "test")
+    run.collect_logs(logs_path)
 
     if not result:
         sys.exit(1)

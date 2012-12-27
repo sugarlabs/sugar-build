@@ -5,6 +5,7 @@ import string
 import random
 import shutil
 import subprocess
+import sys
 import time
 import tempfile
 
@@ -24,6 +25,12 @@ def run(command):
     output = config.get_pref("OUTPUT")
     if output:
         args.extend(["--output", output])
+
+    stdout = open(config.log_path, 'a')
+    stderr = stdout
+
+    os.dup2(stdout.fileno(), sys.stdout.fileno())
+    os.dup2(stderr.fileno(), sys.stderr.fileno())
 
     os.execlp(args[0], *args)
 
@@ -63,7 +70,7 @@ def run_test(command, test_path, virtual=False):
     return result
 
 
-def collect_logs(source_path, log_name):
+def collect_logs(source_path):
     logs = {}
     for filename in os.listdir(source_path):
         if filename.endswith(".log"):

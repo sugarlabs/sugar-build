@@ -8,7 +8,7 @@ import common
 from devbot import run
 from devbot import build
 
-common.setup()
+common.setup(log_name="run")
 
 if not build.build():
     sys.exit(1)
