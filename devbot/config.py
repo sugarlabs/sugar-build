@@ -96,9 +96,6 @@ def setup(**kwargs):
     if "log_name" in kwargs:
         command.set_log_path(create_log(kwargs["log_name"]))
 
-    if "logger" in kwargs:
-        command.set_logger(kwargs["logger"])
-
 
 def get_source_dir():
     global _source_dir

@@ -3,18 +3,12 @@ import time
 
 from devbot import utils
 
-_logger = None
 _log_path = None
 
 
 def set_log_path(path):
     global _log_path
     _log_path = path
-
-
-def set_logger(logger):
-    global _logger
-    _logger = logger
 
 
 def run(args, test=False, retry=0):
