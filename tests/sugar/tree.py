@@ -16,7 +16,7 @@ def _retry_find(func):
         result = None
         n_retries = 1
 
-        while n_retries <= 10:
+        while n_retries <= 50:
             logging.info("Try %d, name=%s role_name=%s" %
                          (n_retries,
                           kwargs.get("name", None),
@@ -37,7 +37,7 @@ def _retry_find(func):
                (expect_none and not result):
                 return result
 
-            time.sleep(5)
+            time.sleep(1)
             n_retries = n_retries + 1
 
         return result
