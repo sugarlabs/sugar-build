@@ -121,7 +121,7 @@ def _ccache_reset():
 
 
 def _ccache_print_stats():
-    print "= ccache statistics ="
+    print "\n= ccache statistics =\n"
     subprocess.check_call(["ccache", "-s"])
 
 
