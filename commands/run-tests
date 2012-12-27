@@ -17,10 +17,8 @@ def _run_ui_tests():
     profile_path = os.path.expanduser("~/.sugar/uitests")
     shutil.rmtree(profile_path, ignore_errors=True)
 
-    virtual = "SUGAR_BUILDBOT" in os.environ
     test_path = os.path.join(common.base_dir, "tests", "sugar", "shell.py")
-
-    result = run.run_test("sugar-runner", test_path, virtual)
+    result = run.run_test("sugar-runner", test_path)
 
     logs_path = os.path.join(profile_path, "logs")
     run.collect_logs(logs_path)

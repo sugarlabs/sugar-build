@@ -35,15 +35,15 @@ def run(command):
     os.execlp(args[0], *args)
 
 
-def run_test(command, test_path, virtual=False):
+def run_test(command, test_path):
     environ.setup()
 
     temp_dir = tempfile.mkdtemp("sugar-build-test")
     display_path = os.path.join(temp_dir, "display")
 
-    args = [command, "--display-path", display_path]
-    if virtual:
-        args.append("--virtual")
+    args = [command,
+            "--display-path", display_path,
+            "--virtual"]
 
     command_process = subprocess.Popen(args, stdout=subprocess.PIPE)
 
