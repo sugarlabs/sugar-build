@@ -2,22 +2,15 @@ import subprocess
 import time
 
 from devbot import utils
-
-_log_path = None
-
-
-def set_log_path(path):
-    global _log_path
-    _log_path = path
-
+from devbot import config
 
 def run(args, test=False, retry=0):
     if test:
         print " ".join(args)
         return
 
-    if _log_path:
-        stdout = open(_log_path, "a")
+    if config.log_path:
+        stdout = open(config.log_path, "a")
         stderr = subprocess.STDOUT
     else:
         stdout = None
@@ -30,9 +23,9 @@ def run(args, test=False, retry=0):
             subprocess.check_call(args, stdout=stdout, stderr=stderr)
             break
         except subprocess.CalledProcessError, e:
-            print "\nCommand failed, tail of %s\n" % _log_path
-            if _log_path:
-                subprocess.call(["tail", _log_path])
+            print "\nCommand failed, tail of %s\n" % config.log_path
+            if config.log_path:
+                subprocess.call(["tail", config.log_path])
 
             if tries < retry + 1:
                 print "Retrying (attempt %d) in 1 minute" % tries

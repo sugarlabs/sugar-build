@@ -7,7 +7,6 @@ import tempfile
 from devbot import distro
 from devbot import plugins
 from devbot import utils
-from devbot import command
 
 config_dir = None
 logs_dir = None
@@ -22,6 +21,7 @@ package_files = None
 system_lib_dirs = None
 home_dir = None
 build_state_dir = None
+log_path = None
 
 _source_dir = None
 _build_dir = None
@@ -87,8 +87,9 @@ def setup(**kwargs):
     _setup_state_dir(kwargs["state_dir"])
     _setup_install_dir(kwargs["install_dir"], relocatable)
 
+    global log_path
     if "log_name" in kwargs:
-        command.set_log_path(create_log(kwargs["log_name"]))
+        log_path = create_log(kwargs["log_name"])
 
 
 def get_source_dir():
