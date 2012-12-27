@@ -2,6 +2,7 @@ import logging
 import time
 
 from gi.repository import Atspi
+from gi.repository import GLib
 
 Atspi.set_timeout(-1, -1)
 
@@ -21,7 +22,16 @@ def _retry_find(func):
                           kwargs.get("name", None),
                           kwargs.get("role_name", None)))
 
-            result = func(*args, **kwargs)
+            try:
+                result = func(*args, **kwargs)
+            except GLib.GError, e:
+                # The application is not responding, try again
+                if e.code == Atspi.Error.IPC:
+                    continue
+
+                logging.error("GError code %d", e.code)
+                raise
+
             expect_none = kwargs.get("expect_none", False)
             if (not expect_none and result) or \
                (expect_none and not result):
