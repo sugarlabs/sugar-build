@@ -1,6 +1,7 @@
 import logging
 import sys
 import time
+import traceback
 
 import tree
 
@@ -83,4 +84,9 @@ def main():
     for activity in build_activities_list():
         launch_and_stop_activity(activity)
 
-main()
+try:
+    main()
+except:
+    logging.error(traceback.format_exc())
+    logging.error("\n%s" % tree.get_root().dump())
+    raise

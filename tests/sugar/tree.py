@@ -30,8 +30,6 @@ def _retry_find(func):
             time.sleep(5)
             n_retries = n_retries + 1
 
-        get_root().dump()
-
         return result
 
     return wrapped
@@ -42,7 +40,9 @@ class Node:
         self._accessible = accessible
 
     def dump(self):
-        self._crawl_accessible(self, 0)
+        lines = []
+        self._crawl_accessible(self, 0, lines)
+        return "\n".join(lines)
 
     def do_action(self, name):
         for i in range(self._accessible.get_n_actions()):
@@ -130,8 +130,8 @@ class Node:
         for child in node.get_children():
             self._find_all_descendants(child, predicate, matches)
 
-    def _crawl_accessible(self, node, depth):
-        print "  " * depth + str(node)
+    def _crawl_accessible(self, node, depth, lines):
+        lines.append("  " * depth + str(node))
 
         for child in node.get_children():
-            self._crawl_accessible(child, depth + 1)
+            self._crawl_accessible(child, depth + 1, lines)
