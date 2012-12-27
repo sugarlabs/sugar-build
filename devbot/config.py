@@ -156,7 +156,7 @@ def load_modules():
     return [Module(info) for info in filter(_filter_if, modules)]
 
 
-def create_log(prefix):
+def _create_log(prefix):
     logfile_path = None
     number = 0
 
