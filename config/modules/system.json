@@ -45,7 +45,7 @@
         "if": "gnome_version == '3.4'", 
         "name": "at-spi2-core", 
         "repo": "git://git.gnome.org/at-spi2-core", 
-        "tag": "ca6778ba2a6c4fed24d5468213f8ed918f3dcbe4"
+        "tag": "AT_SPI2_CORE_2_6_3"
     }, 
     {
         "if": "gnome_version == '3.4'", 
