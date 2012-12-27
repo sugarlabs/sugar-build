@@ -62,18 +62,25 @@ def build(full=False):
 
     environ.setup()
 
-    _ccache_reset()
-
     state.full_build_touch()
 
     pull(lazy=True)
 
-    print "\n= Building =\n"
-
+    to_build = []
     for module in config.load_modules():
         if not state.built_module_is_unchanged(module):
-            if not _build_module(module):
-                return False
+            to_build.append(module)
+
+    if not to_build:
+        return True
+
+    print "\n= Building =\n"
+
+    _ccache_reset()
+
+    for module in to_build:
+        if not _build_module(module):
+            return False
 
     _ccache_print_stats()
 
