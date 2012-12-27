@@ -1,3 +1,4 @@
+import logging
 import sys
 import time
 
@@ -25,7 +26,7 @@ def build_activities_list():
 
 
 def launch_and_stop_activity(activity_name):
-    print "Launching %s" % activity_name
+    logging.info("Launching %s" % activity_name)
 
     root = tree.get_root()
     shell = root.find_child(name="sugar-session", role_name="application")
@@ -40,7 +41,7 @@ def launch_and_stop_activity(activity_name):
         if name == activity_name:
             icon.click()
 
-            print "Stopping %s" % activity_name
+            logging.info("Stopping %s" % activity_name)
 
             if activity_name in ACTIVITIES_WITH_OBJECT_CHOOSER:
                 close_button = shell.find_child(name="Close",
@@ -73,6 +74,10 @@ def go_to_list_view():
 
 
 def main():
+    format = "%(created)f %(message)s"
+    logging.basicConfig(format=format)
+    logging.root.setLevel(logging.DEBUG)
+
     go_to_list_view()
 
     for activity in build_activities_list():

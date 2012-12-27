@@ -1,3 +1,4 @@
+import logging
 import time
 
 from gi.repository import Atspi
@@ -15,10 +16,10 @@ def _retry_find(func):
         n_retries = 1
 
         while n_retries <= 10:
-            print "Try %d, name=%s role_name=%s" % \
-                  (n_retries,
-                   kwargs.get("name", None),
-                   kwargs.get("role_name", None))
+            logging.info("Try %d, name=%s role_name=%s" %
+                         (n_retries,
+                          kwargs.get("name", None),
+                          kwargs.get("role_name", None)))
 
             result = func(*args, **kwargs)
             expect_none = kwargs.get("expect_none", False)
