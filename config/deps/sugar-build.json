@@ -38,7 +38,7 @@
         "check": "pylint", 
         "checker": "binary", 
         "name": "pylint"
-    },  
+    }, 
     {
         "check": "scp", 
         "checker": "binary", 

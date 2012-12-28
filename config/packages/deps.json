@@ -1,15 +1,4 @@
 {
-    "pylint": {
-        "debian": [
-            "pylint"
-        ], 
-        "fedora": [
-            "pylint"
-        ], 
-        "ubuntu": [
-            "pylint"
-        ]
-    }, 
     "Adwaita": {
         "debian": [
             "gnome-themes-standard"
@@ -712,6 +701,17 @@
         ], 
         "ubuntu": [
             "python-gtk2-dev"
+        ]
+    }, 
+    "pylint": {
+        "debian": [
+            "pylint"
+        ], 
+        "fedora": [
+            "pylint"
+        ], 
+        "ubuntu": [
+            "pylint"
         ]
     }, 
     "python": {
