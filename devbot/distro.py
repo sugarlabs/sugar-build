@@ -1,6 +1,3 @@
-import os
-import subprocess
-
 _package_managers = {}
 _supported_distros = []
 _distro_info = None

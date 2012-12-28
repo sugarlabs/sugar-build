@@ -18,7 +18,10 @@ PYTHON_SCRIPTS = \
     $(COMMANDS_DIR)/send-patches \
     $(TOOLS_DIR)/json-normalize
 
+pylint:
+	pylint devbot --disable=C,W,R,E --enable=W0611
+
 pep8:
 	pep8 commands devbot tests $(PYTHON_SCRIPTS)
 
-check: test-devbot pep8 run-tests
+check: test-devbot pep8 pylint run-tests

@@ -1,12 +1,8 @@
-import json
 import os
 import subprocess
-import sys
 
 from devbot import config
-from devbot import git
 from devbot import distro
-from devbot import command
 from devbot import state
 from devbot import utils
 from devbot import xvfb

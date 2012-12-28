@@ -1,9 +1,6 @@
-#!/usr/bin/python -u
-
 import os
 import string
 import random
-import shutil
 import subprocess
 import sys
 import time

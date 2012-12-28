@@ -1,4 +1,15 @@
 {
+    "pylint": {
+        "debian": [
+            "pylint"
+        ], 
+        "fedora": [
+            "pylint"
+        ], 
+        "ubuntu": [
+            "pylint"
+        ]
+    }, 
     "Adwaita": {
         "debian": [
             "gnome-themes-standard"

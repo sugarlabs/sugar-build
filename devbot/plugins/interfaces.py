@@ -1,10 +1,3 @@
-import os
-import subprocess
-
-from devbot import command
-from devbot import distro
-
-
 class PackageManager:
     """Package management"""
 

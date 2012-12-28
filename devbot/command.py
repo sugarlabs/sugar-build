@@ -1,7 +1,6 @@
 import subprocess
 import time
 
-from devbot import utils
 from devbot import config
 
 
