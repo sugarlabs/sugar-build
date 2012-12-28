@@ -17,8 +17,10 @@ def _clear_profile():
     profile_path = os.path.expanduser("~/.sugar/uitests")
     shutil.rmtree(profile_path, ignore_errors=True)
 
+
 def _get_test_path(name):
     return os.path.join(common.base_dir, "tests", "sugar", name)
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to test")
@@ -34,6 +36,7 @@ else:
     if not test.test():
         sys.exit(1)
 
+    _clear_profile()
     if run.run_test("sugar-runner", _get_test_path("shell.py")):
         sys.exit(1)
 
