@@ -12,7 +12,6 @@ from devbot import state
 from devbot import utils
 from devbot import release
 from devbot import git
-from devbot import system
 
 _builders = {}
 _distributors = {}

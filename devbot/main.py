@@ -9,6 +9,7 @@ from devbot import build
 from devbot import state
 from devbot import clean
 
+
 def run_build(full=False):
     if full or state.full_build_is_required():
         clean.clean(build_only=True)
@@ -23,6 +24,8 @@ def run_build(full=False):
 
     if not build.build(full=False):
         return False
+
+    return True
 
 
 def load_plugins():
