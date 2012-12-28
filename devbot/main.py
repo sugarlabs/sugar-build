@@ -4,6 +4,25 @@ import imp
 from devbot import config
 from devbot import environ
 from devbot import plugins
+from devbot import system
+from devbot import build
+from devbot import state
+from devbot import clean
+
+def run_build(full=False):
+    if full or state.full_build_is_required():
+        clean.clean(build_only=True)
+
+    state.full_build_touch()
+
+    if not system.check(lazy=True):
+        return False
+
+    if not build.pull(lazy=True):
+        return False
+
+    if not build.build(full=False):
+        return False
 
 
 def load_plugins():

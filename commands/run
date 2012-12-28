@@ -5,18 +5,11 @@ import sys
 import common
 
 from devbot import run
-from devbot import build
-from devbot import system
+from devbot import main
 
 common.setup(log_name="run")
 
-if not system.check(lazy=True):
-    sys.exit(1)
-
-if not build.pull(lazy=True):
-    sys.exit(1)
-
-if not build.build():
+if not main.run_build():
     sys.exit(1)
 
 run.run("sugar-runner")

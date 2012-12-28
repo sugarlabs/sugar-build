@@ -52,12 +52,6 @@ def pull(lazy=False):
 
 
 def build(full=False):
-    if full or state.full_build_is_required():
-        from devbot import clean
-        clean.clean(build_only=True)
-
-    state.full_build_touch()
-
     to_build = []
     for module in config.load_modules():
         if not state.built_module_is_unchanged(module):
