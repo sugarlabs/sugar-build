@@ -25,6 +25,7 @@ def built_module_is_unchanged(module):
 
     return source_hash == _compute_source_hash(module)
 
+
 def system_check_is_unchanged():
     system_check = _load_state(_SYSTEM_CHECK)
     if not system_check:
