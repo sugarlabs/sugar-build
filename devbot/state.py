@@ -11,27 +11,19 @@ _SYSTEM_CHECK = "syscheck"
 
 
 def built_module_touch(module):
-    git_module = git.get_module(module)
     built_modules = _load_state(_BUILT_MODULES, {})
-
-    info = {"commit": git_module.get_commit_id(),
-            "diff_hash": _get_diff_hash(git_module)}
-    built_modules[module.name] = info
-
+    built_modules[module.name] = {"source_hash": _compute_source_hash(module)}
     _save_state(_BUILT_MODULES, built_modules)
 
 
 def built_module_is_unchanged(module):
-    git_module = git.get_module(module)
     built_modules = _load_state(_BUILT_MODULES, {})
     if module.name not in built_modules:
         return False
 
-    info = built_modules[module.name]
+    source_hash = built_modules[module.name].get("source_hash", None)
 
-    return info["diff_hash"] == _get_diff_hash(git_module) and \
-           info["commit"] == git_module.get_commit_id()
-
+    return source_hash == _compute_source_hash(module)
 
 def system_check_is_unchanged():
     system_check = _load_state(_SYSTEM_CHECK)
@@ -97,12 +89,19 @@ def _save_state(name, state):
         f.write('\n')
 
 
-def _get_diff_hash(git_module):
-    diff = git_module.diff().strip()
-    if diff:
-        return hashlib.sha256(diff).hexdigest()
-    else:
-        return None
+def _compute_source_hash(module):
+    # For some reason if source_dir is unicode
+    # we get a 10x slow down for some modules
+    source_dir = str(module.get_source_dir())
+
+    data = ""
+    for root, dirs, files in os.walk(source_dir):
+        for name in files:
+            path = os.path.join(root, name)
+            mtime = os.lstat(path).st_mtime
+            data = "%s%s %s\n" % (data, mtime, path)
+
+    return hashlib.sha256(data).hexdigest()
 
 
 def _get_root_commit_id():

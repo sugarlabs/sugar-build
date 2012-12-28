@@ -78,10 +78,6 @@ class Module:
         return subprocess.check_output(["git", "describe"]).strip()
 
     @_chdir
-    def diff(self):
-        return subprocess.check_output(["git", "diff"])
-
-    @_chdir
     def is_valid(self):
         result = subprocess.call(["git", "rev-parse", "HEAD"],
                                  stdout=utils.devnull,
