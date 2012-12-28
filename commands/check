@@ -101,13 +101,13 @@ def _check_ui():
 def _run_checks():
     print "\n= Check =\n"
 
-    if not _check_devbot():
-        return False
-
     if not check.check():
         return False
 
     if not _check_ui():
+        return False
+
+    if not _check_devbot():
         return False
 
     return True
