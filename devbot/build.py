@@ -12,6 +12,7 @@ from devbot import state
 from devbot import utils
 from devbot import release
 from devbot import git
+from devbot import system
 
 _builders = {}
 _distributors = {}
@@ -57,7 +58,11 @@ def build(full=False):
 
     state.full_build_touch()
 
-    pull(lazy=True)
+    if not system.check(lazy=True):
+        return False
+
+    if not pull(lazy=True):
+        return False
 
     to_build = []
     for module in config.load_modules():

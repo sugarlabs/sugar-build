@@ -11,8 +11,8 @@ _checkers = {}
 
 
 def check(remove=False, update=False, test=False, interactive=True,
-          skip_if_unchanged=False):
-    if skip_if_unchanged:
+          lazy=False):
+    if lazy:
         if state.system_check_is_unchanged():
             return True
 

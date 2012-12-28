@@ -5,7 +5,6 @@ import sys
 
 import common
 
-from devbot import system
 from devbot import build
 
 parser = argparse.ArgumentParser()
@@ -14,9 +13,6 @@ parser.add_argument("--full", action="store_true", help="force a full build")
 args = parser.parse_args()
 
 common.setup(log_name="build")
-
-if not system.check(skip_if_unchanged=True):
-    sys.exit(1)
 
 if args.module:
     success = build.build_one(args.module)
