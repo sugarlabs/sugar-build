@@ -10,7 +10,7 @@ import common
 from devbot import run
 from devbot import check
 from devbot import command
-
+from devbot import system
 
 def _get_profile():
     profile_path = os.path.expanduser("~/.sugar/uitests")

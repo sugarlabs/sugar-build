@@ -58,12 +58,6 @@ def build(full=False):
 
     state.full_build_touch()
 
-    if not system.check(lazy=True):
-        return False
-
-    if not pull(lazy=True):
-        return False
-
     to_build = []
     for module in config.load_modules():
         if not state.built_module_is_unchanged(module):
