@@ -1,0 +1,5 @@
+DOCS_SOURCE=$(BUILD_DIR)/sugar-docs/html/
+DOCS_DEST=dnarvaez@shell.sugarlabs.org:~/public_html/sugar-docs/
+
+docs-upload:
+	rsync -r --progress $(DOCS_SOURCE) $(DOCS_DEST)

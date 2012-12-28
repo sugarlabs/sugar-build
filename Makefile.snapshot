@@ -1,6 +1,3 @@
-DOCS_SOURCE=$(BUILD_DIR)/sugar-docs/html/
-DOCS_DEST=dnarvaez@shell.sugarlabs.org:~/public_html/sugar-docs/
-
 SNAPSHOT_DEST_HOST=dnarvaez@shell.sugarlabs.org
 SNAPSHOT_DEST_ROOT=/home/dnarvaez/public_html/snapshots/
 SNAPSHOT_DEST_DIR=$(SUGAR_BUILDBOT)
@@ -9,11 +6,6 @@ SNAPSHOT_FILENAME=sugar-snapshot.tar
 SNAPSHOT_PATH=$(SNAPSHOT_TMP_DIR)/$(SNAPSHOT_FILENAME)
 SNAPSHOT_TMP_DIR:=$(shell mktemp -dut sugar-snapshot-XXXXXXXX)
 	
-.PHONY: upload-docs upload-snapshot
-
-docs-upload:
-	rsync -r --progress $(DOCS_SOURCE) $(DOCS_DEST)
-
 snapshot-build:
 	@echo "Creating snapshot"
 	@$(TOOLS_DIR)/build-snapshot $(SNAPSHOT_PATH)
