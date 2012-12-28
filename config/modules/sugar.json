@@ -34,7 +34,7 @@
     }, 
     {
         "distribute": true, 
-        "has_tests": true, 
+        "has_checks": true, 
         "name": "sugar-runner", 
         "repo": "git://git.sugarlabs.org/sugar-runner/sugar-runner.git"
     }

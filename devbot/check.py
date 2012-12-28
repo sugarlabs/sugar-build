@@ -7,30 +7,30 @@ from devbot import xvfb
 from devbot import build
 
 
-def test_one(module_name):
+def check_one(module_name):
     for module in config.load_modules():
         if module.name == module_name:
-            return _test_module(module)
+            return _check_module(module)
 
     return False
 
 
-def test():
+def check():
     if not build.build():
         return False
 
     modules = config.load_modules()
     for module in modules:
-        if not _test_module(module):
+        if not _check_module(module):
             return False
 
     return True
 
 
-def _test_module(module):
+def _check_module(module):
     result = True
 
-    if module.has_tests:
+    if module.has_checks:
         print "* Checking %s" % module.name
 
         os.chdir(module.get_build_dir())

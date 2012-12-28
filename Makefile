@@ -14,4 +14,3 @@ include Makefile.config
 include Makefile.commands
 include Makefile.snapshot
 include Makefile.docs
-include Makefile.check

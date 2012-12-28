@@ -1,0 +1,109 @@
+#!/usr/bin/python -u
+
+import argparse
+import os
+import shutil
+import sys
+
+import common
+
+from devbot import run
+from devbot import check
+from devbot import command
+
+
+def _get_profile():
+    profile_path = os.path.expanduser("~/.sugar/uitests")
+    shutil.rmtree(profile_path, ignore_errors=True)
+    return profile_path
+
+
+def _get_test_path(name):
+    return os.path.join(common.base_dir, "tests", "sugar", name)
+
+
+def _get_python_scripts():
+    shebang = "#!/usr/bin/python"
+    dirs = ["commands", "tools"]
+    scripts = []
+
+    for dir_name in dirs:
+        dir_path = os.path.join(common.base_dir, dir_name)
+        for name in os.listdir(dir_path):
+            script_path = os.path.join(dir_path, name)
+            with open(script_path) as f:
+                if f.read(len(shebang)) == shebang:
+                    scripts.append(script_path)
+
+    return scripts
+
+
+def _check_devbot():
+    print "* Checking devbot"
+
+    args = ["pep8"]
+
+    for dir_name in ["devbot", "tests"]:
+        args.append(os.path.join(common.base_dir, dir_name))
+
+    args.extend(_get_python_scripts())
+
+    command.run(args)
+
+    args = ["pylint", "--reports=n", "--disable=C,W,R,E,F", "--enable=W0611"]
+    args.append(os.path.join(common.base_dir, "devbot"))
+    args.extend(_get_python_scripts())
+
+    command.run(args)
+
+    tests_tmp = os.path.join(common.base_dir, "tests", "tmp")
+    try:
+        os.mkdir(tests_tmp)
+    except OSError:
+        pass
+
+    os.environ["TESTS_TMP"] = tests_tmp
+    os.environ["PYTHONPATH"] = common.base_dir
+
+    command.run(["python", "-m", "unittest", "discover",
+                os.path.join(common.base_dir, "tests", "devbot")])
+
+    shutil.rmtree(tests_tmp, ignore_errors=True)
+
+
+def _check_ui():
+    print "* Checking UI"
+
+    profile_path = _get_profile()
+    result = run.run_test("sugar-runner", _get_test_path("shell.py"))
+    run.collect_logs(os.path.join(profile_path, "logs"))
+
+    return result
+
+
+def _check_modules():
+    return check.check()
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("module", nargs="?", help="name of the module to test")
+args = parser.parse_args()
+
+common.setup(log_name="check")
+
+os.environ["SUGAR_LOGGER_LEVEL"] = "debug"
+os.environ["SUGAR_PROFILE"] = "uitests"
+os.environ["GTK_MODULES"] = "gail:atk-bridge"
+
+if args.module:
+    check.check_one(args.module)
+else:
+    print "\n= Checking =\n"
+
+    _check_devbot()
+
+    if not _check_modules():
+        sys.exit(1)
+
+    if not _check_ui():
+        sys.exit(1)
