@@ -23,8 +23,7 @@ def _run_ui_tests():
     logs_path = os.path.join(profile_path, "logs")
     run.collect_logs(logs_path)
 
-    if not result:
-        sys.exit(1)
+    return result
 
 parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to test")
@@ -40,4 +39,5 @@ else:
     if not test.test():
         sys.exit(1)
 
-    _run_ui_tests()
+    if not _run_ui_tests():
+        sys.exit(1)

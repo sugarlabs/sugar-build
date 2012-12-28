@@ -4,6 +4,7 @@ import subprocess
 from devbot import config
 from devbot import command
 from devbot import xvfb
+from devbot import build
 
 
 def test_one(module_name):
@@ -15,6 +16,9 @@ def test_one(module_name):
 
 
 def test():
+    if not build.build():
+        return False
+
     modules = config.load_modules()
     for module in modules:
         if not _test_module(module):
