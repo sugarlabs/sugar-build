@@ -11,6 +11,7 @@ from devbot import run
 from devbot import check
 from devbot import command
 from devbot import system
+from devbot import build
 
 def _get_profile():
     profile_path = os.path.expanduser("~/.sugar/uitests")
@@ -38,9 +39,7 @@ def _get_python_scripts():
     return scripts
 
 
-def _check_devbot():
-    print "* Checking devbot"
-
+def _run_pep8():
     args = ["pep8"]
 
     for dir_name in ["devbot", "tests"]:
@@ -50,12 +49,16 @@ def _check_devbot():
 
     command.run(args)
 
+
+def _run_pylint():
     args = ["pylint", "--reports=n", "--disable=C,W,R,E,F", "--enable=W0611"]
     args.append(os.path.join(common.base_dir, "devbot"))
     args.extend(_get_python_scripts())
 
     command.run(args)
 
+
+def _run_unittests():
     tests_tmp = os.path.join(common.base_dir, "tests", "tmp")
     try:
         os.mkdir(tests_tmp)
@@ -69,6 +72,17 @@ def _check_devbot():
     command.run(["python", "-m", "unittest", "discover"])
 
     shutil.rmtree(tests_tmp, ignore_errors=True)
+
+
+def _check_devbot():
+    print "* Checking devbot"
+
+    try:
+        _run_pep8()
+        _run_pylint()
+        _run_unittests()
+    except subprocess.CalledProcessError:
+        return False
 
 
 def _check_ui():
@@ -108,7 +122,8 @@ else:
     if not build.build():
         sys.exit(1)
 
-    _check_devbot()
+    if not _check_devbot():
+        sys.exit(1)
 
     if not _check_modules():
         sys.exit(1)
