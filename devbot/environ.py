@@ -4,11 +4,6 @@ import os
 from devbot import config
 
 
-def setup():
-    _setup_gconf()
-    _setup_variables()
-
-
 def add_path(name, path):
     if not path.endswith("/"):
         path = "%s/" % path
@@ -24,7 +19,7 @@ def add_path(name, path):
     os.environ[name] = ":".join(splitted)
 
 
-def _setup_variables():
+def setup_variables():
     add_path("LD_LIBRARY_PATH", config.lib_dir)
     add_path("PATH", config.bin_dir)
 
@@ -67,15 +62,19 @@ def _setup_variables():
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")
     os.environ["CC"] = "ccache gcc"
 
+    os.environ["GCONF_DEFAULT_SOURCE_PATH"] = _get_gconf_path()
+    os.environ["GCONF_SCHEMA_INSTALL_SOURCE"] = \
+        "xml:merged:" + os.path.join(_get_gconf_dir(), "gconf.xml.defaults")
 
-def _setup_gconf():
-    gconf_dir = os.path.join(config.etc_dir, "gconf")
-    gconf_pathdir = os.path.join(gconf_dir, "2")
 
-    if not os.path.exists(gconf_pathdir):
-        os.makedirs(gconf_pathdir)
+def setup_gconf():
+    gconf_dir = _get_gconf_dir()
+    gconf_path_dir = _get_gconf_path_dir()
+    gconf_path = _get_gconf_path()
 
-    gconf_path = os.path.join(gconf_pathdir, "path.jhbuild")
+    if not os.path.exists(gconf_path_dir):
+        os.makedirs(gconf_path_dir)
+
     if not os.path.exists(gconf_path):
         input = open("/etc/gconf/2/path")
         output = open(gconf_path, "w")
@@ -88,7 +87,14 @@ def _setup_gconf():
         output.close()
         input.close()
 
-    os.environ["GCONF_DEFAULT_SOURCE_PATH"] = gconf_path
 
-    os.environ["GCONF_SCHEMA_INSTALL_SOURCE"] = \
-        "xml:merged:" + os.path.join(gconf_dir, "gconf.xml.defaults")
+def _get_gconf_dir():
+    return os.path.join(config.etc_dir, "gconf")
+
+
+def _get_gconf_path_dir():
+    return os.path.join(_get_gconf_dir(), "2")
+
+
+def _get_gconf_path():
+    return os.path.join(_get_gconf_path_dir(), "path.jhbuild")

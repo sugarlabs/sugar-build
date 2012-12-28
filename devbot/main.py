@@ -13,6 +13,7 @@ from devbot import clean
 def run_build(full=False):
     if full or state.full_build_is_required():
         clean.clean(build_only=True)
+        environ.setup_gconf()
 
     state.full_build_touch()
 
@@ -36,5 +37,8 @@ def load_plugins():
 
 def setup(config_args):
     load_plugins()
+
     config.setup(**config_args)
-    environ.setup()
+
+    environ.setup_variables()
+    environ.setup_gconf()
