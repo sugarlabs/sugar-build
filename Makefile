@@ -13,4 +13,4 @@ all: build
 include Makefile.config
 include Makefile.commands
 include Makefile.buildbot
-include Makefile.tests
+include Makefile.check
