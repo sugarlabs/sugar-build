@@ -13,17 +13,12 @@ from devbot import test
 common.setup(log_name="test")
 
 
-def _run_ui_tests():
+def _clear_profile():
     profile_path = os.path.expanduser("~/.sugar/uitests")
     shutil.rmtree(profile_path, ignore_errors=True)
 
-    test_path = os.path.join(common.base_dir, "tests", "sugar", "shell.py")
-    result = run.run_test("sugar-runner", test_path)
-
-    logs_path = os.path.join(profile_path, "logs")
-    run.collect_logs(logs_path)
-
-    return result
+def _get_test_path(name):
+    return os.path.join(common.base_dir, "tests", "sugar", name)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to test")
@@ -39,5 +34,8 @@ else:
     if not test.test():
         sys.exit(1)
 
-    if not _run_ui_tests():
+    if run.run_test("sugar-runner", _get_test_path("shell.py")):
+        sys.exit(1)
+
+    if run.collect_logs(os.path.join(profile_path, "logs")):
         sys.exit(1)
