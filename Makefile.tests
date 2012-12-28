@@ -19,7 +19,9 @@ PYTHON_SCRIPTS = \
     $(TOOLS_DIR)/json-normalize
 
 pylint:
-	pylint devbot --disable=C,W,R,E --enable=W0611
+	PYTHONPATH=$(COMMANDS_DIR) \
+	pylint --reports=n --disable=C,W,R,E --enable=W0611 \
+               devbot $(PYTHON_SCRIPTS)
 
 pep8:
 	pep8 commands devbot tests $(PYTHON_SCRIPTS)
