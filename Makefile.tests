@@ -20,7 +20,7 @@ PYTHON_SCRIPTS = \
 
 pylint:
 	PYTHONPATH=$(COMMANDS_DIR) \
-	pylint --reports=n --disable=C,W,R,E --enable=W0611 \
+	pylint --reports=n --disable=C,W,R,E,F --enable=W0611 \
                devbot $(PYTHON_SCRIPTS)
 
 pep8:
