@@ -96,9 +96,17 @@ os.environ["SUGAR_PROFILE"] = "uitests"
 os.environ["GTK_MODULES"] = "gail:atk-bridge"
 
 if args.module:
-    check.check_one(args.module)
+    if not check.check_one(args.module):
+        sys.exit(1)
 else:
-    print "\n= Checking =\n"
+    if not system.check(lazy=True):
+        sys.exit(1)
+
+    if not build.pull(lazy=True):
+        sys.exit(1)
+
+    if not build.build():
+        sys.exit(1)
 
     _check_devbot()
 

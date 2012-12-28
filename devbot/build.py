@@ -53,8 +53,8 @@ def pull(lazy=False):
 
 def build(full=False):
     if full or state.full_build_is_required():
-        state.clean(build_only=True)
-        clean()
+        from devbot import clean
+        clean.clean(build_only=True)
 
     state.full_build_touch()
 
@@ -95,8 +95,6 @@ def distribute():
 
 
 def clean():
-    print "\n= Clean =\n"
-
     print "* Emptying install directory"
     _empty_dir(config.install_dir)
 

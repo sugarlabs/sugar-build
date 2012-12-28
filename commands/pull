@@ -6,6 +6,7 @@ import sys
 import common
 
 from devbot import build
+from devbot import system
 
 parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to pull")
@@ -14,9 +15,11 @@ args = parser.parse_args()
 common.setup(log_name="pull")
 
 if args.module:
-    success = build.pull_one(args.module)
+    if not build.pull_one(args.module):
+        sys.exit(1)
 else:
-    success = build.pull()
+    if not system.check(lazy=True):
+        sys.exit(1)
 
-if not success:
-    sys.exit(1)
+    if not build.pull():
+        sys.exit(1)

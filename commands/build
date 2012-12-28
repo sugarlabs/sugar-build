@@ -6,6 +6,7 @@ import sys
 import common
 
 from devbot import build
+from devbot import system
 
 parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to build")
@@ -15,9 +16,14 @@ args = parser.parse_args()
 common.setup(log_name="build")
 
 if args.module:
-    success = build.build_one(args.module)
+    if not build.build_one(args.module):
+        sys.exit(1)
 else:
-    success = build.build(full=args.full)
+    if not system.check(lazy=True):
+        sys.exit(1)
 
-if not success:
-    sys.exit(1)
+    if not build.pull(lazy=True):
+        sys.exit(1)
+
+    if not build.build(full=args.full):
+        sys.exit(1)
