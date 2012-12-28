@@ -64,9 +64,9 @@ def _check_devbot():
 
     os.environ["TESTS_TMP"] = tests_tmp
     os.environ["PYTHONPATH"] = common.base_dir
+    os.chdir(os.path.join(common.base_dir, "tests", "devbot"))
 
-    command.run(["python", "-m", "unittest", "discover",
-                os.path.join(common.base_dir, "tests", "devbot")])
+    command.run(["python", "-m", "unittest", "discover"])
 
     shutil.rmtree(tests_tmp, ignore_errors=True)
 
