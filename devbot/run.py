@@ -7,10 +7,11 @@ import time
 import tempfile
 
 from devbot import config
+from devbot import command
 
 
-def run(command):
-    args = [command, "--home-dir", config.home_dir]
+def run(cmd):
+    args = [cmd, "--home-dir", config.home_dir]
 
     resolution = config.get_pref("RESOLUTION")
     if resolution:
@@ -20,24 +21,18 @@ def run(command):
     if output:
         args.extend(["--output", output])
 
-    stdout = open(config.log_path, 'a')
-    stderr = stdout
-
-    os.dup2(stdout.fileno(), sys.stdout.fileno())
-    os.dup2(stderr.fileno(), sys.stderr.fileno())
-
-    os.execlp(args[0], *args)
+    command.run(args)
 
 
-def run_test(command, test_path):
+def run_test(test_cmd, test_path):
     temp_dir = tempfile.mkdtemp("sugar-build-test")
     display_path = os.path.join(temp_dir, "display")
 
-    args = [command,
+    args = [test_cmd,
             "--display-path", display_path,
             "--virtual"]
 
-    command_process = subprocess.Popen(args, stdout=subprocess.PIPE)
+    test_cmd_process = subprocess.Popen(args, stdout=subprocess.PIPE)
 
     while True:
         if not os.path.exists(display_path):
@@ -52,12 +47,12 @@ def run_test(command, test_path):
     os.rmdir(temp_dir)
 
     try:
-        subprocess.check_call(["python", "-u", test_path])
+        command.run(["python", "-u", test_path])
         result = True
     except subprocess.CalledProcessError:
         result = False
 
-    command_process.terminate()
+    test_cmd_process.terminate()
 
     return result
 
