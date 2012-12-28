@@ -114,4 +114,7 @@ def _compute_mtime_hash(path):
             mtime = os.lstat(path).st_mtime
             data = "%s%s %s\n" % (data, mtime, path)
 
+            if ".git" in dirs:
+                dirs.remove(".git")
+
     return hashlib.sha256(data).hexdigest()
