@@ -2,10 +2,7 @@ import os
 import subprocess
 
 from devbot import command
-from devbot import utils
 from devbot import config
-
-_root_path = None
 
 
 def _chdir(func):
@@ -78,13 +75,6 @@ class Module:
         return subprocess.check_output(["git", "describe"]).strip()
 
     @_chdir
-    def is_valid(self):
-        result = subprocess.call(["git", "rev-parse", "HEAD"],
-                                 stdout=utils.devnull,
-                                 stderr=utils.devnull)
-        return result == 0
-
-    @_chdir
     def get_commit_id(self):
         return subprocess.check_output(["git", "rev-parse", "HEAD"]).strip()
 
@@ -120,11 +110,6 @@ class Module:
         return True
 
 
-def set_root_path(path):
-    global _root_path
-    _root_path = path
-
-
 def get_module(module):
     return Module(path=config.get_source_dir(),
                   name=module.name,
@@ -132,15 +117,3 @@ def get_module(module):
                   branch=module.branch,
                   tag=module.tag,
                   retry=10)
-
-
-def get_root_module():
-    remote = "git://git.sugarlabs.org/sugar-build/sugar-build.git"
-
-    module = Module(name=os.path.basename(_root_path),
-                    remote=remote,
-                    path=os.path.dirname(_root_path))
-    if not module.is_valid():
-        return None
-
-    return module

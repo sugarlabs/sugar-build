@@ -59,6 +59,7 @@ def pull(lazy=False):
 
 def build(full=False):
     if full or state.full_build_is_required():
+        state.clean(build_only=True)
         clean()
 
     environ.setup()
@@ -101,8 +102,6 @@ def distribute():
 
 def clean():
     print "\n= Clean =\n"
-
-    state.clean(build_only=True)
 
     print "* Emptying install directory"
     _empty_dir(config.install_dir)

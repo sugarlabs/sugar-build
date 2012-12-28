@@ -10,8 +10,6 @@ from devbot import git
 
 
 def setup(log_name=None):
-    git.set_root_path(base_dir)
-
     args = {"config_dir": os.path.join(base_dir, "config"),
             "install_dir": os.path.join(base_dir, "install"),
             "source_dir": os.path.join(base_dir, "source"),
