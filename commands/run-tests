@@ -10,12 +10,11 @@ import common
 from devbot import run
 from devbot import test
 
-common.setup(log_name="test")
 
-
-def _clear_profile():
+def _get_profile():
     profile_path = os.path.expanduser("~/.sugar/uitests")
     shutil.rmtree(profile_path, ignore_errors=True)
+    return profile_path
 
 
 def _get_test_path(name):
@@ -26,6 +25,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to test")
 args = parser.parse_args()
 
+common.setup(log_name="test")
+
 os.environ["SUGAR_LOGGER_LEVEL"] = "debug"
 os.environ["SUGAR_PROFILE"] = "uitests"
 os.environ["GTK_MODULES"] = "gail:atk-bridge"
@@ -33,12 +34,15 @@ os.environ["GTK_MODULES"] = "gail:atk-bridge"
 if args.module:
     test.test_one(args.module)
 else:
+    print "\n= Checking =\n"
+
     if not test.test():
         sys.exit(1)
 
-    _clear_profile()
-    if run.run_test("sugar-runner", _get_test_path("shell.py")):
-        sys.exit(1)
+    print "* Running UI test"
 
-    if run.collect_logs(os.path.join(profile_path, "logs")):
+    profile_path = _get_profile()
+    result = run.run_test("sugar-runner", _get_test_path("shell.py"))
+    run.collect_logs(os.path.join(profile_path, "logs"))
+    if not result:
         sys.exit(1)

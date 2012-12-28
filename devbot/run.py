@@ -2,7 +2,6 @@ import os
 import string
 import random
 import subprocess
-import sys
 import time
 import tempfile
 
@@ -25,14 +24,19 @@ def run(cmd):
 
 
 def run_test(test_cmd, test_path):
-    temp_dir = tempfile.mkdtemp("sugar-build-test")
+    temp_dir = tempfile.mkdtemp("devbot-test-display")
     display_path = os.path.join(temp_dir, "display")
 
     args = [test_cmd,
             "--display-path", display_path,
             "--virtual"]
 
-    test_cmd_process = subprocess.Popen(args, stdout=subprocess.PIPE)
+    output_fd, output_name = tempfile.mkstemp("devbot-test-output")
+    output_file = os.fdopen(output_fd)
+
+    test_cmd_process = subprocess.Popen(args,
+                                        stdout=output_file,
+                                        stderr=subprocess.STDOUT)
 
     while True:
         if not os.path.exists(display_path):
@@ -53,6 +57,13 @@ def run_test(test_cmd, test_path):
         result = False
 
     test_cmd_process.terminate()
+
+    output_file.seek(0)
+    with open(config.log_path, "a") as f:
+        f.write(output_file.read())
+
+    output_file.close()
+    os.unlink(output_name)
 
     return result
 

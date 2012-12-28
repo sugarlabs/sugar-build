@@ -31,6 +31,8 @@ def _test_module(module):
     result = True
 
     if module.has_tests:
+        print "* Checking %s" % module.name
+
         os.chdir(module.get_build_dir())
 
         xvfb_proc, orig_display = xvfb.start()
