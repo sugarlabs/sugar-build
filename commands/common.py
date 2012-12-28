@@ -6,7 +6,6 @@ base_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(base_dir)
 
 from devbot import config
-from devbot import command
 from devbot import git
 
 
