@@ -6,13 +6,10 @@ import sys
 import time
 import tempfile
 
-from devbot import environ
 from devbot import config
 
 
 def run(command):
-    environ.setup()
-
     args = [command, "--home-dir", config.home_dir]
 
     resolution = config.get_pref("RESOLUTION")
@@ -33,8 +30,6 @@ def run(command):
 
 
 def run_test(command, test_path):
-    environ.setup()
-
     temp_dir = tempfile.mkdtemp("sugar-build-test")
     display_path = os.path.join(temp_dir, "display")
 

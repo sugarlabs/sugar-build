@@ -8,7 +8,6 @@ from distutils.sysconfig import parse_makefile
 
 from devbot import command
 from devbot import config
-from devbot import environ
 from devbot import state
 from devbot import utils
 from devbot import release
@@ -19,8 +18,6 @@ _distributors = {}
 
 
 def build_one(module_name):
-    environ.setup()
-
     for module in config.load_modules():
         if module.name == module_name:
             return _build_module(module)
@@ -29,8 +26,6 @@ def build_one(module_name):
 
 
 def pull_one(module_name):
-    environ.setup()
-
     for module in config.load_modules():
         if module.name == module_name:
             return _pull_module(module)
@@ -39,8 +34,6 @@ def pull_one(module_name):
 
 
 def pull(lazy=False):
-    environ.setup()
-
     to_pull = []
     for module in config.load_modules():
         git_module = git.get_module(module)
@@ -61,8 +54,6 @@ def build(full=False):
     if full or state.full_build_is_required():
         state.clean(build_only=True)
         clean()
-
-    environ.setup()
 
     state.full_build_touch()
 
@@ -90,8 +81,6 @@ def build(full=False):
 
 
 def distribute():
-    environ.setup()
-
     for module in config.load_modules():
         if module.distribute:
             if not _distribute_module(module):

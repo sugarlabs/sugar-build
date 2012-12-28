@@ -3,6 +3,7 @@ import unittest
 import tempfile
 
 from devbot import config
+from devbot import main
 
 
 class DevbotTestCase(unittest.TestCase):
@@ -11,6 +12,8 @@ class DevbotTestCase(unittest.TestCase):
 
     def setup_config(self, extra_args):
         temp_dir = tempfile.gettempdir()
+
+        main.load_plugins()
 
         args = {"logs_dir": os.path.join(temp_dir, "logs"),
                 "source_dir": os.path.join(temp_dir, "source"),

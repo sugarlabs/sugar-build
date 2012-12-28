@@ -1,11 +1,8 @@
-import imp
 import json
 import os
-import pkgutil
 import tempfile
 
 from devbot import distro
-from devbot import plugins
 from devbot import utils
 
 config_dir = None
@@ -64,8 +61,6 @@ class Module:
 
 
 def setup(**kwargs):
-    _load_plugins()
-
     global config_dir
     config_dir = kwargs.get("config_dir", None)
 
@@ -190,12 +185,6 @@ def _filter_if(item):
                "gnome_version": distro_info.gnome_version}
 
     return eval(item["if"], globals)
-
-
-def _load_plugins():
-    for loader, name, ispkg in pkgutil.iter_modules(plugins.__path__):
-        f, filename, desc = imp.find_module(name, plugins.__path__)
-        imp.load_module(name, f, filename, desc)
 
 
 def _read_index(dir_name):
