@@ -1,14 +1,9 @@
 #!/usr/bin/python -u
 
 import argparse
-import sys
 import os
 
 import common
-
-from devbot import system
-
-common.setup()
 
 parser = argparse.ArgumentParser(description='Check the system')
 parser.add_argument("--update", action="store_true",
@@ -21,8 +16,9 @@ args = parser.parse_args()
 
 interactive = "SUGAR_BUILDBOT" not in os.environ
 
-if not system.check(update=args.update,
-                   remove=args.remove,
-                   test=args.test,
-                   interactive=interactive):
-    sys.exit(1)
+check_args = {"update": args.update,
+              "remove": args.remove,
+              "test": args.test,
+              "interactive": interactive}
+
+common.setup(check_args=check_args)

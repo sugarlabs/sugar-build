@@ -11,7 +11,7 @@ _checkers = {}
 
 
 def check(remove=False, update=False, test=False, interactive=True,
-          lazy=False):
+          lazy=True):
     if lazy:
         if state.system_check_is_unchanged():
             return True

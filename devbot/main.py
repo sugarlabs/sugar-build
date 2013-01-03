@@ -17,9 +17,6 @@ def run_build(full=False):
 
     state.full_build_touch()
 
-    if not system.check(lazy=True):
-        return False
-
     if not build.pull(lazy=True):
         return False
 
@@ -35,10 +32,15 @@ def load_plugins():
         imp.load_module(name, f, filename, desc)
 
 
-def setup(config_args):
+def setup(config_args, check_args):
     load_plugins()
 
     config.setup(**config_args)
 
+    if not system.check(**check_args):
+        return False
+
     environ.setup_variables()
     environ.setup_gconf()
+
+    return True
