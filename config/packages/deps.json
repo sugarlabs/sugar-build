@@ -390,6 +390,9 @@
         ]
     }, 
     "gst typelib": {
+        "fedora": [
+            "gstreamer1"
+        ], 
         "ubuntu": [
             "gir1.2-gstreamer-1.0"
         ]
