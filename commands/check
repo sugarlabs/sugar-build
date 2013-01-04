@@ -100,10 +100,7 @@ def _check_ui():
 
 def _run_checks():
     print "\n= Check =\n"
-
-    return check.check() and \
-           _check_ui() and \
-           _check_devbot()
+    return check.check() and _check_ui() and _check_devbot()
 
 
 parser = argparse.ArgumentParser()
