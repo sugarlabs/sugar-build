@@ -56,7 +56,7 @@ class Module:
         command.run(["git", "fetch"], retry=self._retry)
 
         if revision:
-            command.run(["git", "checkout", revision]) 
+            command.run(["git", "checkout", revision])
         elif self.tag:
             command.run(["git", "checkout", self.tag])
         else:
