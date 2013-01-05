@@ -7,7 +7,7 @@ check-system:
 	@$(COMMANDS_DIR)/check-system $(ARGS)
 
 pull:
-	@$(COMMANDS_DIR)/pull
+	@$(COMMANDS_DIR)/pull $(ARGS)
 
 build:
 	@$(TIME) $(COMMANDS_DIR)/build $(ARGS)
