@@ -33,7 +33,7 @@ def pull_one(module_name):
     return False
 
 
-def pull(lazy=False):
+def pull(revisions={}, lazy=False):
     to_pull = []
     for module in config.load_modules():
         git_module = git.get_module(module)
@@ -44,7 +44,8 @@ def pull(lazy=False):
         print "\n= Pulling =\n"
 
     for module in to_pull:
-        if not _pull_module(module):
+        revision = revisions.get(module.name, None)
+        if not _pull_module(module, revision):
             return False
 
     return True
@@ -111,13 +112,13 @@ def _unlink_libtool_files():
     os.path.walk(config.lib_dir, func, None)
 
 
-def _pull_module(module):
+def _pull_module(module, revision=None):
     print "* Pulling %s" % module.name
 
     git_module = git.get_module(module)
 
     try:
-        git_module.update()
+        git_module.update(revision)
     except subprocess.CalledProcessError:
         return False
 

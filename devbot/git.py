@@ -46,7 +46,7 @@ class Module:
         else:
             command.run(["git", "checkout", self._branch])
 
-    def update(self):
+    def update(self, revision=None):
         if not os.path.exists(os.path.join(self.local, ".git")):
             self._clone()
             return
@@ -55,7 +55,9 @@ class Module:
 
         command.run(["git", "fetch"], retry=self._retry)
 
-        if self.tag:
+        if revision:
+            command.run(["git", "checkout", revision]) 
+        elif self.tag:
             command.run(["git", "checkout", self.tag])
         else:
             command.run(["git", "merge", "--ff-only",
