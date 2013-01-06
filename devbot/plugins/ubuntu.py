@@ -26,9 +26,10 @@ class DistroInfo(interfaces.DistroInfo):
         elif arch == "x86_64":
             self.lib_dir = "lib/x86_64-linux-gnu"
 
+        os_info = {}
+
         try:
             release = open(self._OS_RELEASE_PATH).read().strip()
-            os_info = {}
             for line in release.split("\n"):
                 split = line.strip().split("=")
                 os_info[split[0]] = split[1].replace("\"", "")
