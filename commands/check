@@ -1,4 +1,4 @@
-#!/usr/bin/python -u
+#!/usr/bin/env python
 
 import argparse
 import os
@@ -25,7 +25,7 @@ def _get_test_path(name):
 
 
 def _get_python_scripts():
-    shebang = "#!/usr/bin/python"
+    shebang = "#!/usr/bin/env python"
     dirs = ["commands", "tools"]
     scripts = []
 
