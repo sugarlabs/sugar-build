@@ -37,7 +37,7 @@ class DistroInfo(interfaces.DistroInfo):
             release = None
             self.valid = False
 
-        if os_info["ID"] != "ubuntu":
+        if os_info.get("ID", None) != "ubuntu":
             self.valid = False
 
         self.version = os_info.get("VERSION_ID", None)
