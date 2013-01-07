@@ -58,6 +58,7 @@
         ], 
         "fedora": [
             "openssh-server", 
+            "avahi",
             "kernel", 
             "kernel-PAE", 
             "kernel-modules-extra", 
