@@ -1,6 +1,7 @@
 {
     "base-system": {
         "debian": [
+            "openssh-server", 
             "apt", 
             "ibritish", 
             "bsdutils", 
@@ -56,6 +57,7 @@
             "vim"
         ], 
         "fedora": [
+            "openssh-server", 
             "kernel", 
             "kernel-PAE", 
             "kernel-modules-extra", 
@@ -101,6 +103,7 @@
             "gpg-pubkey"
         ], 
         "ubuntu": [
+            "openssh-server", 
             "apt", 
             "make", 
             "apparmor", 
