@@ -51,7 +51,7 @@ def run_test(test_cmd, test_path):
     os.rmdir(temp_dir)
 
     try:
-        command.run(["python", test_path])
+        command.run(["python", "-u", test_path])
         result = True
     except subprocess.CalledProcessError:
         result = False
