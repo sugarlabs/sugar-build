@@ -8,15 +8,15 @@ Atspi.set_timeout(-1, -1)
 
 
 def get_root(wait=True):
-    desktop = Node(Atspi.get_desktop(0))
-
-    if not wait:
-        return desktop
-
     n_tries = 0
-    while n_tries < 50:
-        if desktop.get_children():
-            return desktop
+    while n_tries < 5:
+        root_accessible = Atspi.get_desktop(0)
+        if root_accessible:
+            desktop = Node(root_accessible)
+            if desktop.get_children():
+                return desktop
+            elif not wait:
+                return None
 
         n_tries = n_tries + 1
         logging.info("Waiting for a valid accessibility tree %d" % n_tries)
