@@ -2,8 +2,6 @@ import os
 import string
 import random
 import subprocess
-import time
-import tempfile
 
 from devbot import config
 from devbot import command
@@ -24,48 +22,13 @@ def run(cmd):
 
 
 def run_test(test_cmd, test_path):
-    temp_dir = tempfile.mkdtemp("devbot-test-display")
-    display_path = os.path.join(temp_dir, "display")
-
     args = [test_cmd,
-            "--display-path", display_path,
+            "--test-command", "python -u %s" % test_path,
             "--virtual"]
 
-    output_fd, output_name = tempfile.mkstemp("devbot-test-output")
-    output_file = os.fdopen(output_fd)
-
-    test_cmd_process = subprocess.Popen(args,
-                                        stdout=output_file,
-                                        stderr=subprocess.STDOUT)
-
-    while True:
-        if not os.path.exists(display_path):
-            time.sleep(1)
-        else:
-            break
-
-    with open(display_path) as f:
-        os.environ["DISPLAY"] = f.read()
-
-    os.unlink(display_path)
-    os.rmdir(temp_dir)
-
-    try:
-        command.run(["python", "-u", test_path])
-        result = True
-    except subprocess.CalledProcessError:
-        result = False
-
-    test_cmd_process.terminate()
-
-    output_file.seek(0)
     with open(config.log_path, "a") as f:
-        f.write(output_file.read())
-
-    output_file.close()
-    os.unlink(output_name)
-
-    return result
+        result = subprocess.call(args, stdout=f, stderr=subprocess.STDOUT)
+        return result == 0
 
 
 def collect_logs(source_path):
