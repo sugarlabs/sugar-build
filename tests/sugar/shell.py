@@ -90,5 +90,5 @@ try:
     main()
 except:
     logging.error(traceback.format_exc())
-    logging.error("\n%s" % tree.get_root(wait=False).dump())
+    logging.error("\n%s" % tree.get_root().dump())
     raise

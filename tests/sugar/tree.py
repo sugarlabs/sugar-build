@@ -7,22 +7,8 @@ from gi.repository import GLib
 Atspi.set_timeout(-1, -1)
 
 
-def get_root(wait=True):
-    desktop = Node(Atspi.get_desktop(0))
-
-    if not wait:
-        return desktop
-
-    n_tries = 0
-    while n_tries < 50:
-        if desktop.get_children():
-            return desktop
-
-        n_tries = n_tries + 1
-        logging.info("Waiting for a valid accessibility tree %d" % n_tries)
-        time.sleep(1)
-
-    return None
+def get_root():
+    return Node(Atspi.get_desktop(0))
 
 
 def _retry_find(func):
