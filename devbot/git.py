@@ -53,12 +53,19 @@ class Module:
 
         os.chdir(self.local)
 
+        if revision is None:
+            if self.tag and self._head_has_tag(self.tag):
+                return
+
+            revision = self.tag
+
+        if revision == self._get_commit_id():
+            return
+
         command.run(["git", "fetch"], retry=self._retry)
 
         if revision:
             command.run(["git", "checkout", revision])
-        elif self.tag:
-            command.run(["git", "checkout", self.tag])
         else:
             command.run(["git", "merge", "--ff-only",
                          "origin/%s" % self._branch])
@@ -75,10 +82,6 @@ class Module:
     @_chdir
     def describe(self):
         return subprocess.check_output(["git", "describe"]).strip()
-
-    @_chdir
-    def get_commit_id(self):
-        return subprocess.check_output(["git", "rev-parse", "HEAD"]).strip()
 
     @_chdir
     def get_annotation(self, tag):
@@ -110,6 +113,13 @@ class Module:
         command.run(["git", "clean", "-fdx"])
 
         return True
+
+    def _get_commit_id(self):
+        return subprocess.check_output(["git", "rev-parse", "HEAD"]).strip()
+
+    def _head_has_tag(self, tag):
+        tags = subprocess.check_output(["git", "tag", "--points-at", "HEAD"])
+        return tag in tags.split("\n")
 
 
 def get_module(module):
