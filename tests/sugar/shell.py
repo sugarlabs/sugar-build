@@ -79,6 +79,8 @@ def main():
     logging.basicConfig(format=format)
     logging.root.setLevel(logging.DEBUG)
 
+    logging.info("Start test")
+
     go_to_list_view()
 
     for activity in build_activities_list():
