@@ -9,7 +9,7 @@ Atspi.set_timeout(-1, -1)
 
 def get_root(wait=True):
     n_tries = 0
-    while n_tries < 50:
+    while n_tries < 5:
         root_accessible = Atspi.get_desktop(0)
         if root_accessible:
             desktop = Node(root_accessible)
