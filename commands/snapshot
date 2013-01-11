@@ -47,4 +47,5 @@ tar rvh -f $filename $runshellscript $runsugarscript
 
 rm -rf $rootdir
 
+rm -f $filename.xz
 xz --verbose $filename
