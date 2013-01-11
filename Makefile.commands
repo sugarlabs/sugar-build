@@ -30,6 +30,9 @@ clean:
 distribute:
 	@$(COMMANDS_DIR)/distribute
 
+snapshot:
+	@$(COMMANDS_DIR)/snapshot
+
 build-%:
 	@$(COMMANDS_DIR)/build $*
 

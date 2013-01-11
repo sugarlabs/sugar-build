@@ -1,15 +1,8 @@
 #!/bin/sh
 
-toolsdir=`dirname "$0"`
-basedir=`dirname "$toolsdir"`
-
-if [ "$#" -eq 0 ]; then
-    echo "build-snapshot [destination directory]"
-    exit 1
-fi
-
-destdir=`dirname $1`
-filename=`basename $1`
+commandsdir=`dirname "$0"`
+destdir=`dirname "$commandsdir"`
+filename=snapshot.tar
 rootdir=sugar-snapshot
 
 mkdir -p $destdir
@@ -17,7 +10,7 @@ ln -s `pwd` $destdir/$rootdir
 
 cd $destdir
 
-tar chf $filename \
+tar cvhf $filename \
     $rootdir/config \
     $rootdir/devbot \
     $rootdir/install \
@@ -50,8 +43,8 @@ EOF
 
 chmod +x $runshellscript
 
-tar rh -f $filename $runshellscript $runsugarscript
+tar rvh -f $filename $runshellscript $runsugarscript
 
 rm -rf $rootdir
 
-xz $filename
+xz --verbose $filename

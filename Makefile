@@ -12,4 +12,3 @@ all: build
 
 include Makefile.config
 include Makefile.commands
-include Makefile.snapshot
