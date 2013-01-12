@@ -10,7 +10,6 @@ from devbot import command
 from devbot import config
 from devbot import state
 from devbot import utils
-from devbot import release
 from devbot import git
 
 _builders = {}
@@ -186,22 +185,7 @@ def _distribute_autotools(module):
     if version_revision is not None:
         git_module.checkout(version_revision)
 
-    command.run(["make", "distcheck"])
-
-    result = False
-
-    if not release.exists(module, filename):
-        path = os.path.join(os.getcwd(), filename)
-        if release.upload(module, path):
-            annotation = git_module.get_annotation("v%s" % version)
-            result = release.announce(module, filename, version, annotation)
-    else:
-        print "Release already uploaded"
-
-    if version_revision is not None:
-        git_module.checkout()
-
-    return result
+    return command.run(["make", "distcheck"])
 
 _distributors["autotools"] = _distribute_autotools
 
