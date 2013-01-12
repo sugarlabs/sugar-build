@@ -86,7 +86,7 @@ class TestConfig(common.DevbotTestCase):
         self.assertEquals("fedora", distro.get_distro_info().name)
         self.assertEquals("18", distro.get_distro_info().version)
         modules = config.load_modules()
-        self._assert_module(modules, "glib")
+        self._assert_no_module(modules, "glib")
         self._assert_no_module(modules, "gtk+")
         self._assert_no_module(modules, "gnome-keyring")
         self._assert_no_module(modules, "gstreamer")
