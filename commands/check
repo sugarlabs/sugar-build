@@ -26,16 +26,14 @@ def _get_test_path(name):
 
 def _get_python_scripts():
     shebang = "#!/usr/bin/env python"
-    dirs = ["commands", "tools"]
     scripts = []
 
-    for dir_name in dirs:
-        dir_path = os.path.join(common.base_dir, dir_name)
-        for name in os.listdir(dir_path):
-            script_path = os.path.join(dir_path, name)
-            with open(script_path) as f:
-                if f.read(len(shebang)) == shebang:
-                    scripts.append(script_path)
+    dir_path = os.path.join(common.base_dir, "commands")
+    for name in os.listdir(dir_path):
+        script_path = os.path.join(dir_path, name)
+        with open(script_path) as f:
+            if f.read(len(shebang)) == shebang:
+                scripts.append(script_path)
 
     return scripts
 
