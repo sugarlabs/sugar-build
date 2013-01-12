@@ -1,2 +1,4 @@
-["basesystem.json",
- "deps.json"]
+[
+    "basesystem.json", 
+    "deps.json"
+]

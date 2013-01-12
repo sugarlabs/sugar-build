@@ -1,3 +1,5 @@
-["system.json",
- "sugar.json",
- "activities.json"]
+[
+    "system.json", 
+    "sugar.json", 
+    "activities.json"
+]
