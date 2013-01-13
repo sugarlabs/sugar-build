@@ -331,7 +331,7 @@
             "pygobject3"
         ], 
         "ubuntu": [
-            "pygobject"
+            "python-gobject-2"
         ]
     }, 
     "glib-2.0": {
@@ -673,7 +673,7 @@
             "pkgconfig"
         ], 
         "ubuntu": [
-            "pkgconfig"
+            "pkg-config"
         ]
     }, 
     "playback gstreamer": {
