@@ -19,6 +19,7 @@ interactive = "SUGAR_BUILDBOT" not in os.environ
 check_args = {"update": args.update,
               "remove": args.remove,
               "test": args.test,
-              "interactive": interactive}
+              "interactive": interactive,
+              "lazy": False}
 
-common.setup(check_args=check_args)
+common.setup(log_name="check-system", check_args=check_args)
