@@ -21,4 +21,4 @@ check_args = {"update": args.update,
               "test": args.test,
               "interactive": interactive}
 
-common.setup(check_args=check_args)
+common.setup(log_name="check-system", check_args=check_args)
