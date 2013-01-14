@@ -40,7 +40,7 @@ def launch_and_stop_activity(activity_name):
         icon = row[1]
 
         if name == activity_name:
-            icon.click()
+            icon.do_action("activate")
 
             logging.info("Stopping %s" % activity_name)
 
