@@ -14,17 +14,9 @@ parser.add_argument("--test", action="store_true",
                     help="don't add or remove packages, test only")
 args = parser.parse_args()
 
-interactive = "SUGAR_BUILDBOT" not in os.environ
-
 check_args = {"update": args.update,
               "remove": args.remove,
               "test": args.test,
-              "interactive": interactive,
               "lazy": False}
 
-setup_args = {"check_args": check_args}
-
-if not interactive:
-    setup_args["log_name"] = "check-system"
-
-common.setup(**setup_args)
+common.setup(log_name="check-system", check_args=check_args)

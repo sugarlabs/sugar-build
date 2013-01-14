@@ -4,7 +4,7 @@ import time
 from devbot import config
 
 
-def run(args, test=False, retry=0):
+def run(args, test=False, interactive=False, retry=0):
     if test:
         print " ".join(args)
         return
@@ -12,7 +12,7 @@ def run(args, test=False, retry=0):
     log_file = None
     subprocess_args = {"args": args}
 
-    if config.log_path:
+    if config.log_path and not interactive:
         log_file = open(config.log_path, "a")
         subprocess_args["stdout"] = log_file
         subprocess_args["stderr"] = subprocess.STDOUT
@@ -38,10 +38,10 @@ def run(args, test=False, retry=0):
         log_file.close()
 
 
-def run_with_sudo(args, test=False, retry=0):
+def run_with_sudo(args, test=False, interactive=False, retry=0):
     args_with_sudo = ["sudo"]
     args_with_sudo.extend(args)
 
     print " ".join(args_with_sudo)
 
-    run(args_with_sudo, test=test, retry=retry)
+    run(args_with_sudo, test=test, retry=retry, interactive=interactive)
