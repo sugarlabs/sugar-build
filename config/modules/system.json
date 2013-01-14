@@ -39,6 +39,7 @@
         "tag": "c36e12368bb430ca1fb6eafd7d86f59c44965a31"
     }, 
     {
+        "if": "gnome_version == '3.4'", 
         "name": "atk", 
         "repo": "git://git.gnome.org/atk", 
         "tag": "ATK_2_6_0"
