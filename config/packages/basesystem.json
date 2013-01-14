@@ -4,6 +4,7 @@
             "openssh-server", 
             "apt", 
             "ibritish", 
+            "iamerican", 
             "bsdutils", 
             "make", 
             "apt-utils", 
