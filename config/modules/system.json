@@ -15,6 +15,7 @@
         "repo": "git://github.com/dnarvaez/gnome-keyring.git"
     }, 
     {
+        "if": "gnome_version == '3.4' or distro == 'ubuntu-12.10'", 
         "name": "glib", 
         "options": [
             "--disable-modular-tests"
@@ -23,6 +24,7 @@
         "tag": "2.34.3"
     }, 
     {
+        "if": "gnome_version == '3.4' or distro == 'ubuntu-12.10'", 
         "name": "gobject-introspection", 
         "options": [
             "--disable-tests"
@@ -31,6 +33,7 @@
         "tag": "GOBJECT_INTROSPECTION_1_34_2"
     }, 
     {
+        "if": "gnome_version == '3.4' or distro == 'ubuntu-12.10'", 
         "name": "pygobject", 
         "repo": "git://git.gnome.org/pygobject", 
         "tag": "c36e12368bb430ca1fb6eafd7d86f59c44965a31"
@@ -96,6 +99,7 @@
         "tag": "libxklavier-5.3"
     }, 
     {
+        "if": "gnome_version == '3.4' or distro == 'ubuntu-12.10'", 
         "name": "metacity", 
         "options": [
             "--disable-themes-documentation"
