@@ -9,18 +9,19 @@ def run(args, test=False, retry=0):
         print " ".join(args)
         return
 
+    log_file = None
+    subprocess_args = {"args": args}
+
     if config.log_path:
-        stdout = open(config.log_path, "a")
-        stderr = subprocess.STDOUT
-    else:
-        stdout = None
-        stderr = None
+        log_file = open(config.log_path, "a")
+        subprocess_args["stdout"] = log_file
+        subprocess_args["stderr"] = subprocess.STDOUT
 
     tries = 0
     while tries < retry + 1:
         try:
             tries = tries + 1
-            subprocess.check_call(args, stdout=stdout, stderr=stderr)
+            subprocess.check_call(**subprocess_args)
             break
         except subprocess.CalledProcessError, e:
             print "\nCommand failed, tail of %s\n" % config.log_path
@@ -33,8 +34,8 @@ def run(args, test=False, retry=0):
             else:
                 raise e
 
-    if stdout:
-        stdout.close()
+    if log_file:
+        log_file.close()
 
 
 def run_with_sudo(args, test=False, retry=0):

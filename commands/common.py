@@ -16,8 +16,10 @@ def setup(log_name=None, check_args={}):
                    "state_dir": os.path.join(base_dir, "state"),
                    "prefs_path": os.path.join(base_dir, "prefs"),
                    "logs_dir": os.path.join(base_dir, "logs"),
-                   "relocatable": "SUGAR_BUILDBOT" in os.environ,
-                   "log_name": log_name}
+                   "relocatable": "SUGAR_BUILDBOT" in os.environ}
+
+    if log_name:
+        config_args["log_name"] = log_name
 
     if not main.setup(config_args, check_args):
         sys.exit(1)

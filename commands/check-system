@@ -22,4 +22,9 @@ check_args = {"update": args.update,
               "interactive": interactive,
               "lazy": False}
 
-common.setup(log_name="check-system", check_args=check_args)
+setup_args = {"check_args": check_args}
+
+if not interactive:
+    setup_args["log_name"] = "check-system"
+
+common.setup(**setup_args)
