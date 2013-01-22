@@ -44,8 +44,8 @@ def get_from():
     email = get_git_config("user.email", is_global=True)
 
     if not name or not email:
-        print("Please configure your name and email\n\n" \
-              "git config --global user.name Your Name\n" \
+        print("Please configure your name and email\n\n"
+              "git config --global user.name Your Name\n"
               "git config --global user.email youremail@example.com")
         sys.exit(1)
 
@@ -60,9 +60,9 @@ def get_module():
 
 
 def setup():
-    print("Choose how to send email \n\n" \
-          "1 Google account\n" \
-          "2 Sugar Labs shell account\n" \
+    print("Choose how to send email \n\n"
+          "1 Google account\n"
+          "2 Sugar Labs shell account\n"
           "3 System sendmail")
 
     choice = None
