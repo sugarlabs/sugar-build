@@ -44,9 +44,9 @@ def get_from():
     email = get_git_config("user.email", is_global=True)
 
     if not name or not email:
-        print "Please configure your name and email\n\n" \
+        print("Please configure your name and email\n\n" \
               "git config --global user.name Your Name\n" \
-              "git config --global user.email youremail@example.com"
+              "git config --global user.email youremail@example.com")
         sys.exit(1)
 
     return "%s <%s>" % (name, email)
@@ -60,27 +60,27 @@ def get_module():
 
 
 def setup():
-    print "Choose how to send email \n\n" \
+    print("Choose how to send email \n\n" \
           "1 Google account\n" \
           "2 Sugar Labs shell account\n" \
-          "3 System sendmail"
+          "3 System sendmail")
 
     choice = None
 
     while choice not in ["1", "2", "3"]:
-        choice = raw_input("# ")
+        choice = input("# ")
 
     if choice == "1":
-        print "\nEnter your user name"
-        smtpuser = raw_input("# ")
+        print("\nEnter your user name")
+        smtpuser = input("# ")
 
         set_git_config("sendemail.smtpencryption", "tls")
         set_git_config("sendemail.smtpserver", "smtp.gmail.com")
         set_git_config("sendemail.smtpserverport", "587")
         set_git_config("sendemail.smtpuser", smtpuser)
     elif choice == "2":
-        print "\nEnter your user name"
-        smtpuser = raw_input("# ")
+        print("\nEnter your user name")
+        smtpuser = input("# ")
 
         set_git_config("sendemail.smtpencryption", "tls")
         set_git_config("sendemail.smtpserver", "smtp.sugarlabs.org")
@@ -97,7 +97,7 @@ def setup():
 common.setup()
 
 if os.path.dirname(os.getcwd()) != config.get_source_dir():
-    print "The command must be run inside one of the source modules."
+    print("The command must be run inside one of the source modules.")
     sys.exit(1)
 
 parser = argparse.ArgumentParser()

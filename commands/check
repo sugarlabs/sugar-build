@@ -74,7 +74,7 @@ def _run_unittests():
 
 
 def _check_devbot():
-    print "* Checking devbot"
+    print("* Checking devbot")
 
     try:
         _run_pep8()
@@ -87,7 +87,7 @@ def _check_devbot():
 
 
 def _check_ui():
-    print "* Checking UI"
+    print("* Checking UI")
 
     profile_path = _get_profile()
     result = run.run_test("sugar-runner", _get_test_path("shell.py"))
@@ -97,7 +97,7 @@ def _check_ui():
 
 
 def _run_checks():
-    print "\n= Check =\n"
+    print("\n= Check =\n")
     return check.check() and _check_ui() and _check_devbot()
 
 
