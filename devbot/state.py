@@ -67,7 +67,7 @@ def full_build_touch():
 
 
 def clean(build_only=False):
-    print "* Deleting state"
+    print("* Deleting state")
 
     names = [_BUILT_MODULES, _FULL_BUILD]
     if not build_only:

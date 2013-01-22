@@ -55,8 +55,8 @@ class Module:
         elif os.path.exists(os.path.join(source_dir, "autogen.sh")):
             return "autotools"
         else:
-            print "The source directory has unexpected content, please " \
-                  "delete it and pull\nthe source again."
+            print("The source directory has unexpected content, please " \
+                  "delete it and pull\nthe source again.")
             return None
 
 

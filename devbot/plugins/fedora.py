@@ -63,7 +63,7 @@ class PackageManager(interfaces.PackageManager):
                                                     query_format,
                                                     package]).strip()
         except subprocess.CalledProcessError:
-            print "Package %s not installed" % package
+            print("Package %s not installed" % package)
             return
 
         filtered = [cap for cap in capabilities.split(" ")

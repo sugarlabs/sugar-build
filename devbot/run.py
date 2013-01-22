@@ -45,4 +45,4 @@ def collect_logs(source_path):
 
 
 def _get_random_id():
-    return ''.join(random.choice(string.letters) for i in xrange(8))
+    return ''.join(random.choice(string.letters) for i in range(8))

@@ -6,7 +6,7 @@ from devbot import config
 
 
 def clean():
-    print "* Deleting logs"
+    print("* Deleting logs")
 
     try:
         for filename in os.listdir(config.logs_dir):

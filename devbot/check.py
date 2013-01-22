@@ -31,7 +31,7 @@ def _check_module(module):
     result = True
 
     if module.has_checks:
-        print "* Checking %s" % module.name
+        print("* Checking %s" % module.name)
 
         os.chdir(module.get_build_dir())
 

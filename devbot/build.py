@@ -40,7 +40,7 @@ def pull(revisions={}, lazy=False):
             to_pull.append(module)
 
     if to_pull:
-        print "\n= Pulling =\n"
+        print("\n= Pulling =\n")
 
     for module in to_pull:
         revision = revisions.get(module.name, None)
@@ -59,7 +59,7 @@ def build(full=False):
     if not to_build:
         return True
 
-    print "\n= Building =\n"
+    print("\n= Building =\n")
 
     _ccache_reset()
 
@@ -82,16 +82,16 @@ def distribute():
 
 
 def clean():
-    print "* Emptying install directory"
+    print("* Emptying install directory")
     _empty_dir(config.install_dir)
 
-    print "* Emptying build directory"
+    print("* Emptying build directory")
     _empty_dir(config.get_build_dir())
 
     for module in config.load_modules():
         if not module.out_of_source:
             if git.get_module(module).clean():
-                print "* Cleaning %s" % module.name
+                print("* Cleaning %s" % module.name)
 
 
 def _ccache_reset():
@@ -99,7 +99,7 @@ def _ccache_reset():
 
 
 def _ccache_print_stats():
-    print "\n= ccache statistics =\n"
+    print("\n= ccache statistics =\n")
     subprocess.check_call(["ccache", "-s"])
 
 
@@ -112,7 +112,7 @@ def _unlink_libtool_files():
 
 
 def _pull_module(module, revision=None):
-    print "* Pulling %s" % module.name
+    print("* Pulling %s" % module.name)
 
     git_module = git.get_module(module)
 
@@ -177,7 +177,7 @@ def _distribute_autotools(module):
     if description != "v%s" % version:
         match = re.match(r"(v[\d\.]+)", description)
         if match is None:
-            print "No version tag was found"
+            print("No version tag was found")
             return False
         else:
             version_revision = match.groups()[0]
@@ -191,13 +191,13 @@ _distributors["autotools"] = _distribute_autotools
 
 
 def _build_module(module, log=None):
-    print "* Building %s" % module.name
+    print("* Building %s" % module.name)
 
     source_dir = module.get_source_dir()
 
     if not os.path.exists(source_dir):
-        print "Source directory does not exist. Please pull the sources " \
-              "before building."
+        print("Source directory does not exist. Please pull the sources " \
+              "before building.")
         return False
 
     if module.out_of_source:
@@ -225,13 +225,13 @@ def _build_module(module, log=None):
 
 
 def _distribute_module(module, log=None):
-    print "\n=== Distribute %s ===\n" % module.name
+    print("\n=== Distribute %s ===\n" % module.name)
 
     build_dir = module.get_build_dir()
 
     if not os.path.exists(build_dir):
-        print "Build directory does not exist. Please build before " \
-              "distributing."
+        print("Build directory does not exist. Please build before " \
+              "distributing.")
         return False
 
     os.chdir(build_dir)

@@ -4,7 +4,7 @@ from devbot import state
 
 
 def clean(build_only=False):
-    print "\n= Clean =\n"
+    print("\n= Clean =\n")
 
     build.clean()
     state.clean(build_only=build_only)

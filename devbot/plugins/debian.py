@@ -56,12 +56,12 @@ class PackageManager(interfaces.PackageManager):
             return
 
         if package not in self._cache:
-            print "Package %s not in cache" % package
+            print("Package %s not in cache" % package)
             return
 
         installed = self._cache[package].installed
         if installed is None:
-            print "Package %s not installed" % package
+            print("Package %s not installed" % package)
             return
 
         for dependency in installed.dependencies:

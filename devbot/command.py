@@ -6,7 +6,7 @@ from devbot import config
 
 def run(args, test=False, interactive=False, retry=0):
     if test:
-        print " ".join(args)
+        print(" ".join(args))
         return
 
     log_file = None
@@ -23,13 +23,13 @@ def run(args, test=False, interactive=False, retry=0):
             tries = tries + 1
             subprocess.check_call(**subprocess_args)
             break
-        except subprocess.CalledProcessError, e:
-            print "\nCommand failed, tail of %s\n" % config.log_path
+        except subprocess.CalledProcessError as e:
+            print("\nCommand failed, tail of %s\n" % config.log_path)
             if config.log_path:
                 subprocess.call(["tail", config.log_path])
 
             if tries < retry + 1:
-                print "Retrying (attempt %d) in 1 minute" % tries
+                print("Retrying (attempt %d) in 1 minute" % tries)
                 time.sleep(60)
             else:
                 raise e
@@ -42,6 +42,6 @@ def run_with_sudo(args, test=False, interactive=False, retry=0):
     args_with_sudo = ["sudo"]
     args_with_sudo.extend(args)
 
-    print " ".join(args_with_sudo)
+    print(" ".join(args_with_sudo))
 
     run(args_with_sudo, test=test, retry=retry, interactive=interactive)

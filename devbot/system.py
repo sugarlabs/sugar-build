@@ -34,7 +34,7 @@ def check(remove=False, update=False, test=False, interactive=True,
 
     xvfb.stop(xvfb_proc, orig_display)
 
-    print "All the required dependencies are installed."
+    print("All the required dependencies are installed.")
 
     if update:
         package_manager.update()
@@ -126,7 +126,7 @@ _checkers["gstreamer-1.0"] = _check_gstreamer_1_0
 
 def _print_checks(checks):
     for check in checks:
-        print "[%s] %s" % (check["checker"], check["check"])
+        print("[%s] %s" % (check["checker"], check["check"]))
 
 
 def _eval_check_if(check):
@@ -136,7 +136,7 @@ def _eval_check_if(check):
     distro_info = distro.get_distro_info()
     globals = {"distro": "%s-%s" % (distro_info.name, distro_info.version)}
 
-    print eval(check["check_if"], globals)
+    print(eval(check["check_if"], globals))
 
     return eval(check["check_if"], globals) == "True"
 
@@ -168,19 +168,19 @@ def _run_checks(package_manager, checks, packages):
 
     if distro_info.supported:
         if packages_not_found:
-            print "\nPackages not found for"
+            print("\nPackages not found for")
             _print_checks(packages_not_found)
             return False
 
         if to_install:
             package_manager.install_packages(to_install)
     elif failed_checks:
-        print "Failed checks\n"
+        print("Failed checks\n")
         _print_checks(failed_checks)
 
         if to_install:
-            print "\nYou might try to install the following packages\n"
-            print " ".join(to_install)
+            print("\nYou might try to install the following packages\n")
+            print(" ".join(to_install))
 
         return False
 
