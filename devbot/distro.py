@@ -50,12 +50,12 @@ def get_distro_info():
         _distro_info = unknown_distro
 
     if not _distro_info.supported:
-        print("*********************************************************\n" \
-              "You are running an unsupported distribution. You might be\n" \
-              "able to make sugar work by installing or building \n" \
-              "packages but it certainly won't work out of the box.\n" \
-              "You are strongly encouraged to pick one of the supported \n" \
-              "distributions listed in the README.\n" \
+        print("*********************************************************\n"
+              "You are running an unsupported distribution. You might be\n"
+              "able to make sugar work by installing or building \n"
+              "packages but it certainly won't work out of the box.\n"
+              "You are strongly encouraged to pick one of the supported \n"
+              "distributions listed in the README.\n"
               "*********************************************************\n")
 
     return _distro_info

@@ -196,7 +196,7 @@ def _build_module(module, log=None):
     source_dir = module.get_source_dir()
 
     if not os.path.exists(source_dir):
-        print("Source directory does not exist. Please pull the sources " \
+        print("Source directory does not exist. Please pull the sources "
               "before building.")
         return False
 
@@ -230,7 +230,7 @@ def _distribute_module(module, log=None):
     build_dir = module.get_build_dir()
 
     if not os.path.exists(build_dir):
-        print("Build directory does not exist. Please build before " \
+        print("Build directory does not exist. Please build before "
               "distributing.")
         return False
 
