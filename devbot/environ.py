@@ -43,8 +43,8 @@ def setup_variables():
     add_path("XDG_DATA_DIRS", "/usr/share")
     add_path("XDG_DATA_DIRS", config.share_dir)
 
-    add_path("XDG_CONFIG_DIRS", "/etc")
-    add_path("XDG_CONFIG_DIRS", config.etc_dir)
+    add_path("XDG_CONFIG_DIRS", "/etc/xdg")
+    add_path("XDG_CONFIG_DIRS", os.path.join(config.etc_dir, "xdg"))
 
     for system_lib_dir in config.system_lib_dirs:
         modules_path = os.path.join(system_lib_dir, "gio", "modules")
