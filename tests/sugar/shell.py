@@ -5,7 +5,7 @@ import traceback
 
 import tree
 
-ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read", "Jukebox"]
+ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read"]
 
 
 def build_activities_list():
