@@ -107,11 +107,7 @@ class DistroInfo(interfaces.DistroInfo):
             release = None
             self.valid = False
 
-        if release == "Fedora release 17 (Beefy Miracle)":
-            self.version = "17"
-            self.gnome_version = "3.4"
-            self.gstreamer_version = "0.10"
-        elif release == "Fedora release 18 (Spherical Cow)":
+        if release == "Fedora release 18 (Spherical Cow)":
             self.version = "18"
         else:
             self.supported = False
