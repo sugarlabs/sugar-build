@@ -13,6 +13,12 @@ from devbot import config
 GIT_CONFIG_SETUP = "sugar-build.send-patches.setup"
 
 
+try:
+    input = raw_input
+except NameError:
+    pass
+
+
 def get_git_config(name, is_global=False):
     args = ["git", "config"]
 
