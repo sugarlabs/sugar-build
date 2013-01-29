@@ -39,9 +39,16 @@
         "tag": "c36e12368bb430ca1fb6eafd7d86f59c44965a31"
     }, 
     {
+        "if": "distro == 'debian-7.0'", 
+        "name": "telepathy-glib", 
+        "out-of-source": false, 
+        "repo": "git://anongit.freedesktop.org/telepathy/telepathy-glib", 
+        "tag": "telepathy-glib-0.20.1"
+    }, 
+    {
+        "branch": "sugar-build-5.14.0", 
         "name": "telepathy-mission-control", 
-        "out-of-source": false,
-        "branch": "sugar-build-5.14.0",  
+        "out-of-source": false, 
         "repo": "git://github.com/dnarvaez/telepathy-mission-control.git"
     }, 
     {
