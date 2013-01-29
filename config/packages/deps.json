@@ -191,6 +191,17 @@
             "python-dateutil"
         ]
     }, 
+    "dbus-glib-1": {
+        "debian": [
+            "libdbus-glib-1-dev"
+        ], 
+        "fedora": [
+            "dbus-glib-devel"
+        ], 
+        "ubuntu": [
+            "libdbus-glib-1-dev"
+        ]
+    }, 
     "dbus-launch": {
         "debian": [
             "dbus-x11"
@@ -803,6 +814,17 @@
         ], 
         "ubuntu": [
             "python-telepathy"
+        ]
+    }, 
+    "telepathy-glib": {
+        "debian": [
+            "libtelepathy-glib-dev"
+        ], 
+        "fedora": [
+            "telepathy-glib-devel"
+        ], 
+        "ubuntu": [
+            "libtelepathy-glib-dev"
         ]
     }, 
     "time": {

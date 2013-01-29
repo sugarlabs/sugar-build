@@ -21,6 +21,11 @@
         "name": "autoreconf"
     }, 
     {
+        "check": "dbus-glib-1", 
+        "checker": "pkgconfig", 
+        "name": "dbus-glib-1"
+    }, 
+    {
         "check": "gcc", 
         "checker": "binary", 
         "name": "gcc"
@@ -149,6 +154,11 @@
         "check": "tar", 
         "checker": "binary", 
         "name": "tar"
+    }, 
+    {
+        "check": "telepathy-glib", 
+        "checker": "pkgconfig", 
+        "name": "telepathy-glib"
     }, 
     {
         "check": "xcursorgen", 
