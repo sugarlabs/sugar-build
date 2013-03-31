@@ -167,5 +167,10 @@
         "check": "import xapian", 
         "checker": "python", 
         "name": "xapian python"
+    }, 
+    {
+        "check": "xdg-user-dirs-update", 
+        "checker": "binary", 
+        "name": "xdg-user-dirs-update"
     }
 ]
