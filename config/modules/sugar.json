@@ -12,10 +12,12 @@
         "repo": "git://git.sugarlabs.org/sugar-toolkit/mainline.git"
     }, 
     {
+        "has_checks": true, 
         "name": "sugar-toolkit-gtk3", 
         "repo": "git://github.com/sugarlabs/sugar-toolkit-gtk3.git"
     }, 
     {
+        "has_checks": true, 
         "name": "sugar", 
         "repo": "git://github.com/sugarlabs/sugar"
     }, 
