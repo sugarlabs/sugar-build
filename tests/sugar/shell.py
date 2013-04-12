@@ -5,8 +5,6 @@ import traceback
 
 import tree
 
-ACTIVITIES_WITH_OBJECT_CHOOSER = ["Read"]
-
 
 def build_activities_list():
     root = tree.get_root()
@@ -43,11 +41,6 @@ def launch_and_stop_activity(activity_name):
             icon.do_action("activate")
 
             logging.info("Stopping %s" % activity_name)
-
-            if activity_name in ACTIVITIES_WITH_OBJECT_CHOOSER:
-                close_button = shell.find_child(name="Close",
-                                                role_name="push button")
-                close_button.do_action("click")
 
             activity = root.find_child(name="sugar-activity",
                                        role_name="application")
