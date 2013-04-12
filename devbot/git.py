@@ -62,6 +62,7 @@ class Module:
         if revision == self._get_commit_id():
             return
 
+        command.run(["git", "remote", "set-url", "origin", self.remote])
         command.run(["git", "fetch"], retry=self._retry)
 
         if revision:
