@@ -45,8 +45,8 @@
         "name": "gtk-doc"
     }, 
     {
-        "check": "icu-i18n", 
-        "checker": "pkgconfig", 
+        "check": "unicode/timezone.h", 
+        "checker": "include", 
         "name": "icu"
     }, 
     {

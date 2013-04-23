@@ -281,13 +281,13 @@
     }, 
     "gail": {
         "debian": [
-            "libgail-dev"
+            "libgail-3-dev"
         ], 
         "fedora": [
             "gtk2-devel"
         ], 
         "ubuntu": [
-            "libgail-dev"
+            "libgail-3-dev"
         ]
     }, 
     "gail gtkmodule": {
