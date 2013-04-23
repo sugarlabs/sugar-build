@@ -45,6 +45,24 @@
         "name": "makeinfo"
     }, 
     {
+        "check": "ragel", 
+        "checker": "binary", 
+        "if": "gnome_version == '3.4'", 
+        "name": "ragel"
+    }, 
+    {
+        "check": "ruby", 
+        "checker": "binary", 
+        "if": "gnome_version == '3.4'", 
+        "name": "ruby"
+    }, 
+    {
+        "check": "sqlite3", 
+        "checker": "pkgconfig", 
+        "if": "gnome_version == '3.4'", 
+        "name": "sqlite3"
+    }, 
+    {
         "check": "xkbfile", 
         "checker": "pkgconfig", 
         "name": "xkbfile"

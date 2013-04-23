@@ -141,12 +141,6 @@
         "name": "python"
     }, 
     {
-        "check": "ragel", 
-        "checker": "binary", 
-        "if": "gnome_version == '3.4'", 
-        "name": "ragel"
-    }, 
-    {
         "check": "sm", 
         "checker": "pkgconfig", 
         "name": "sm"
@@ -155,12 +149,6 @@
         "check": "sphinx-build", 
         "checker": "binary", 
         "name": "sphinx-build"
-    }, 
-    {
-        "check": "sqlite3", 
-        "checker": "pkgconfig", 
-        "if": "gnome_version == '3.4'", 
-        "name": "sqlite3"
     }, 
     {
         "check": "tar", 

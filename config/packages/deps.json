@@ -755,6 +755,11 @@
             "python-rsvg"
         ]
     }, 
+    "ruby": {
+        "debian": [
+            "ruby"
+        ]
+    }, 
     "simplejson python": {
         "debian": [
             "python-simplejson"
