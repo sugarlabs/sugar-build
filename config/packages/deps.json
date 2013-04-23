@@ -646,6 +646,17 @@
             "libxml2-dev"
         ]
     }, 
+    "libxslt": {
+        "debian": [
+            "libxslt1-dev"
+        ], 
+        "fedora": [
+            "libxslt-devel"
+        ], 
+        "ubuntu": [
+            "libxslt1-dev"
+        ]
+    }, 
     "makeinfo": {
         "debian": [
             "texinfo"
