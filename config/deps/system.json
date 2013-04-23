@@ -45,6 +45,11 @@
         "name": "makeinfo"
     }, 
     {
+        "check": "perf", 
+        "checker": "binary", 
+        "name": "perf"
+    }, 
+    {
         "check": "ragel", 
         "checker": "binary", 
         "if": "gnome_version == '3.4'", 

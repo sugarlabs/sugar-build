@@ -676,6 +676,17 @@
             "pep8"
         ]
     }, 
+    "perf": {
+        "debian": [
+            "perf"
+        ], 
+        "fedora": [
+            "perf"
+        ], 
+        "ubuntu": [
+            "perf"
+        ]
+    }, 
     "pkg-config": {
         "debian": [
             "pkg-config"
@@ -757,6 +768,12 @@
     }, 
     "ruby": {
         "debian": [
+            "ruby"
+        ], 
+        "fedora": [
+            "ruby"
+        ], 
+        "ubuntu": [
             "ruby"
         ]
     }, 
