@@ -389,6 +389,17 @@
             "libgirepository1.0-dev"
         ]
     }, 
+    "gperf": {
+        "debian": [
+            "gperf"
+        ], 
+        "fedora": [
+            "gperf"
+        ], 
+        "ubuntu": [
+            "gperf"
+        ]
+    }, 
     "gsettings-desktop-schemas": {
         "debian": [
             "gsettings-desktop-schemas-dev"
@@ -674,17 +685,6 @@
         ], 
         "ubuntu": [
             "pep8"
-        ]
-    }, 
-    "perf": {
-        "debian": [
-            "perf"
-        ], 
-        "fedora": [
-            "perf"
-        ], 
-        "ubuntu": [
-            "perf"
         ]
     }, 
     "pkg-config": {
