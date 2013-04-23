@@ -87,6 +87,11 @@
         "name": "xkbfile"
     }, 
     {
+        "check": "xt", 
+        "checker": "pkgconfig", 
+        "name": "xt"
+    }, 
+    {
         "check": "xtst", 
         "checker": "pkgconfig", 
         "name": "xtst"
