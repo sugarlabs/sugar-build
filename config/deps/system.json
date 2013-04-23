@@ -88,7 +88,7 @@
     {
         "check": "ragel", 
         "checker": "binary", 
-        "if": "distro == 'fedora-18'", 
+        "if": "distro != 'fedora-18'", 
         "name": "ragel"
     }, 
     {
