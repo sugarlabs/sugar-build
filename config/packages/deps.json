@@ -783,6 +783,11 @@
             "python-sphinx"
         ]
     }, 
+    "sqlite3": {
+        "debian": [
+            "libsqlite3-dev"
+        ]
+    }, 
     "ssh": {
         "debian": [
             "openssh-client"

@@ -151,6 +151,11 @@
         "name": "sphinx-build"
     }, 
     {
+        "check": "sqlite3", 
+        "checker": "pkgconfig", 
+        "name": "sqlite3"
+    }, 
+    {
         "check": "tar", 
         "checker": "binary", 
         "name": "tar"
