@@ -523,6 +523,17 @@
             "icon-slicer"
         ]
     }, 
+    "icu": {
+        "debian": [
+            "libicu-dev"
+        ], 
+        "fedora": [
+            "icu-devel"
+        ], 
+        "ubuntu": [
+            "libicu-dev"
+        ]
+    }, 
     "intltoolize": {
         "debian": [
             "intltool"

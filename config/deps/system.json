@@ -35,6 +35,11 @@
         "name": "gtk-doc"
     }, 
     {
+        "check": "icu-i18n", 
+        "checker": "pkgconfig", 
+        "name": "icu"
+    }, 
+    {
         "check": "iso-codes", 
         "checker": "pkgconfig", 
         "name": "iso-codes"
