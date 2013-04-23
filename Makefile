@@ -5,19 +5,26 @@ TIME=time -f "\n= Time =\n\nreal\t%e\nuser\t%U\nsys\t%S\n"
 
 all: build
 
+sourcestamp_cflags=`pkg-config --cflags python-2.7`
+sourcestamp_libs=`pkg-config --libs python-2.7`
+
+build-sourcestamp:
+	@gcc -shared -fPIC -o devbot/sourcestamp.so \
+		$(sourcestamp_cflags) $(sourcestamp_libs) devbot/sourcestamp.c
+
 check-system:
 	@$(COMMANDS_DIR)/check-system $(ARGS)
 
 pull:
 	@$(COMMANDS_DIR)/pull $(ARGS)
 
-build:
+build: build-sourcestamp
 	@$(TIME) $(COMMANDS_DIR)/build $(ARGS)
 
-run:
+run: build-sourcestamp
 	@$(COMMANDS_DIR)/run
 
-check:
+check: build-sourcestamp
 	@$(COMMANDS_DIR)/check
 
 shell:
@@ -28,9 +35,6 @@ bug-report:
 
 clean:
 	@$(COMMANDS_DIR)/clean
-
-distribute:
-	@$(COMMANDS_DIR)/distribute
 
 snapshot:
 	@$(COMMANDS_DIR)/snapshot

@@ -1,8 +1,13 @@
-import hashlib
 import os
 import json
 
 from devbot import config
+
+try:
+    from devbot import sourcestamp
+    has_sourcestamp = True
+except ImportError:
+    has_sourcestamp = False
 
 _BUILT_MODULES = "builtmodules"
 _FULL_BUILD = "fullbuild"
@@ -10,44 +15,56 @@ _SYSTEM_CHECK = "syscheck"
 
 
 def built_module_touch(module):
+    if not has_sourcestamp:
+        return
+
     built_modules = _load_state(_BUILT_MODULES, {})
 
-    source_hash = _compute_mtime_hash(module.get_source_dir())
-    built_modules[module.name] = {"source_hash": source_hash}
+    source_stamp = sourcestamp.compute(module.get_source_dir())
+    built_modules[module.name] = {"source_stamp": source_stamp}
 
     _save_state(_BUILT_MODULES, built_modules)
 
 
 def built_module_is_unchanged(module):
+    if not has_sourcestamp:
+        return False
+
     built_modules = _load_state(_BUILT_MODULES, {})
     if module.name not in built_modules:
         return False
 
     built_module = built_modules[module.name]
-    if "source_hash" not in built_module:
+    if "source_stamp" not in built_module:
         return False
 
-    old_source_hash = built_module["source_hash"]
-    new_source_hash = _compute_mtime_hash(module.get_source_dir())
+    old_source_stamp = built_module["source_stamp"]
+    new_source_stamp = sourcestamp.compute(module.get_source_dir())
 
-    return old_source_hash == new_source_hash
+    return old_source_stamp == new_source_stamp
 
 
 def system_check_is_unchanged():
-    system_check = _load_state(_SYSTEM_CHECK)
-    if not system_check or not "config_hash" in system_check:
+    if not has_sourcestamp:
         return False
 
-    config_hash = _compute_mtime_hash(config.config_dir)
+    system_check = _load_state(_SYSTEM_CHECK)
+    if not system_check or not "config_stamp" in system_check:
+        return False
 
-    return system_check["config_hash"] == config_hash
+    config_stamp = sourcestamp.compute(config.config_dir)
+
+    return system_check["config_stamp"] == config_stamp
 
 
 def system_check_touch():
+    if not has_sourcestamp:
+        return
+
     system_check = _load_state(_SYSTEM_CHECK, {})
 
-    config_hash = _compute_mtime_hash(config.config_dir)
-    system_check["config_hash"] = config_hash
+    config_stamp = sourcestamp.compute(config.config_dir)
+    system_check["config_stamp"] = config_stamp
 
     _save_state(_SYSTEM_CHECK, system_check)
 
@@ -100,21 +117,3 @@ def _save_state(name, state):
     with open(_get_state_path(name), "w+") as f:
         json.dump(state, f, indent=4)
         f.write('\n')
-
-
-def _compute_mtime_hash(path):
-    # For some reason if path is unicode we
-    # get a 10x slow down for some directories
-    path = str(path)
-
-    data = ""
-    for root, dirs, files in os.walk(path):
-        for name in files:
-            path = os.path.join(root, name)
-            mtime = os.lstat(path).st_mtime
-            data = "%s%s %s\n" % (data, mtime, path)
-
-            if ".git" in dirs:
-                dirs.remove(".git")
-
-    return hashlib.sha256(data).hexdigest()

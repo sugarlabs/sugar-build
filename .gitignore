@@ -1,4 +1,5 @@
 *.pyc
+*.so
 state/
 install/
 build/
