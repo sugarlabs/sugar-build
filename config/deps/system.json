@@ -25,7 +25,7 @@
         "name": "flex"
     }, 
     {
-        "check": "gail", 
+        "check": "gail-3.0", 
         "checker": "pkgconfig", 
         "name": "gail"
     }, 
