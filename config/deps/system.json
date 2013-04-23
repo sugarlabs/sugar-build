@@ -60,6 +60,12 @@
         "name": "libjpeg"
     }, 
     {
+        "check": "libsoup-2.4", 
+        "checker": "pkgconfig", 
+        "if": "gnome_version != '3.4'", 
+        "name": "libsoup"
+    }, 
+    {
         "check": "webp/decode.h", 
         "checker": "include", 
         "name": "libwebp"

@@ -627,6 +627,14 @@
             "librsvg2-dev"
         ]
     }, 
+    "libsoup": {
+        "fedora": [
+            "libsoup-devel"
+        ], 
+        "ubuntu": [
+            "libsoup2.4-dev"
+        ]
+    }, 
     "libtasn1": {
         "debian": [
             "libtasn1-3-dev"
