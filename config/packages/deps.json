@@ -334,6 +334,17 @@
             "libgconf2-dev"
         ]
     }, 
+    "geoclue": {
+        "debian": [
+            "libgeoclue-dev"
+        ], 
+        "fedora": [
+            "geoclue-devel"
+        ], 
+        "ubuntu": [
+            "libgeoclue-dev"
+        ]
+    }, 
     "gi python": {
         "debian": [
             "python-gobject-2"

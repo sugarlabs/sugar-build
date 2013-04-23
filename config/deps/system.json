@@ -25,6 +25,11 @@
         "name": "flex"
     }, 
     {
+        "check": "geoclue", 
+        "checker": "pkgconfig", 
+        "name": "geoclue"
+    }, 
+    {
         "check": "gperf", 
         "checker": "binary", 
         "name": "gperf"
