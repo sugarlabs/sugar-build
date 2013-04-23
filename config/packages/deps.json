@@ -528,7 +528,7 @@
             "libicu-dev"
         ], 
         "fedora": [
-            "icu-devel"
+            "libicu-devel"
         ], 
         "ubuntu": [
             "libicu-dev"
