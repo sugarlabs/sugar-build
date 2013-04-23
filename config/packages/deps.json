@@ -577,7 +577,7 @@
             "libjpeg8-dev"
         ], 
         "fedora": [
-            "libjpeg-turbo"
+            "libjpeg-turbo-devel"
         ], 
         "ubuntu": [
             "libjpeg8-dev"
@@ -611,6 +611,17 @@
         ], 
         "ubuntu": [
             "libtool"
+        ]
+    }, 
+    "libwebp": {
+        "debian": [
+            "libwebp-dev"
+        ], 
+        "fedora": [
+            "libwebp-devel"
+        ], 
+        "ubuntu": [
+            "libwebp-dev"
         ]
     }, 
     "libxml-2.0": {

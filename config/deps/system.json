@@ -45,6 +45,11 @@
         "name": "libjpeg"
     }, 
     {
+        "check": "webp/decode.h", 
+        "checker": "include", 
+        "name": "libwebp"
+    }, 
+    {
         "check": "libxml-2.0", 
         "checker": "pkgconfig", 
         "name": "libxml-2.0"
