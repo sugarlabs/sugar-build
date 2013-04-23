@@ -141,6 +141,12 @@
         "name": "python"
     }, 
     {
+        "check": "ragel", 
+        "checker": "binary", 
+        "if": "gnome_version == '3.4'", 
+        "name": "ragel"
+    }, 
+    {
         "check": "sm", 
         "checker": "pkgconfig", 
         "name": "sm"

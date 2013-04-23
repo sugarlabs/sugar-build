@@ -739,6 +739,11 @@
             "python-dev"
         ]
     }, 
+    "ragel": {
+        "debian": [
+            "ragel"
+        ]
+    }, 
     "rsvg python": {
         "debian": [
             "python-rsvg"
