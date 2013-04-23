@@ -67,7 +67,7 @@ PyObject *sourcestamp_compute(PyObject *self, PyObject *args)
     }
 
     list_dir(path, &mtime, &n_files);
-    snprintf(stamp, 100, "%d - %d", n_files, mtime);
+    snprintf(stamp, 100, "%d - %lu", n_files, (long unsigned)mtime);
 
     return Py_BuildValue("s", stamp);
 }
