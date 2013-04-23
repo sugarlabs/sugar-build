@@ -137,6 +137,9 @@
     }, 
     {
         "name": "webkitgtk", 
+        "options": [
+            "--enable-introspection"
+        ], 
         "out-of-source": false, 
         "repo": "git://github.com/dnarvaez/webkitgtk"
     }
