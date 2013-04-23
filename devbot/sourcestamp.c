@@ -35,10 +35,6 @@ list_dir(const char *dir, time_t *mtime, int *n_files)
 
         lstat(entry->d_name, &statbuf);
 
-        if (statbuf.st_mtime > *mtime) {
-            *mtime = statbuf.st_mtime;
-        }
-
         if(S_ISDIR(statbuf.st_mode)) {
             if(strcmp(".", entry->d_name) == 0 ||
                strcmp("..", entry->d_name) == 0 ||
@@ -46,6 +42,10 @@ list_dir(const char *dir, time_t *mtime, int *n_files)
                 continue;
 
             list_dir(entry->d_name, mtime, n_files);
+        }
+
+        if (statbuf.st_mtime > *mtime) {
+            *mtime = statbuf.st_mtime;
         }
     }
 
