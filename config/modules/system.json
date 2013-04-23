@@ -15,28 +15,24 @@
         "repo": "git://github.com/dnarvaez/gnome-keyring.git"
     }, 
     {
-        "if": "gnome_version == '3.4' or distro == 'ubuntu-12.10'", 
         "name": "glib", 
         "options": [
             "--disable-modular-tests"
         ], 
         "repo": "git://git.gnome.org/glib", 
-        "tag": "2.34.3"
+        "tag": "2.36.1"
     }, 
     {
-        "if": "gnome_version == '3.4' or distro == 'ubuntu-12.10'", 
         "name": "gobject-introspection", 
         "options": [
             "--disable-tests"
         ], 
         "repo": "git://git.gnome.org/gobject-introspection", 
-        "tag": "GOBJECT_INTROSPECTION_1_34_2"
+        "tag": "GOBJECT_INTROSPECTION_1_36_0"
     }, 
     {
-        "if": "gnome_version == '3.4' or distro == 'ubuntu-12.10'", 
         "name": "pygobject", 
-        "repo": "git://github.com/dnarvaez/pygobject.git", 
-        "branch": "sugar-build-3-4"
+        "repo": "git://git.gnome.org/pygobject"
     }, 
     {
         "if": "distro == 'debian-7.0'", 
@@ -119,5 +115,27 @@
         ], 
         "repo": "git://git.gnome.org/metacity", 
         "tag": "METACITY_2_34_13"
+    }, 
+    {
+        "if": "gnome_version == '3.4'", 
+        "name": "libsoup", 
+        "repo": "git://git.gnome.org/libsoup", 
+        "tag": "2.42.1"
+    }, 
+    {
+        "if": "gnome_version == '3.4'", 
+        "name": "libsecret", 
+        "repo": "git://git.gnome.org/libsecret", 
+        "tag": "0.15"
+    }, 
+    {
+        "if": "gnome_version == '3.4'", 
+        "name": "harfbuzz", 
+        "repo": "git://anongit.freedesktop.org/harfbuzz", 
+        "tag": "0.9.16"
+    }, 
+    {
+        "name": "webkitgtk", 
+        "repo": "git://github.com/dnarvaez/webkitgtk"
     }
 ]
