@@ -132,7 +132,7 @@
         "tag": "0.15"
     }, 
     {
-        "if": "gnome_version == '3.4'", 
+        "if": "distro != 'fedora-18'", 
         "name": "harfbuzz", 
         "repo": "git://anongit.freedesktop.org/harfbuzz", 
         "tag": "0.9.16"
