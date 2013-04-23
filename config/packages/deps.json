@@ -879,6 +879,12 @@
     "sqlite3": {
         "debian": [
             "libsqlite3-dev"
+        ], 
+        "fedora": [
+            "sqlite-devel"
+        ], 
+        "ubuntu": [
+            "libsqlite3-dev"
         ]
     }, 
     "ssh": {
