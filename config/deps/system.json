@@ -40,6 +40,11 @@
         "name": "iso-codes"
     }, 
     {
+        "check": "jpeglib.h", 
+        "checker": "include", 
+        "name": "libjpeg"
+    }, 
+    {
         "check": "libxml-2.0", 
         "checker": "pkgconfig", 
         "name": "libxml-2.0"

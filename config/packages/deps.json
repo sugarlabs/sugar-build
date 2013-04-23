@@ -572,6 +572,17 @@
             "libgcrypt-devel"
         ]
     }, 
+    "libjpeg": {
+        "debian": [
+            "libjpeg8-dev"
+        ], 
+        "fedora": [
+            "libjpeg-turbo"
+        ], 
+        "ubuntu": [
+            "libjpeg8-dev"
+        ]
+    }, 
     "librsvg-2.0": {
         "debian": [
             "librsvg2-dev"
