@@ -632,7 +632,7 @@
             "libsecret-devel"
         ], 
         "ubuntu": [
-            "libsecret-1-0"
+            "libsecret-1-dev"
         ]
     }, 
     "libtasn1": {
