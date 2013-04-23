@@ -93,7 +93,6 @@
     {
         "check": "sqlite3", 
         "checker": "pkgconfig", 
-        "if": "gnome_version == '3.4'", 
         "name": "sqlite3"
     }, 
     {
