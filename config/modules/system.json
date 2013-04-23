@@ -136,6 +136,7 @@
     }, 
     {
         "name": "webkitgtk", 
+        "out-of-source": false, 
         "repo": "git://github.com/dnarvaez/webkitgtk"
     }
 ]
