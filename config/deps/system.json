@@ -25,6 +25,11 @@
         "name": "flex"
     }, 
     {
+        "check": "gperf", 
+        "checker": "binary", 
+        "name": "gperf"
+    }, 
+    {
         "check": "gtk-doc", 
         "checker": "pkgconfig", 
         "name": "gtk-doc"
@@ -43,11 +48,6 @@
         "check": "makeinfo", 
         "checker": "binary", 
         "name": "makeinfo"
-    }, 
-    {
-        "check": "perf", 
-        "checker": "binary", 
-        "name": "perf"
     }, 
     {
         "check": "ragel", 
