@@ -25,9 +25,14 @@
         "name": "flex"
     }, 
     {
-        "check": "gail-3.0", 
+        "check": "gail", 
         "checker": "pkgconfig", 
         "name": "gail"
+    }, 
+    {
+        "check": "gail-3.0", 
+        "checker": "pkgconfig", 
+        "name": "gail3"
     }, 
     {
         "check": "geoclue", 
