@@ -121,7 +121,6 @@
         "tag": "METACITY_2_34_13"
     }, 
     {
-        "if": "gnome_version == '3.4'", 
         "name": "libsoup", 
         "repo": "git://git.gnome.org/libsoup", 
         "tag": "2.42.1"
