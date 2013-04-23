@@ -627,6 +627,14 @@
             "librsvg2-dev"
         ]
     }, 
+    "libsecret": {
+        "fedora": [
+            "libsecret-devel"
+        ], 
+        "ubuntu": [
+            "libsecret-1-0"
+        ]
+    }, 
     "libtasn1": {
         "debian": [
             "libtasn1-3-dev"
