@@ -827,6 +827,9 @@
     "ragel": {
         "debian": [
             "ragel"
+        ], 
+        "ubuntu": [
+            "ragel"
         ]
     }, 
     "rsvg python": {
