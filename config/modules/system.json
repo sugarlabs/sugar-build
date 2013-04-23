@@ -32,7 +32,8 @@
     }, 
     {
         "name": "pygobject", 
-        "repo": "git://git.gnome.org/pygobject"
+        "repo": "git://git.gnome.org/pygobject", 
+        "tag": "2d34d35e5db06b0eb29cba91d0999b20a5c0b450"
     }, 
     {
         "if": "distro == 'debian-7.0'", 
