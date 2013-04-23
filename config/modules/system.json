@@ -83,7 +83,7 @@
         ], 
         "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/gstreamer/gstreamer", 
-        "tag": "1.0.3"
+        "tag": "1.0.6"
     }, 
     {
         "if": "gstreamer_version != '1.0'", 
@@ -93,7 +93,7 @@
         ], 
         "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/gstreamer/gst-plugins-base", 
-        "tag": "1.0.3"
+        "tag": "1.0.6"
     }, 
     {
         "if": "gstreamer_version != '1.0'", 
@@ -103,7 +103,7 @@
         ], 
         "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/gstreamer/gst-plugins-good", 
-        "tag": "1.0.3"
+        "tag": "1.0.6"
     }, 
     {
         "if": "gnome_version == '3.4'", 
