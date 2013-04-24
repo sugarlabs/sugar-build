@@ -52,8 +52,8 @@ class Module:
         source_dir = self.get_source_dir()
         if os.path.exists(os.path.join(source_dir, "setup.py")):
             return "activity"
-        elif os.path.exists(os.path.join(source_dir, "autogen.sh")) or \
-             os.path.exists(os.path.join(source_dir, "configure")):
+        elif (os.path.exists(os.path.join(source_dir, "autogen.sh")) or
+              os.path.exists(os.path.join(source_dir, "configure"))):
             return "autotools"
         else:
             print("The source directory has unexpected content, please "

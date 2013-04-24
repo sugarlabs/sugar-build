@@ -68,29 +68,17 @@ class TestConfig(common.DevbotTestCase):
         self.assertTrue(distro_info.supported)
         self.assertTrue(distro_info.valid)
 
-    def test_fedora_17_modules(self):
-        self._set_distro("fedora", "17")
-
-        modules = config.load_modules()
-        self._assert_module(modules, "gnome-keyring")
-        self._assert_module(modules, "glib")
-        self._assert_module(modules, "gtk+")
-        self._assert_module(modules, "gstreamer")
-        self._assert_module(modules, "sugar")
-
-        self._unset_distro()
-
     def test_fedora_18_modules(self):
         self._set_distro("fedora", "18")
 
         self.assertEquals("fedora", distro.get_distro_info().name)
         self.assertEquals("18", distro.get_distro_info().version)
         modules = config.load_modules()
-        self._assert_no_module(modules, "glib")
         self._assert_no_module(modules, "gtk+")
         self._assert_no_module(modules, "gnome-keyring")
         self._assert_no_module(modules, "gstreamer")
         self._assert_module(modules, "sugar")
+        self._assert_module(modules, "glib")
 
         self._unset_distro()
 
@@ -101,7 +89,7 @@ class TestConfig(common.DevbotTestCase):
         self._assert_module(modules, "glib")
         self._assert_no_module(modules, "gtk+")
         self._assert_no_module(modules, "gnome-keyring")
-        self._assert_no_module(modules, "gstreamer")
+        self._assert_module(modules, "gstreamer")
         self._assert_module(modules, "sugar")
 
         self._unset_distro()
