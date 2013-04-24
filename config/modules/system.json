@@ -39,6 +39,11 @@
         "tag": "2d34d35e5db06b0eb29cba91d0999b20a5c0b450"
     }, 
     {
+        "name": "dbus-python", 
+        "repo": "git://anongit.freedesktop.org/dbus/dbus-python", 
+        "tag": "423ee853dfbb4ee9ed89a21e1cf2b6a928e2fc4d"
+    }, 
+    {
         "if": "distro == 'debian-7.0'", 
         "name": "telepathy-glib", 
         "out-of-source": false, 
