@@ -31,13 +31,13 @@
         "tag": "GOBJECT_INTROSPECTION_1_36_0"
     }, 
     {
+        "branch": "pygobject-3-8",
         "name": "pygobject", 
         "options": [
             "--with-python=python2.7"
         ], 
         "repo": "git://git.gnome.org/pygobject", 
-	"branch": "pygobject-3-8",
-	"tag": "2a1c09fea76b3a1e696d9bb82c46e6c64ec574f9"
+        "tag": "2a1c09fea76b3a1e696d9bb82c46e6c64ec574f9"
     }, 
     {
         "name": "dbus-python", 
