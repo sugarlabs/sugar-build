@@ -61,6 +61,7 @@ def setup_variables():
     os.environ["GTK_DATA_PREFIX"] = config.prefix_dir
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")
     os.environ["CC"] = "ccache gcc"
+    os.environ["CXX"] = "ccache g++"
 
     os.environ["GCONF_DEFAULT_SOURCE_PATH"] = _get_gconf_path()
     os.environ["GCONF_SCHEMA_INSTALL_SOURCE"] = \
