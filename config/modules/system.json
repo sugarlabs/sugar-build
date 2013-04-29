@@ -15,6 +15,7 @@
         "repo": "git://github.com/dnarvaez/gnome-keyring.git"
     }, 
     {
+        "if": "distro != 'ubuntu-13.04'", 
         "name": "glib", 
         "options": [
             "--disable-modular-tests"
@@ -23,6 +24,7 @@
         "tag": "2.36.1"
     }, 
     {
+        "if": "distro != 'ubuntu-13.04'", 
         "name": "gobject-introspection", 
         "options": [
             "--disable-tests"
@@ -40,6 +42,7 @@
         "tag": "2a1c09fea76b3a1e696d9bb82c46e6c64ec574f9"
     }, 
     {
+        "if": "distro != 'ubuntu-13.04'", 
         "name": "dbus-python", 
         "repo": "git://anongit.freedesktop.org/dbus/dbus-python", 
         "tag": "423ee853dfbb4ee9ed89a21e1cf2b6a928e2fc4d"
@@ -53,6 +56,7 @@
     }, 
     {
         "branch": "sugar-build-5.14.0", 
+        "if": "gnome_version == '3.4' or distro == 'ubuntu-12.10'", 
         "name": "telepathy-mission-control", 
         "out-of-source": false, 
         "repo": "git://github.com/dnarvaez/telepathy-mission-control.git"
