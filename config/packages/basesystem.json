@@ -107,6 +107,7 @@
         "ubuntu": [
             "openssh-server", 
             "apt", 
+            "avahi-daemon", 
             "make", 
             "apparmor", 
             "apt-transport-https", 
