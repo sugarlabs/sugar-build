@@ -86,7 +86,7 @@
         "tag": "3.6.2"
     }, 
     {
-        "if": "gstreamer_version != '1.0 ' or distro == 'ubuntu-12.10'", 
+        "if": "gstreamer_version != '1.0' or distro == 'ubuntu-12.10'", 
         "name": "gstreamer", 
         "options": [
             "--disable-gtk-doc"
@@ -96,7 +96,7 @@
         "tag": "1.0.6"
     }, 
     {
-        "if": "gstreamer_version != '1.0 ' or distro == 'ubuntu-12.10'", 
+        "if": "gstreamer_version != '1.0' or distro == 'ubuntu-12.10'", 
         "name": "gst-plugins-base", 
         "options": [
             "--disable-gtk-doc"
@@ -106,7 +106,7 @@
         "tag": "1.0.6"
     }, 
     {
-        "if": "gstreamer_version != '1.0 ' or distro == 'ubuntu-12.10'", 
+        "if": "gstreamer_version != '1.0' or distro == 'ubuntu-12.10'", 
         "name": "gst-plugins-good", 
         "options": [
             "--disable-gtk-doc"
