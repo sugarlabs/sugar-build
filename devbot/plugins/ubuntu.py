@@ -42,11 +42,12 @@ class DistroInfo(interfaces.DistroInfo):
 
         self.version = os_info.get("VERSION_ID", None)
 
-        if self.version != "12.10":
-            self.supported = False
-
-        if self.version and self.version >= "12.10":
+        if self.version == "12.10":
             self.gnome_version = "3.6"
+        elif self.version == "13.04":
+            self.gnome_version = "3.8"
+        else:
+            self.supported = False
 
     def _get_architecture(self):
         return subprocess.check_output(["uname", "-i"]).strip()
