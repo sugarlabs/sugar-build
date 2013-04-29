@@ -105,6 +105,7 @@
             "gpg-pubkey"
         ], 
         "ubuntu": [
+            "libc-bin", 
             "openssh-server", 
             "apt", 
             "avahi-daemon", 
