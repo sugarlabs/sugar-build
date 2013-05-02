@@ -10,6 +10,7 @@ import common
 from devbot import build
 from devbot import main
 
+
 def build_sourcestamp():
     devbot_dir = os.path.join(common.base_dir, "devbot")
     if os.path.exists(os.path.join(devbot_dir, "sourcestamp.so")):
