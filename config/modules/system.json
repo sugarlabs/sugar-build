@@ -154,5 +154,10 @@
         ], 
         "out-of-source": false, 
         "repo": "git://github.com/dnarvaez/webkitgtk"
+    }, 
+    {
+        "name": "gwebsockets", 
+        "out-of-source": false, 
+        "repo": "git://github.com/dnarvaez/gwebsockets"
     }
 ]

@@ -51,7 +51,7 @@ class Module:
     def get_build_system(self):
         source_dir = self.get_source_dir()
         if os.path.exists(os.path.join(source_dir, "setup.py")):
-            return "activity"
+            return "distutils"
         elif (os.path.exists(os.path.join(source_dir, "autogen.sh")) or
               os.path.exists(os.path.join(source_dir, "configure"))):
             return "autotools"

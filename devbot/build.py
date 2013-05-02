@@ -160,11 +160,12 @@ def _build_autotools(module, log):
 _builders["autotools"] = _build_autotools
 
 
-def _build_activity(module, log):
+def _build_distutils(module, log):
     setup = os.path.join(module.get_source_dir(), "setup.py")
-    command.run([setup, "install", "--prefix", config.prefix_dir], log)
+    command.run(["python", setup, "install", "--prefix",
+                 config.prefix_dir], log)
 
-_builders["activity"] = _build_activity
+_builders["distutils"] = _build_distutils
 
 
 def _distribute_autotools(module):
