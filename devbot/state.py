@@ -3,20 +3,13 @@ import json
 
 from devbot import config
 
-try:
-    from devbot import sourcestamp
-    has_sourcestamp = True
-except ImportError:
-    has_sourcestamp = False
-
 _BUILT_MODULES = "builtmodules"
 _FULL_BUILD = "fullbuild"
 _SYSTEM_CHECK = "syscheck"
 
 
 def built_module_touch(module):
-    if not has_sourcestamp:
-        return
+    from devbot import sourcestamp
 
     built_modules = _load_state(_BUILT_MODULES, {})
 
@@ -27,8 +20,7 @@ def built_module_touch(module):
 
 
 def built_module_is_unchanged(module):
-    if not has_sourcestamp:
-        return False
+    from devbot import sourcestamp
 
     built_modules = _load_state(_BUILT_MODULES, {})
     if module.name not in built_modules:
@@ -45,7 +37,9 @@ def built_module_is_unchanged(module):
 
 
 def system_check_is_unchanged():
-    if not has_sourcestamp:
+    try:
+        from devbot import sourcestamp
+    except ImportError:
         return False
 
     system_check = _load_state(_SYSTEM_CHECK)
@@ -58,7 +52,9 @@ def system_check_is_unchanged():
 
 
 def system_check_touch():
-    if not has_sourcestamp:
+    try:
+        from devbot import sourcestamp
+    except ImportError:
         return
 
     system_check = _load_state(_SYSTEM_CHECK, {})

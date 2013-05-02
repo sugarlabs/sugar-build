@@ -1,12 +1,29 @@
 #!/usr/bin/env python
 
 import argparse
+import os
 import sys
+import subprocess
 
 import common
 
 from devbot import build
 from devbot import main
+
+def build_sourcestamp():
+    devbot_dir = os.path.join(common.base_dir, "devbot")
+    if os.path.exists(os.path.join(devbot_dir, "sourcestamp.so")):
+        return
+
+    os.chdir(devbot_dir)
+
+    cflags = subprocess.check_output("pkg-config --cflags python-2.7",
+                                     shell=True).strip()
+    libs = subprocess.check_output("pkg-config --libs python-2.7",
+                                   shell=True).strip()
+    subprocess.check_call("gcc -shared -fPIC -o sourcestamp.so"
+                          " %s %s sourcestamp.c" % (cflags, libs), shell=True)
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to build")
@@ -14,6 +31,9 @@ parser.add_argument("--full", action="store_true", help="force a full build")
 args = parser.parse_args()
 
 common.setup(log_name="build")
+
+build_sourcestamp()
+
 if args.module:
     if not build.build_one(args.module):
         sys.exit(1)
