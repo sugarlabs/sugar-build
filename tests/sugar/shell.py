@@ -25,6 +25,9 @@ def build_activities_list():
 
 
 def launch_and_stop_activity(activity_name):
+    if activity_name == "HtmlDemo":
+        return
+
     logging.info("Launching %s" % activity_name)
 
     root = tree.get_root()
