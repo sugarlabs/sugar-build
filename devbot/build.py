@@ -140,9 +140,11 @@ def _build_autotools(module, log):
         if not os.path.exists(configure):
             configure = os.path.join(module.get_source_dir(), "configure")
 
-        args = [configure,
-                "--prefix", config.prefix_dir,
-                "--libdir", config.lib_dir]
+        args = [configure, "--prefix", config.prefix_dir]
+
+        if not module.no_libdir:
+            args.extend(["--libdir", config.lib_dir])
+
         args.extend(module.options)
 
         for option in module.options_evaluated:
@@ -166,6 +168,18 @@ def _build_distutils(module, log):
                  config.prefix_dir], log)
 
 _builders["distutils"] = _build_distutils
+
+
+def _build_volo(module, log):
+    pass
+
+_builders["volo"] = _build_volo
+
+
+def _build_npm(module, log):
+    command.run(["npm", "install", "-g"], log)
+
+_builders["npm"] = _build_npm
 
 
 def _distribute_autotools(module):

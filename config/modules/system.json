@@ -159,5 +159,18 @@
         "name": "gwebsockets", 
         "out-of-source": false, 
         "repo": "git://github.com/dnarvaez/gwebsockets"
+    }, 
+    {
+        "name": "node", 
+        "no_libdir": true, 
+        "out-of-source": false, 
+        "repo": "git://github.com/joyent/node.git", 
+        "tag": "v0.10.5"
+    }, 
+    {
+        "name": "volo", 
+        "out-of-source": false, 
+        "repo": "git://github.com/volojs/volo.git", 
+        "tag": "v0.2.10"
     }
 ]

@@ -36,6 +36,7 @@ class Module:
         self.options_evaluated = info.get("options_evaluated", [])
         self.has_checks = info.get("has_checks", False)
         self.distribute = info.get("distribute", False)
+        self.no_libdir = info.get("no_libdir", False)
 
         if get_pref("BUILD_IN_SOURCE"):
             self.out_of_source = False
@@ -50,8 +51,18 @@ class Module:
 
     def get_build_system(self):
         source_dir = self.get_source_dir()
+
+        package_json = os.path.join(source_dir, "package.json")
+
         if os.path.exists(os.path.join(source_dir, "setup.py")):
             return "distutils"
+        elif os.path.exists(package_json):
+            with open(package_json) as f:
+                parsed_json = json.load(f)
+                if "volo" in parsed_json:
+                    return "volo"
+                else:
+                    return "npm"
         elif (os.path.exists(os.path.join(source_dir, "autogen.sh")) or
               os.path.exists(os.path.join(source_dir, "configure"))):
             return "autotools"
