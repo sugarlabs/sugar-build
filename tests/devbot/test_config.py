@@ -82,14 +82,14 @@ class TestConfig(common.DevbotTestCase):
 
         self._unset_distro()
 
-    def test_ubuntu_12_10_modules(self):
-        self._set_distro("ubuntu", "12.10")
+    def test_ubuntu_13_04_modules(self):
+        self._set_distro("ubuntu", "13.04")
 
         modules = config.load_modules()
         self._assert_module(modules, "glib")
         self._assert_no_module(modules, "gtk+")
         self._assert_no_module(modules, "gnome-keyring")
-        self._assert_module(modules, "gstreamer")
+        self._assert_no_module(modules, "gstreamer")
         self._assert_module(modules, "sugar")
 
         self._unset_distro()
