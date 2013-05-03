@@ -42,7 +42,7 @@ class DistroInfo(interfaces.DistroInfo):
 
         self.version = os_info.get("VERSION_ID", None)
 
-        if self.version == "12.10" or self.version == "13.04":
+        if self.version == "13.04":
             self.gnome_version = "3.6"
         else:
             self.supported = False
