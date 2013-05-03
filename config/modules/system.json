@@ -42,7 +42,6 @@
         "tag": "2a1c09fea76b3a1e696d9bb82c46e6c64ec574f9"
     }, 
     {
-        "if": "distro != 'ubuntu-13.04'", 
         "name": "dbus-python", 
         "repo": "git://anongit.freedesktop.org/dbus/dbus-python", 
         "tag": "423ee853dfbb4ee9ed89a21e1cf2b6a928e2fc4d"
