@@ -54,15 +54,15 @@ class Module:
 
         package_json = os.path.join(source_dir, "package.json")
 
-        if os.path.exists(os.path.join(source_dir, "setup.py")):
-            return "distutils"
-        elif os.path.exists(package_json):
+        if os.path.exists(package_json):
             with open(package_json) as f:
                 parsed_json = json.load(f)
                 if "volo" in parsed_json:
                     return "volo"
                 else:
                     return "npm"
+        elif os.path.exists(os.path.join(source_dir, "setup.py")):
+            return "distutils"
         elif (os.path.exists(os.path.join(source_dir, "autogen.sh")) or
               os.path.exists(os.path.join(source_dir, "configure"))):
             return "autotools"
