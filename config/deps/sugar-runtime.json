@@ -97,8 +97,8 @@
         "name": "metacity"
     }, 
     {
-        "check": "org.freedesktop.NetworkManager", 
-        "checker": "dbus", 
+        "check": "nmcli", 
+        "checker": "binary", 
         "name": "network-manager"
     }, 
     {
