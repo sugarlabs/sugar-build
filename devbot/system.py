@@ -89,7 +89,14 @@ _checkers["include"] = _check_include
 
 
 def _check_dbus(check):
-    return not os.path.exists("/usr/share/dbus-1/services/%s.service" % check)
+    found = False
+
+    for base_dir in "system-services", "services":
+        if os.path.exists(os.path.join("/usr/share/dbus-1",
+                                       base_dir, "%s.service" % check)):
+            found = True
+
+    return not found
 
 _checkers["dbus"] = _check_dbus
 

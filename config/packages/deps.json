@@ -720,6 +720,17 @@
             "metacity"
         ]
     }, 
+    "network-manager": {
+        "debian": [
+            "network-manager"
+        ], 
+        "fedora": [
+            "network-manager"
+        ], 
+        "ubuntu": [
+            "network-manager"
+        ]
+    }, 
     "org.freedesktop.Telepathy.AccountManager": {
         "debian": [
             "telepathy-mission-control-5"

@@ -97,6 +97,11 @@
         "name": "metacity"
     }, 
     {
+        "check": "org.freedesktop.NetworkManager", 
+        "checker": "dbus", 
+        "name": "network-manager"
+    }, 
+    {
         "check": "org.freedesktop.Telepathy.AccountManager", 
         "checker": "dbus", 
         "name": "org.freedesktop.Telepathy.AccountManager"
