@@ -41,6 +41,10 @@
         "repo": "git://git.sugarlabs.org/sugar-runner/sugar-runner.git"
     }, 
     {
+        "name": "sugar-html-template", 
+        "repo": "git://github.com/sugarlabs/sugar-html-template.git"
+    }, 
+    {
         "name": "sugar-html-core", 
         "repo": "git://github.com/sugarlabs/sugar-html-core.git"
     }
