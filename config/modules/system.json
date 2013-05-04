@@ -141,7 +141,7 @@
         "tag": "0.15"
     }, 
     {
-        "if": "distro != 'fedora-18' and distro != 'ubuntu-13.04'", 
+        "if": "not distro.startswith('fedora') and distro != 'ubuntu-13.04'", 
         "name": "harfbuzz", 
         "repo": "git://anongit.freedesktop.org/harfbuzz", 
         "tag": "0.9.16"
