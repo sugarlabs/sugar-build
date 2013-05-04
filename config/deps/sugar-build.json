@@ -10,7 +10,7 @@
         "name": "atk-bridge"
     }, 
     {
-        "check": "from gi.repository import Atspi", 
+        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import Atspi", 
         "checker": "python", 
         "name": "atspi typelib"
     }, 
