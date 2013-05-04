@@ -82,11 +82,6 @@
         "name": "gtksource typelib"
     }, 
     {
-        "check": "import gtksourceview2", 
-        "checker": "python", 
-        "name": "gtksourceview2 python"
-    }, 
-    {
         "check": "import hippo", 
         "checker": "python", 
         "name": "hippo python"
