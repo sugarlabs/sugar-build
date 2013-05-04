@@ -21,7 +21,7 @@
         "name": "cairo foreign"
     }, 
     {
-        "check": "from gi.repository import cairo", 
+        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import cairo", 
         "checker": "python", 
         "name": "cairo typelib"
     }, 
@@ -46,7 +46,7 @@
         "name": "espeak"
     }, 
     {
-        "check": "from gi.repository import EvinceDocument", 
+        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import EvinceDocument", 
         "checker": "python", 
         "name": "evince typelib"
     }, 
@@ -56,7 +56,7 @@
         "name": "gconf python"
     }, 
     {
-        "check": "from gi.repository import GConf", 
+        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import GConf", 
         "checker": "python", 
         "name": "gconf typelib"
     }, 
@@ -154,7 +154,7 @@
         "name": "wnck python"
     }, 
     {
-        "check": "from gi.repository import Wnck", 
+        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import Wnck", 
         "checker": "python", 
         "name": "wnck typelib"
     }, 
