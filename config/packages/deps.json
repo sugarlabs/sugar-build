@@ -841,6 +841,9 @@
         ], 
         "ubuntu": [
             "ragel"
+        ],
+        "fedora": [
+            "ragel"
         ]
     }, 
     "rsvg python": {
