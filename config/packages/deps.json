@@ -501,17 +501,6 @@
             "gir1.2-gtksource-3.0"
         ]
     }, 
-    "gtksourceview2 python": {
-        "debian": [
-            "python-gtksourceview2"
-        ], 
-        "fedora": [
-            "pygtksourceview"
-        ], 
-        "ubuntu": [
-            "python-gtksourceview2"
-        ]
-    }, 
     "hippo python": {
         "debian": [
             "python-hippocanvas"
