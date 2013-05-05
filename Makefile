@@ -29,9 +29,6 @@ bug-report:
 clean:
 	@$(COMMANDS_DIR)/clean
 
-snapshot:
-	@$(COMMANDS_DIR)/snapshot
-
 build-%:
 	@$(COMMANDS_DIR)/build $*
 
