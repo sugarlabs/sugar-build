@@ -1,6 +1,5 @@
 import json
 import os
-import tempfile
 
 from devbot import distro
 from devbot import utils
@@ -8,7 +7,6 @@ from devbot import utils
 config_dir = None
 logs_dir = None
 install_dir = None
-prefix_dir = None
 lib_dir = None
 share_dir = None
 bin_dir = None
@@ -89,10 +87,8 @@ def setup(**kwargs):
     global _build_dir
     _build_dir = kwargs["build_dir"]
 
-    relocatable = kwargs.get("relocatable", False)
-
     _setup_state_dir(kwargs["state_dir"])
-    _setup_install_dir(kwargs["install_dir"], relocatable)
+    _setup_install_dir(kwargs["install_dir"])
 
     global log_path
     if "log_name" in kwargs:
@@ -225,36 +221,9 @@ def _setup_state_dir(state_dir):
     utils.ensure_dir(home_dir)
 
 
-def _setup_prefix_dir(dir, relocatable):
-    global prefix_dir
-
-    real_prefix_path = os.path.join(build_state_dir, "real_prefix")
-
-    if os.path.exists(real_prefix_path):
-        with open(real_prefix_path) as f:
-            prefix_dir = f.read()
-    elif relocatable:
-        tmp_dir = tempfile.mkdtemp(prefix="sugar-build")
-        prefix_dir = os.path.join(tmp_dir, "install")
-        with open(real_prefix_path, "w") as f:
-            f.write(prefix_dir)
-    else:
-        prefix_dir = dir
-        return
-
-    tmp_dir = os.path.dirname(prefix_dir)
-    if not os.path.exists(tmp_dir):
-        os.mkdir(tmp_dir)
-
-    if os.path.islink(prefix_dir):
-        os.remove(prefix_dir)
-    os.symlink(dir, prefix_dir)
-
-
 def _setup_install_dir(dir, relocatable=False):
     global system_lib_dirs
     global install_dir
-    global prefix_dir
     global share_dir
     global bin_dir
     global etc_dir
@@ -264,12 +233,10 @@ def _setup_install_dir(dir, relocatable=False):
     install_dir = dir
     utils.ensure_dir(install_dir)
 
-    _setup_prefix_dir(dir, relocatable)
-
-    share_dir = os.path.join(prefix_dir, "share")
-    bin_dir = os.path.join(prefix_dir, "bin")
-    etc_dir = os.path.join(prefix_dir, "etc")
-    libexec_dir = os.path.join(prefix_dir, "libexec")
+    share_dir = os.path.join(install_dir, "share")
+    bin_dir = os.path.join(install_dir, "bin")
+    etc_dir = os.path.join(install_dir, "etc")
+    libexec_dir = os.path.join(install_dir, "libexec")
 
     distro_info = distro.get_distro_info()
 
@@ -277,7 +244,7 @@ def _setup_install_dir(dir, relocatable=False):
     if relative_lib_dir is None:
         relative_lib_dir = "lib"
 
-    lib_dir = os.path.join(prefix_dir, relative_lib_dir)
+    lib_dir = os.path.join(install_dir, relative_lib_dir)
 
     system_lib_dirs = ["/usr/lib"]
     if distro_info.lib_dir is not None:

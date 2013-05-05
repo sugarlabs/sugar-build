@@ -20,7 +20,6 @@ def check(remove=False, update=False, test=False, interactive=True,
         distro.get_package_manager(test=test, interactive=interactive)
 
     distro.print_distro_info()
-    distro_name = distro.get_distro_info().name
     packages = config.load_packages()
 
     checks = config.load_prerequisites()

@@ -17,8 +17,7 @@ def setup(log_name=None, check_args={}):
                    "build_dir": os.path.join(base_dir, "build"),
                    "state_dir": os.path.join(base_dir, "state"),
                    "prefs_path": os.path.join(base_dir, "prefs"),
-                   "logs_dir": os.path.join(base_dir, "logs"),
-                   "relocatable": is_buildbot}
+                   "logs_dir": os.path.join(base_dir, "logs")}
 
     if log_name:
         config_args["log_name"] = log_name

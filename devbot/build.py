@@ -125,7 +125,7 @@ def _pull_module(module, revision=None):
 
 
 def _eval_option(option):
-    return eval(option, {"prefix": config.prefix_dir})
+    return eval(option, {"prefix": config.install_dir})
 
 
 def _build_autotools(module, log):
@@ -140,7 +140,7 @@ def _build_autotools(module, log):
         if not os.path.exists(configure):
             configure = os.path.join(module.get_source_dir(), "configure")
 
-        args = [configure, "--prefix", config.prefix_dir]
+        args = [configure, "--prefix", config.install_dir]
 
         if not module.no_libdir:
             args.extend(["--libdir", config.lib_dir])
@@ -165,7 +165,7 @@ _builders["autotools"] = _build_autotools
 def _build_distutils(module, log):
     setup = os.path.join(module.get_source_dir(), "setup.py")
     command.run(["python", setup, "install", "--prefix",
-                 config.prefix_dir], log)
+                 config.install_dir], log)
 
 _builders["distutils"] = _build_distutils
 
@@ -184,7 +184,6 @@ _builders["npm"] = _build_npm
 
 def _distribute_autotools(module):
     makefile = parse_makefile("Makefile")
-    filename = makefile["DIST_ARCHIVES"]
     version = makefile["VERSION"]
 
     git_module = git.get_module(module)

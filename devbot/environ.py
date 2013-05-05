@@ -30,9 +30,9 @@ def setup_variables():
     add_path("GST_PLUGIN_PATH",
              os.path.join(config.lib_dir, "gstreamer-1.0"))
     add_path("PYTHONPATH",
-             sysconfig.get_python_lib(prefix=config.prefix_dir))
+             sysconfig.get_python_lib(prefix=config.install_dir))
     add_path("PYTHONPATH",
-             sysconfig.get_python_lib(prefix=config.prefix_dir,
+             sysconfig.get_python_lib(prefix=config.install_dir,
                                       plat_specific=True))
     add_path("PYTHONPATH",
              os.path.dirname(os.path.dirname(__file__)))
@@ -58,7 +58,7 @@ def setup_variables():
     add_path("GI_TYPELIB_PATH",
              os.path.join(config.lib_dir, "girepository-1.0"))
 
-    os.environ["GTK_DATA_PREFIX"] = config.prefix_dir
+    os.environ["GTK_DATA_PREFIX"] = config.install_dir
     os.environ["GTK_PATH"] = os.path.join(config.lib_dir, "gtk-2.0")
     os.environ["CC"] = "ccache gcc"
     os.environ["CXX"] = "ccache g++"
