@@ -1,10 +1,8 @@
 import fnmatch
-import re
 import os
 import multiprocessing
 import shutil
 import subprocess
-from distutils.sysconfig import parse_makefile
 
 from devbot import command
 from devbot import config
@@ -68,15 +66,6 @@ def build(full=False):
             return False
 
     _ccache_print_stats()
-
-    return True
-
-
-def distribute():
-    for module in config.load_modules():
-        if module.distribute:
-            if not _distribute_module(module):
-                break
 
     return True
 
@@ -182,30 +171,6 @@ def _build_npm(module, log):
 _builders["npm"] = _build_npm
 
 
-def _distribute_autotools(module):
-    makefile = parse_makefile("Makefile")
-    version = makefile["VERSION"]
-
-    git_module = git.get_module(module)
-
-    version_revision = None
-    description = git_module.describe()
-    if description != "v%s" % version:
-        match = re.match(r"(v[\d\.]+)", description)
-        if match is None:
-            print("No version tag was found")
-            return False
-        else:
-            version_revision = match.groups()[0]
-
-    if version_revision is not None:
-        git_module.checkout(version_revision)
-
-    return command.run(["make", "distcheck"])
-
-_distributors["autotools"] = _distribute_autotools
-
-
 def _build_module(module, log=None):
     print("* Building %s" % module.name)
 
@@ -236,30 +201,6 @@ def _build_module(module, log=None):
         return False
 
     state.built_module_touch(module)
-
-    return True
-
-
-def _distribute_module(module, log=None):
-    print("\n=== Distribute %s ===\n" % module.name)
-
-    build_dir = module.get_build_dir()
-
-    if not os.path.exists(build_dir):
-        print("Build directory does not exist. Please build before "
-              "distributing.")
-        return False
-
-    os.chdir(build_dir)
-
-    try:
-        build_system = module.get_build_system()
-        if build_system is None:
-            return False
-
-        _distributors[build_system](module)
-    except subprocess.CalledProcessError:
-        return False
 
     return True
 

@@ -33,7 +33,6 @@ class Module:
         self.options = info.get("options", [])
         self.options_evaluated = info.get("options_evaluated", [])
         self.has_checks = info.get("has_checks", False)
-        self.distribute = info.get("distribute", False)
         self.no_libdir = info.get("no_libdir", False)
 
         if get_pref("BUILD_IN_SOURCE"):
