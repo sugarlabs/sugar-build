@@ -38,7 +38,8 @@ def _check_module(module):
         xvfb_proc, orig_display = xvfb.start()
 
         try:
-            command.run(["dbus-launch", "make", "check"])
+            command.run(["dbus-launch", "--exit-with-session",
+                         "make", "check"])
         except subprocess.CalledProcessError:
             result = False
 
