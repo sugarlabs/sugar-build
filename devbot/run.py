@@ -1,11 +1,11 @@
 import os
+import signal
 import string
 import random
 import subprocess
 
 from devbot import config
 from devbot import command
-
 
 def run(cmd):
     args = [cmd, "--home-dir", config.home_dir]
@@ -18,6 +18,9 @@ def run(cmd):
     if output:
         args.extend(["--output", output])
 
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
+
+    print "Type Shift-Alt-Q inside sugar to close."
     command.run(args)
 
 
