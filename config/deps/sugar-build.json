@@ -35,6 +35,11 @@
         "name": "pep8"
     }, 
     {
+        "check": "pyflakes", 
+        "checker": "binary", 
+        "name": "pyflakes"
+    }, 
+    {
         "check": "pylint", 
         "checker": "binary", 
         "name": "pylint"
