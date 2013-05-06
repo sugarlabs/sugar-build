@@ -7,6 +7,7 @@ import subprocess
 from devbot import config
 from devbot import command
 
+
 def run(cmd):
     args = [cmd, "--home-dir", config.home_dir]
 
