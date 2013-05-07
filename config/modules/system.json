@@ -5,24 +5,6 @@
         "repo": "git://github.com/dnarvaez/automake.git"
     }, 
     {
-        "branch": "gnome-3-4", 
-        "if": "gnome_version == '3.4'", 
-        "name": "gcr", 
-        "repo": "git://git.gnome.org/gcr.git", 
-        "tag": "3.8.2"
-    }, 
-    {
-        "branch": "gnome-3-4", 
-        "if": "gnome_version == '3.4'", 
-        "name": "gnome-keyring", 
-        "options_evaluated": [
-            "'--with-pkcs11-config=%s/etc' % prefix", 
-            "'--with-pkcs11-modules=%s/etc' % prefix"
-        ], 
-        "repo": "git://git.gnome.org/gnome-keyring.git", 
-        "tag": "3.8.2"
-    }, 
-    {
         "if": "distro != 'ubuntu-13.04'", 
         "name": "glib", 
         "options": [
@@ -39,6 +21,24 @@
         ], 
         "repo": "git://git.gnome.org/gobject-introspection", 
         "tag": "GOBJECT_INTROSPECTION_1_36_0"
+    }, 
+    {
+        "branch": "gnome-3-4", 
+        "if": "gnome_version == '3.4'", 
+        "name": "gcr", 
+        "repo": "git://git.gnome.org/gcr.git", 
+        "tag": "3.8.2"
+    }, 
+    {
+        "branch": "gnome-3-4", 
+        "if": "gnome_version == '3.4'", 
+        "name": "gnome-keyring", 
+        "options_evaluated": [
+            "'--with-pkcs11-config=%s/etc' % prefix", 
+            "'--with-pkcs11-modules=%s/etc' % prefix"
+        ], 
+        "repo": "git://git.gnome.org/gnome-keyring.git", 
+        "tag": "3.8.2"
     }, 
     {
         "name": "pygobject", 
