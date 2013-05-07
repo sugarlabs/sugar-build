@@ -37,7 +37,7 @@
     {
         "has_checks": true, 
         "name": "sugar-runner", 
-        "repo": "git://git.sugarlabs.org/sugar-runner/sugar-runner.git"
+        "repo": "git://github.com/sugarlabs/sugar-runner.git"
     }, 
     {
         "name": "sugar-html-template", 
