@@ -41,7 +41,6 @@
         "tag": "GOBJECT_INTROSPECTION_1_36_0"
     }, 
     {
-        "branch": "pygobject-3-8", 
         "name": "pygobject", 
         "options": [
             "--with-python=python2.7"
