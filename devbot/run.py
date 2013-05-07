@@ -21,6 +21,8 @@ def run(cmd):
 
     signal.signal(signal.SIGINT, signal.SIG_IGN)
 
+    os.environ["SUGAR_DEVELOPER"] = "1"
+
     print "Type Shift-Alt-Q inside sugar to close."
     command.run(args)
 
