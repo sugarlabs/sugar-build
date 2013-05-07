@@ -1121,6 +1121,17 @@
             "libxkbfile-dev"
         ]
     }, 
+    "xkl typelib": {
+        "debian": [
+            "libxklavier16"
+        ], 
+        "fedora": [
+            "libxklavier"
+        ], 
+        "ubuntu": [
+            "libxklavier16"
+        ]
+    }, 
     "xrandr": {
         "debian": [
             "libxrandr-dev"

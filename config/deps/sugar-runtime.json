@@ -172,5 +172,10 @@
         "check": "xdg-user-dirs-update", 
         "checker": "binary", 
         "name": "xdg-user-dirs-update"
+    }, 
+    {
+        "check": "from gi.repository import Xkl", 
+        "checker": "python", 
+        "name": "xkl typelib"
     }
 ]

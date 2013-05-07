@@ -46,7 +46,7 @@
     {
         "name": "sugar-html-core", 
         "repo": "git://github.com/sugarlabs/sugar-html-core.git"
-    },
+    }, 
     {
         "name": "sugar-html-graphics", 
         "repo": "git://github.com/sugarlabs/sugar-html-graphics.git"
