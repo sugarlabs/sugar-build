@@ -1123,13 +1123,13 @@
     }, 
     "xkl typelib": {
         "debian": [
-            "libxklavier16"
+            "gir1.2-xkl-1.0"
         ], 
         "fedora": [
             "libxklavier"
         ], 
         "ubuntu": [
-            "libxklavier16"
+            "gir1.2-xkl-1.0"
         ]
     }, 
     "xrandr": {
