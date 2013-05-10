@@ -1,9 +1,5 @@
 [
     {
-        "name": "sugar-html-demo", 
-        "repo": "git://github.com/sugarlabs/sugar-html-demo.git"
-    }, 
-    {
         "name": "browse", 
         "out-of-source": false, 
         "repo": "git://git.sugarlabs.org/browse/mainline.git"
