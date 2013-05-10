@@ -578,6 +578,14 @@
             "iso-codes"
         ]
     }, 
+    "jekyll": {
+        "debian": [
+            "jekyll"
+        ], 
+        "ubuntu": [
+            "jekyll"
+        ]
+    }, 
     "libcanberra-gtk": {
         "debian": [
             "libcanberra-gtk-dev"
@@ -899,17 +907,6 @@
         ], 
         "ubuntu": [
             "libsm-dev"
-        ]
-    }, 
-    "sphinx-build": {
-        "debian": [
-            "python-sphinx"
-        ], 
-        "fedora": [
-            "python-sphinx"
-        ], 
-        "ubuntu": [
-            "python-sphinx"
         ]
     }, 
     "sqlite3": {
