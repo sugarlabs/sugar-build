@@ -51,15 +51,18 @@ class Module:
             self._clone()
             return
 
+        orig_cwd = os.getcwd()
         os.chdir(self.local)
 
         if revision is None:
             if self.tag and self._head_has_tag(self.tag):
+                os.chdir(orig_cwd)
                 return
 
             revision = self.tag
 
         if revision == self._get_commit_id():
+            os.chdir(orig_cwd)
             return
 
         command.run(["git", "remote", "set-url", "origin", self.remote])
@@ -70,6 +73,9 @@ class Module:
         else:
             command.run(["git", "merge", "--ff-only",
                          "origin/%s" % self._branch])
+
+        os.chdir(orig_cwd)
+
 
     @_chdir
     def checkout(self, revision=None):
