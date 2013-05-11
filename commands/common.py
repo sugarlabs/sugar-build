@@ -7,10 +7,10 @@ sys.path.append(base_dir)
 
 from devbot import main
 
+def is_buildbot():
+    return "SUGAR_BUILDBOT" in os.environ
 
 def setup(log_name=None, check_args={}):
-    is_buildbot = "SUGAR_BUILDBOT" in os.environ
-
     config_args = {"config_dir": os.path.join(base_dir, "config"),
                    "install_dir": os.path.join(base_dir, "install"),
                    "source_dir": os.path.join(base_dir, "source"),
@@ -22,7 +22,7 @@ def setup(log_name=None, check_args={}):
     if log_name:
         config_args["log_name"] = log_name
 
-    if is_buildbot:
+    if is_buildbot():
         check_args["interactive"] = False
 
     if not main.setup(config_args, check_args):
