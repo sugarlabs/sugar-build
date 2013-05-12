@@ -76,7 +76,6 @@ class Module:
 
         os.chdir(orig_cwd)
 
-
     @_chdir
     def checkout(self, revision=None):
         if revision is None:
