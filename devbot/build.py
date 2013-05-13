@@ -166,7 +166,7 @@ _builders["volo"] = _build_volo
 
 
 def _build_npm(module, log):
-    command.run(["npm", "install", "-g"], log)
+    command.run(["npm", "install", "-g", "--prefix", config.install_dir], log)
 
 _builders["npm"] = _build_npm
 
