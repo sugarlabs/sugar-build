@@ -179,5 +179,11 @@
         "out-of-source": false, 
         "repo": "git://github.com/volojs/volo.git", 
         "tag": "v0.2.10"
+    },
+    {
+        "name": "jshint",
+        "out-of-source": false,
+        "repo": "git://github.com/jshint/jshint.git",
+        "tag": "2.0.1"
     }
 ]

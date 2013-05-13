@@ -6,6 +6,8 @@ from devbot import command
 from devbot import xvfb
 from devbot import build
 
+_checkers = {}
+
 
 def check_one(module_name):
     for module in config.load_modules():
@@ -28,21 +30,41 @@ def check():
 
 
 def _check_module(module):
-    result = True
-
     if module.has_checks:
         print("* Checking %s" % module.name)
+        return _checkers[module.get_build_system()](module)
+    return True
 
-        os.chdir(module.get_build_dir())
 
-        xvfb_proc, orig_display = xvfb.start()
+def _volo_checker(module):
+    orig_root = module.get_source_dir()
+    for root, dirs, files in os.walk(module.get_source_dir()):
+        if root == orig_root and "lib" in dirs:
+            dirs.remove("lib")
+        for f in files:
+            if f.endswith(".js"):
+                try:
+                    command.run(["jshint", os.path.join(root, f)])
+                except subprocess.CalledProcessError:
+                    return False
+    return True
 
-        try:
-            command.run(["dbus-launch", "--exit-with-session",
-                         "make", "check"])
-        except subprocess.CalledProcessError:
-            result = False
+_checkers['volo'] = _volo_checker
 
-        xvfb.stop(xvfb_proc, orig_display)
+
+def _autotools_checker(module):
+    result = True
+    os.chdir(module.get_build_dir())
+    xvfb_proc, orig_display = xvfb.start()
+
+    try:
+        command.run(["dbus-launch", "--exit-with-session",
+                     "make", "check"])
+    except subprocess.CalledProcessError:
+        result = False
+
+    xvfb.stop(xvfb_proc, orig_display)
 
     return result
+
+_checkers['autotools'] = _autotools_checker
