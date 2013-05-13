@@ -728,6 +728,11 @@
             "network-manager"
         ]
     }, 
+    "node": {
+        "fedora": [
+            "nodejs"
+        ]
+    },
     "org.freedesktop.Telepathy.AccountManager": {
         "debian": [
             "telepathy-mission-control-5"
