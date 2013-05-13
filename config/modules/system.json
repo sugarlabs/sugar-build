@@ -167,6 +167,7 @@
         "repo": "git://github.com/dnarvaez/gwebsockets"
     }, 
     {
+        "if": "distro != 'fedora-19'",
         "name": "node", 
         "no_libdir": true, 
         "out-of-source": false, 
