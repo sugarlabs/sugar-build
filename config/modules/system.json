@@ -5,7 +5,7 @@
         "repo": "git://github.com/dnarvaez/automake.git"
     }, 
     {
-        "if": "gnome_version < '3.6' and distro != 'fedora-18'",
+        "if": "gnome_version < '3.6' or distro == 'fedora-18'",
         "name": "glib", 
         "options": [
             "--disable-modular-tests"
@@ -148,7 +148,7 @@
         "tag": "0.15"
     }, 
     {
-        "if": "not distro.startswith('fedora') and gnome_version < '3.6'",
+        "if": "gnome_version < '3.6'",
         "name": "harfbuzz", 
         "repo": "git://anongit.freedesktop.org/harfbuzz", 
         "tag": "0.9.16"
