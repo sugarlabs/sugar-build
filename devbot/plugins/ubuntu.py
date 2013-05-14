@@ -44,6 +44,8 @@ class DistroInfo(interfaces.DistroInfo):
 
         if self.version == "13.04":
             self.gnome_version = "3.6"
+        elif self.version == "13.10":
+            self.gnome_version = "3.6"
         else:
             self.supported = False
 
