@@ -46,8 +46,11 @@ class Module:
         else:
             command.run(["git", "checkout", self._branch])
 
+    def exists(self):
+        return os.path.exists(os.path.join(self.local, ".git"))
+
     def update(self, revision=None):
-        if not os.path.exists(os.path.join(self.local, ".git")):
+        if not self.exists():
             self._clone()
             return
 

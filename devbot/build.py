@@ -78,7 +78,10 @@ def clean():
         print("* Cleaning %s" % module.name)
 
         git_module = git.get_module(module)
-        git_module.stash()
+
+        if git_module.exists():
+            git_module.stash()
+
         git_module.clean()
 
 
@@ -104,8 +107,10 @@ def _pull_module(module, revision=None):
 
     git_module = git.get_module(module)
 
-    try:
+    if git_module.exists():
         git_module.stash()
+
+    try:
         git_module.update(revision)
     except subprocess.CalledProcessError:
         return False
