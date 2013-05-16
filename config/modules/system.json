@@ -185,5 +185,12 @@
         "out-of-source": false,
         "repo": "git://github.com/jshint/jshint.git",
         "tag": "2.0.1"
+    },
+    {
+        "if": "not distro.startswith('fedora')", 
+        "name": "pep8",
+        "out-of-source": false,
+        "repo": "git://github.com/jcrocholl/pep8.git",
+        "tag": "1.4.5"
     }
 ]
