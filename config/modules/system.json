@@ -56,14 +56,12 @@
     {
         "if": "distro.startswith('debian')", 
         "name": "telepathy-glib", 
-        "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/telepathy/telepathy-glib", 
         "tag": "telepathy-glib-0.20.1"
     }, 
     {
         "if": "not distro.startswith('fedora')", 
         "name": "telepathy-mission-control", 
-        "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/telepathy/telepathy-mission-control", 
         "tag": "telepathy-mission-control-5.14.1"
     }, 
@@ -128,38 +126,32 @@
         "options": [
             "--enable-introspection"
         ], 
-        "out-of-source": false, 
         "repo": "git://github.com/dnarvaez/webkitgtk"
     }, 
     {
         "name": "gwebsockets", 
-        "out-of-source": false, 
         "repo": "git://github.com/dnarvaez/gwebsockets"
     }, 
     {
         "if": "distro != 'fedora-19'",
         "name": "node", 
         "no_libdir": true, 
-        "out-of-source": false, 
         "repo": "git://github.com/joyent/node.git", 
         "tag": "v0.10.5"
     }, 
     {
         "name": "volo", 
-        "out-of-source": false, 
         "repo": "git://github.com/volojs/volo.git", 
         "tag": "v0.2.10"
     },
     {
         "name": "jshint",
-        "out-of-source": false,
         "repo": "git://github.com/jshint/jshint.git",
         "tag": "2.0.1"
     },
     {
         "if": "not distro.startswith('fedora')", 
         "name": "pep8",
-        "out-of-source": false,
         "repo": "git://github.com/jcrocholl/pep8.git",
         "tag": "1.4.5"
     }

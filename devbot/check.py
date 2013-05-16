@@ -54,7 +54,7 @@ _checkers['volo'] = _volo_checker
 
 def _autotools_checker(module):
     result = True
-    os.chdir(module.get_build_dir())
+    os.chdir(module.get_source_dir())
     xvfb_proc, orig_display = xvfb.start()
 
     try:

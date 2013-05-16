@@ -74,13 +74,12 @@ def clean():
     print("* Emptying install directory")
     _empty_dir(config.install_dir)
 
-    print("* Emptying build directory")
-    _empty_dir(config.get_build_dir())
-
     for module in config.load_modules():
-        if not module.out_of_source:
-            if git.get_module(module).clean():
-                print("* Cleaning %s" % module.name)
+        print("* Cleaning %s" % module.name)
+
+        git_module = git.get_module(module)
+        git_module.stash()
+        git_module.clean()
 
 
 def _ccache_reset():
@@ -106,6 +105,7 @@ def _pull_module(module, revision=None):
     git_module = git.get_module(module)
 
     try:
+        git_module.stash()
         git_module.update(revision)
     except subprocess.CalledProcessError:
         return False
@@ -122,7 +122,7 @@ def _build_autotools(module, log):
     aclocal_path = os.path.join(config.share_dir, "aclocal")
     utils.ensure_dir(aclocal_path)
 
-    makefile_path = os.path.join(module.get_build_dir(), "Makefile")
+    makefile_path = os.path.join(module.get_source_dir(), "Makefile")
 
     if not os.path.exists(makefile_path):
         configure = os.path.join(module.get_source_dir(), "autogen.sh")
@@ -181,15 +181,7 @@ def _build_module(module, log=None):
               "before building.")
         return False
 
-    if module.out_of_source:
-        build_dir = module.get_build_dir()
-
-        if not os.path.exists(build_dir):
-            os.mkdir(build_dir)
-
-        os.chdir(build_dir)
-    else:
-        os.chdir(source_dir)
+    os.chdir(source_dir)
 
     try:
         build_system = module.get_build_system()

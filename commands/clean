@@ -4,6 +4,6 @@ import common
 
 from devbot import clean
 
-common.setup()
+common.setup(log_name="clean")
 
 clean.clean()

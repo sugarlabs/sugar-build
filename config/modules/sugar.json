@@ -31,7 +31,6 @@
     }, 
     {
         "name": "gst-plugins-espeak", 
-        "out-of-source": false, 
         "repo": "git://git.sugarlabs.org/gst-plugins-espeak/mainline.git"
     }, 
     {

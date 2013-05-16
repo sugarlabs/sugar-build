@@ -19,7 +19,6 @@ build_state_dir = None
 log_path = None
 
 _source_dir = None
-_build_dir = None
 _prefs_path = None
 
 
@@ -35,16 +34,8 @@ class Module:
         self.has_checks = info.get("has_checks", False)
         self.no_libdir = info.get("no_libdir", False)
 
-        if get_pref("BUILD_IN_SOURCE"):
-            self.out_of_source = False
-        else:
-            self.out_of_source = info.get("out-of-source", True)
-
     def get_source_dir(self):
         return os.path.join(get_source_dir(), self.name)
-
-    def get_build_dir(self):
-        return os.path.join(get_build_dir(), self.name)
 
     def get_build_system(self):
         source_dir = self.get_source_dir()
@@ -83,9 +74,6 @@ def setup(**kwargs):
     global _source_dir
     _source_dir = kwargs["source_dir"]
 
-    global _build_dir
-    _build_dir = kwargs["build_dir"]
-
     _setup_state_dir(kwargs["state_dir"])
     _setup_install_dir(kwargs["install_dir"])
 
@@ -98,12 +86,6 @@ def get_source_dir():
     global _source_dir
     utils.ensure_dir(_source_dir)
     return _source_dir
-
-
-def get_build_dir():
-    global _build_dir
-    utils.ensure_dir(_build_dir)
-    return _build_dir
 
 
 def get_pref(name):

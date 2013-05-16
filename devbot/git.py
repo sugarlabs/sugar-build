@@ -86,6 +86,11 @@ class Module:
         command.run(["git", "checkout", revision])
 
     @_chdir
+    def stash(self):
+        command.run(["git", "add", "--all"])
+        command.run(["git", "stash"])
+
+    @_chdir
     def describe(self):
         return subprocess.check_output(["git", "describe"]).strip()
 
