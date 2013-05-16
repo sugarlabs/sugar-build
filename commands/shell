@@ -4,8 +4,8 @@ import os
 
 import common
 
-from devbot import shell
-from devbot import environ
+from osbuild import shell
+from osbuild import environ
 
 common.setup()
 

@@ -5,7 +5,7 @@ base_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 sys.path.append(base_dir)
 
-from devbot import main
+from osbuild import main
 
 def is_buildbot():
     return "SUGAR_BUILDBOT" in os.environ

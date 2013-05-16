@@ -2,7 +2,7 @@
 
 import common
 
-from devbot import clean
+from osbuild import clean
 
 common.setup(log_name="clean")
 

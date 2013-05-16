@@ -6,8 +6,8 @@ import json
 
 import common
 
-from devbot import build
-from devbot import command
+from osbuild import build
+from osbuild import command
 
 parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to pull")

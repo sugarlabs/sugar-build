@@ -8,7 +8,7 @@ import sys
 
 import common
 
-from devbot import config
+from osbuild import config
 
 GIT_CONFIG_SETUP = "sugar-build.send-patches.setup"
 

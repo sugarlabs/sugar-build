@@ -8,10 +8,10 @@ import subprocess
 
 import common
 
-from devbot import run
-from devbot import check
-from devbot import command
-from devbot import main
+from osbuild import run
+from osbuild import check
+from osbuild import command
+from osbuild import main
 
 
 def _get_profile():
@@ -38,54 +38,6 @@ def _get_python_scripts():
     return scripts
 
 
-def _run_pep8():
-    args = ["pep8"]
-
-    for dir_name in ["devbot", "tests"]:
-        args.append(os.path.join(common.base_dir, dir_name))
-
-    args.extend(_get_python_scripts())
-
-    command.run(args)
-
-
-def _run_pylint():
-    args = ["pylint", "--reports=n", "--disable=C,W,R,E,F", "--enable=W0611"]
-    args.append(os.path.join(common.base_dir, "devbot"))
-    args.extend(_get_python_scripts())
-
-    command.run(args)
-
-
-def _run_unittests():
-    tests_tmp = os.path.join(common.base_dir, "tests", "tmp")
-    try:
-        os.mkdir(tests_tmp)
-    except OSError:
-        pass
-
-    os.environ["TESTS_TMP"] = tests_tmp
-    os.environ["PYTHONPATH"] = common.base_dir
-    os.chdir(os.path.join(common.base_dir, "tests", "devbot"))
-
-    command.run(["python", "-m", "unittest", "discover"])
-
-    shutil.rmtree(tests_tmp, ignore_errors=True)
-
-
-def _check_devbot():
-    print("* Checking devbot")
-
-    try:
-        _run_pep8()
-        _run_pylint()
-        _run_unittests()
-    except subprocess.CalledProcessError:
-        return False
-
-    return True
-
-
 def _check_ui():
     print("* Checking UI")
 
@@ -98,7 +50,7 @@ def _check_ui():
 
 def _run_checks():
     print("\n= Check =\n")
-    return check.check() and _check_ui() and _check_devbot()
+    return check.check() and _check_ui()
 
 
 parser = argparse.ArgumentParser()

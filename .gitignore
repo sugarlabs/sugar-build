@@ -2,7 +2,7 @@
 *.so
 state/
 install/
-build/
+sandbox/
 source/
 logs/
 prefs

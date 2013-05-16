@@ -4,8 +4,8 @@ import sys
 
 import common
 
-from devbot import run
-from devbot import main
+from osbuild import run
+from osbuild import main
 
 common.setup(log_name="run")
 
