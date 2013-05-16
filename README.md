@@ -3,8 +3,7 @@ About
 
 sugar-build is a set of scripts to build sugar from sources.
 
-Please read the documentation at
-http://sugarlabs.org/~buildbot/docs/build.html
+Please read the (documentation)[http://sugarlabs.org/~buildbot/docs/build.html].
 
 Hacking
 =======
