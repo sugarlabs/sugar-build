@@ -27,8 +27,6 @@ def setup_variables():
              os.path.join(config.share_dir, "icons"))
     add_path("PKG_CONFIG_PATH",
              os.path.join(config.lib_dir, "pkgconfig"))
-    add_path("GST_PLUGIN_PATH",
-             os.path.join(config.lib_dir, "gstreamer-1.0"))
     add_path("PYTHONPATH",
              sysconfig.get_python_lib(prefix=config.install_dir))
     add_path("PYTHONPATH",

@@ -30,7 +30,6 @@ class DistroInfo(interfaces.DistroInfo):
         self.name = "unknown"
         self.version = "unknown"
         self.gnome_version = "3.4"
-        self.gstreamer_version = "0.10"
         self.valid = True
         self.supported = False
 

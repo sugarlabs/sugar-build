@@ -54,7 +54,7 @@
         "tag": "423ee853dfbb4ee9ed89a21e1cf2b6a928e2fc4d"
     }, 
     {
-        "if": "distro == 'debian-7.0'", 
+        "if": "distro.startswith('debian')", 
         "name": "telepathy-glib", 
         "out-of-source": false, 
         "repo": "git://anongit.freedesktop.org/telepathy/telepathy-glib", 
@@ -90,36 +90,6 @@
         "name": "gtk+", 
         "repo": "git://git.gnome.org/gtk+", 
         "tag": "3.6.2"
-    }, 
-    {
-        "if": "gstreamer_version != '1.0'", 
-        "name": "gstreamer", 
-        "options": [
-            "--disable-gtk-doc"
-        ], 
-        "out-of-source": false, 
-        "repo": "git://anongit.freedesktop.org/gstreamer/gstreamer", 
-        "tag": "1.0.6"
-    }, 
-    {
-        "if": "gstreamer_version != '1.0'", 
-        "name": "gst-plugins-base", 
-        "options": [
-            "--disable-gtk-doc"
-        ], 
-        "out-of-source": false, 
-        "repo": "git://anongit.freedesktop.org/gstreamer/gst-plugins-base", 
-        "tag": "1.0.6"
-    }, 
-    {
-        "if": "gstreamer_version != '1.0'", 
-        "name": "gst-plugins-good", 
-        "options": [
-            "--disable-gtk-doc"
-        ], 
-        "out-of-source": false, 
-        "repo": "git://anongit.freedesktop.org/gstreamer/gst-plugins-good", 
-        "tag": "1.0.6"
     }, 
     {
         "if": "gnome_version == '3.4'", 

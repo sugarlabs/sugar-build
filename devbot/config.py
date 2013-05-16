@@ -188,8 +188,7 @@ def _filter_if(item):
         return True
 
     distro_info = distro.get_distro_info()
-    globals = {"gstreamer_version": distro_info.gstreamer_version,
-               "gnome_version": distro_info.gnome_version,
+    globals = {"gnome_version": distro_info.gnome_version,
                "distro": "%s-%s" % (distro_info.name, distro_info.version)}
 
     return eval(item["if"], globals)

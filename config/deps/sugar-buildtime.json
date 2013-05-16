@@ -58,13 +58,11 @@
     {
         "check": "gstreamer-1.0", 
         "checker": "pkgconfig", 
-        "if": "gstreamer_version == '1.0'", 
         "name": "gstreamer-1.0"
     }, 
     {
         "check": "gstreamer-plugins-base-1.0", 
         "checker": "pkgconfig", 
-        "if": "gstreamer_version == '1.0'", 
         "name": "gstreamer-plugins-base-1.0"
     }, 
     {

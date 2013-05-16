@@ -76,7 +76,6 @@ class TestConfig(common.DevbotTestCase):
         modules = config.load_modules()
         self._assert_no_module(modules, "gtk+")
         self._assert_no_module(modules, "gnome-keyring")
-        self._assert_no_module(modules, "gstreamer")
         self._assert_module(modules, "sugar")
         self._assert_module(modules, "glib")
 
@@ -89,7 +88,6 @@ class TestConfig(common.DevbotTestCase):
         self._assert_module(modules, "glib")
         self._assert_no_module(modules, "gtk+")
         self._assert_no_module(modules, "gnome-keyring")
-        self._assert_no_module(modules, "gstreamer")
         self._assert_module(modules, "sugar")
 
         self._unset_distro()
@@ -101,7 +99,6 @@ class TestConfig(common.DevbotTestCase):
         self._assert_module(modules, "gnome-keyring")
         self._assert_module(modules, "glib")
         self._assert_module(modules, "gtk+")
-        self._assert_module(modules, "gstreamer")
         self._assert_module(modules, "sugar")
 
         self._unset_distro()

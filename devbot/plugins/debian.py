@@ -95,7 +95,6 @@ class DistroInfo(interfaces.DistroInfo):
         self.name = "debian"
         self.version = "unknown"
         self.gnome_version = "3.4"
-        self.gstreamer_version = "0.10"
         self.valid = True
         self.supported = (arch in ["i686", "x86_64"])
         self.lib_dir = None
@@ -114,8 +113,8 @@ class DistroInfo(interfaces.DistroInfo):
         if debian_version is None:
             self.valid = False
 
-        if debian_version and debian_version == "7.0":
-            self.version = "7.0"
+        if debian_version and debian_version == "jessie/sid":
+            self.version = "jessie"
         else:
             self.supported = False
 

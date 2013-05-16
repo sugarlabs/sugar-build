@@ -96,6 +96,9 @@
         ]
     }, 
     "autodetect gstreamer": {
+        "debian": [
+            "gstreamer1.0-plugins-good"
+        ], 
         "fedora": [
             "gstreamer1-plugins-good"
         ], 
@@ -445,6 +448,9 @@
         ]
     }, 
     "gst typelib": {
+        "debian": [
+            "gir1.2-gstreamer-1.0"
+        ], 
         "fedora": [
             "gstreamer1"
         ], 
@@ -453,6 +459,9 @@
         ]
     }, 
     "gstreamer-1.0": {
+        "debian": [
+            "libgstreamer1.0-dev"
+        ], 
         "fedora": [
             "gstreamer1-devel"
         ], 
@@ -461,6 +470,9 @@
         ]
     }, 
     "gstreamer-plugins-base-1.0": {
+        "debian": [
+            "libgstreamer-plugins-base1.0-dev"
+        ], 
         "fedora": [
             "gstreamer1-plugins-base-devel"
         ], 
@@ -772,6 +784,9 @@
         ]
     }, 
     "pango gstreamer": {
+        "debian": [
+            "gstreamer1.0-x"
+        ], 
         "fedora": [
             "gstreamer1-plugins-base"
         ], 
@@ -802,6 +817,9 @@
         ]
     }, 
     "playback gstreamer": {
+        "debian": [
+            "gstreamer1.0-plugins-base"
+        ], 
         "fedora": [
             "gstreamer1-plugins-base"
         ], 
