@@ -7,8 +7,10 @@ sys.path.append(base_dir)
 
 from osbuild import main
 
+
 def is_buildbot():
     return "SUGAR_BUILDBOT" in os.environ
+
 
 def setup(log_name=None, check_args={}):
     config_args = {"config_dir": os.path.join(base_dir, "config"),

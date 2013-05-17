@@ -4,13 +4,11 @@ import argparse
 import os
 import shutil
 import sys
-import subprocess
 
 import common
 
 from osbuild import run
 from osbuild import check
-from osbuild import command
 from osbuild import main
 
 
@@ -21,7 +19,7 @@ def _get_profile():
 
 
 def _get_test_path(name):
-    return os.path.join(common.base_dir, "tests", "sugar", name)
+    return os.path.join(common.base_dir, "tests", name)
 
 
 def _get_python_scripts():
