@@ -14,9 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This script is from https://github.com/dnarvaez/virtualenv-bootstrap
-
-import hashlib
 import json
 import os
 import shutil
@@ -27,11 +24,9 @@ import urllib2
 import StringIO
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-environ_namespace = "TEST"
 start_message = "Installing virtualenv..."
 end_message = "Done."
 packages = ["osbuild"]
-submodules = []
 virtualenv_version = "1.8.4"
 virtualenv_dir = os.path.join("sandbox", "install")
 cache_dir = os.path.join("sandbox", "cache")
@@ -73,36 +68,11 @@ def create_virtualenv():
                            get_virtualenv_dir()])
 
 
-def get_submodule_dirs():
-    return [os.path.join(base_dir, submodule) for submodule in submodules]
-
-
 def install_packages():
     args = [get_bin_path("pip"), "-q", "install"]
     args.extend(packages)
-    args.extend(get_submodule_dirs())
 
     subprocess.check_call(args)
-
-
-def upgrade_submodules():
-    args = [get_bin_path("pip"), "-q", "install", "--no-deps", "--upgrade"]
-    args.extend(get_submodule_dirs())
-
-    subprocess.check_call(args)
-
-
-def compute_submodules_hash():
-    data = ""
-
-    for submodule in submodules:
-        for root, dirs, files in os.walk(os.path.join(base_dir, submodule)):
-            for name in files:
-                path = os.path.join(root, name)
-                mtime = os.lstat(path).st_mtime
-                data = "%s%s %s\n" % (data, mtime, path)
-
-    return hashlib.sha256(data.encode("utf-8")).hexdigest()
 
 
 def check_stamp():
@@ -112,41 +82,23 @@ def check_stamp():
     except (IOError, ValueError):
         return True, True
 
-    return (stamp["etag"] != etag,
-            stamp["submodules_hash"] != compute_submodules_hash())
+    return stamp["etag"] != etag
 
 
 def write_stamp():
-    stamp = {"etag": etag,
-             "submodules_hash": compute_submodules_hash()}
+    stamp = {"etag": etag}
 
     with open(get_stamp_path(), "w") as f:
         json.dump(stamp, f)
 
 
-def update_submodules():
-    update = os.environ.get(environ_namespace + "_UPDATE_SUBMODULES", "yes")
-    if update != "yes":
-        return
-
-    os.chdir(base_dir)
-    for module in submodules:
-        subprocess.check_call(["git", "submodule", "update", "--init",
-                               module])
-
-
 def main():
     os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
 
-    os.environ[environ_namespace + "_BASE_DIR"] = base_dir
-    os.environ[environ_namespace + "_VIRTUALENV"] = get_virtualenv_dir()
+    changed = check_stamp()
 
-    etag_changed, submodules_changed = check_stamp()
-
-    if etag_changed:
+    if changed:
         print(start_message)
-
-        update_submodules()
 
         try:
             shutil.rmtree(get_virtualenv_dir())
@@ -159,9 +111,6 @@ def main():
         write_stamp()
 
         print(end_message)
-    elif submodules_changed:
-        upgrade_submodules()
-        write_stamp()
 
     if len(sys.argv) > 1:
         command = sys.argv[1]
