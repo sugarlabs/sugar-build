@@ -30,17 +30,17 @@
         "name": "gail gtkmodule"
     }, 
     {
-        "check": "node",
-        "checker": "binary",
+        "check": "node", 
+        "checker": "binary", 
         "if": "distro == 'fedora-19'", 
         "name": "node"
-    },
+    }, 
     {
-        "check": "npm",
-        "checker": "binary",
+        "check": "npm", 
+        "checker": "binary", 
         "if": "distro == 'fedora-19'", 
         "name": "npm"
-    },
+    }, 
     {
         "check": "pep8", 
         "checker": "binary", 

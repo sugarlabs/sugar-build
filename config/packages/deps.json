@@ -744,12 +744,12 @@
         "fedora": [
             "nodejs"
         ]
-    },
+    }, 
     "npm": {
         "fedora": [
             "npm"
         ]
-    },
+    }, 
     "org.freedesktop.Telepathy.AccountManager": {
         "debian": [
             "telepathy-mission-control-5"
