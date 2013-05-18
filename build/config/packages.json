@@ -10,6 +10,17 @@
             "gnome-themes-standard"
         ]
     },
+    "libcanberra-gtk": {
+        "debian": [
+            "libcanberra-gtk-dev"
+        ],
+        "fedora": [
+            "libcanberra-devel"
+        ],
+        "ubuntu": [
+            "libcanberra-gtk-dev"
+        ]
+    },
     "gail": {
         "debian": [
             "libgail-dev"
