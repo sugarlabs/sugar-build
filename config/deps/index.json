@@ -1,6 +1,6 @@
 [
-    "system.json", 
-    "sugar-build.json", 
-    "sugar-buildtime.json", 
+    "system.json",
+    "sugar-build.json",
+    "sugar-buildtime.json",
     "sugar-runtime.json"
 ]

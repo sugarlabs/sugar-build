@@ -1,58 +1,58 @@
 [
     {
-        "docs_dir": "", 
-        "has_docs": true, 
-        "name": "sugar-docs", 
+        "docs_dir": "",
+        "has_docs": true,
+        "name": "sugar-docs",
         "repo": "git://github.com/sugarlabs/sugar-docs.git"
-    }, 
+    },
     {
-        "name": "sugar-base", 
+        "name": "sugar-base",
         "repo": "git://git.sugarlabs.org/sugar-base/mainline.git"
-    }, 
+    },
     {
-        "name": "sugar-toolkit", 
+        "name": "sugar-toolkit",
         "repo": "git://git.sugarlabs.org/sugar-toolkit/mainline.git"
-    }, 
+    },
     {
-        "has_checks": true, 
-        "name": "sugar-toolkit-gtk3", 
+        "has_checks": true,
+        "name": "sugar-toolkit-gtk3",
         "repo": "git://github.com/sugarlabs/sugar-toolkit-gtk3.git"
-    }, 
+    },
     {
-        "has_checks": true, 
-        "name": "sugar", 
+        "has_checks": true,
+        "name": "sugar",
         "repo": "git://github.com/sugarlabs/sugar"
-    }, 
+    },
     {
-        "name": "sugar-artwork", 
+        "name": "sugar-artwork",
         "repo": "git://github.com/sugarlabs/sugar-artwork.git"
-    }, 
+    },
     {
-        "name": "sugar-datastore", 
+        "name": "sugar-datastore",
         "repo": "git://github.com/sugarlabs/sugar-datastore.git"
-    }, 
+    },
     {
-        "name": "gst-plugins-espeak", 
+        "name": "gst-plugins-espeak",
         "repo": "git://git.sugarlabs.org/gst-plugins-espeak/mainline.git"
-    }, 
+    },
     {
-        "has_checks": true, 
-        "name": "sugar-runner", 
+        "has_checks": true,
+        "name": "sugar-runner",
         "repo": "git://github.com/sugarlabs/sugar-runner.git"
-    }, 
+    },
     {
-        "has_checks": true, 
-        "name": "sugar-html-template", 
+        "has_checks": true,
+        "name": "sugar-html-template",
         "repo": "git://github.com/sugarlabs/sugar-html-template.git"
-    }, 
+    },
     {
-        "has_checks": true, 
-        "name": "sugar-html-core", 
+        "has_checks": true,
+        "name": "sugar-html-core",
         "repo": "git://github.com/sugarlabs/sugar-html-core.git"
-    }, 
+    },
     {
-        "has_checks": true, 
-        "name": "sugar-html-graphics", 
+        "has_checks": true,
+        "name": "sugar-html-graphics",
         "repo": "git://github.com/sugarlabs/sugar-html-graphics.git"
     }
 ]

@@ -1,129 +1,129 @@
 [
     {
-        "check": "bison", 
-        "checker": "binary", 
+        "check": "bison",
+        "checker": "binary",
         "name": "bison"
-    }, 
+    },
     {
-        "check": "c++", 
-        "checker": "binary", 
+        "check": "c++",
+        "checker": "binary",
         "name": "c++"
-    }, 
+    },
     {
-        "check": "cairo-gobject", 
-        "checker": "pkgconfig", 
+        "check": "cairo-gobject",
+        "checker": "pkgconfig",
         "name": "cairo-gobject"
-    }, 
+    },
     {
-        "check": "espeak/speak_lib.h", 
-        "checker": "include", 
+        "check": "espeak/speak_lib.h",
+        "checker": "include",
         "name": "espeak devel"
-    }, 
+    },
     {
-        "check": "flex", 
-        "checker": "binary", 
+        "check": "flex",
+        "checker": "binary",
         "name": "flex"
-    }, 
+    },
     {
-        "check": "gail", 
-        "checker": "pkgconfig", 
+        "check": "gail",
+        "checker": "pkgconfig",
         "name": "gail"
-    }, 
+    },
     {
-        "check": "gail-3.0", 
-        "checker": "pkgconfig", 
+        "check": "gail-3.0",
+        "checker": "pkgconfig",
         "name": "gail3"
-    }, 
+    },
     {
-        "check": "geoclue", 
-        "checker": "pkgconfig", 
+        "check": "geoclue",
+        "checker": "pkgconfig",
         "name": "geoclue"
-    }, 
+    },
     {
-        "check": "gperf", 
-        "checker": "binary", 
+        "check": "gperf",
+        "checker": "binary",
         "name": "gperf"
-    }, 
+    },
     {
-        "check": "gtk-doc", 
-        "checker": "pkgconfig", 
+        "check": "gtk-doc",
+        "checker": "pkgconfig",
         "name": "gtk-doc"
-    }, 
+    },
     {
-        "check": "unicode/timezone.h", 
-        "checker": "include", 
+        "check": "unicode/timezone.h",
+        "checker": "include",
         "name": "icu"
-    }, 
+    },
     {
-        "check": "iso-codes", 
-        "checker": "pkgconfig", 
+        "check": "iso-codes",
+        "checker": "pkgconfig",
         "name": "iso-codes"
-    }, 
+    },
     {
-        "check": "jpeglib.h", 
-        "checker": "include", 
+        "check": "jpeglib.h",
+        "checker": "include",
         "name": "libjpeg"
-    }, 
+    },
     {
-        "check": "libsecret-1", 
-        "checker": "pkgconfig", 
-        "if": "gnome_version != '3.4'", 
+        "check": "libsecret-1",
+        "checker": "pkgconfig",
+        "if": "gnome_version != '3.4'",
         "name": "libsecret"
-    }, 
+    },
     {
-        "check": "webp/decode.h", 
-        "checker": "include", 
+        "check": "webp/decode.h",
+        "checker": "include",
         "name": "libwebp"
-    }, 
+    },
     {
-        "check": "libxml-2.0", 
-        "checker": "pkgconfig", 
+        "check": "libxml-2.0",
+        "checker": "pkgconfig",
         "name": "libxml-2.0"
-    }, 
+    },
     {
-        "check": "libxslt", 
-        "checker": "pkgconfig", 
+        "check": "libxslt",
+        "checker": "pkgconfig",
         "name": "libxslt"
-    }, 
+    },
     {
-        "check": "makeinfo", 
-        "checker": "binary", 
+        "check": "makeinfo",
+        "checker": "binary",
         "name": "makeinfo"
-    }, 
+    },
     {
-        "check": "ragel", 
-        "checker": "binary", 
-        "if": "distro != 'fedora-18'", 
+        "check": "ragel",
+        "checker": "binary",
+        "if": "distro != 'fedora-18'",
         "name": "ragel"
-    }, 
+    },
     {
-        "check": "ruby", 
-        "checker": "binary", 
+        "check": "ruby",
+        "checker": "binary",
         "name": "ruby"
-    }, 
+    },
     {
-        "check": "sqlite3", 
-        "checker": "pkgconfig", 
+        "check": "sqlite3",
+        "checker": "pkgconfig",
         "name": "sqlite3"
-    }, 
+    },
     {
-        "check": "xkbfile", 
-        "checker": "pkgconfig", 
+        "check": "xkbfile",
+        "checker": "pkgconfig",
         "name": "xkbfile"
-    }, 
+    },
     {
-        "check": "xt", 
-        "checker": "pkgconfig", 
+        "check": "xt",
+        "checker": "pkgconfig",
         "name": "xt"
-    }, 
+    },
     {
-        "check": "xtst", 
-        "checker": "pkgconfig", 
+        "check": "xtst",
+        "checker": "pkgconfig",
         "name": "xtst"
-    }, 
+    },
     {
-        "check": "yasm", 
-        "checker": "binary", 
+        "check": "yasm",
+        "checker": "binary",
         "name": "yasm"
     }
 ]

@@ -1,177 +1,177 @@
 [
     {
-        "check": "Adwaita", 
-        "checker": "metacity-theme", 
+        "check": "Adwaita",
+        "checker": "metacity-theme",
         "name": "Adwaita"
-    }, 
+    },
     {
-        "check": "X", 
-        "checker": "binary", 
+        "check": "X",
+        "checker": "binary",
         "name": "X"
-    }, 
+    },
     {
-        "check": "autodetect", 
-        "checker": "gstreamer-1.0", 
+        "check": "autodetect",
+        "checker": "gstreamer-1.0",
         "name": "autodetect gstreamer"
-    }, 
+    },
     {
-        "check": "from gi.repository import Gdk, Gtk; window = Gtk.Window(0); window.realize();context = Gdk.cairo_create(window.get_window())", 
-        "checker": "python", 
+        "check": "from gi.repository import Gdk, Gtk; window = Gtk.Window(0); window.realize();context = Gdk.cairo_create(window.get_window())",
+        "checker": "python",
         "name": "cairo foreign"
-    }, 
+    },
     {
-        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import cairo", 
-        "checker": "python", 
+        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import cairo",
+        "checker": "python",
         "name": "cairo typelib"
-    }, 
+    },
     {
-        "check": "import dateutil", 
-        "checker": "python", 
+        "check": "import dateutil",
+        "checker": "python",
         "name": "dateutil python"
-    }, 
+    },
     {
-        "check": "dconf", 
-        "checker": "binary", 
+        "check": "dconf",
+        "checker": "binary",
         "name": "dconf"
-    }, 
+    },
     {
-        "check": "import decorator", 
-        "checker": "python", 
+        "check": "import decorator",
+        "checker": "python",
         "name": "decorator python"
-    }, 
+    },
     {
-        "check": "espeak", 
-        "checker": "binary", 
+        "check": "espeak",
+        "checker": "binary",
         "name": "espeak"
-    }, 
+    },
     {
-        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import EvinceDocument", 
-        "checker": "python", 
+        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import EvinceDocument",
+        "checker": "python",
         "name": "evince typelib"
-    }, 
+    },
     {
-        "check": "import gconf", 
-        "checker": "python", 
+        "check": "import gconf",
+        "checker": "python",
         "name": "gconf python"
-    }, 
+    },
     {
-        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import GConf", 
-        "checker": "python", 
+        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import GConf",
+        "checker": "python",
         "name": "gconf typelib"
-    }, 
+    },
     {
-        "check": "import gi", 
-        "checker": "python", 
+        "check": "import gi",
+        "checker": "python",
         "name": "gi python"
-    }, 
+    },
     {
-        "check": "gnome-keyring-daemon", 
-        "checker": "binary", 
+        "check": "gnome-keyring-daemon",
+        "checker": "binary",
         "name": "gnome-keyring-daemon"
-    }, 
+    },
     {
-        "check": "import gi; gi.require_version('Gst', '1.0'); from gi.repository import Gst; Gst.init([])", 
-        "checker": "python", 
+        "check": "import gi; gi.require_version('Gst', '1.0'); from gi.repository import Gst; Gst.init([])",
+        "checker": "python",
         "name": "gst typelib"
-    }, 
+    },
     {
-        "check": "from gi.repository import GtkSource", 
-        "checker": "python", 
+        "check": "from gi.repository import GtkSource",
+        "checker": "python",
         "name": "gtksource typelib"
-    }, 
+    },
     {
-        "check": "import hippo", 
-        "checker": "python", 
+        "check": "import hippo",
+        "checker": "python",
         "name": "hippo python"
-    }, 
+    },
     {
-        "check": "metacity", 
-        "checker": "binary", 
+        "check": "metacity",
+        "checker": "binary",
         "name": "metacity"
-    }, 
+    },
     {
-        "check": "nmcli", 
-        "checker": "binary", 
+        "check": "nmcli",
+        "checker": "binary",
         "name": "network-manager"
-    }, 
+    },
     {
-        "check": "org.freedesktop.Telepathy.AccountManager", 
-        "checker": "dbus", 
+        "check": "org.freedesktop.Telepathy.AccountManager",
+        "checker": "dbus",
         "name": "org.freedesktop.Telepathy.AccountManager"
-    }, 
+    },
     {
-        "check": "org.freedesktop.Telepathy.ConnectionManager.gabble", 
-        "checker": "dbus", 
+        "check": "org.freedesktop.Telepathy.ConnectionManager.gabble",
+        "checker": "dbus",
         "name": "org.freedesktop.Telepathy.ConnectionManager.gabble"
-    }, 
+    },
     {
-        "check": "org.freedesktop.Telepathy.ConnectionManager.salut", 
-        "checker": "dbus", 
+        "check": "org.freedesktop.Telepathy.ConnectionManager.salut",
+        "checker": "dbus",
         "name": "org.freedesktop.Telepathy.ConnectionManager.salut"
-    }, 
+    },
     {
-        "check": "pango", 
-        "checker": "gstreamer-1.0", 
+        "check": "pango",
+        "checker": "gstreamer-1.0",
         "name": "pango gstreamer"
-    }, 
+    },
     {
-        "check": "playback", 
-        "checker": "gstreamer-1.0", 
+        "check": "playback",
+        "checker": "gstreamer-1.0",
         "name": "playback gstreamer"
-    }, 
+    },
     {
-        "check": "import rsvg", 
-        "checker": "python", 
+        "check": "import rsvg",
+        "checker": "python",
         "name": "rsvg python"
-    }, 
+    },
     {
-        "check": "import simplejson", 
-        "checker": "python", 
+        "check": "import simplejson",
+        "checker": "python",
         "name": "simplejson python"
-    }, 
+    },
     {
-        "check": "import telepathy", 
-        "checker": "python", 
+        "check": "import telepathy",
+        "checker": "python",
         "name": "telepathy python"
-    }, 
+    },
     {
-        "check": "import vte", 
-        "checker": "python", 
+        "check": "import vte",
+        "checker": "python",
         "name": "vte python"
-    }, 
+    },
     {
-        "check": "from gi.repository import Vte", 
-        "checker": "python", 
+        "check": "from gi.repository import Vte",
+        "checker": "python",
         "name": "vte typelib"
-    }, 
+    },
     {
-        "check": "from gi.repository import WebKit", 
-        "checker": "python", 
+        "check": "from gi.repository import WebKit",
+        "checker": "python",
         "name": "webkit typelib"
-    }, 
+    },
     {
-        "check": "import wnck", 
-        "checker": "python", 
+        "check": "import wnck",
+        "checker": "python",
         "name": "wnck python"
-    }, 
+    },
     {
-        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import Wnck", 
-        "checker": "python", 
+        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import Wnck",
+        "checker": "python",
         "name": "wnck typelib"
-    }, 
+    },
     {
-        "check": "import xapian", 
-        "checker": "python", 
+        "check": "import xapian",
+        "checker": "python",
         "name": "xapian python"
-    }, 
+    },
     {
-        "check": "xdg-user-dirs-update", 
-        "checker": "binary", 
+        "check": "xdg-user-dirs-update",
+        "checker": "binary",
         "name": "xdg-user-dirs-update"
-    }, 
+    },
     {
-        "check": "from gi.repository import Xkl", 
-        "checker": "python", 
+        "check": "from gi.repository import Xkl",
+        "checker": "python",
         "name": "xkl typelib"
     }
 ]
