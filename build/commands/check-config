@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+import sys
+
+import common
+
+from osbuild import config
+
+
+common.setup()
+
+result = config.check()
+if result:
+    missing_packages = result["missing_packages"]
+    if missing_packages:
+        print("= Missing packages =\n%s", missing_packages)
+
+    unused_packages = result["unused_packages"]
+    if unused_packages:
+        print("= Unused packages =\n%s", unused_packages)
+
+    sys.exit(1)
