@@ -25,6 +25,11 @@
         "name": "dbus-launch"
     },
     {
+        "check": "pycairo",
+        "checker": "pkgconfig",
+        "name": "pycairo"
+    },
+    {
         "check": "node",
         "checker": "binary",
         "if": "distro == 'fedora-19'",

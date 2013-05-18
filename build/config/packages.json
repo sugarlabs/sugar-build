@@ -1,4 +1,122 @@
 {
+    "Adwaita": {
+        "debian": [
+            "gnome-themes-standard"
+        ],
+        "fedora": [
+            "gnome-themes-standard"
+        ],
+        "ubuntu": [
+            "gnome-themes-standard"
+        ]
+    },
+    "X": {
+        "debian": [
+            "xserver-xorg"
+        ],
+        "fedora": [
+            "xorg-x11-server-Xorg"
+        ],
+        "ubuntu": [
+            "xserver-xorg"
+        ]
+    },
+    "Xephyr": {
+        "debian": [
+            "xserver-xephyr"
+        ],
+        "fedora": [
+            "xorg-x11-server-Xephyr"
+        ],
+        "ubuntu": [
+            "xserver-xephyr"
+        ]
+    },
+    "Xvfb": {
+        "debian": [
+            "xvfb"
+        ],
+        "fedora": [
+            "xorg-x11-server-Xvfb"
+        ],
+        "ubuntu": [
+            "xvfb"
+        ]
+    },
+    "aclocal": {
+        "debian": [
+            "automake"
+        ],
+        "fedora": [
+            "automake"
+        ],
+        "ubuntu": [
+            "automake"
+        ]
+    },
+    "alsa": {
+        "debian": [
+            "libasound2-dev"
+        ],
+        "fedora": [
+            "alsa-lib-devel"
+        ],
+        "ubuntu": [
+            "libasound2-dev"
+        ]
+    },
+    "asn1Parser": {
+        "debian": [
+            "libtasn1-3-bin"
+        ],
+        "fedora": [
+            "libtasn1-tools"
+        ]
+    },
+    "atk-bridge": {
+        "debian": [
+            "libatk-adaptor"
+        ],
+        "fedora": [
+            "at-spi2-atk"
+        ],
+        "ubuntu": [
+            "libatk-adaptor"
+        ]
+    },
+    "atspi typelib": {
+        "debian": [
+            "gir1.2-atspi-2.0"
+        ],
+        "fedora": [
+            "at-spi2-core"
+        ],
+        "ubuntu": [
+            "gir1.2-atspi-2.0"
+        ]
+    },
+    "autodetect gstreamer": {
+        "debian": [
+            "gstreamer1.0-plugins-good"
+        ],
+        "fedora": [
+            "gstreamer1-plugins-good"
+        ],
+        "ubuntu": [
+            "gstreamer1.0-plugins-good"
+        ]
+    },
+    "autoreconf": {
+        "debian": [
+            "autoconf"
+        ],
+        "fedora": [
+            "autoconf"
+        ],
+        "ubuntu": [
+            "autoconf"
+        ]
+    },
     "base-system": {
         "debian": [
             "openssh-server",
@@ -143,124 +261,6 @@
             "diffutils",
             "grep",
             "ncurses-base"
-        ]
-    },
-    "Adwaita": {
-        "debian": [
-            "gnome-themes-standard"
-        ],
-        "fedora": [
-            "gnome-themes-standard"
-        ],
-        "ubuntu": [
-            "gnome-themes-standard"
-        ]
-    },
-    "X": {
-        "debian": [
-            "xserver-xorg"
-        ],
-        "fedora": [
-            "xorg-x11-server-Xorg"
-        ],
-        "ubuntu": [
-            "xserver-xorg"
-        ]
-    },
-    "Xephyr": {
-        "debian": [
-            "xserver-xephyr"
-        ],
-        "fedora": [
-            "xorg-x11-server-Xephyr"
-        ],
-        "ubuntu": [
-            "xserver-xephyr"
-        ]
-    },
-    "Xvfb": {
-        "debian": [
-            "xvfb"
-        ],
-        "fedora": [
-            "xorg-x11-server-Xvfb"
-        ],
-        "ubuntu": [
-            "xvfb"
-        ]
-    },
-    "aclocal": {
-        "debian": [
-            "automake"
-        ],
-        "fedora": [
-            "automake"
-        ],
-        "ubuntu": [
-            "automake"
-        ]
-    },
-    "alsa": {
-        "debian": [
-            "libasound2-dev"
-        ],
-        "fedora": [
-            "alsa-lib-devel"
-        ],
-        "ubuntu": [
-            "libasound2-dev"
-        ]
-    },
-    "asn1Parser": {
-        "debian": [
-            "libtasn1-3-bin"
-        ],
-        "fedora": [
-            "libtasn1-tools"
-        ]
-    },
-    "atk-bridge": {
-        "debian": [
-            "libatk-adaptor"
-        ],
-        "fedora": [
-            "at-spi2-atk"
-        ],
-        "ubuntu": [
-            "libatk-adaptor"
-        ]
-    },
-    "atspi typelib": {
-        "debian": [
-            "gir1.2-atspi-2.0"
-        ],
-        "fedora": [
-            "at-spi2-core"
-        ],
-        "ubuntu": [
-            "gir1.2-atspi-2.0"
-        ]
-    },
-    "autodetect gstreamer": {
-        "debian": [
-            "gstreamer1.0-plugins-good"
-        ],
-        "fedora": [
-            "gstreamer1-plugins-good"
-        ],
-        "ubuntu": [
-            "gstreamer1.0-plugins-good"
-        ]
-    },
-    "autoreconf": {
-        "debian": [
-            "autoconf"
-        ],
-        "fedora": [
-            "autoconf"
-        ],
-        "ubuntu": [
-            "autoconf"
         ]
     },
     "bison": {
@@ -919,6 +919,17 @@
         ],
         "ubuntu": [
             "gstreamer1.0-plugins-base"
+        ]
+    },
+    "pycairo": {
+        "debian": [
+            "python-cairo-dev"
+        ],
+        "fedora": [
+            "pycairo-devel"
+        ],
+        "ubuntu": [
+            "python-cairo-dev"
         ]
     },
     "pyflakes": {
