@@ -26,8 +26,8 @@ def setup(log_name=None, check_args={}):
 
     if is_buildbot():
         check_args["interactive"] = False
-        check_args["git_user_name"] = "buildbot"
-        check_args["git_email"] = "buildbot@sugarlabs.org"
+        config_args["git_user_name"] = "buildbot"
+        config_args["git_email"] = "buildbot@sugarlabs.org"
 
     if not main.setup(config_args, check_args):
         sys.exit(1)
