@@ -14,12 +14,12 @@ def is_buildbot():
 
 def setup(log_name=None, check_args={}):
     config_args = {"config_dir": os.path.join(base_dir, "config"),
-                   "install_dir": os.path.join(base_dir, "install"),
-                   "source_dir": os.path.join(base_dir, "source"),
-                   "docs_dir": os.path.join(base_dir, "docs"),
-                   "state_dir": os.path.join(base_dir, "state"),
+                   "install_dir": os.path.join(base_dir, "out", "install"),
+                   "source_dir": os.path.join(base_dir),
+                   "docs_dir": os.path.join(base_dir, "out", "docs"),
+                   "state_dir": os.path.join(base_dir, "out", "state"),
                    "prefs_path": os.path.join(base_dir, "prefs"),
-                   "logs_dir": os.path.join(base_dir, "logs")}
+                   "logs_dir": os.path.join(base_dir, "out", "logs")}
 
     if log_name:
         config_args["log_name"] = log_name
