@@ -16,9 +16,9 @@ def setup(log_name=None, check_args={}):
                    "install_dir": os.path.join(build_dir, "out", "install"),
                    "source_dir": os.path.join(root_dir),
                    "docs_dir": os.path.join(build_dir, "out", "docs"),
-                   "state_dir": os.path.join(build_dir, "out", "state"),
+                   "state_dir": os.path.join(build_dir, "state"),
                    "prefs_path": os.path.join(root_dir, "prefs"),
-                   "logs_dir": os.path.join(build_dir, "out", "logs")}
+                   "logs_dir": os.path.join(build_dir, "logs")}
 
     if log_name:
         config_args["log_name"] = log_name
