@@ -1,0 +1,229 @@
+[
+    {
+        "branch": "sugar-build-v1.11.6",
+        "name": "automake",
+        "repo": "git://github.com/dnarvaez/automake.git"
+    },
+    {
+        "if": "gnome_version < '3.6' or distro == 'fedora-18'",
+        "name": "glib",
+        "options": [
+            "--disable-modular-tests"
+        ],
+        "repo": "git://git.gnome.org/glib",
+        "tag": "2.36.1"
+    },
+    {
+        "if": "distro != 'ubuntu-13.04'",
+        "name": "gobject-introspection",
+        "options": [
+            "--disable-tests"
+        ],
+        "repo": "git://git.gnome.org/gobject-introspection",
+        "tag": "GOBJECT_INTROSPECTION_1_36_0"
+    },
+    {
+        "branch": "gnome-3-4",
+        "if": "gnome_version == '3.4'",
+        "name": "gcr",
+        "repo": "git://git.gnome.org/gcr.git",
+        "tag": "3.8.2"
+    },
+    {
+        "branch": "gnome-3-4",
+        "if": "gnome_version == '3.4'",
+        "name": "gnome-keyring",
+        "options_evaluated": [
+            "'--with-pkcs11-config=%s/etc' % prefix",
+            "'--with-pkcs11-modules=%s/etc' % prefix"
+        ],
+        "repo": "git://git.gnome.org/gnome-keyring.git",
+        "tag": "3.8.2"
+    },
+    {
+        "name": "pygobject",
+        "options": [
+            "--with-python=python2.7"
+        ],
+        "repo": "git://git.gnome.org/pygobject",
+        "tag": "2a1c09fea76b3a1e696d9bb82c46e6c64ec574f9"
+    },
+    {
+        "name": "dbus-python",
+        "repo": "git://anongit.freedesktop.org/dbus/dbus-python",
+        "tag": "423ee853dfbb4ee9ed89a21e1cf2b6a928e2fc4d"
+    },
+    {
+        "if": "distro.startswith('debian')",
+        "name": "telepathy-glib",
+        "repo": "git://anongit.freedesktop.org/telepathy/telepathy-glib",
+        "tag": "telepathy-glib-0.20.1"
+    },
+    {
+        "if": "not distro.startswith('fedora')",
+        "name": "telepathy-mission-control",
+        "repo": "git://anongit.freedesktop.org/telepathy/telepathy-mission-control",
+        "tag": "telepathy-mission-control-5.14.1"
+    },
+    {
+        "if": "gnome_version == '3.4'",
+        "name": "atk",
+        "repo": "git://git.gnome.org/atk",
+        "tag": "ATK_2_6_0"
+    },
+    {
+        "if": "gnome_version == '3.4'",
+        "name": "at-spi2-core",
+        "repo": "git://git.gnome.org/at-spi2-core",
+        "tag": "AT_SPI2_CORE_2_6_3"
+    },
+    {
+        "if": "gnome_version == '3.4'",
+        "name": "at-spi2-atk",
+        "repo": "git://git.gnome.org/at-spi2-atk",
+        "tag": "AT_SPI2_ATK_2_6_2"
+    },
+    {
+        "if": "gnome_version == '3.4'",
+        "name": "gtk+",
+        "repo": "git://git.gnome.org/gtk+",
+        "tag": "3.6.2"
+    },
+    {
+        "if": "gnome_version == '3.4'",
+        "name": "libxklavier",
+        "repo": "git://anongit.freedesktop.org/libxklavier",
+        "tag": "libxklavier-5.3"
+    },
+    {
+        "if": "gnome_version == '3.4'",
+        "name": "metacity",
+        "options": [
+            "--disable-themes-documentation"
+        ],
+        "repo": "git://git.gnome.org/metacity",
+        "tag": "METACITY_2_34_13"
+    },
+    {
+        "name": "libsoup",
+        "repo": "git://git.gnome.org/libsoup",
+        "tag": "2.42.1"
+    },
+    {
+        "if": "gnome_version == '3.4'",
+        "name": "libsecret",
+        "repo": "git://git.gnome.org/libsecret",
+        "tag": "0.15"
+    },
+    {
+        "if": "gnome_version < '3.6'",
+        "name": "harfbuzz",
+        "repo": "git://anongit.freedesktop.org/harfbuzz",
+        "tag": "0.9.16"
+    },
+    {
+        "name": "webkitgtk",
+        "options": [
+            "--enable-introspection"
+        ],
+        "repo": "git://github.com/dnarvaez/webkitgtk"
+    },
+    {
+        "name": "gwebsockets",
+        "repo": "git://github.com/dnarvaez/gwebsockets"
+    },
+    {
+        "if": "distro != 'fedora-19'",
+        "makefile_name": "config.mk",
+        "name": "node",
+        "no_libdir": true,
+        "repo": "git://github.com/joyent/node.git",
+        "tag": "v0.10.5"
+    },
+    {
+        "name": "volo",
+        "repo": "git://github.com/volojs/volo.git",
+        "tag": "v0.2.10"
+    },
+    {
+        "name": "jshint",
+        "repo": "git://github.com/jshint/jshint.git",
+        "tag": "2.0.1"
+    },
+    {
+        "name": "docker",
+        "repo": "git://github.com/jbt/docker.git",
+        "tag": "1bf0db9"
+    },
+    {
+        "if": "not distro.startswith('fedora')",
+        "name": "pep8",
+        "repo": "git://github.com/jcrocholl/pep8.git",
+        "tag": "1.4.5"
+    },
+    {
+        "name": "json-format",
+        "repo": "git://github.com/dnarvaez/json-format.git"
+    },
+    {
+        "name": "flake8",
+        "repo": "git://github.com/bmcustodio/flake8.git",
+        "tag": "2.0"
+    },
+    {
+        "docs_dir": "",
+        "has_docs": true,
+        "name": "sugar-docs",
+        "repo": "git://github.com/sugarlabs/sugar-docs.git"
+    },
+    {
+        "name": "sugar-base",
+        "repo": "git://git.sugarlabs.org/sugar-base/mainline.git"
+    },
+    {
+        "name": "sugar-toolkit",
+        "repo": "git://git.sugarlabs.org/sugar-toolkit/mainline.git"
+    },
+    {
+        "has_checks": true,
+        "name": "sugar-toolkit-gtk3",
+        "repo": "git://github.com/sugarlabs/sugar-toolkit-gtk3.git"
+    },
+    {
+        "has_checks": true,
+        "name": "sugar",
+        "repo": "git://github.com/sugarlabs/sugar"
+    },
+    {
+        "name": "sugar-artwork",
+        "repo": "git://github.com/sugarlabs/sugar-artwork.git"
+    },
+    {
+        "name": "sugar-datastore",
+        "repo": "git://github.com/sugarlabs/sugar-datastore.git"
+    },
+    {
+        "name": "gst-plugins-espeak",
+        "repo": "git://git.sugarlabs.org/gst-plugins-espeak/mainline.git"
+    },
+    {
+        "has_checks": true,
+        "name": "sugar-runner",
+        "repo": "git://github.com/sugarlabs/sugar-runner.git"
+    },
+    {
+        "has_checks": true,
+        "name": "sugar-html-template",
+        "repo": "git://github.com/sugarlabs/sugar-html-template.git"
+    },
+    {
+        "has_checks": true,
+        "name": "sugar-html-core",
+        "repo": "git://github.com/sugarlabs/sugar-html-core.git"
+    },
+    {
+        "has_checks": true,
+        "name": "sugar-html-graphics",
+        "repo": "git://github.com/sugarlabs/sugar-html-graphics.git"
+    }
+]
