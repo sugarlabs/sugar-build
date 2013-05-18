@@ -151,6 +151,11 @@
         "tag": "2.0.1"
     }, 
     {
+        "name": "docker", 
+        "repo": "git://github.com/jbt/docker.git", 
+        "tag": "1bf0db9"
+    }, 
+    {
         "if": "not distro.startswith('fedora')", 
         "name": "pep8", 
         "repo": "git://github.com/jcrocholl/pep8.git", 

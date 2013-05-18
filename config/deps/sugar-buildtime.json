@@ -91,12 +91,6 @@
         "name": "intltoolize"
     }, 
     {
-        "check": "jekyll", 
-        "checker": "binary", 
-        "if": "not distro.startswith('fedora')", 
-        "name": "jekyll"
-    }, 
-    {
         "check": "libcanberra-gtk", 
         "checker": "pkgconfig", 
         "name": "libcanberra-gtk"

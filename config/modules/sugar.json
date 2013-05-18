@@ -1,5 +1,7 @@
 [
     {
+        "docs_dir": "", 
+        "has_docs": true, 
         "name": "sugar-docs", 
         "repo": "git://github.com/sugarlabs/sugar-docs.git"
     }, 

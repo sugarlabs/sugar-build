@@ -590,14 +590,6 @@
             "iso-codes"
         ]
     }, 
-    "jekyll": {
-        "debian": [
-            "jekyll"
-        ], 
-        "ubuntu": [
-            "jekyll"
-        ]
-    }, 
     "libcanberra-gtk": {
         "debian": [
             "libcanberra-gtk-dev"
