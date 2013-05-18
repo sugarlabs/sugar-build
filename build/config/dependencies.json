@@ -25,6 +25,16 @@
         "name": "dbus-launch"
     },
     {
+        "check": "gtk+-2.0",
+        "checker": "pkgconfig",
+        "name": "gtk+-2.0"
+    },
+    {
+        "check": "gail",
+        "checker": "pkgconfig",
+        "name": "gail"
+    },
+    {
         "check": "pycairo",
         "checker": "pkgconfig",
         "name": "pycairo"

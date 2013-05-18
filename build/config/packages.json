@@ -10,6 +10,17 @@
             "gnome-themes-standard"
         ]
     },
+    "gail": {
+        "debian": [
+            "libgail-dev"
+        ],
+        "fedora": [
+            "gtk2-devel"
+        ],
+        "ubuntu": [
+            "libgail-dev"
+        ]
+    },
     "X": {
         "debian": [
             "xserver-xorg"
@@ -602,6 +613,17 @@
         ],
         "ubuntu": [
             "libgstreamer-plugins-base1.0-dev"
+        ]
+    },
+    "gtk+-2.0": {
+        "debian": [
+            "libgtk2-dev"
+        ],
+        "fedora": [
+            "gtk2-devel"
+        ],
+        "ubuntu": [
+            "libgtk2-dev"
         ]
     },
     "gtk+-3.0": {
