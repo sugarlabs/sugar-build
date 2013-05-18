@@ -428,28 +428,6 @@
             "flex"
         ]
     },
-    "gail": {
-        "debian": [
-            "libgail-dev"
-        ],
-        "fedora": [
-            "gtk2-devel"
-        ],
-        "ubuntu": [
-            "libgail-dev"
-        ]
-    },
-    "gail gtkmodule": {
-        "debian": [
-            "libgail-common"
-        ],
-        "fedora": [
-            "gtk2"
-        ],
-        "ubuntu": [
-            "libgail-common"
-        ]
-    },
     "gail3": {
         "debian": [
             "libgail-3-dev"
@@ -659,17 +637,6 @@
             "gir1.2-gtksource-3.0"
         ]
     },
-    "hippo python": {
-        "debian": [
-            "python-hippocanvas"
-        ],
-        "fedora": [
-            "hippo-canvas-python"
-        ],
-        "ubuntu": [
-            "python-hippocanvas"
-        ]
-    },
     "ice": {
         "debian": [
             "libice-dev"
@@ -734,17 +701,6 @@
         ],
         "ubuntu": [
             "iso-codes"
-        ]
-    },
-    "libcanberra-gtk": {
-        "debian": [
-            "libcanberra-gtk-dev"
-        ],
-        "fedora": [
-            "libcanberra-devel"
-        ],
-        "ubuntu": [
-            "libcanberra-gtk-dev"
         ]
     },
     "libgcr": {
@@ -965,17 +921,6 @@
             "gstreamer1.0-plugins-base"
         ]
     },
-    "pycairo": {
-        "debian": [
-            "python-cairo-dev"
-        ],
-        "fedora": [
-            "pycairo-devel"
-        ],
-        "ubuntu": [
-            "python-cairo-dev"
-        ]
-    },
     "pyflakes": {
         "debian": [
             "pyflakes"
@@ -985,28 +930,6 @@
         ],
         "ubuntu": [
             "pyflakes"
-        ]
-    },
-    "pygtk-2.0": {
-        "debian": [
-            "python-gtk2-dev"
-        ],
-        "fedora": [
-            "pygtk2-devel"
-        ],
-        "ubuntu": [
-            "python-gtk2-dev"
-        ]
-    },
-    "pylint": {
-        "debian": [
-            "pylint"
-        ],
-        "fedora": [
-            "pylint"
-        ],
-        "ubuntu": [
-            "pylint"
         ]
     },
     "python": {
@@ -1031,17 +954,6 @@
             "ragel"
         ]
     },
-    "rsvg python": {
-        "debian": [
-            "python-rsvg"
-        ],
-        "fedora": [
-            "gnome-python2-rsvg"
-        ],
-        "ubuntu": [
-            "python-rsvg"
-        ]
-    },
     "ruby": {
         "debian": [
             "ruby"
@@ -1051,17 +963,6 @@
         ],
         "ubuntu": [
             "ruby"
-        ]
-    },
-    "simplejson python": {
-        "debian": [
-            "python-simplejson"
-        ],
-        "fedora": [
-            "python-simplejson"
-        ],
-        "ubuntu": [
-            "python-simplejson"
         ]
     },
     "sm": {
@@ -1084,17 +985,6 @@
         ],
         "ubuntu": [
             "libsqlite3-dev"
-        ]
-    },
-    "ssh": {
-        "debian": [
-            "openssh-client"
-        ],
-        "fedora": [
-            "openssh-clients"
-        ],
-        "ubuntu": [
-            "openssh-client"
         ]
     },
     "tar": {
@@ -1141,28 +1031,6 @@
             "time"
         ]
     },
-    "virtualenv": {
-        "debian": [
-            "python-virtualenv"
-        ],
-        "fedora": [
-            "python-virtualenv"
-        ],
-        "ubuntu": [
-            "python-virtualenv"
-        ]
-    },
-    "vte python": {
-        "debian": [
-            "python-vte"
-        ],
-        "fedora": [
-            "vte"
-        ],
-        "ubuntu": [
-            "python-vte"
-        ]
-    },
     "vte typelib": {
         "debian": [
             "gir1.2-vte-2.90"
@@ -1183,17 +1051,6 @@
         ],
         "ubuntu": [
             "gir1.2-webkit-3.0"
-        ]
-    },
-    "wnck python": {
-        "debian": [
-            "python-wnck"
-        ],
-        "fedora": [
-            "gnome-python2-libwnck"
-        ],
-        "ubuntu": [
-            "python-wnck"
         ]
     },
     "wnck typelib": {

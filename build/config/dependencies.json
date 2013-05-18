@@ -25,11 +25,6 @@
         "name": "dbus-launch"
     },
     {
-        "check": "gail",
-        "checker": "gtkmodule",
-        "name": "gail gtkmodule"
-    },
-    {
         "check": "node",
         "checker": "binary",
         "if": "distro == 'fedora-19'",
@@ -52,24 +47,9 @@
         "name": "pyflakes"
     },
     {
-        "check": "pylint",
-        "checker": "binary",
-        "name": "pylint"
-    },
-    {
-        "check": "scp",
-        "checker": "binary",
-        "name": "scp"
-    },
-    {
         "check": "time",
         "checker": "binary",
         "name": "time"
-    },
-    {
-        "check": "virtualenv",
-        "checker": "binary",
-        "name": "virtualenv"
     },
     {
         "check": "x11",
@@ -172,11 +152,6 @@
         "name": "gtksource typelib"
     },
     {
-        "check": "import hippo",
-        "checker": "python",
-        "name": "hippo python"
-    },
-    {
         "check": "metacity",
         "checker": "binary",
         "name": "metacity"
@@ -212,24 +187,9 @@
         "name": "playback gstreamer"
     },
     {
-        "check": "import rsvg",
-        "checker": "python",
-        "name": "rsvg python"
-    },
-    {
-        "check": "import simplejson",
-        "checker": "python",
-        "name": "simplejson python"
-    },
-    {
         "check": "import telepathy",
         "checker": "python",
         "name": "telepathy python"
-    },
-    {
-        "check": "import vte",
-        "checker": "python",
-        "name": "vte python"
     },
     {
         "check": "from gi.repository import Vte",
@@ -240,11 +200,6 @@
         "check": "from gi.repository import WebKit",
         "checker": "python",
         "name": "webkit typelib"
-    },
-    {
-        "check": "import wnck",
-        "checker": "python",
-        "name": "wnck python"
     },
     {
         "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import Wnck",
@@ -358,11 +313,6 @@
         "name": "intltoolize"
     },
     {
-        "check": "libcanberra-gtk",
-        "checker": "pkgconfig",
-        "name": "libcanberra-gtk"
-    },
-    {
         "check": "gcr-3",
         "checker": "pkgconfig",
         "if": "gnome_version == '3.4'",
@@ -389,16 +339,6 @@
         "check": "libtool",
         "checker": "binary",
         "name": "libtool"
-    },
-    {
-        "check": "pycairo",
-        "checker": "pkgconfig",
-        "name": "pycairo"
-    },
-    {
-        "check": "pygtk-2.0",
-        "checker": "pkgconfig",
-        "name": "pygtk-2.0"
     },
     {
         "check": "python-2.7",
@@ -454,11 +394,6 @@
         "check": "flex",
         "checker": "binary",
         "name": "flex"
-    },
-    {
-        "check": "gail",
-        "checker": "pkgconfig",
-        "name": "gail"
     },
     {
         "check": "gail-3.0",
