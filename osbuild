@@ -30,7 +30,7 @@ packages = ["osbuild"]
 virtualenv_version = "1.9.1"
 virtualenv_dir = os.path.join("out", "sandbox", "install")
 cache_dir = os.path.join("out", "sandbox", "cache")
-etag = "7"
+etag = "8"
 
 
 def get_cache_dir():
