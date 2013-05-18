@@ -123,6 +123,10 @@ def main():
     if len(sys.argv) > 2:
         args.extend(sys.argv[2:])
 
+    # FIXME temporary hack, should rewrite the command in python
+    if command == "bug-report":
+        args = args[1:]
+
     os.execl(args[0], *args)
 
 

@@ -2,7 +2,7 @@
 
 commandsdir=`dirname "$0"`
 rootdir=`dirname "$commandsdir"`
-buildlogsdir=$rootdir/logs
+buildlogsdir=$rootdir/out/logs
 sugarlogsdir=~/.sugar/default/logs
 tarfile=$buildlogsdir/all-logs.tar.bz2
 
