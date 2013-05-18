@@ -9,7 +9,7 @@ from osbuild import environ
 
 common.setup()
 
-commands_dir = os.path.join(common.base_dir, "commands")
+commands_dir = os.path.join(common.build_dir, "commands")
 
 environ.add_path("PATH", commands_dir)
 shell.start(os.path.join(commands_dir, "bashrc"))

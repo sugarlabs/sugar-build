@@ -30,7 +30,7 @@ packages = ["osbuild"]
 virtualenv_version = "1.9.1"
 virtualenv_dir = os.path.join("out", "sandbox", "install")
 cache_dir = os.path.join("out", "sandbox", "cache")
-etag = "6"
+etag = "7"
 
 
 def get_cache_dir():
@@ -118,7 +118,7 @@ def main():
         command = "shell"
 
     args = [get_bin_path("python"),
-            os.path.join(base_dir, "commands", command)]
+            os.path.join(base_dir, "build", "commands", command)]
 
     if len(sys.argv) > 2:
         args.extend(sys.argv[2:])

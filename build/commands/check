@@ -19,7 +19,7 @@ def _get_profile():
 
 
 def _get_test_path(name):
-    return os.path.join(common.base_dir, "tests", name)
+    return os.path.join(common.build_dir, "tests", name)
 
 
 def _check_ui():
