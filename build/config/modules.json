@@ -141,9 +141,19 @@
         "tag": "v0.10.5"
     },
     {
+        "name": "grunt-cli",
+        "repo": "git://github.com/gruntjs/grunt-cli.git",
+        "tag": "9294941"
+    },
+    {
         "name": "volo",
         "repo": "git://github.com/volojs/volo.git",
         "tag": "v0.2.10"
+    },
+    {
+        "name": "karma",
+        "repo": "git://github.com/karma-runner/karma.git",
+        "tag": "v0.8.5"
     },
     {
         "name": "jshint",

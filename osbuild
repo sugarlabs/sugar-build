@@ -31,7 +31,7 @@ virtualenv_version = "1.9.1"
 sandbox_dir = os.path.join("build", "out", "sandbox")
 virtualenv_dir = os.path.join(sandbox_dir, "install")
 cache_dir = os.path.join(sandbox_dir, "cache")
-etag = "11"
+etag = "12"
 
 
 def get_cache_dir():
