@@ -205,6 +205,11 @@
     },
     {
         "has_checks": true,
+        "name": "sugar-html-datastore",
+        "repo": "git://github.com/sugarlabs/sugar-html-datastore.git"
+    },
+    {
+        "has_checks": true,
         "name": "sugar-html-template",
         "repo": "git://github.com/sugarlabs/sugar-html-template.git"
     },
