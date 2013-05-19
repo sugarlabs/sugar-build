@@ -210,8 +210,13 @@
     },
     {
         "has_checks": true,
-        "name": "sugar-html-core",
-        "repo": "git://github.com/sugarlabs/sugar-html-core.git"
+        "name": "sugar-html-bus",
+        "repo": "git://github.com/sugarlabs/sugar-html-bus.git"
+    },
+    {
+        "has_checks": true,
+        "name": "sugar-html-activity",
+        "repo": "git://github.com/sugarlabs/sugar-html-activity.git"
     },
     {
         "has_checks": true,
