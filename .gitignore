@@ -36,7 +36,9 @@
 /sugar-base/
 /sugar-datastore/
 /sugar-docs/
-/sugar-html-core/
+/sugar-html-datastore/
+/sugar-html-dbus/
+/sugar-html-activity/
 /sugar-html-graphics/
 /sugar-html-template/
 /sugar-runner/

@@ -11,7 +11,7 @@ def is_buildbot():
     return "SUGAR_BUILDBOT" in os.environ
 
 
-def setup(log_name=None, check_args={}):
+def get_config_args(log_name=None):
     config_args = {"config_dir": os.path.join(build_dir, "config"),
                    "install_dir": os.path.join(build_dir, "out", "install"),
                    "source_dir": os.path.join(root_dir),
@@ -24,9 +24,17 @@ def setup(log_name=None, check_args={}):
         config_args["log_name"] = log_name
 
     if is_buildbot():
-        check_args["interactive"] = False
         config_args["git_user_name"] = "buildbot"
         config_args["git_email"] = "buildbot@sugarlabs.org"
+
+    return config_args
+
+
+def setup(log_name=None, check_args={}):
+    config_args = get_config_args(log_name)
+
+    if is_buildbot():
+        check_args["interactive"] = False
 
     if not main.setup(config_args, check_args):
         sys.exit(1)

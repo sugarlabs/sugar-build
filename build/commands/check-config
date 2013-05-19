@@ -5,18 +5,25 @@ import sys
 import common
 
 from osbuild import config
+from osbuild import environ
+from osbuild import main
 
 
-common.setup()
+main.load_plugins()
+config.setup(**common.get_config_args())
+
+print("\n= Checking config =")
+
+print("\n* Dependencies consistency")
 
 result = config.check()
 if result:
     missing_packages = result["missing_packages"]
     if missing_packages:
-        print("= Missing packages =\n%s", missing_packages)
+        print("\nMissing packages\n%s", missing_packages)
 
     unused_packages = result["unused_packages"]
     if unused_packages:
-        print("= Unused packages =\n%s", unused_packages)
+        print("\nUnused packages\n%s", unused_packages)
 
     sys.exit(1)
