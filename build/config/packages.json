@@ -10,6 +10,17 @@
             "gnome-themes-standard"
         ]
     },
+    "pygments": {
+        "debian": [
+            "python-pygments"
+        ],
+        "fedora": [
+            "python-pygments"
+        ],
+        "ubuntu": [
+            "python-pygments"
+        ]
+    },
     "libcanberra-gtk": {
         "debian": [
             "libcanberra-gtk-dev"

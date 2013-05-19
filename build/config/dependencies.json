@@ -5,6 +5,11 @@
         "name": "Xephyr"
     },
     {
+        "check": "import pygments",
+        "checker": "python",
+        "name": "pygments"
+    },
+    {
         "check": "atk-bridge",
         "checker": "gtkmodule",
         "name": "atk-bridge"
