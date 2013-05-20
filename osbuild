@@ -24,14 +24,12 @@ import urllib2
 import StringIO
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-start_message = "Installing virtualenv..."
-end_message = "Done."
 packages = ["osbuild"]
 virtualenv_version = "1.9.1"
 sandbox_dir = os.path.join("build", "out", "sandbox")
 virtualenv_dir = os.path.join(sandbox_dir, "install")
 cache_dir = os.path.join(sandbox_dir, "cache")
-etag = "16"
+etag = "17"
 
 
 def get_cache_dir():
@@ -104,19 +102,20 @@ def main():
     changed = check_stamp()
 
     if changed:
-        print(start_message)
+        print("= Setup osbuild =\n")
 
         try:
             shutil.rmtree(get_virtualenv_dir())
         except OSError:
             pass
 
+        print("* Create the python virtualenv")
         create_virtualenv()
+
+        print("* Install python packages")
         install_packages()
 
         write_stamp()
-
-        print(end_message)
 
     if len(sys.argv) > 1:
         command = sys.argv[1]
