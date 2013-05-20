@@ -127,7 +127,8 @@ def main():
 
     available_commands = os.listdir(commands_dir)
     for to_ignore in ["bashrc", "common.py", "common.pyc"]:
-        available_commands.remove(to_ignore)
+        if to_ignore in available_commands:
+            available_commands.remove(to_ignore)
 
     invalid_command = not os.path.exists(command_path)
     if invalid_command or command == "shell":
