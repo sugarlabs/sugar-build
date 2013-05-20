@@ -122,10 +122,20 @@ def main():
     else:
         command = "shell"
 
-    command_path = os.path.join(base_dir, "build", "commands", command)
-    if not os.path.exists(command_path):
-        print "Unknown command, see " \
-              "https://github.com/sugarlabs/sugar-docs/blob/master/build.md"
+    commands_dir = os.path.join(base_dir, "build", "commands")
+    command_path = os.path.join(commands_dir, command)
+
+    available_commands = os.listdir(commands_dir)
+    for to_ignore in ["bashrc", "common.py", "common.pyc"]:
+        available_commands.remove(to_ignore)
+
+    invalid_command = not os.path.exists(command_path)
+    if invalid_command or command == "shell":
+        print("\n= Available commands =\n")
+        print("\n".join(available_commands))
+        print("\nSee also http://developer.sugarlabs.org/build.md.html")
+
+    if invalid_command:
         sys.exit(1)
 
     args = [get_bin_path("python"), command_path]
