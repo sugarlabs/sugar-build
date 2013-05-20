@@ -94,6 +94,11 @@ def write_stamp():
 
 
 def main():
+    if "SUGAR_BUILD_SHELL" in os.environ:
+        print "Don't run osbuild inside a sugar-build shell, you can just " \
+              "run the commands directly."
+        sys.exit(1)
+
     os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
 
     changed = check_stamp()
@@ -132,6 +137,8 @@ def main():
     # FIXME temporary hack, should rewrite the command in python
     if command == "bug-report":
         args = args[1:]
+
+    os.environ["SUGAR_BUILD_SHELL"] = "yes"
 
     os.execl(args[0], *args)
 
