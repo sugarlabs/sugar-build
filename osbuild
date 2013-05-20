@@ -118,8 +118,13 @@ def main():
     else:
         command = "shell"
 
-    args = [get_bin_path("python"),
-            os.path.join(base_dir, "build", "commands", command)]
+    command_path = os.path.join(base_dir, "build", "commands", command)
+    if not os.path.exists(command_path):
+        print "Unknown command, see " \
+              "https://github.com/sugarlabs/sugar-docs/blob/master/build.md"
+        sys.exit(1)
+
+    args = [get_bin_path("python"), command_path]
 
     if len(sys.argv) > 2:
         args.extend(sys.argv[2:])
