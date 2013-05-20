@@ -51,7 +51,7 @@ if args.module:
     if not check.check_one(args.module):
         sys.exit(1)
 else:
-    if not main.run_build(full=False):
+    if not main.run_build():
         sys.exit(1)
 
     if not _run_checks():
