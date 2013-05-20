@@ -4,6 +4,7 @@ import argparse
 import os
 import shutil
 import sys
+import subprocess
 
 import common
 
@@ -26,7 +27,14 @@ def _check_ui():
     print("* Checking UI")
 
     profile_path = _get_profile()
-    result = run.run_test("sugar-runner", _get_test_path("shell.py"))
+
+    test_command = "python -u %s" % _get_test_path("shell.py")
+
+    os.environ["SUGAR_PROFILE_NAME"] = "dummy"
+    os.environ["SUGAR_RUN_TEST"] = test_command
+
+    result = subprocess.call(["sugar-runner", "--virtual"])
+
     run.collect_logs(os.path.join(profile_path, "logs"))
 
     return result

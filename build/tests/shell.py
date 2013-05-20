@@ -60,9 +60,6 @@ def go_to_list_view():
     root = tree.get_root()
     shell = root.find_child(name="main.py", role_name="application")
 
-    done_button = shell.find_child(name="Done", role_name="push button")
-    done_button.do_action("click")
-
     radio_button = shell.find_child(name="List view", role_name="radio button")
     radio_button.do_action("click")
 
