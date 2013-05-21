@@ -6,12 +6,12 @@ import os
 import common
 
 from osbuild import config
+from osbuild import command
 
-common.setup()
+common.setup("karma")
 
 karma_path = os.path.join(config.bin_dir, "karma")
 karma_args = " ".join(sys.argv[1:])
 os.environ["SUGAR_RUN_TEST"] = "%s %s" % (karma_path, karma_args)
 
-command = ["sugar-runner"]
-os.execvp(command[0], command)
+command.run("sugar-runner")

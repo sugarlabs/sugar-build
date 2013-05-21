@@ -11,6 +11,7 @@ import common
 from osbuild import run
 from osbuild import check
 from osbuild import main
+from osbuild import command
 
 
 def _get_profile():
@@ -32,11 +33,15 @@ def _check_ui():
 
     os.environ["SUGAR_RUN_TEST"] = test_command
 
-    result = subprocess.call(["sugar-runner"])
+    result = True
+    try:
+        command.run(["sugar-runner"])
+    except subprocess.CalledProcessError:
+        result = False
 
     run.collect_logs(os.path.join(profile_path, "logs"))
 
-    return result == 0
+    return result
 
 
 def _run_checks():
