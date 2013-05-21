@@ -30,7 +30,6 @@ def _check_ui():
 
     test_command = "python -u %s" % _get_test_path("shell.py")
 
-    os.environ["SUGAR_PROFILE_NAME"] = "dummy"
     os.environ["SUGAR_RUN_TEST"] = test_command
 
     result = subprocess.call(["sugar-runner"])
@@ -41,6 +40,7 @@ def _check_ui():
 
 
 def _run_checks():
+    os.environ["SUGAR_PROFILE_NAME"] = "dummy"
     os.environ["SUGAR_RUNNER_VIRTUAL"] = "yes"
 
     print("\n= Check =\n")
