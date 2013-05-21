@@ -37,7 +37,7 @@ def _check_ui():
 
     run.collect_logs(os.path.join(profile_path, "logs"))
 
-    return result
+    return result == 0
 
 
 def _run_checks():
