@@ -2,9 +2,11 @@ import os
 import sys
 
 build_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+commands_dir = os.path.join(build_dir, "commands")
 root_dir = os.path.dirname(build_dir)
 
 from osbuild import main
+from osbuild import environ
 
 
 def is_buildbot():
@@ -38,3 +40,5 @@ def setup(log_name=None, check_args={}):
 
     if not main.setup(config_args, check_args):
         sys.exit(1)
+
+    environ.add_path("PATH", commands_dir)
