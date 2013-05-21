@@ -33,7 +33,7 @@ def _check_ui():
     os.environ["SUGAR_PROFILE_NAME"] = "dummy"
     os.environ["SUGAR_RUN_TEST"] = test_command
 
-    result = subprocess.call(["sugar-runner", "--virtual"])
+    result = subprocess.call(["sugar-runner"])
 
     run.collect_logs(os.path.join(profile_path, "logs"))
 
@@ -41,6 +41,8 @@ def _check_ui():
 
 
 def _run_checks():
+    os.environ["SUGAR_RUNNER_VIRTUAL"] = "yes"
+
     print("\n= Check =\n")
     return check.check() and _check_ui()
 
