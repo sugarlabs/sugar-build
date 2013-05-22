@@ -12,4 +12,5 @@ common.setup(log_name="run")
 if not main.run_build():
     sys.exit(1)
 
+common.print_close_message()
 run.run("sugar-runner")

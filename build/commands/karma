@@ -14,4 +14,5 @@ karma_path = os.path.join(config.bin_dir, "karma")
 karma_args = " ".join(sys.argv[1:])
 os.environ["SUGAR_RUN_TEST"] = "%s %s" % (karma_path, karma_args)
 
+common.print_close_message()
 command.run("sugar-runner")

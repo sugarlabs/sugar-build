@@ -32,7 +32,13 @@ def get_config_args(log_name=None):
     return config_args
 
 
+def print_close_message():
+    print "Type Shift-Alt-Q inside sugar to close."
+
+
 def setup(log_name=None, check_args={}):
+    os.environ["SUGAR_DEVELOPER"] = "1"
+
     config_args = get_config_args(log_name)
 
     if is_buildbot():
