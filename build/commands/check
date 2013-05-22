@@ -12,6 +12,7 @@ from osbuild import run
 from osbuild import check
 from osbuild import main
 from osbuild import command
+from osbuild import config
 
 
 def _get_profile():
@@ -45,6 +46,7 @@ def _check_ui():
 
 
 def _run_checks():
+    os.environ["SUGAR_TEST_LOG"] = config.log_path
     os.environ["SUGAR_PROFILE_NAME"] = "dummy"
     os.environ["SUGAR_RUNNER_VIRTUAL"] = "yes"
 
