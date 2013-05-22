@@ -122,6 +122,7 @@
         "tag": "0.9.16"
     },
     {
+        "if": "distro != 'fedora-19'",
         "name": "webkitgtk",
         "options": [
             "--enable-introspection"

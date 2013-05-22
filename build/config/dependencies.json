@@ -232,6 +232,13 @@
         "name": "wnck typelib"
     },
     {
+        "check": "webkitgtk",
+        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import WebKit2",
+        "checker": "pthon",
+        "if": "distro == 'fedora-19'",
+        "name": "webkitgtk"
+    },
+    {
         "check": "import xapian",
         "checker": "python",
         "name": "xapian python"

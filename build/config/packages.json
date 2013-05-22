@@ -1098,6 +1098,11 @@
             "gir1.2-vte-2.90"
         ]
     },
+    "webkitgtk": {
+        "fedora": [
+            "webkitgtk"
+        ]
+    },
     "webkit typelib": {
         "debian": [
             "gir1.2-webkit-3.0"
