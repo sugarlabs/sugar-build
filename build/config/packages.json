@@ -153,6 +153,7 @@
     "base-system": {
         "debian": [
             "openssh-server",
+            "libc-bin",
             "apt",
             "ibritish",
             "iamerican",
