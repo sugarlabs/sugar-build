@@ -240,6 +240,7 @@
     },
     {
         "has_checks": true,
+        "has_docs": true,
         "name": "sugar-html-graphics",
         "repo": "git://github.com/sugarlabs/sugar-html-graphics.git"
     },
