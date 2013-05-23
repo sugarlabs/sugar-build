@@ -11,6 +11,6 @@ parser.add_argument("--new-files", action="store_true",
                     help="remove also new files")
 args = parser.parse_args()
 
-common.setup(log_name="clean")
+common.setup()
 
 clean.clean(new_files=args.new_files)

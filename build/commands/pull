@@ -16,7 +16,7 @@ args = parser.parse_args()
 
 
 if args.module:
-    common.setup(log_name="pull")
+    common.setup()
     if not build.pull_one(args.module):
         sys.exit(1)
 else:
@@ -24,7 +24,7 @@ else:
         print("\n= Updating build system =\n")
         print("* Pulling sugar-build")
         command.run(["git", "pull", "--ff-only"])
-    common.setup(log_name="pull")
+    common.setup()
 
     revisions = {}
     if args.revisions:

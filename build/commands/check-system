@@ -18,4 +18,4 @@ check_args = {"update": args.update,
               "test": args.test,
               "lazy": False}
 
-common.setup(log_name="check-system", check_args=check_args)
+common.setup(check_args=check_args)

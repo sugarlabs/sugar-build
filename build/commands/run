@@ -7,7 +7,7 @@ import common
 from osbuild import run
 from osbuild import main
 
-common.setup(log_name="run")
+common.setup()
 
 if not main.run_build():
     sys.exit(1)

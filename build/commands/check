@@ -25,7 +25,7 @@ def _get_test_path(name):
     return os.path.join(common.build_dir, "tests", name)
 
 
-def _check_ui():
+def _check_ui(log_path):
     print("* Checking UI")
 
     profile_path = _get_profile()
@@ -40,25 +40,34 @@ def _check_ui():
     except subprocess.CalledProcessError:
         result = False
 
-    run.collect_logs(os.path.join(profile_path, "logs"))
+    run.collect_logs(os.path.join(profile_path, "logs"), log_path)
 
     return result
 
 
 def _run_checks():
-    os.environ["SUGAR_TEST_LOG"] = config.log_path
+    log_path = os.path.join(common.logs_dir, "check.log")
+
+    os.environ["SUGAR_TEST_LOG"] = log_path
     os.environ["SUGAR_PROFILE_NAME"] = "dummy"
     os.environ["SUGAR_RUNNER_VIRTUAL"] = "yes"
 
     print("\n= Check =\n")
-    return check.check() and _check_ui()
+
+    if not check.check():
+        return False
+
+    if not _check_ui(log_path):
+        return False
+
+    return True
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to test")
 args = parser.parse_args()
 
-common.setup(log_name="check")
+common.setup()
 
 os.environ["SUGAR_LOGGER_LEVEL"] = "debug"
 os.environ["SUGAR_PROFILE"] = "uitests"

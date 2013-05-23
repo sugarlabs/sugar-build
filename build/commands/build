@@ -15,7 +15,7 @@ parser.add_argument("--clean-all", action="store_true",
                     help="clean everything before building")
 args = parser.parse_args()
 
-common.setup(log_name="build")
+common.setup()
 
 if args.module:
     if not build.build_one(args.module):
