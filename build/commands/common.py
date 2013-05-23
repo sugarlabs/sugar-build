@@ -2,11 +2,14 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 import sys
+import subprocess
+
 
 build_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 commands_dir = os.path.join(build_dir, "commands")
 logs_dir = os.path.join(build_dir, "logs")
 root_dir = os.path.dirname(build_dir)
+log_path = os.path.join(logs_dir, "sugar-build.log")
 
 from osbuild import main
 from osbuild import environ
@@ -39,8 +42,6 @@ def setup_logging():
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
 
-    log_path = os.path.join(logs_dir, "sugar-build.log")
-
     try:
         os.makedirs(logs_dir)
     except OSError:
@@ -48,6 +49,11 @@ def setup_logging():
 
     handler = RotatingFileHandler(log_path, backupCount=10, maxBytes=5242880)
     logger.addHandler(handler)
+
+
+def failed(tail_log=False):
+    subprocess.check_call(["tail", log_path])
+    sys.exit(1)
 
 
 def setup(check_args={}):
@@ -61,6 +67,6 @@ def setup(check_args={}):
         check_args["interactive"] = False
 
     if not main.setup(config_args, check_args):
-        sys.exit(1)
+        failed(tail_log=True)
 
     environ.add_path("PATH", commands_dir)

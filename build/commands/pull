@@ -18,7 +18,7 @@ args = parser.parse_args()
 if args.module:
     common.setup()
     if not build.pull_one(args.module):
-        sys.exit(1)
+        common.failed()
 else:
     if not common.is_buildbot():
         print("\n= Updating build system =\n")
@@ -31,4 +31,4 @@ else:
         revisions = json.loads(args.revisions)
 
     if not build.pull(revisions):
-        sys.exit(1)
+        common.failed()

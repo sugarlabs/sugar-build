@@ -3,7 +3,6 @@
 import argparse
 import os
 import shutil
-import sys
 import subprocess
 
 import common
@@ -75,10 +74,10 @@ os.environ["GTK_MODULES"] = "gail:atk-bridge"
 
 if args.module:
     if not check.check_one(args.module):
-        sys.exit(1)
+        common.failed()
 else:
     if not main.run_build():
-        sys.exit(1)
+        common.failed()
 
     if not _run_checks():
-        sys.exit(1)
+        common.failed()

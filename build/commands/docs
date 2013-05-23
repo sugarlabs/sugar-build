@@ -10,4 +10,4 @@ from osbuild import docs
 common.setup()
 
 if not docs.build():
-    sys.exit(1)
+    common.failed()

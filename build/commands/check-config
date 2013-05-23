@@ -21,9 +21,9 @@ if result:
     missing_packages = result["missing_packages"]
     if missing_packages:
         print("\nMissing packages\n%s", missing_packages)
-        sys.exit(1)
+        common.failed(tail_log=False)
 
     unused_packages = result["unused_packages"]
     if unused_packages:
         print("\nUnused packages\n%s", unused_packages)
-        sys.exit(1)
+        common.failed(tail_log=False)
