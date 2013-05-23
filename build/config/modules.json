@@ -218,7 +218,6 @@
         "repo": "git://github.com/sugarlabs/sugar-html-test.git"
     },
     {
-        "has_checks": true,
         "name": "sugar-html-datastore",
         "repo": "git://github.com/sugarlabs/sugar-html-datastore.git"
     },
