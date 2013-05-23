@@ -9,7 +9,7 @@ build_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 commands_dir = os.path.join(build_dir, "commands")
 logs_dir = os.path.join(build_dir, "logs")
 root_dir = os.path.dirname(build_dir)
-log_path = os.path.join(logs_dir, "sugar-build.log")
+log_path = os.path.join(logs_dir, "main.log")
 
 from osbuild import main
 from osbuild import environ
