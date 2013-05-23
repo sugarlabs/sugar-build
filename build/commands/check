@@ -47,6 +47,11 @@ def _check_ui(log_path):
 def _run_checks():
     log_path = os.path.join(common.logs_dir, "check.log")
 
+    try:
+        os.unlink(log_path)
+    except OSError:
+        pass
+
     os.environ["SUGAR_TEST_LOG"] = log_path
     os.environ["SUGAR_PROFILE_NAME"] = "dummy"
     os.environ["SUGAR_RUNNER_VIRTUAL"] = "yes"

@@ -47,6 +47,12 @@ def setup_logging():
     except OSError:
         pass
 
+    if is_buildbot():
+        try:
+            os.unlink(log_path)
+        except OSError:
+            pass
+
     handler = RotatingFileHandler(log_path, backupCount=10, maxBytes=5242880)
     logger.addHandler(handler)
 
