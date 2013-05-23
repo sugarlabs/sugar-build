@@ -129,6 +129,7 @@
         "repo": "git://github.com/dnarvaez/webkitgtk"
     },
     {
+        "has_checks": true,
         "name": "gwebsockets",
         "repo": "git://github.com/dnarvaez/gwebsockets"
     },
