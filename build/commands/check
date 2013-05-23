@@ -45,7 +45,7 @@ def _check_ui(log_path):
 
 
 def _run_checks():
-    log_path = os.path.join(common.logs_dir, "check.log")
+    log_path = os.path.join(common.logs_dir, "sugar.log")
 
     try:
         os.unlink(log_path)
