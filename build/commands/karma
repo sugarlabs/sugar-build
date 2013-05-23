@@ -17,6 +17,12 @@ if "SUGAR_TEST_LOG" in os.environ:
     watch_log = None
 else:
     watch_log = os.path.join(common.logs_dir, "karma.log")
+
+    try:
+        os.unlink(watch_log)
+    except OSError:
+        pass
+
     os.environ["SUGAR_TEST_LOG"] = watch_log
     common.print_close_message()
 
