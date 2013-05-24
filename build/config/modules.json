@@ -1,6 +1,13 @@
 [
     {
+        "if": "distro != 'fedora-19'",
         "branch": "sugar-build-v1.11.6",
+        "name": "automake",
+        "repo": "git://github.com/dnarvaez/automake.git"
+    },
+    {
+        "if": "distro == 'fedora-19'",
+        "branch": "sugar-build-v1.13.2",
         "name": "automake",
         "repo": "git://github.com/dnarvaez/automake.git"
     },
