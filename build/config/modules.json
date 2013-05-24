@@ -1,12 +1,12 @@
 [
     {
-        "if": "distro != 'fedora-19'",
+        "if": "distro != 'fedora-19' and distro != 'debian-jessie'",
         "branch": "sugar-build-v1.11.6",
         "name": "automake",
         "repo": "git://github.com/dnarvaez/automake.git"
     },
     {
-        "if": "distro == 'fedora-19'",
+        "if": "distro == 'fedora-19' or distro == 'debian-jessie'",
         "branch": "sugar-build-v1.13.2",
         "name": "automake",
         "repo": "git://github.com/dnarvaez/automake.git"
@@ -30,14 +30,12 @@
         "tag": "GOBJECT_INTROSPECTION_1_36_0"
     },
     {
-        "branch": "gnome-3-4",
         "if": "gnome_version == '3.4'",
         "name": "gcr",
         "repo": "git://git.gnome.org/gcr.git",
         "tag": "3.8.2"
     },
     {
-        "branch": "gnome-3-4",
         "if": "gnome_version == '3.4'",
         "name": "gnome-keyring",
         "options_evaluated": [
