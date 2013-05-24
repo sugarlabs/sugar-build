@@ -105,6 +105,7 @@
         "tag": "METACITY_2_34_13"
     },
     {
+        "if": "distro != 'fedora-19'",
         "name": "libsoup",
         "repo": "git://git.gnome.org/libsoup",
         "tag": "2.42.1"
