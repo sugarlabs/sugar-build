@@ -649,6 +649,11 @@
             "libgtk2.0-dev"
         ]
     },
+    "atk-bridge-2.0": {
+        "debian": [
+            "libatk-bridge2.0-dev"
+        ]
+    },
     "gtk+-3.0": {
         "debian": [
             "libgtk-3-dev"

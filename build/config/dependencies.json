@@ -35,6 +35,12 @@
         "name": "dbus-launch"
     },
     {
+        "if": "gnome_version == '3.4'",
+        "check": "atk-bridge-2.0",
+        "checker": "pkgconfig",
+        "name": "atk-bridge-2.0"
+    },
+    {
         "check": "gtk+-2.0",
         "checker": "pkgconfig",
         "name": "gtk+-2.0"
