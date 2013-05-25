@@ -117,13 +117,13 @@ def main():
 
         write_stamp()
 
-    if command == "pull":
+    if changed or command == "pull":
         print("* Install osbuild package")
         install_osbuild()
 
-        if not "SUGAR_BUILDBOT" in os.environ:
-            print("* Pull latest sugar-build")
-            subprocess.check_call(["git", "pull", "--ff-only", "-q"])
+    if command == "pull" and not "SUGAR_BUILDBOT" in os.environ:
+        print("* Pull latest sugar-build")
+        subprocess.check_call(["git", "pull", "--ff-only", "-q"])
 
     commands_dir = os.path.join(base_dir, "build", "commands")
     command_path = os.path.join(commands_dir, command)
