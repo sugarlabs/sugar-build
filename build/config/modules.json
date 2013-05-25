@@ -151,6 +151,11 @@
         "tag": "2.0.1"
     },
     {
+        "name": "js-beautify",
+        "repo": "git://github.com/einars/js-beautify",
+        "tag": "v1.3.2"
+    },
+    {
         "name": "docker",
         "repo": "git://github.com/sugarlabs/docker.git",
         "branch": "sugar-build"
