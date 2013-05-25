@@ -152,8 +152,7 @@
     },
     {
         "name": "docker",
-        "repo": "git://github.com/jbt/docker.git",
-        "tag": "1bf0db9"
+        "repo": "git://github.com/sugarlabs/docker.git"
     },
     {
         "if": "not distro.startswith('fedora')",
