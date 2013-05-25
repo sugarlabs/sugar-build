@@ -28,7 +28,6 @@ virtualenv_version = "1.9.1"
 sandbox_dir = os.path.join("build", "out", "sandbox")
 virtualenv_dir = os.path.join(sandbox_dir, "install")
 cache_dir = os.path.join(sandbox_dir, "cache")
-etag = "39"
 
 
 def get_cache_dir():
@@ -40,7 +39,7 @@ def get_virtualenv_dir():
 
 
 def get_stamp_path():
-    return get_virtualenv_dir() + ".stamp"
+    return os.path.join(sandbox_dir, "stamp")
 
 
 def get_bin_path(name):
@@ -72,20 +71,51 @@ def install_osbuild():
 
 
 def check_stamp():
+    stamp_path = get_stamp_path()
+
     try:
-        with open(get_stamp_path()) as f:
-            stamp = json.load(f)
+        os.makedirs(os.path.dirname(stamp_path))
+    except OSError:
+        pass
+
+    try:
+        with open(stamp_path) as f:
+            saved_stamp = json.load(f)
     except (IOError, ValueError):
-        return True, True
+        saved_stamp = {}
 
-    return stamp["etag"] != etag
+    # Bump to force a virtualenv rebuild
+    stamp = {"virtualenv": "1"}
 
+    for repo in ["sugarlabs/sugar-build", "dnarvaez/osbuild"]:
+        url = "https://api.github.com/repos/%s/branches/master" % repo
 
-def write_stamp():
-    stamp = {"etag": etag}
+        etag = saved_stamp.get(repo, {}).get("etag", None)
+        if etag:
+            headers = {"If-None-Match": saved_stamp.get(repo)["etag"]}
+        else:
+            headers = {}
 
-    with open(get_stamp_path(), "w") as f:
+        try:
+            response = urllib2.urlopen(urllib2.Request(url, headers=headers))
+        except urllib2.HTTPError, e:
+            if e.code == 304:
+                return {}
+            else:
+                raise e
+
+        stamp[repo] = {"sha": json.load(response)["commit"]["sha"],
+                       "etag": response.info()["ETag"]}
+
+    changed = {}
+    for name, value in stamp.items():
+        if name not in saved_stamp or saved_stamp[name] != value:
+            changed[name] = name
+
+    with open(stamp_path, "w") as f:
         json.dump(stamp, f)
+
+    return changed
 
 
 def main():
@@ -101,12 +131,15 @@ def main():
     else:
         command = "shell"
 
-    changed = check_stamp()
-
-    if changed or command == "pull":
-        print("= Setup the build system =\n")
+    try:
+        changed = check_stamp()
+    except (urllib2.HTTPError, urllib2.URLError):
+        changed = {}
 
     if changed:
+        print("= Setup the build system =\n")
+
+    if "virtualenv" in changed:
         try:
             shutil.rmtree(get_virtualenv_dir())
         except OSError:
@@ -115,13 +148,12 @@ def main():
         print("* Create the python virtualenv")
         create_virtualenv()
 
-        write_stamp()
-
-    if changed or command == "pull":
+    if "dnarvaez/osbuild" in changed:
         print("* Install osbuild package")
         install_osbuild()
 
-    if command == "pull" and not "SUGAR_BUILDBOT" in os.environ:
+    is_buildbot = "SUGAR_BUILDBOT" in os.environ
+    if "sugarlabs/sugar-build" in changed and not is_buildbot:
         print("* Pull latest sugar-build")
         subprocess.check_call(["git", "pull", "--ff-only", "-q"])
 
