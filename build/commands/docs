@@ -1,13 +1,19 @@
 #!/usr/bin/env python
 
+import os
 import sys
+import shutil
 
 import common
 
 from osbuild import docs
+from osbuild import config
 
 
 common.setup()
 
 if not docs.build():
     common.failed()
+
+shutil.copytree(os.path.join(config.get_source_dir(), "sugar-docs", "images"),
+                os.path.join(config.docs_dir, "images"))
