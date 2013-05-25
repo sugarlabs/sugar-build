@@ -117,6 +117,17 @@
             "libatk-adaptor"
         ]
     },
+    "org.a11y.Bus": {
+        "debian": [
+            "at-spi2-core"
+        ],
+        "fedora": [
+            "at-spi2-core"
+        ],
+        "ubuntu": [
+            "at-spi2-core"
+        ]
+    },
     "atspi typelib": {
         "debian": [
             "gir1.2-atspi-2.0"
