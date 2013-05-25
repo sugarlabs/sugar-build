@@ -24,12 +24,11 @@ import urllib2
 import StringIO
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-packages = ["osbuild"]
 virtualenv_version = "1.9.1"
 sandbox_dir = os.path.join("build", "out", "sandbox")
 virtualenv_dir = os.path.join(sandbox_dir, "install")
 cache_dir = os.path.join(sandbox_dir, "cache")
-etag = "36"
+etag = "38"
 
 
 def get_cache_dir():
@@ -67,11 +66,9 @@ def create_virtualenv():
                            get_virtualenv_dir()])
 
 
-def install_packages():
-    args = [get_bin_path("pip"), "-q", "install"]
-    args.extend(packages)
-
-    subprocess.check_call(args)
+def install_osbuild():
+    subprocess.check_call([get_bin_path("pip"), "-q", "install",
+                           "git+git://github.com/dnarvaez/osbuild"])
 
 
 def check_stamp():
@@ -99,11 +96,17 @@ def main():
 
     os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
 
+    if len(sys.argv) > 1:
+        command = sys.argv[1]
+    else:
+        command = "shell"
+
     changed = check_stamp()
 
-    if changed:
-        print("= Setup osbuild =\n")
+    if changed or command == "pull":
+        print("= Setup the build system =\n")
 
+    if changed:
         try:
             shutil.rmtree(get_virtualenv_dir())
         except OSError:
@@ -112,15 +115,15 @@ def main():
         print("* Create the python virtualenv")
         create_virtualenv()
 
-        print("* Install python packages")
-        install_packages()
-
         write_stamp()
 
-    if len(sys.argv) > 1:
-        command = sys.argv[1]
-    else:
-        command = "shell"
+    if command == "pull":
+        print("* Install osbuild package")
+        install_osbuild()
+
+        if not "SUGAR_BUILDBOT" in os.environ:
+            print("* Pull latest sugar-build")
+            subprocess.check_call(["git", "pull", "--ff-only", "-q"])
 
     commands_dir = os.path.join(base_dir, "build", "commands")
     command_path = os.path.join(commands_dir, command)
@@ -143,10 +146,6 @@ def main():
 
     if len(sys.argv) > 2:
         args.extend(sys.argv[2:])
-
-    # FIXME temporary hack, should rewrite the command in python
-    if command == "bug-report":
-        args = args[1:]
 
     os.environ["SUGAR_BUILD_SHELL"] = "yes"
 

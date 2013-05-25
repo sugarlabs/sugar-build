@@ -15,17 +15,12 @@ parser.add_argument("--revisions", help="json dict with the revisions to pull")
 args = parser.parse_args()
 
 
+common.setup()
+
 if args.module:
-    common.setup()
     if not build.pull_one(args.module):
         common.failed()
 else:
-    if not common.is_buildbot():
-        print("\n= Updating build system =\n")
-        print("* Pulling sugar-build")
-        subprocess.check_call(["git", "pull", "--ff-only"])
-    common.setup()
-
     revisions = {}
     if args.revisions:
         revisions = json.loads(args.revisions)
