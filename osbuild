@@ -149,6 +149,8 @@ def main():
                    "Is your network working?")
             print ("Error: %s" % check_exception)
 
+    virtualenv_rebuilt = False
+
     if "virtualenv" in changed:
         try:
             shutil.rmtree(get_virtualenv_dir())
@@ -158,7 +160,9 @@ def main():
         print("* Create the python virtualenv")
         create_virtualenv()
 
-    if "dnarvaez/osbuild" in changed:
+        virtualenv_rebuilt = True
+
+    if virtualenv_rebuilt or "dnarvaez/osbuild" in changed:
         print("* Install osbuild package")
         install_osbuild()
 
