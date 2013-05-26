@@ -134,13 +134,20 @@ def main():
     else:
         command = "shell"
 
+    check_exception = None
+
     try:
         changed = check_stamp()
-    except (urllib2.HTTPError, urllib2.URLError):
+    except (urllib2.HTTPError, urllib2.URLError), e:
         changed = {}
+        check_exception = e
 
-    if changed:
+    if changed or check_exception:
         print("= Setup the build system =\n")
+        if check_exception:
+            print ("Failed to check for changes, skipping setup. "
+                   "Is your network working?")
+            print ("Error: %s" % check_exception)
 
     if "virtualenv" in changed:
         try:
