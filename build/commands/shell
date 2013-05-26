@@ -1,11 +1,8 @@
 #!/usr/bin/env python
 
-import os
-
 import common
 
 from osbuild import shell
 
 common.setup()
-
-shell.start(os.path.join(common.commands_dir, "bashrc"))
+shell.start()
