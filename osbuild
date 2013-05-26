@@ -101,14 +101,18 @@ def check_stamp():
 
         try:
             response = urllib2.urlopen(urllib2.Request(url, headers=headers))
+            not_modified = False
         except urllib2.HTTPError, e:
             if e.code == 304:
-                return {}
+                not_modified = True
             else:
                 raise e
 
-        stamp[repo] = {"sha": json.load(response)["commit"]["sha"],
-                       "etag": response.info()["ETag"]}
+        if not_modified:
+            stamp[repo] = saved_stamp[repo]
+        else:
+            stamp[repo] = {"sha": json.load(response)["commit"]["sha"],
+                           "etag": response.info()["ETag"]}
 
     changed = {}
     for name, value in stamp.items():
