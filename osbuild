@@ -28,6 +28,9 @@ virtualenv_version = "1.9.1"
 sandbox_dir = os.path.join("build", "out", "sandbox")
 virtualenv_dir = os.path.join(sandbox_dir, "install")
 cache_dir = os.path.join(sandbox_dir, "cache")
+main_repo = "sugarlabs/sugar-build"
+docs_url = "http://developer.sugarlabs.org/dev-environment.md.html"
+buildbot_env = "SUGAR_BUILDBOT"
 
 
 def get_cache_dir():
@@ -87,7 +90,7 @@ def check_stamp():
     # Bump to force a virtualenv rebuild
     stamp = {"virtualenv": "1"}
 
-    for repo in ["sugarlabs/sugar-build", "dnarvaez/osbuild"]:
+    for repo in main_repo, "dnarvaez/osbuild":
         url = "https://api.github.com/repos/%s/branches/master" % repo
 
         etag = saved_stamp.get(repo, {}).get("etag", None)
@@ -152,9 +155,9 @@ def main():
         print("* Install osbuild package")
         install_osbuild()
 
-    is_buildbot = "SUGAR_BUILDBOT" in os.environ
-    if "sugarlabs/sugar-build" in changed and not is_buildbot:
-        print("* Pull latest sugar-build")
+    is_buildbot = buildbot_env in os.environ
+    if main_repo in changed and not is_buildbot:
+        print("* Pull latest %s" % main_repo)
         subprocess.check_call(["git", "pull", "--ff-only", "-q"])
 
     commands_dir = os.path.join(base_dir, "build", "commands")
@@ -169,7 +172,7 @@ def main():
     if invalid_command or command == "shell":
         print("\n= Available commands =\n")
         print("\n".join(available_commands))
-        print("\nSee also http://developer.sugarlabs.org/build.md.html")
+        print("\nSee also %s" % docs_url)
 
     if invalid_command:
         sys.exit(1)
