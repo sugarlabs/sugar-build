@@ -119,8 +119,8 @@ def check_stamp():
 
 
 def main():
-    if "SUGAR_BUILD_SHELL" in os.environ:
-        print "Don't run osbuild inside a sugar-build shell, you can just " \
+    if "OSBUILD_SHELL" in os.environ:
+        print "Don't run osbuild inside an osbuild shell, you can just " \
               "run the commands directly."
         sys.exit(1)
 
@@ -178,8 +178,6 @@ def main():
 
     if len(sys.argv) > 2:
         args.extend(sys.argv[2:])
-
-    os.environ["SUGAR_BUILD_SHELL"] = "yes"
 
     os.execl(args[0], *args)
 
