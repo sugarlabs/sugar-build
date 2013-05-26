@@ -76,3 +76,7 @@ def setup(check_args={}):
         failed(tail_log=True)
 
     environ.add_path("PATH", commands_dir)
+
+def run(command):
+    setup()
+    getattr(main, "cmd_%s" % command)()

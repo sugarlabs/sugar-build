@@ -1,29 +1,4 @@
 #!/usr/bin/env python
 
-import argparse
-import sys
-import json
-import subprocess
-
 import common
-
-from osbuild import build
-
-parser = argparse.ArgumentParser()
-parser.add_argument("module", nargs="?", help="name of the module to pull")
-parser.add_argument("--revisions", help="json dict with the revisions to pull")
-args = parser.parse_args()
-
-
-common.setup()
-
-if args.module:
-    if not build.pull_one(args.module):
-        common.failed()
-else:
-    revisions = {}
-    if args.revisions:
-        revisions = json.loads(args.revisions)
-
-    if not build.pull(revisions):
-        common.failed()
+common.run("pull")
