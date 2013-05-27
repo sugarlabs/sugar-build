@@ -92,12 +92,11 @@ def check_stamp():
 
     for repo in main_repo, "dnarvaez/osbuild":
         url = "https://api.github.com/repos/%s/branches/master" % repo
+        headers = {}
 
         etag = saved_stamp.get(repo, {}).get("etag", None)
         if etag:
-            headers = {"If-None-Match": saved_stamp.get(repo)["etag"]}
-        else:
-            headers = {}
+            headers = {"If-None-Match": etag}
 
         try:
             response = urllib2.urlopen(urllib2.Request(url, headers=headers))
