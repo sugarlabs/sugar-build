@@ -70,6 +70,7 @@ def create_virtualenv():
 
 def install_osbuild():
     subprocess.check_call([get_bin_path("pip"), "-q", "install",
+                          "--force-reinstall",
                            "git+git://github.com/dnarvaez/osbuild"])
 
 
