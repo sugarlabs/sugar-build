@@ -98,20 +98,21 @@ def check_stamp():
         if etag:
             headers = {"If-None-Match": etag}
 
+        code = 200
+
         try:
             response = urllib2.urlopen(urllib2.Request(url, headers=headers))
-            not_modified = False
         except urllib2.HTTPError, e:
             if e.code == 304:
-                not_modified = True
+                code = e.code
             else:
                 raise e
 
-        if not_modified:
-            stamp[repo] = saved_stamp[repo]
-        else:
+        if code == 200:
             stamp[repo] = {"sha": json.load(response)["commit"]["sha"],
                            "etag": response.info()["ETag"]}
+        elif code == 304:
+            stamp[repo] = saved_stamp[repo]
 
     changed = {}
     for name, value in stamp.items():
