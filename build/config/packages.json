@@ -10,39 +10,6 @@
             "gnome-themes-standard"
         ]
     },
-    "pygments": {
-        "debian": [
-            "python-pygments"
-        ],
-        "fedora": [
-            "python-pygments"
-        ],
-        "ubuntu": [
-            "python-pygments"
-        ]
-    },
-    "libcanberra-gtk": {
-        "debian": [
-            "libcanberra-gtk-dev"
-        ],
-        "fedora": [
-            "libcanberra-devel"
-        ],
-        "ubuntu": [
-            "libcanberra-gtk-dev"
-        ]
-    },
-    "gail": {
-        "debian": [
-            "libgail-dev"
-        ],
-        "fedora": [
-            "gtk2-devel"
-        ],
-        "ubuntu": [
-            "libgail-dev"
-        ]
-    },
     "X": {
         "debian": [
             "xserver-xorg"
@@ -117,15 +84,9 @@
             "libatk-adaptor"
         ]
     },
-    "org.a11y.Bus": {
+    "atk-bridge-2.0": {
         "debian": [
-            "at-spi2-core"
-        ],
-        "fedora": [
-            "at-spi2-core"
-        ],
-        "ubuntu": [
-            "at-spi2-core"
+            "libatk-bridge2.0-dev"
         ]
     },
     "atspi typelib": {
@@ -473,6 +434,17 @@
             "flex"
         ]
     },
+    "gail": {
+        "debian": [
+            "libgail-dev"
+        ],
+        "fedora": [
+            "gtk2-devel"
+        ],
+        "ubuntu": [
+            "libgail-dev"
+        ]
+    },
     "gail3": {
         "debian": [
             "libgail-3-dev"
@@ -660,11 +632,6 @@
             "libgtk2.0-dev"
         ]
     },
-    "atk-bridge-2.0": {
-        "debian": [
-            "libatk-bridge2.0-dev"
-        ]
-    },
     "gtk+-3.0": {
         "debian": [
             "libgtk-3-dev"
@@ -762,6 +729,17 @@
         ],
         "ubuntu": [
             "iso-codes"
+        ]
+    },
+    "libcanberra-gtk": {
+        "debian": [
+            "libcanberra-gtk-dev"
+        ],
+        "fedora": [
+            "libcanberra-devel"
+        ],
+        "ubuntu": [
+            "libcanberra-gtk-dev"
         ]
     },
     "libgcr": {
@@ -905,6 +883,17 @@
             "npm"
         ]
     },
+    "org.a11y.Bus": {
+        "debian": [
+            "at-spi2-core"
+        ],
+        "fedora": [
+            "at-spi2-core"
+        ],
+        "ubuntu": [
+            "at-spi2-core"
+        ]
+    },
     "org.freedesktop.Telepathy.AccountManager": {
         "debian": [
             "telepathy-mission-control-5"
@@ -1002,6 +991,17 @@
         ],
         "ubuntu": [
             "pyflakes"
+        ]
+    },
+    "pygments": {
+        "debian": [
+            "python-pygments"
+        ],
+        "fedora": [
+            "python-pygments"
+        ],
+        "ubuntu": [
+            "python-pygments"
         ]
     },
     "python": {
@@ -1114,11 +1114,6 @@
             "gir1.2-vte-2.90"
         ]
     },
-    "webkit2 typelib": {
-        "fedora": [
-            "libwebkit2gtk"
-        ]
-    },
     "webkit typelib": {
         "debian": [
             "gir1.2-webkit-3.0"
@@ -1128,6 +1123,11 @@
         ],
         "ubuntu": [
             "gir1.2-webkit-3.0"
+        ]
+    },
+    "webkit2 typelib": {
+        "fedora": [
+            "libwebkit2gtk"
         ]
     },
     "wnck typelib": {

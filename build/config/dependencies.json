@@ -14,7 +14,7 @@
         "checker": "gtkmodule",
         "name": "atk-bridge"
     },
-     {
+    {
         "check": "libcanberra-gtk",
         "checker": "pkgconfig",
         "name": "libcanberra-gtk"
@@ -35,9 +35,9 @@
         "name": "dbus-launch"
     },
     {
-        "if": "gnome_version == '3.4'",
         "check": "atk-bridge-2.0",
         "checker": "pkgconfig",
+        "if": "gnome_version == '3.4'",
         "name": "atk-bridge-2.0"
     },
     {

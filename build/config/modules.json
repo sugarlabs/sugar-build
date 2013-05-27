@@ -1,13 +1,13 @@
 [
     {
-        "if": "distro != 'fedora-19' and distro != 'debian-jessie'",
         "branch": "sugar-build-v1.11.6",
+        "if": "distro != 'fedora-19' and distro != 'debian-jessie'",
         "name": "automake",
         "repo": "git://github.com/dnarvaez/automake.git"
     },
     {
-        "if": "distro == 'fedora-19' or distro == 'debian-jessie'",
         "branch": "sugar-build-v1.13.2",
+        "if": "distro == 'fedora-19' or distro == 'debian-jessie'",
         "name": "automake",
         "repo": "git://github.com/dnarvaez/automake.git"
     },
@@ -156,19 +156,15 @@
         "tag": "v1.3.2"
     },
     {
+        "branch": "sugar-build",
         "name": "docker",
-        "repo": "git://github.com/sugarlabs/docker.git",
-        "branch": "sugar-build"
+        "repo": "git://github.com/sugarlabs/docker.git"
     },
     {
         "if": "not distro.startswith('fedora')",
         "name": "pep8",
         "repo": "git://github.com/jcrocholl/pep8.git",
         "tag": "1.4.5"
-    },
-    {
-        "name": "json-format",
-        "repo": "git://github.com/dnarvaez/json-format.git"
     },
     {
         "name": "flake8",
