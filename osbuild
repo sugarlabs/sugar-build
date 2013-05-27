@@ -74,6 +74,8 @@ def install_osbuild():
 
 
 def check_stamp():
+    changed = []
+    saved_stamp = {}
     stamp_path = get_stamp_path()
 
     try:
@@ -85,10 +87,13 @@ def check_stamp():
         with open(stamp_path) as f:
             saved_stamp = json.load(f)
     except (IOError, ValueError):
-        saved_stamp = {}
+        pass
 
     # Bump to force a virtualenv rebuild
     stamp = {"virtualenv": "1"}
+
+    if saved_stamp.get("virtualenv", None) != stamp["virtualenv"]:
+        changed.append("virtualenv")
 
     for repo in main_repo, "dnarvaez/osbuild":
         url = "https://api.github.com/repos/%s/branches/master" % repo
@@ -103,21 +108,24 @@ def check_stamp():
         try:
             response = urllib2.urlopen(urllib2.Request(url, headers=headers))
         except urllib2.HTTPError, e:
-            if e.code == 304:
+            if e.code in (304, 403):
                 code = e.code
             else:
                 raise e
 
         if code == 200:
-            stamp[repo] = {"sha": json.load(response)["commit"]["sha"],
+            sha = json.load(response)["commit"]["sha"]
+
+            if saved_stamp.get(repo, {}).get("sha", None) != sha:
+                changed.append(repo)
+
+            stamp[repo] = {"sha": sha,
                            "etag": response.info()["ETag"]}
         elif code == 304:
             stamp[repo] = saved_stamp[repo]
-
-    changed = {}
-    for name, value in stamp.items():
-        if name not in saved_stamp or saved_stamp[name] != value:
-            changed[name] = name
+        elif code == 403:
+            print("WARNING: GitHub rate limiting exceeded\n")
+            changed.append(repo)
 
     with open(stamp_path, "w") as f:
         json.dump(stamp, f)
