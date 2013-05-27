@@ -134,6 +134,13 @@ def check_stamp():
     return changed
 
 
+def delete_virtualenv():
+    try:
+        shutil.rmtree(get_virtualenv_dir())
+    except OSError:
+        pass
+
+
 def main():
     if "OSBUILD_SHELL" in os.environ:
         print "Don't run osbuild inside an osbuild shell, you can just " \
@@ -168,16 +175,17 @@ def main():
             print ("Error: %s" % check_exception)
 
     if build_virtualenv:
+        delete_virtualenv()
+
         try:
-            shutil.rmtree(get_virtualenv_dir())
-        except OSError:
-            pass
+            print("* Create the python virtualenv")
+            create_virtualenv()
 
-        print("* Create the python virtualenv")
-        create_virtualenv()
-
-        print("* Install osbuild package")
-        install_osbuild()
+            print("* Install osbuild package")
+            install_osbuild()
+        except Exception, e:
+            delete_virtualenv()
+            raise e
 
     is_buildbot = buildbot_env in os.environ
     if main_repo in changed and not is_buildbot:
