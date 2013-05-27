@@ -70,7 +70,6 @@ def create_virtualenv():
 
 def install_osbuild():
     subprocess.check_call([get_bin_path("pip"), "-q", "install",
-                          "--force-reinstall",
                            "git+git://github.com/dnarvaez/osbuild"])
 
 
@@ -151,20 +150,27 @@ def main():
         changed = {}
         check_exception = e
 
-    if changed or check_exception:
+    build_virtualenv = not os.path.exists(get_virtualenv_dir())
+
+    if "dnarvaez/osbuild" in changed:
+        build_virtualenv = True
+
+    if build_virtualenv or check_exception:
         print("= Setup the build system =\n")
         if check_exception:
             print ("Failed to check for changes, skipping setup. "
                    "Is your network working?")
             print ("Error: %s" % check_exception)
 
-    virtualenv_created = False
-    if not os.path.exists(get_virtualenv_dir()):
+    if build_virtualenv:
+        try:
+            shutil.rmtree(get_virtualenv_dir())
+        except OSError:
+            pass
+
         print("* Create the python virtualenv")
         create_virtualenv()
-        virtualenv_created = True
 
-    if virtualenv_created or "dnarvaez/osbuild" in changed:
         print("* Install osbuild package")
         install_osbuild()
 
