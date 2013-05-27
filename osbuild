@@ -45,8 +45,13 @@ def get_stamp_path():
     return os.path.join(sandbox_dir, "stamp")
 
 
-def get_bin_path(name):
-    return os.path.join(get_virtualenv_dir(), "bin", name)
+def get_bin_path(name=None):
+    bin_path = os.path.join(get_virtualenv_dir(), "bin")
+
+    if name is None:
+        return bin_path
+    else:
+        return os.path.join(bin_path, name)
 
 
 def create_virtualenv():
@@ -200,6 +205,8 @@ def main():
 
     if len(sys.argv) > 2:
         args.extend(sys.argv[2:])
+
+    os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
 
     os.execl(args[0], *args)
 
