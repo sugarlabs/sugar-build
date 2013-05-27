@@ -75,7 +75,9 @@ def install_osbuild():
 
 def check_stamp():
     changed = []
+    new_stamp = {}
     saved_stamp = {}
+
     stamp_path = get_stamp_path()
 
     try:
@@ -88,12 +90,6 @@ def check_stamp():
             saved_stamp = json.load(f)
     except (IOError, ValueError):
         pass
-
-    # Bump to force a virtualenv rebuild
-    stamp = {"virtualenv": "1"}
-
-    if saved_stamp.get("virtualenv", None) != stamp["virtualenv"]:
-        changed.append("virtualenv")
 
     for repo in main_repo, "dnarvaez/osbuild":
         url = "https://api.github.com/repos/%s/branches/master" % repo
@@ -119,16 +115,16 @@ def check_stamp():
             if saved_stamp.get(repo, {}).get("sha", None) != sha:
                 changed.append(repo)
 
-            stamp[repo] = {"sha": sha,
+            new_stamp[repo] = {"sha": sha,
                            "etag": response.info()["ETag"]}
         elif code == 304:
-            stamp[repo] = saved_stamp[repo]
+            new_stamp[repo] = saved_stamp[repo]
         elif code == 403:
-            print("WARNING: GitHub rate limiting exceeded\n")
+            print("WARNING: GitHub rate limiting exceeded")
             changed.append(repo)
 
     with open(stamp_path, "w") as f:
-        json.dump(stamp, f)
+        json.dump(new_stamp, f)
 
     return changed
 
@@ -161,20 +157,13 @@ def main():
                    "Is your network working?")
             print ("Error: %s" % check_exception)
 
-    virtualenv_rebuilt = False
-
-    if "virtualenv" in changed:
-        try:
-            shutil.rmtree(get_virtualenv_dir())
-        except OSError:
-            pass
-
+    virtualenv_created = False
+    if not os.path.exists(get_virtualenv_dir()):
         print("* Create the python virtualenv")
         create_virtualenv()
+        virtualenv_created = True
 
-        virtualenv_rebuilt = True
-
-    if virtualenv_rebuilt or "dnarvaez/osbuild" in changed:
+    if virtualenv_created or "dnarvaez/osbuild" in changed:
         print("* Install osbuild package")
         install_osbuild()
 
