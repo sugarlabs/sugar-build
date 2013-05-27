@@ -25,7 +25,7 @@ import StringIO
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 virtualenv_version = "1.9.1"
-sandbox_dir = os.path.join("build", "out", "sandbox")
+sandbox_dir = os.path.join(base_dir, "build", "out", "sandbox")
 virtualenv_dir = os.path.join(sandbox_dir, "install")
 cache_dir = os.path.join(sandbox_dir, "cache")
 main_repo = "sugarlabs/sugar-build"
