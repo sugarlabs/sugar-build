@@ -25,7 +25,7 @@ def build_activities_list():
 
 
 def launch_and_stop_activity(activity_name):
-    if activity_name == "TestHTMLActivity":
+    if activity_name == "TestWebActivity":
         return
 
     logging.info("Launching %s" % activity_name)
