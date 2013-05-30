@@ -115,12 +115,12 @@
         "options": [
             "--enable-introspection"
         ],
-        "repo": "git://github.com/dnarvaez/webkitgtk"
+        "repo": "git://github.com/dnarvaez/webkitgtk.git"
     },
     {
         "has_checks": true,
         "name": "gwebsockets",
-        "repo": "git://github.com/dnarvaez/gwebsockets"
+        "repo": "git://github.com/dnarvaez/gwebsockets.git"
     },
     {
         "if": "distro != 'fedora-19'",
@@ -152,7 +152,7 @@
     },
     {
         "name": "js-beautify",
-        "repo": "git://github.com/einars/js-beautify",
+        "repo": "git://github.com/einars/js-beautify.git",
         "tag": "v1.3.2"
     },
     {
@@ -185,7 +185,7 @@
     {
         "has_checks": true,
         "name": "sugar",
-        "repo": "git://github.com/sugarlabs/sugar"
+        "repo": "git://github.com/sugarlabs/sugar.git"
     },
     {
         "name": "sugar-artwork",
