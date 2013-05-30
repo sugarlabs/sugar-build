@@ -205,34 +205,19 @@
         "repo": "git://github.com/sugarlabs/sugar-runner.git"
     },
     {
-        "name": "sugar-html-test",
-        "repo": "git://github.com/sugarlabs/sugar-html-test.git"
-    },
-    {
-        "has_checks": true,
-        "name": "sugar-html-datastore",
-        "repo": "git://github.com/sugarlabs/sugar-html-datastore.git"
-    },
-    {
-        "has_checks": true,
-        "name": "sugar-html-template",
-        "repo": "git://github.com/sugarlabs/sugar-html-template.git"
-    },
-    {
-        "has_checks": true,
-        "name": "sugar-html-bus",
-        "repo": "git://github.com/sugarlabs/sugar-html-bus.git"
-    },
-    {
-        "has_checks": true,
-        "name": "sugar-html-activity",
-        "repo": "git://github.com/sugarlabs/sugar-html-activity.git"
-    },
-    {
         "has_checks": true,
         "has_docs": true,
-        "name": "sugar-html-graphics",
-        "repo": "git://github.com/sugarlabs/sugar-html-graphics.git"
+        "name": "sugar-web",
+        "repo": "git://github.com/sugarlabs/sugar-web.git"
+    },
+    {
+        "name": "sugar-web-test",
+        "repo": "git://github.com/sugarlabs/sugar-web-test.git"
+    },
+    {
+        "has_checks": true,
+        "name": "sugar-web-template",
+        "repo": "git://github.com/sugarlabs/sugar-web-template.git"
     },
     {
         "name": "browse",
