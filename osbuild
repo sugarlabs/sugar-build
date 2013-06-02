@@ -141,6 +141,20 @@ def delete_virtualenv():
         pass
 
 
+def check_dependencies():
+    args = ["pkg-config", "--exists", "python-2.7"]
+
+    try:
+        if subprocess.call(args) != 0:
+            print("Please install the python development package.")
+            return False
+    except:
+        print("Please install pkg-config.")
+        return False
+
+    return True
+
+
 def main():
     if os.geteuid() == 0:
         print("osbuild should not be run as root.")
@@ -149,6 +163,9 @@ def main():
     if "OSBUILD_SHELL" in os.environ:
         print("Don't run osbuild inside an osbuild shell, you can just " \
               "run the commands directly.")
+        sys.exit(1)
+
+    if not check_dependencies():
         sys.exit(1)
 
     os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
