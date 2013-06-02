@@ -142,9 +142,13 @@ def delete_virtualenv():
 
 
 def main():
+    if os.geteuid() == 0:
+        print("osbuild should not be run as root.")
+        sys.exit(1)
+
     if "OSBUILD_SHELL" in os.environ:
-        print "Don't run osbuild inside an osbuild shell, you can just " \
-              "run the commands directly."
+        print("Don't run osbuild inside an osbuild shell, you can just " \
+              "run the commands directly.")
         sys.exit(1)
 
     os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
