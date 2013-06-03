@@ -2,7 +2,6 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 import sys
-import subprocess
 
 
 build_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
@@ -57,11 +56,6 @@ def setup_logging():
     logger.addHandler(handler)
 
 
-def failed(tail_log=False):
-    subprocess.check_call(["tail", log_path])
-    sys.exit(1)
-
-
 def setup(check_args={}):
     setup_logging()
 
@@ -73,7 +67,7 @@ def setup(check_args={}):
         check_args["interactive"] = False
 
     if not main.setup(config_args, check_args):
-        failed(tail_log=True)
+        sys.exit(1)
 
     environ.add_path("PATH", commands_dir)
 
@@ -81,4 +75,4 @@ def setup(check_args={}):
 def run(command):
     setup()
     if not getattr(main, "cmd_%s" % command)():
-        failed(tail_log=True)
+        sys.exit(1)

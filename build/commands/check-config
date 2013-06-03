@@ -5,7 +5,6 @@ import sys
 import common
 
 from osbuild import config
-from osbuild import environ
 from osbuild import main
 
 
@@ -21,9 +20,9 @@ if result:
     missing_packages = result["missing_packages"]
     if missing_packages:
         print("\nMissing packages\n%s", missing_packages)
-        common.failed(tail_log=False)
+        sys.exit(1)
 
     unused_packages = result["unused_packages"]
     if unused_packages:
         print("\nUnused packages\n%s", unused_packages)
-        common.failed(tail_log=False)
+        sys.exit(1)

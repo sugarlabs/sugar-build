@@ -13,7 +13,7 @@ from osbuild import config
 common.setup()
 
 if not docs.build():
-    common.failed()
+    sys.exit(1)
 
 shutil.copytree(os.path.join(config.get_source_dir(), "sugar-docs", "images"),
                 os.path.join(config.docs_dir, "images"))

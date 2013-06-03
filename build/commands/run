@@ -10,7 +10,7 @@ from osbuild import main
 common.setup()
 
 if not main.run_build():
-    common.failed()
+    sys.exit(1)
 
 common.print_close_message()
 run.run("sugar-runner")

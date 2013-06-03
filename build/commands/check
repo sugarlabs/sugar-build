@@ -4,6 +4,7 @@ import argparse
 import os
 import shutil
 import subprocess
+import sys
 
 import common
 
@@ -11,7 +12,6 @@ from osbuild import run
 from osbuild import check
 from osbuild import main
 from osbuild import command
-from osbuild import config
 
 
 def _get_profile():
@@ -79,10 +79,10 @@ os.environ["GTK_MODULES"] = "gail:atk-bridge"
 
 if args.module:
     if not check.check_one(args.module):
-        common.failed()
+        sys.exit(1)
 else:
     if not main.run_build():
-        common.failed()
+        sys.exit(1)
 
     if not _run_checks():
-        common.failed()
+        sys.exit(1)
