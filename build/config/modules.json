@@ -153,7 +153,7 @@
     {
         "name": "js-beautify",
         "repo": "git://github.com/einars/js-beautify.git",
-        "tag": "v1.3.3"
+        "tag": "v1.3.2"
     },
     {
         "branch": "sugar-build",
