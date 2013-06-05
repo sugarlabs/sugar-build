@@ -138,7 +138,7 @@
     {
         "name": "volo",
         "repo": "git://github.com/volojs/volo.git",
-        "tag": "v0.2.10"
+        "tag": "10e905c"
     },
     {
         "name": "karma",
