@@ -176,12 +176,13 @@ def main():
         command = "shell"
 
     check_exception = None
+    changed = []
 
-    try:
-        changed = check_stamp()
-    except (urllib2.HTTPError, urllib2.URLError), e:
-        changed = {}
-        check_exception = e
+    if command in ["shell", "pull"]:
+        try:
+            changed = check_stamp()
+        except (urllib2.HTTPError, urllib2.URLError), e:
+            check_exception = e
 
     build_virtualenv = not os.path.exists(get_virtualenv_dir())
 
