@@ -205,6 +205,10 @@
         "repo": "git://github.com/sugarlabs/sugar-runner.git"
     },
     {
+        "name": "webL10n",
+        "repo": "git://github.com/sugarlabs/webL10n.git"
+    },
+    {
         "has_checks": true,
         "has_docs": true,
         "name": "sugar-web",
