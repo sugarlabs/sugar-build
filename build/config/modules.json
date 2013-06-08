@@ -156,7 +156,6 @@
         "tag": "v1.3.2"
     },
     {
-        "branch": "sugar-build",
         "name": "docker",
         "repo": "git://github.com/sugarlabs/docker.git"
     },
