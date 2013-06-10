@@ -13,6 +13,7 @@
 /docker/
 /gcr/
 /glib/
+/webL10n/
 /gnome-keyring/
 /gobject-introspection/
 /gst-plugins-espeak/
