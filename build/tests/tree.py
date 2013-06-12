@@ -56,7 +56,13 @@ class Node:
 
     def do_action(self, name):
         for i in range(self._accessible.get_n_actions()):
-            if Atspi.Action.get_name(self._accessible, i) == name:
+            # New, incompatible API
+            if hasattr(self._accessible, "get_action_name"):
+                action_name = self._accessible.get_action_name(i)
+            else:
+                action_name = Atspi.Action.get_name(self._accessible, i)
+
+            if action_name == name:
                 self._accessible.do_action(i)
 
     def click(self, button=1):
