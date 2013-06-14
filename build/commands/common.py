@@ -24,7 +24,7 @@ def get_config_args():
                    "source_dir": os.path.join(root_dir),
                    "docs_dir": os.path.join(build_dir, "out", "docs"),
                    "state_dir": os.path.join(build_dir, "state"),
-                   "prefs_path": os.path.join(root_dir, "prefs")}
+                   "prefs_path": os.path.join(root_dir, "prefs.json")}
 
     if is_buildbot():
         config_args["git_user_name"] = "buildbot"
