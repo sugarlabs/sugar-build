@@ -3,11 +3,11 @@ import sys
 import time
 import traceback
 
-import tree
+from sugar3.test import uitree
 
 
 def build_activities_list():
-    root = tree.get_root()
+    root = uitree.get_root()
     shell = root.find_child(name="main.py", role_name="application")
 
     activities = []
@@ -30,7 +30,7 @@ def launch_and_stop_activity(activity_name):
 
     logging.info("Launching %s" % activity_name)
 
-    root = tree.get_root()
+    root = uitree.get_root()
     shell = root.find_child(name="main.py", role_name="application")
 
     table = shell.find_child(role_name="table")
@@ -60,7 +60,7 @@ def launch_and_stop_activity(activity_name):
 
 
 def go_to_list_view():
-    root = tree.get_root()
+    root = uitree.get_root()
     shell = root.find_child(name="main.py", role_name="application")
 
     radio_button = shell.find_child(name="List view", role_name="radio button")
@@ -83,5 +83,5 @@ try:
     main()
 except:
     logging.error(traceback.format_exc())
-    logging.error("\n%s" % tree.get_root().dump())
+    logging.error("\n%s" % uitree.get_root().dump())
     raise
