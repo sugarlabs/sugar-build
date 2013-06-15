@@ -24,7 +24,7 @@ def _get_test_path(name):
     return os.path.join(common.build_dir, "tests", name)
 
 
-def _check_ui(log_path):
+def _check_ui():
     print("* Checking UI")
 
     profile_path = _get_profile()
@@ -39,12 +39,12 @@ def _check_ui(log_path):
     except subprocess.CalledProcessError:
         result = False
 
-    run.collect_logs(os.path.join(profile_path, "logs"), log_path)
+    run.collect_logs(os.path.join(profile_path, "logs"), _get_log_path())
 
     return result
 
 
-def _run_checks():
+def _get_log_path():
     log_path = os.path.join(common.logs_dir, "sugar.log")
 
     try:
@@ -52,16 +52,23 @@ def _run_checks():
     except OSError:
         pass
 
-    os.environ["SUGAR_TEST_LOG"] = log_path
+    return log_path
+
+
+def _setup_checks_env():
+    os.environ["SUGAR_TEST_LOG"] = _get_log_path()
     os.environ["SUGAR_PROFILE_NAME"] = "dummy"
     os.environ["SUGAR_RUNNER_VIRTUAL"] = "yes"
+
+def _run_checks():
+    _setup_checks_env()
 
     print("\n= Check =\n")
 
     if not check.check():
         return False
 
-    if not _check_ui(log_path):
+    if not _check_ui():
         return False
 
     return True
@@ -75,10 +82,15 @@ common.setup()
 
 os.environ["SUGAR_LOGGER_LEVEL"] = "debug"
 os.environ["SUGAR_PROFILE"] = "uitests"
-os.environ["GTK_MODULES"] = "gail:atk-bridge"
 
 if args.module:
-    if not check.check_one(args.module):
+    if args.module == "ui":
+        _setup_checks_env()
+        result = _check_ui()
+    else:
+        result = check.check_one(args.module)
+
+    if not result:
         sys.exit(1)
 else:
     if not main.run_build():
