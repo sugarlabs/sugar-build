@@ -1,7 +1,10 @@
+import os
 import logging
 import sys
 import time
 import traceback
+
+os.environ["AT_SPI_CLIENT"] = "yes"
 
 from sugar3.test import uitree
 
