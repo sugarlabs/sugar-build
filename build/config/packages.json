@@ -1185,17 +1185,6 @@
             "xdg-user-dirs"
         ]
     },
-    "xdpyinfo": {
-        "debian": [
-            "x11-utils"
-        ],
-        "fedora": [
-            "xorg-x11-utils"
-        ],
-        "ubuntu": [
-            "x11-utils"
-        ]
-    },
     "xinit": {
         "debian": [
             "xinit"
