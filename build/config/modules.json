@@ -21,7 +21,7 @@
         "tag": "2.36.1"
     },
     {
-        "if": "distro != 'ubuntu-13.04'",
+        "if": "gnome_version < '3.8' and distro != 'ubuntu-13.04'",
         "name": "gobject-introspection",
         "options": [
             "--disable-tests"
@@ -56,7 +56,7 @@
     {
         "name": "dbus-python",
         "repo": "git://anongit.freedesktop.org/dbus/dbus-python",
-        "tag": "423ee853dfbb4ee9ed89a21e1cf2b6a928e2fc4d"
+        "tag": "dbus-python-1.2.0"
     },
     {
         "if": "distro.startswith('debian')",
@@ -74,7 +74,7 @@
         "if": "gnome_version == '3.4'",
         "name": "gtk+",
         "repo": "git://git.gnome.org/gtk+",
-        "tag": "3.6.2"
+        "tag": "3.8.2"
     },
     {
         "if": "gnome_version == '3.4'",
