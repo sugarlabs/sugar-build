@@ -46,12 +46,13 @@
         "tag": "3.8.2"
     },
     {
+        "if": "distro != 'fedora-19'",
         "name": "pygobject",
         "options": [
             "--with-python=python2.7"
         ],
         "repo": "git://git.gnome.org/pygobject",
-        "tag": "2a1c09fea76b3a1e696d9bb82c46e6c64ec574f9"
+        "tag": "3.8.2"
     },
     {
         "if": "distro != 'fedora-19'",
@@ -173,7 +174,10 @@
     },
     {
         "docs_dir": "",
-        "docs_extras": ["addHeader", "noFiles"],
+        "docs_extras": [
+            "addHeader",
+            "noFiles"
+        ],
         "has_docs": true,
         "name": "sugar-docs",
         "repo": "git://github.com/sugarlabs/sugar-docs.git"
