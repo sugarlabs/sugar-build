@@ -99,12 +99,13 @@
         "repo": "git://github.com/dnarvaez/gwebsockets.git"
     },
     {
+        "clean_stamp": "1",
         "if": "distro != 'fedora-19'",
         "makefile_name": "config.mk",
         "name": "node",
         "no_libdir": true,
         "repo": "git://github.com/joyent/node.git",
-        "tag": "v0.10.5"
+        "tag": "v0.10.11"
     },
     {
         "name": "grunt-cli",
