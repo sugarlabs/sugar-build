@@ -73,6 +73,7 @@
         "tag": "telepathy-mission-control-5.14.1"
     },
     {
+        "clean_stamp": "1",
         "if": "gnome_version == '3.4'",
         "name": "gtk+",
         "repo": "git://git.gnome.org/gtk+",
