@@ -94,32 +94,6 @@
         "tag": "METACITY_2_34_13"
     },
     {
-        "if": "distro != 'fedora-19'",
-        "name": "libsoup",
-        "repo": "git://git.gnome.org/libsoup",
-        "tag": "2.42.1"
-    },
-    {
-        "if": "gnome_version == '3.4'",
-        "name": "libsecret",
-        "repo": "git://git.gnome.org/libsecret",
-        "tag": "0.15"
-    },
-    {
-        "if": "gnome_version < '3.6'",
-        "name": "harfbuzz",
-        "repo": "git://anongit.freedesktop.org/harfbuzz",
-        "tag": "0.9.16"
-    },
-    {
-        "if": "distro != 'fedora-19'",
-        "name": "webkitgtk",
-        "options": [
-            "--enable-introspection"
-        ],
-        "repo": "git://github.com/dnarvaez/webkitgtk.git"
-    },
-    {
         "has_checks": true,
         "name": "gwebsockets",
         "repo": "git://github.com/dnarvaez/gwebsockets.git"
@@ -263,5 +237,31 @@
     {
         "name": "jukebox",
         "repo": "git://git.sugarlabs.org/jukebox/mainline.git"
+    },
+    {
+        "if": "distro != 'fedora-19'",
+        "name": "libsoup",
+        "repo": "git://git.gnome.org/libsoup",
+        "tag": "2.42.1"
+    },
+    {
+        "if": "gnome_version == '3.4'",
+        "name": "libsecret",
+        "repo": "git://git.gnome.org/libsecret",
+        "tag": "0.15"
+    },
+    {
+        "if": "gnome_version < '3.6'",
+        "name": "harfbuzz",
+        "repo": "git://anongit.freedesktop.org/harfbuzz",
+        "tag": "0.9.16"
+    },
+    {
+        "if": "distro != 'fedora-19'",
+        "name": "webkitgtk",
+        "options": [
+            "--enable-introspection"
+        ],
+        "repo": "git://github.com/dnarvaez/webkitgtk.git"
     }
 ]
