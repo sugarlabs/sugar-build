@@ -54,6 +54,7 @@
         "tag": "2a1c09fea76b3a1e696d9bb82c46e6c64ec574f9"
     },
     {
+        "if": "distro != 'fedora-19'",
         "name": "dbus-python",
         "repo": "git://anongit.freedesktop.org/dbus/dbus-python",
         "tag": "dbus-python-1.2.0"
