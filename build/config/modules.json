@@ -241,6 +241,14 @@
         "repo": "git://git.sugarlabs.org/jukebox/mainline.git"
     },
     {
+        "name": "clock-web",
+        "repo": "git://github.com/manuq/clock-web.git"
+    },
+    {
+        "name": "gtd-activity",
+        "repo": "git://github.com/manuq/gtd-activity.git"
+    },
+    {
         "if": "distro != 'fedora-19'",
         "name": "libsoup",
         "repo": "git://git.gnome.org/libsoup",
