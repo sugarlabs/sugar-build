@@ -3,13 +3,13 @@
         "branch": "sugar-build-v1.11.6",
         "if": "distro != 'fedora-19' and distro != 'debian-jessie'",
         "name": "automake",
-        "repo": "git://github.com/dnarvaez/automake.git"
+        "repo": "git://github.com/sugarlabs/automake.git"
     },
     {
         "branch": "sugar-build-v1.13.2",
         "if": "distro == 'fedora-19' or distro == 'debian-jessie'",
         "name": "automake",
-        "repo": "git://github.com/dnarvaez/automake.git"
+        "repo": "git://github.com/sugarlabs/automake.git"
     },
     {
         "if": "gnome_version < '3.6' or distro == 'fedora-18'",
@@ -264,6 +264,6 @@
         "options": [
             "--enable-introspection"
         ],
-        "repo": "git://github.com/dnarvaez/webkitgtk.git"
+        "repo": "git://github.com/sugarlabs/webkitgtk.git"
     }
 ]
