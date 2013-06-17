@@ -15,6 +15,16 @@
         "name": "atk-bridge"
     },
     {
+        "check": "glesv2",
+        "checker": "pkgconfig",
+        "name": "glesv2"
+    },
+    {
+        "check": "gl",
+        "checker": "pkgconfig",
+        "name": "gl"
+    },
+    {
         "check": "libcanberra-gtk",
         "checker": "pkgconfig",
         "name": "libcanberra-gtk"

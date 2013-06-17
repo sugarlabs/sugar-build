@@ -522,6 +522,28 @@
             "python-gobject-2"
         ]
     },
+    "gl": {
+        "debian": [
+            "libgl1-mesa-dev"
+        ],
+        "fedora": [
+            "mesa-libGL-devel"
+        ],
+        "ubuntu": [
+            "libgl1-mesa-dev"
+        ]
+    },
+    "glesv2": {
+        "debian": [
+            "libgles2-mesa-dev"
+        ],
+        "fedora": [
+            "mesa-libGLES-devel"
+        ],
+        "ubuntu": [
+            "libgles2-mesa-dev"
+        ]
+    },
     "glib-2.0": {
         "debian": [
             "libglib2.0-dev"
