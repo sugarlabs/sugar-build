@@ -9,28 +9,17 @@ os.environ["AT_SPI_CLIENT"] = "yes"
 from sugar3.test import uitree
 
 
-def build_activities_list():
-    root = uitree.get_root()
-    shell = root.find_child(name="main.py", role_name="application")
-
-    activities = []
-
-    table = shell.find_child(role_name="table")
-    cells = table.find_children(role_name="table cell")
-
-    for row in [cells[i:i + 5] for i in range(0, len(cells), 5)]:
-        activity_name = row[2].text
-        activities.append(activity_name)
-
-    activities.sort()
-
-    return activities
+_activities_list = ["Browse",
+                    "Chat",
+                    "Read",
+                    "Log",
+                    "Terminal",
+                    "Pippy",
+                    "Image Viewer",
+                    "Jukebox"]
 
 
 def launch_and_stop_activity(activity_name):
-    if activity_name == "TestWebActivity":
-        return
-
     logging.info("Launching %s" % activity_name)
 
     root = uitree.get_root()
@@ -79,7 +68,7 @@ def main():
 
     go_to_list_view()
 
-    for activity in build_activities_list():
+    for activity in _activities_list:
         launch_and_stop_activity(activity)
 
 try:
