@@ -4,6 +4,7 @@ import argparse
 import os
 import shutil
 import subprocess
+from contextlib import contextmanager
 import sys
 
 import common
@@ -14,22 +15,25 @@ from osbuild import main
 from osbuild import command
 
 
-def _get_profile():
-    profile_path = os.path.expanduser("~/.sugar/uitests")
+@contextmanager
+def _setup_profile(log_name):
+    log_path = os.path.join(common.logs_dir, "%s.log" % log_name)
+    os.environ["SUGAR_TEST_LOG"] = log_path
+
+    profile_path = os.path.expanduser("~/.sugar/check")
     shutil.rmtree(profile_path, ignore_errors=True)
-    return profile_path
+
+    yield
+
+    logs_dir = os.path.join(profile_path, "logs")
+    run.collect_logs(logs_dir, log_path)
 
 
-def _get_test_path(name):
-    return os.path.join(common.build_dir, "tests", name)
+def _run_smoketest():
+    print("* Running smoke test")
 
-
-def _check_ui():
-    print("* Checking UI")
-
-    profile_path = _get_profile()
-
-    test_command = "python -u %s" % _get_test_path("shell.py")
+    test_command = "python -u %s" % os.path.join(common.build_dir,
+                                                 "tests", "shell.py")
 
     os.environ["SUGAR_RUN_TEST"] = test_command
 
@@ -39,39 +43,7 @@ def _check_ui():
     except subprocess.CalledProcessError:
         result = False
 
-    run.collect_logs(os.path.join(profile_path, "logs"), _get_log_path())
-
     return result
-
-
-def _get_log_path():
-    log_path = os.path.join(common.logs_dir, "sugar.log")
-
-    try:
-        os.unlink(log_path)
-    except OSError:
-        pass
-
-    return log_path
-
-
-def _setup_checks_env():
-    os.environ["SUGAR_TEST_LOG"] = _get_log_path()
-    os.environ["SUGAR_PROFILE_NAME"] = "dummy"
-    os.environ["SUGAR_RUNNER_VIRTUAL"] = "yes"
-
-def _run_checks():
-    _setup_checks_env()
-
-    print("\n= Check =\n")
-
-    if not check.check():
-        return False
-
-    if not _check_ui():
-        return False
-
-    return True
 
 
 parser = argparse.ArgumentParser()
@@ -81,20 +53,27 @@ args = parser.parse_args()
 common.setup()
 
 os.environ["SUGAR_LOGGER_LEVEL"] = "debug"
-os.environ["SUGAR_PROFILE"] = "uitests"
+os.environ["SUGAR_PROFILE"] = "check"
+os.environ["SUGAR_PROFILE_NAME"] = "dummy"
+os.environ["SUGAR_RUNNER_VIRTUAL"] = "yes"
 
-if args.module:
-    if args.module == "ui":
-        _setup_checks_env()
-        result = _check_ui()
-    else:
-        result = check.check_one(args.module)
-
-    if not result:
-        sys.exit(1)
-else:
+if args.module is None:
     if not main.run_build():
         sys.exit(1)
 
-    if not _run_checks():
-        sys.exit(1)
+print("\n= Check =\n")
+
+if args.module == "smoketest" or args.module is None:
+    with _setup_profile("check-smoketest"):
+        result = _run_smoketest()
+
+if args.module is not None and args.module != "smoketest":
+    with _setup_profile("check-modules"):
+        result = check.check_one(args.module)
+
+if args.module is None:
+    with _setup_profile("check-modules"):
+        result = check.check()
+
+if not result:
+    sys.exit(1)
