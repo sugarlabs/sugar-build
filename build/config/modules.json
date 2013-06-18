@@ -200,6 +200,7 @@
         "repo": "git://github.com/sugarlabs/sugar-web-test.git"
     },
     {
+        "build_system": "volo",
         "has_checks": true,
         "name": "sugar-web-template",
         "repo": "git://github.com/sugarlabs/sugar-web-template.git"
