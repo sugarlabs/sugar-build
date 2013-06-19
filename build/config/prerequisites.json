@@ -8,5 +8,10 @@
         "check": "pkg-config",
         "checker": "binary",
         "name": "pkg-config"
+    },
+    {
+        "check": "xdpyinfo",
+        "checker": "binary",
+        "name": "xdpyinfo"
     }
 ]
