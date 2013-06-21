@@ -1,13 +1,6 @@
 [
     {
-        "branch": "sugar-build-v1.11.6",
-        "if": "distro != 'fedora-19' and distro != 'debian-jessie'",
-        "name": "automake",
-        "repo": "git://github.com/sugarlabs/automake.git"
-    },
-    {
         "branch": "sugar-build-v1.13.2",
-        "if": "distro == 'fedora-19' or distro == 'debian-jessie'",
         "name": "automake",
         "repo": "git://github.com/sugarlabs/automake.git"
     },
