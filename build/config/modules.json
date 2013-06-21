@@ -86,15 +86,6 @@
         "tag": "libxklavier-5.3"
     },
     {
-        "if": "gnome_version == '3.4'",
-        "name": "metacity",
-        "options": [
-            "--disable-themes-documentation"
-        ],
-        "repo": "git://git.gnome.org/metacity",
-        "tag": "METACITY_2_34_13"
-    },
-    {
         "has_checks": true,
         "name": "gwebsockets",
         "repo": "git://github.com/dnarvaez/gwebsockets.git"
