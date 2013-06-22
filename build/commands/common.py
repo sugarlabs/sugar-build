@@ -24,7 +24,8 @@ def get_config_args():
                    "source_dir": os.path.join(root_dir),
                    "docs_dir": os.path.join(build_dir, "out", "docs"),
                    "state_dir": os.path.join(build_dir, "state"),
-                   "prefs_path": os.path.join(root_dir, "prefs.json")}
+                   "prefs_path": os.path.join(root_dir, "prefs.json"),
+                   "interactive": not is_buildbot()}
 
     if is_buildbot():
         config_args["git_user_name"] = "buildbot"
@@ -62,9 +63,6 @@ def setup(check_args={}):
     os.environ["SUGAR_DEVELOPER"] = "1"
 
     config_args = get_config_args()
-
-    if is_buildbot():
-        check_args["interactive"] = False
 
     if not main.setup(config_args, check_args):
         sys.exit(1)
