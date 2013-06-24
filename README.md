@@ -1,7 +1,7 @@
 About
 =====
 
-sugar-build is a set of scripts to build sugar from sources. Please read the [documentation](http://sugarlabs.org/~buildbot/docs/build.html).
+sugar-build is a set of scripts to build sugar from sources. Please read the [documentation](http://developer.sugarlabs.org/dev-environment.md.html).
 
 Hacking
 =======
