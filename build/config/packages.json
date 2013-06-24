@@ -1316,5 +1316,16 @@
         "ubuntu": [
             "yasm"
         ]
+    },
+    "zip": {
+        "debian": [
+            "zip"
+        ],
+        "fedora": [
+            "zip"
+        ],
+        "ubuntu": [
+            "zip"
+        ]
     }
 }
