@@ -66,6 +66,16 @@
         "tag": "telepathy-mission-control-5.14.1"
     },
     {
+        "name": "at-spi2-core",
+        "repo": "git://git.gnome.org/at-spi2-core",
+        "tag": "AT_SPI2_CORE_2_9_3"
+    },
+    {
+        "name": "at-spi2-atk",
+        "repo": "git://git.gnome.org/at-spi2-atk",
+        "tag": "AT_SPI2_ATK_2_9_3"
+    },
+    {
         "clean_stamp": "1",
         "if": "gnome_version == '3.4'",
         "name": "gtk+",
