@@ -18,6 +18,12 @@ from osbuild import command
 @contextmanager
 def _setup_profile(log_name):
     log_path = os.path.join(common.logs_dir, "%s.log" % log_name)
+
+    try:
+        os.unlink(log_path)
+    except OSError:
+        pass
+
     os.environ["SUGAR_TEST_LOG"] = log_path
 
     profile_path = os.path.expanduser("~/.sugar/check")
