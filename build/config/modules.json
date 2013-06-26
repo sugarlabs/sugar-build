@@ -66,6 +66,12 @@
         "tag": "telepathy-mission-control-5.14.1"
     },
     {
+        "if": "distro == 'fedora-18'",
+        "name": "atk",
+        "repo": "git://git.gnome.org/atk",
+        "tag": "ATK_2_8_0"
+    },
+    {
         "name": "at-spi2-core",
         "repo": "git://git.gnome.org/at-spi2-core",
         "tag": "AT_SPI2_CORE_2_9_3"
