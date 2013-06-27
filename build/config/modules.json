@@ -177,8 +177,9 @@
         "repo": "git://github.com/sugarlabs/sugar-datastore.git"
     },
     {
+        "clean_stamp": "1",
         "name": "gst-plugins-espeak",
-        "repo": "git://github.com/sugarlabs/gst-plugins-espeak.git"
+        "repo": "git://git.sugarlabs.org/gst-plugins-espeak/mainline.git"
     },
     {
         "has_checks": true,
