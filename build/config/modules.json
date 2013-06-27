@@ -159,20 +159,24 @@
         "repo": "git://github.com/sugarlabs/sugar-docs.git"
     },
     {
+        "dist": true,
         "has_checks": true,
         "name": "sugar-toolkit-gtk3",
         "repo": "git://github.com/sugarlabs/sugar-toolkit-gtk3.git"
     },
     {
+        "dist": true,
         "has_checks": true,
         "name": "sugar",
         "repo": "git://github.com/sugarlabs/sugar.git"
     },
     {
+        "dist": true,
         "name": "sugar-artwork",
         "repo": "git://github.com/sugarlabs/sugar-artwork.git"
     },
     {
+        "dist": true,
         "name": "sugar-datastore",
         "repo": "git://github.com/sugarlabs/sugar-datastore.git"
     },
