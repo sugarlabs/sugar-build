@@ -182,6 +182,7 @@
         "repo": "git://git.sugarlabs.org/gst-plugins-espeak/mainline.git"
     },
     {
+        "dist": true,
         "has_checks": true,
         "name": "sugar-runner",
         "repo": "git://github.com/sugarlabs/sugar-runner.git"

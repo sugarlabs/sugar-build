@@ -23,6 +23,7 @@ def get_config_args():
                    "install_dir": os.path.join(build_dir, "out", "install"),
                    "source_dir": os.path.join(root_dir),
                    "docs_dir": os.path.join(build_dir, "out", "docs"),
+                   "dist_dir": os.path.join(build_dir, "out", "dist"),
                    "state_dir": os.path.join(build_dir, "state"),
                    "prefs_path": os.path.join(root_dir, "prefs.json"),
                    "interactive": not is_buildbot()}
