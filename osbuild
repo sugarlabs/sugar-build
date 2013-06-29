@@ -178,7 +178,7 @@ def main():
     check_exception = None
     changed = []
 
-    if command in ["shell", "pull"]:
+    if command in ["shell", "pull", "check-config"]:
         try:
             changed = check_stamp()
         except (urllib2.HTTPError, urllib2.URLError), e:
