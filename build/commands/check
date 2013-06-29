@@ -58,6 +58,7 @@ args = parser.parse_args()
 
 common.setup()
 
+os.environ["GTK_MODULES"] = "gail:atk-bridge"
 os.environ["SUGAR_LOGGER_LEVEL"] = "debug"
 os.environ["SUGAR_PROFILE"] = "check"
 os.environ["SUGAR_PROFILE_NAME"] = "dummy"

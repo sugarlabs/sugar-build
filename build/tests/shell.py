@@ -16,7 +16,8 @@ _activities_list = ["Browse",
                     "Terminal",
                     "Pippy",
                     "Image Viewer",
-                    "Jukebox"]
+                    "Jukebox",
+                    "TurtleBlocks"]
 
 
 def launch_and_stop_activity(activity_name):
