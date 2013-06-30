@@ -1,4 +1,12 @@
 #!/usr/bin/env python
 
+import os
+import shutil
+
 import common
+
 common.run("clean")
+
+shutil.rmtree(common.logs_dir, ignore_errors=True)
+
+os.unlink(os.path.join(common.commands_dir, "common.pyc"))

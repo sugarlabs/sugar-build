@@ -155,6 +155,18 @@ def check_dependencies():
     return True
 
 
+def clean():
+    shutil.rmtree(sandbox_dir, ignore_errors=True)
+
+    parent_dir = os.path.dirname(sandbox_dir)
+
+    try:
+        if not os.listdir(parent_dir):
+            os.rmdir(parent_dir)
+    except OSError:
+        pass
+
+
 def main():
     if os.geteuid() == 0:
         print("osbuild should not be run as root.")
@@ -238,8 +250,10 @@ def main():
 
     os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
 
-    os.execl(args[0], *args)
+    subprocess.check_call(args)
 
+    if command == "clean":
+        clean()
 
 if __name__ == "__main__":
     main()
