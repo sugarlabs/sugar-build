@@ -167,26 +167,7 @@ def clean():
         pass
 
 
-def main():
-    if os.geteuid() == 0:
-        print("osbuild should not be run as root.")
-        sys.exit(1)
-
-    if "OSBUILD_SHELL" in os.environ:
-        print("Don't run osbuild inside an osbuild shell, you can just " \
-              "run the commands directly.")
-        sys.exit(1)
-
-    if not check_dependencies():
-        sys.exit(1)
-
-    os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
-
-    if len(sys.argv) > 1:
-        command = sys.argv[1]
-    else:
-        command = "shell"
-
+def setup_or_upgrade(command):
     check_exception = None
     changed = []
 
@@ -225,6 +206,29 @@ def main():
     if main_repo in changed and not is_buildbot:
         print("* Pull latest %s" % main_repo)
         subprocess.check_call(["git", "pull", "--ff-only", "-q"])
+
+
+def main():
+    if os.geteuid() == 0:
+        print("osbuild should not be run as root.")
+        sys.exit(1)
+
+    if "OSBUILD_SHELL" in os.environ:
+        print("Don't run osbuild inside an osbuild shell, you can just " \
+              "run the commands directly.")
+        sys.exit(1)
+
+    if not check_dependencies():
+        sys.exit(1)
+
+    os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
+
+    if len(sys.argv) > 1:
+        command = sys.argv[1]
+    else:
+        command = "shell"
+
+    setup_or_upgrade(command)
 
     commands_dir = os.path.join(base_dir, "build", "commands")
     command_path = os.path.join(commands_dir, command)
