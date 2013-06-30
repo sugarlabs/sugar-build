@@ -234,7 +234,7 @@ def main():
     command_path = os.path.join(commands_dir, command)
 
     available_commands = os.listdir(commands_dir)
-    for to_ignore in ["bashrc", "common.py", "common.pyc"]:
+    for to_ignore in ["common.py", "common.pyc"]:
         if to_ignore in available_commands:
             available_commands.remove(to_ignore)
 
