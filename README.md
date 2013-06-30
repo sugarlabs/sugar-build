@@ -17,6 +17,6 @@ Install it for your user
 
     python setup.py install --user
 
-Then remove the sandbox so that it's build using the installed osbuild
+Then remove the sandbox so that it's built using the installed osbuild
 
     rm -rf build/out/sandbox
