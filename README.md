@@ -20,3 +20,4 @@ Install it for your user
 Then remove the sandbox so that it's built using the installed osbuild
 
     rm -rf build/out/sandbox
+
