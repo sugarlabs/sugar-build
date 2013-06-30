@@ -281,7 +281,7 @@ def main():
         command = "shell"
 
     pre_upgrade = is_buildbot() or command == "shell"
-    post_upgrade = not pre_upgrade
+    post_upgrade = not pre_upgrade and not command == "clean"
 
     if not get_virtualenv_exists():
         setup()
