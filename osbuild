@@ -231,6 +231,25 @@ def get_command_path(command):
     return os.path.join(commands_dir, command)
 
 
+def run_command(command):
+    command_path = get_command_path(command)
+    if command_path is None:
+        print_help()
+        sys.exit(1)
+
+    args = [get_bin_path("python"), command_path]
+
+    if len(sys.argv) > 2:
+        args.extend(sys.argv[2:])
+
+    os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
+
+    if command == "shell":
+        print_help()
+
+    subprocess.check_call(args)
+
+
 def main():
     if os.geteuid() == 0:
         print("osbuild should not be run as root.")
@@ -253,22 +272,7 @@ def main():
 
     setup_or_upgrade(command)
 
-    command_path = get_command_path(command)
-    if command_path is None:
-        print_help()
-        sys.exit(1)
-
-    args = [get_bin_path("python"), command_path]
-
-    if len(sys.argv) > 2:
-        args.extend(sys.argv[2:])
-
-    os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
-
-    if command == "shell":
-        print_help()
-
-    subprocess.check_call(args)
+    run_command(command)
 
     if command == "clean":
         clean()
