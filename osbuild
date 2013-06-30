@@ -168,30 +168,41 @@ def clean():
         pass
 
 
-def setup_or_upgrade(command):
-    check_exception = None
-    changed = []
+def check_upgrade():
+    try:
+        changed = check_stamp()
+    except (urllib2.HTTPError, urllib2.URLError), e:
+        print ("Failed to check for changes, skipping setup. "
+               "Is your network working?")
+        print ("Error: %s" % e)
+        changed = None
 
-    if command in ["shell", "pull", "check-config"]:
-        try:
-            changed = check_stamp()
-        except (urllib2.HTTPError, urllib2.URLError), e:
-            check_exception = e
+    return changed
 
-    build_virtualenv = not os.path.exists(get_virtualenv_dir())
+
+def is_buildbot():
+    return buildbot_env in os.environ
+
+
+def get_virtualenv_exists():
+    return os.path.exists(get_virtualenv_dir())
+
+
+def setup(changed=[]):
+    upgrade = get_virtualenv_exists()
+    build_virtualenv = not upgrade
 
     if "dnarvaez/osbuild" in changed:
         build_virtualenv = True
 
-    if build_virtualenv or check_exception:
-        print("= Setup the build system =\n")
-        if check_exception:
-            print ("Failed to check for changes, skipping setup. "
-                   "Is your network working?")
-            print ("Error: %s" % check_exception)
-
     if build_virtualenv:
-        delete_virtualenv()
+        if upgrade:
+            print("\n= Upgrade the build system =\n")
+        else:
+            print("\n= Setup the build system =\n")
+
+        if build_virtualenv:
+            delete_virtualenv()
 
         try:
             print("* Create the python virtualenv")
@@ -203,8 +214,7 @@ def setup_or_upgrade(command):
             delete_virtualenv()
             raise e
 
-    is_buildbot = buildbot_env in os.environ
-    if main_repo in changed and not is_buildbot:
+    if main_repo in changed and not is_buildbot():
         print("* Pull latest %s" % main_repo)
         subprocess.check_call(["git", "pull", "--ff-only", "-q"])
 
@@ -247,7 +257,7 @@ def run_command(command):
     if command == "shell":
         print_help()
 
-    subprocess.check_call(args)
+    return subprocess.Popen(args)
 
 
 def main():
@@ -270,9 +280,22 @@ def main():
     else:
         command = "shell"
 
-    setup_or_upgrade(command)
+    pre_upgrade = is_buildbot() or command == "shell"
+    post_upgrade = not pre_upgrade
 
-    run_command(command)
+    if not get_virtualenv_exists():
+        setup()
+    elif pre_upgrade:
+        setup(check_upgrade())
+
+    process = run_command(command)
+
+    if post_upgrade:
+        changed = check_upgrade()
+        process.wait()
+        setup(changed)
+    else:
+        process.wait()
 
     if command == "clean":
         clean()
