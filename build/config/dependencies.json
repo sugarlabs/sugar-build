@@ -490,7 +490,6 @@
     {
         "check": "libsecret-1",
         "checker": "pkgconfig",
-        "if": "gnome_version != '3.4'",
         "name": "libsecret"
     },
     {

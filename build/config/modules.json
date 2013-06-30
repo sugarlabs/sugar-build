@@ -262,18 +262,6 @@
         "tag": "2.42.1"
     },
     {
-        "if": "gnome_version == '3.4'",
-        "name": "libsecret",
-        "repo": "git://git.gnome.org/libsecret",
-        "tag": "0.15"
-    },
-    {
-        "if": "gnome_version < '3.6'",
-        "name": "harfbuzz",
-        "repo": "git://anongit.freedesktop.org/harfbuzz",
-        "tag": "0.9.16"
-    },
-    {
         "clean_stamp": "1",
         "if": "distro != 'fedora-19'",
         "name": "webkitgtk",

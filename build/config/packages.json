@@ -803,6 +803,9 @@
         ]
     },
     "libsecret": {
+        "debian": [
+            "libsecret-1-dev"
+        ],
         "fedora": [
             "libsecret-devel"
         ],
