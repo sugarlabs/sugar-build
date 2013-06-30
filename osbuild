@@ -27,6 +27,7 @@ base_dir = os.path.dirname(os.path.abspath(__file__))
 virtualenv_version = "1.9.1"
 sandbox_dir = os.path.join(base_dir, "build", "out", "sandbox")
 virtualenv_dir = os.path.join(sandbox_dir, "install")
+commands_dir = os.path.join(base_dir, "build", "commands")
 cache_dir = os.path.join(sandbox_dir, "cache")
 main_repo = "sugarlabs/sugar-build"
 docs_url = "http://developer.sugarlabs.org/dev-environment.md.html"
@@ -121,7 +122,7 @@ def check_stamp():
                 changed.append(repo)
 
             new_stamp[repo] = {"sha": sha,
-                           "etag": response.info()["ETag"]}
+                               "etag": response.info()["ETag"]}
         elif code == 304:
             new_stamp[repo] = saved_stamp[repo]
         elif code == 403:
@@ -208,13 +209,35 @@ def setup_or_upgrade(command):
         subprocess.check_call(["git", "pull", "--ff-only", "-q"])
 
 
+def get_available_commands():
+    available_commands = []
+    for command in os.listdir(commands_dir):
+        if ".py" not in command:
+            available_commands.append(command)
+
+    return available_commands
+
+
+def print_help():
+    print("\n= Available commands =\n")
+    print("\n".join(get_available_commands()))
+    print("\nSee also %s" % docs_url)
+
+
+def get_command_path(command):
+    if command not in get_available_commands():
+        return None
+
+    return os.path.join(commands_dir, command)
+
+
 def main():
     if os.geteuid() == 0:
         print("osbuild should not be run as root.")
         sys.exit(1)
 
     if "OSBUILD_SHELL" in os.environ:
-        print("Don't run osbuild inside an osbuild shell, you can just " \
+        print("Don't run osbuild inside an osbuild shell, you can just "
               "run the commands directly.")
         sys.exit(1)
 
@@ -230,21 +253,9 @@ def main():
 
     setup_or_upgrade(command)
 
-    commands_dir = os.path.join(base_dir, "build", "commands")
-    command_path = os.path.join(commands_dir, command)
-
-    available_commands = os.listdir(commands_dir)
-    for to_ignore in ["common.py", "common.pyc"]:
-        if to_ignore in available_commands:
-            available_commands.remove(to_ignore)
-
-    invalid_command = not os.path.exists(command_path)
-    if invalid_command or command == "shell":
-        print("\n= Available commands =\n")
-        print("\n".join(available_commands))
-        print("\nSee also %s" % docs_url)
-
-    if invalid_command:
+    command_path = get_command_path(command)
+    if command_path is None:
+        print_help()
         sys.exit(1)
 
     args = [get_bin_path("python"), command_path]
@@ -253,6 +264,9 @@ def main():
         args.extend(sys.argv[2:])
 
     os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
+
+    if command == "shell":
+        print_help()
 
     subprocess.check_call(args)
 
