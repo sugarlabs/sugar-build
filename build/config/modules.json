@@ -5,7 +5,7 @@
         "repo": "git://github.com/sugarlabs/automake.git"
     },
     {
-        "if": "gnome_version < '3.6' or distro == 'fedora-18'",
+        "if": "distro == 'ubuntu-13.04' or distro == 'fedora-18'",
         "name": "glib",
         "options": [
             "--disable-modular-tests"
@@ -14,7 +14,7 @@
         "tag": "2.36.1"
     },
     {
-        "if": "gnome_version < '3.8' and distro != 'ubuntu-13.04'",
+        "if": "distro == 'fedora-18'",
         "name": "gobject-introspection",
         "options": [
             "--disable-tests"
@@ -23,7 +23,7 @@
         "tag": "GOBJECT_INTROSPECTION_1_36_0"
     },
     {
-        "if": "distro != 'fedora-19'",
+        "if": "distro == 'ubuntu-13.04' or distro == 'fedora-18'",
         "name": "pygobject",
         "options": [
             "--with-python=python2.7"
@@ -32,13 +32,13 @@
         "tag": "3.8.2"
     },
     {
-        "if": "distro != 'fedora-19'",
+        "if": "distro == 'ubuntu-13.04' or distro == 'fedora-18'",
         "name": "dbus-python",
         "repo": "git://anongit.freedesktop.org/dbus/dbus-python",
         "tag": "dbus-python-1.2.0"
     },
     {
-        "if": "not distro.startswith('fedora')",
+        "if": "distro == 'ubuntu-13.04'",
         "name": "telepathy-mission-control",
         "repo": "git://anongit.freedesktop.org/telepathy/telepathy-mission-control",
         "tag": "telepathy-mission-control-5.14.1"
