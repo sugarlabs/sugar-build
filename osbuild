@@ -188,8 +188,12 @@ def get_virtualenv_exists():
     return os.path.exists(get_virtualenv_dir())
 
 
-def setup(changed=[]):
+def setup(changed=None):
     upgrade = get_virtualenv_exists()
+
+    if upgrade and changed is None:
+        return
+
     build_virtualenv = not upgrade
 
     if "dnarvaez/osbuild" in changed:
