@@ -188,11 +188,8 @@ def get_virtualenv_exists():
     return os.path.exists(get_virtualenv_dir())
 
 
-def setup(changed=None):
+def setup(changed=[]):
     upgrade = get_virtualenv_exists()
-
-    if upgrade and changed is None:
-        return
 
     build_virtualenv = not upgrade
 
@@ -290,16 +287,21 @@ def main():
     if not get_virtualenv_exists():
         setup()
     elif pre_upgrade:
-        setup(check_upgrade())
+        changed = check_upgrade()
+        if changed is not None:
+            setup(changed)
 
     process = run_command(command)
 
     if post_upgrade:
         changed = check_upgrade()
-        process.wait()
-        setup(changed)
     else:
-        process.wait()
+        changed = None
+
+    process.wait()
+
+    if changed is not None:
+        setup(changed)
 
     if command == "clean":
         clean()
