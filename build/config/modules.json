@@ -23,22 +23,6 @@
         "tag": "GOBJECT_INTROSPECTION_1_36_0"
     },
     {
-        "if": "gnome_version == '3.4'",
-        "name": "gcr",
-        "repo": "git://git.gnome.org/gcr.git",
-        "tag": "3.8.2"
-    },
-    {
-        "if": "gnome_version == '3.4'",
-        "name": "gnome-keyring",
-        "options_evaluated": [
-            "'--with-pkcs11-config=%s/etc' % prefix",
-            "'--with-pkcs11-modules=%s/etc' % prefix"
-        ],
-        "repo": "git://git.gnome.org/gnome-keyring.git",
-        "tag": "3.8.2"
-    },
-    {
         "if": "distro != 'fedora-19'",
         "name": "pygobject",
         "options": [
@@ -52,12 +36,6 @@
         "name": "dbus-python",
         "repo": "git://anongit.freedesktop.org/dbus/dbus-python",
         "tag": "dbus-python-1.2.0"
-    },
-    {
-        "if": "distro.startswith('debian')",
-        "name": "telepathy-glib",
-        "repo": "git://anongit.freedesktop.org/telepathy/telepathy-glib",
-        "tag": "telepathy-glib-0.20.1"
     },
     {
         "if": "not distro.startswith('fedora')",
