@@ -35,11 +35,6 @@
         "name": "libcanberra-gtk"
     },
     {
-        "check": "import gi; gi.require_version('Gtk', '3.0'); from gi.repository import Gtk; from gi.repository import Atspi",
-        "checker": "python",
-        "name": "atspi typelib"
-    },
-    {
         "check": "ccache",
         "checker": "binary",
         "name": "ccache"
