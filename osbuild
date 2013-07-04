@@ -149,7 +149,7 @@ def check_dependencies():
         if subprocess.call(args) != 0:
             print("Please install the python development package.")
             return False
-    except:
+    except OSError:
         print("Please install pkg-config.")
         return False
 
