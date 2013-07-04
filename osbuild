@@ -305,10 +305,13 @@ def main():
     else:
         changed = None
 
-    process.wait()
+    result = process.wait()
 
     if changed is not None:
         setup(changed)
+
+    if result != 0:
+        sys.exit(result)
 
     if command == "clean":
         clean()
