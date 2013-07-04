@@ -72,15 +72,15 @@ print("\n= Check =\n")
 
 if args.module == "smoketest" or args.module is None:
     with _setup_profile("check-smoketest"):
-        result = _run_smoketest()
+        if not _run_smoketest():
+            sys.exit(1)
 
 if args.module is not None and args.module != "smoketest":
     with _setup_profile("check-modules"):
-        result = check.check_one(args.module)
+        if not check.check_one(args.module):
+            sys.exit(1)
 
 if args.module is None:
     with _setup_profile("check-modules"):
-        result = check.check()
-
-if not result:
-    sys.exit(1)
+        if not check.check():
+            sys.exit(1)
