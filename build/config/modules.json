@@ -61,13 +61,13 @@
     },
     {
         "clean_stamp": "1",
-        "if": "gnome_version == '3.4'",
+        "if": "distro == 'debian-jessie'",
         "name": "gtk+",
         "repo": "git://git.gnome.org/gtk+",
         "tag": "3.8.2"
     },
     {
-        "if": "gnome_version == '3.4'",
+        "if": "distro == 'debian-jessie'",
         "name": "libxklavier",
         "repo": "git://anongit.freedesktop.org/libxklavier",
         "tag": "libxklavier-5.3"

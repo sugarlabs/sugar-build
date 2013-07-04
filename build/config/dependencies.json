@@ -50,12 +50,6 @@
         "name": "dbus-launch"
     },
     {
-        "check": "atk-bridge-2.0",
-        "checker": "pkgconfig",
-        "if": "gnome_version == '3.4'",
-        "name": "atk-bridge-2.0"
-    },
-    {
         "check": "gtk+-2.0",
         "checker": "pkgconfig",
         "name": "gtk+-2.0"
@@ -289,12 +283,6 @@
         "name": "alsa"
     },
     {
-        "check": "asn1Parser",
-        "checker": "binary",
-        "if": "gnome_version == '3.4'",
-        "name": "asn1Parser"
-    },
-    {
         "check": "autoreconf",
         "checker": "binary",
         "name": "autoreconf"
@@ -370,27 +358,9 @@
         "name": "intltoolize"
     },
     {
-        "check": "gcr-3",
-        "checker": "pkgconfig",
-        "if": "gnome_version == '3.4'",
-        "name": "libgcr"
-    },
-    {
-        "check": "gcrypt.h",
-        "checker": "include",
-        "if": "gnome_version == '3.4'",
-        "name": "libgcrypt"
-    },
-    {
         "check": "librsvg-2.0",
         "checker": "pkgconfig",
         "name": "librsvg-2.0"
-    },
-    {
-        "check": "libtasn1",
-        "checker": "pkgconfig",
-        "if": "gnome_version == '3.4'",
-        "name": "libtasn1"
     },
     {
         "check": "libtool",
