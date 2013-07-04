@@ -116,10 +116,9 @@
         "repo": "git://github.com/sugarlabs/docker.git"
     },
     {
-        "if": "not distro.startswith('fedora')",
         "name": "pep8",
         "repo": "git://github.com/jcrocholl/pep8.git",
-        "tag": "1.4.5"
+        "tag": "1.4.6"
     },
     {
         "name": "flake8",
