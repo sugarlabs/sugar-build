@@ -65,14 +65,6 @@
             "libasound2-dev"
         ]
     },
-    "asn1Parser": {
-        "debian": [
-            "libtasn1-3-bin"
-        ],
-        "fedora": [
-            "libtasn1-tools"
-        ]
-    },
     "atk-bridge": {
         "debian": [
             "libatk-adaptor"
@@ -82,22 +74,6 @@
         ],
         "ubuntu": [
             "libatk-adaptor"
-        ]
-    },
-    "atk-bridge-2.0": {
-        "debian": [
-            "libatk-bridge2.0-dev"
-        ]
-    },
-    "atspi typelib": {
-        "debian": [
-            "gir1.2-atspi-2.0"
-        ],
-        "fedora": [
-            "at-spi2-core"
-        ],
-        "ubuntu": [
-            "gir1.2-atspi-2.0"
         ]
     },
     "autodetect gstreamer": {
@@ -764,22 +740,6 @@
             "libcanberra-gtk-dev"
         ]
     },
-    "libgcr": {
-        "debian": [
-            "libgcr-3-dev"
-        ],
-        "fedora": [
-            "gcr-devel"
-        ]
-    },
-    "libgcrypt": {
-        "debian": [
-            "libgcrypt11-dev"
-        ],
-        "fedora": [
-            "libgcrypt-devel"
-        ]
-    },
     "libjpeg": {
         "debian": [
             "libjpeg8-dev"
@@ -811,14 +771,6 @@
         ],
         "ubuntu": [
             "libsecret-1-dev"
-        ]
-    },
-    "libtasn1": {
-        "debian": [
-            "libtasn1-3-dev"
-        ],
-        "fedora": [
-            "libtasn1-devel"
         ]
     },
     "libtool": {
