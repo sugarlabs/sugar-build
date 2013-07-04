@@ -5,6 +5,11 @@
         "name": "zip"
     },
     {
+        "check": "unzip",
+        "checker": "binary",
+        "name": "unzip"
+    },
+    {
         "check": "Xephyr",
         "checker": "binary",
         "name": "Xephyr"

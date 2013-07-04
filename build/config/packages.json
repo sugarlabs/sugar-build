@@ -1080,6 +1080,17 @@
             "time"
         ]
     },
+    "unzip": {
+        "debian": [
+            "unzip"
+        ],
+        "fedora": [
+            "unzip"
+        ],
+        "ubuntu": [
+            "unzip"
+        ]
+    },
     "vte typelib": {
         "debian": [
             "gir1.2-vte-2.90"
