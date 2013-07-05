@@ -233,7 +233,7 @@
         "repo": "git://github.com/manuq/gtd-activity.git"
     },
     {
-        "if": "distro != 'fedora-19'",
+        "if": "distro != 'fedora-19' and distro != 'debian-jessie'",
         "name": "libsoup",
         "repo": "git://git.gnome.org/libsoup",
         "tag": "2.42.1"
