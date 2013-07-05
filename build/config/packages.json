@@ -970,17 +970,6 @@
             "python-cairo-dev"
         ]
     },
-    "pyflakes": {
-        "debian": [
-            "pyflakes"
-        ],
-        "fedora": [
-            "pyflakes"
-        ],
-        "ubuntu": [
-            "pyflakes"
-        ]
-    },
     "pygments": {
         "debian": [
             "python-pygments"

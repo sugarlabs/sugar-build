@@ -121,6 +121,11 @@
         "tag": "1.4.6"
     },
     {
+        "name": "pyflakes",
+        "repo": "git://github.com/pyflakes/pyflakes.git",
+        "tag": "e3544bb"
+    },
+    {
         "name": "flake8",
         "repo": "git://github.com/bmcustodio/flake8.git",
         "tag": "2.0"

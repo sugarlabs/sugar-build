@@ -87,11 +87,6 @@
         "name": "pep8"
     },
     {
-        "check": "pyflakes",
-        "checker": "binary",
-        "name": "pyflakes"
-    },
-    {
         "check": "time",
         "checker": "binary",
         "name": "time"
