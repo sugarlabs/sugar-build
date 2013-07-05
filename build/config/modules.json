@@ -70,7 +70,7 @@
         "if": "distro == 'debian-jessie'",
         "name": "libxklavier",
         "repo": "git://anongit.freedesktop.org/libxklavier",
-        "tag": "libxklavier-5.3"
+        "tag": "libxklavier-5.4"
     },
     {
         "has_checks": true,
