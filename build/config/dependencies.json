@@ -30,6 +30,11 @@
         "name": "glesv2"
     },
     {
+        "check": "libsoup-2.4",
+        "checker": "pkgconfig",
+        "name": "libsoup"
+    },
+    {
         "check": "gl",
         "checker": "pkgconfig",
         "name": "gl"

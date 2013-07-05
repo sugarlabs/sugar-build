@@ -10,6 +10,17 @@
             "gnome-themes-standard"
         ]
     },
+    "libsoup": {
+        "debian": [
+            "libsoup2.4-dev"
+        ],
+        "fedora": [
+            "libsoup-devel"
+        ],
+        "ubuntu": [
+            "libsoup2.4-dev"
+        ]
+    },
     "X": {
         "debian": [
             "xserver-xorg"
