@@ -171,10 +171,13 @@ def delete_virtualenv():
 
 
 def check_binaries(binary_names):
+    env = {"PATH": os.path.expandvars("/usr/sbin:/sbin:$PATH")}
+
     with open(os.devnull, "w") as devnull:
         for name in binary_names:
             try:
-                subprocess.call([name], stderr=devnull)
+                subprocess.call([name], stdout=devnull,
+                                stderr=subprocess.STDOUT, env=env)
             except OSError:
                 print("Please install %s." % name)
                 return False
