@@ -170,22 +170,24 @@ def delete_virtualenv():
         pass
 
 
-def check_dependencies():
+def check_binaries(binary_names):
     with open(os.devnull, "w") as devnull:
-        try:
-            subprocess.call(["gcc"], stderr=devnull)
-        except OSError:
-            print("Please install gcc.")
-            return False
+        for name in binary_names:
+            try:
+                subprocess.call([name], stderr=devnull)
+            except OSError:
+                print("Please install %s." % name)
+                return False
 
-    args = ["pkg-config", "--exists", "python-2.7"]
+    return True
 
-    try:
-        if subprocess.call(args) != 0:
-            print("Please install the python development package.")
-            return False
-    except OSError:
-        print("Please install pkg-config.")
+
+def check_dependencies():
+    if not check_binaries(["gcc", "pkg-config"]):
+        return False
+
+    if subprocess.call(["pkg-config", "--exists", "python-2.7"]) != 0:
+        print("Please install the python development package.")
         return False
 
     return True
