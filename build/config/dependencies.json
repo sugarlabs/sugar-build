@@ -5,6 +5,11 @@
         "name": "zip"
     },
     {
+        "check": "make",
+        "checker": "binary",
+        "name": "make"
+    },
+    {
         "check": "unzip",
         "checker": "binary",
         "name": "unzip"

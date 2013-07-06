@@ -10,17 +10,6 @@
             "gnome-themes-standard"
         ]
     },
-    "libsoup": {
-        "debian": [
-            "libsoup2.4-dev"
-        ],
-        "fedora": [
-            "libsoup-devel"
-        ],
-        "ubuntu": [
-            "libsoup2.4-dev"
-        ]
-    },
     "X": {
         "debian": [
             "xserver-xorg"
@@ -117,7 +106,6 @@
             "ibritish",
             "iamerican",
             "bsdutils",
-            "make",
             "apt-utils",
             "apt-xapian-index",
             "aptdaemon",
@@ -176,7 +164,6 @@
             "kernel-modules-extra",
             "yum",
             "NetworkManager",
-            "make",
             "git",
             "sudo",
             "xorg-x11-drv-ati",
@@ -220,7 +207,6 @@
             "openssh-server",
             "apt",
             "avahi-daemon",
-            "make",
             "apparmor",
             "apt-transport-https",
             "apt-utils",
@@ -784,6 +770,17 @@
             "libsecret-1-dev"
         ]
     },
+    "libsoup": {
+        "debian": [
+            "libsoup2.4-dev"
+        ],
+        "fedora": [
+            "libsoup-devel"
+        ],
+        "ubuntu": [
+            "libsoup2.4-dev"
+        ]
+    },
     "libtool": {
         "debian": [
             "libtool"
@@ -826,6 +823,17 @@
         ],
         "ubuntu": [
             "libxslt1-dev"
+        ]
+    },
+    "make": {
+        "debian": [
+            "make"
+        ],
+        "fedora": [
+            "make"
+        ],
+        "ubuntu": [
+            "make"
         ]
     },
     "makeinfo": {
