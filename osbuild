@@ -25,25 +25,42 @@ import StringIO
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 virtualenv_version = "1.9.1"
-sandbox_dir = os.path.join(base_dir, "build", "out", "sandbox")
+broot_dir = "build"
+sandbox_dir = os.path.join("build", "out", "sandbox")
 virtualenv_dir = os.path.join(sandbox_dir, "install")
-commands_dir = os.path.join(base_dir, "build", "commands")
+commands_dir = os.path.join("build", "commands")
 cache_dir = os.path.join(sandbox_dir, "cache")
 main_repo = "sugarlabs/sugar-build"
 docs_url = "http://developer.sugarlabs.org/dev-environment.md.html"
 buildbot_env = "SUGAR_BUILDBOT"
 
 
+def get_base_dir():
+    return base_dir
+
+
+def get_broot_dir():
+    return os.path.join(get_base_dir(), broot_dir)
+
+
+def get_commands_dir():
+    return os.path.join(get_base_dir(), commands_dir)
+
+
 def get_cache_dir():
-    return os.path.join(base_dir, cache_dir)
+    return os.path.join(get_base_dir(), cache_dir)
 
 
 def get_virtualenv_dir():
-    return os.path.join(base_dir, virtualenv_dir)
+    return os.path.join(get_base_dir(), virtualenv_dir)
+
+
+def get_prefs_path():
+    return os.path.join(get_base_dir(), "prefs.json")
 
 
 def get_stamp_path():
-    return os.path.join(sandbox_dir, "stamp")
+    return os.path.join(get_base_dir(), sandbox_dir, "stamp")
 
 
 def get_bin_path(name=None):
@@ -68,8 +85,7 @@ def create_virtualenv():
         with tarfile.open(fileobj=buffer, mode="r:gz") as tar:
             tar.extractall(get_cache_dir())
 
-    subprocess.check_call(["python",
-                           os.path.join(source_dir, "virtualenv.py"),
+    subprocess.check_call(["python", os.path.join(source_dir, "virtualenv.py"),
                            "-q", "--system-site-packages",
                            get_virtualenv_dir()])
 
@@ -77,6 +93,11 @@ def create_virtualenv():
 def install_osbuild():
     subprocess.check_call([get_bin_path("pip"), "-q", "install",
                            "git+git://github.com/dnarvaez/osbuild"])
+
+
+def install_broot():
+    subprocess.check_call([get_bin_path("pip"), "-q", "install",
+                           "git+git://github.com/dnarvaez/broot"])
 
 
 def check_stamp():
@@ -97,7 +118,14 @@ def check_stamp():
     except (IOError, ValueError):
         pass
 
-    for repo in main_repo, "dnarvaez/osbuild":
+    repos = [main_repo]
+
+    if use_chroot():
+        repos.append("dnarvaez/broot")
+    else:
+        repos.append("dnarvaez/osbuild")
+
+    for repo in repos:
         url = "https://api.github.com/repos/%s/branches/master" % repo
         headers = {}
 
@@ -191,16 +219,35 @@ def is_buildbot():
     return buildbot_env in os.environ
 
 
+def get_chroot_prefs():
+    try:
+        with open(get_prefs_path()) as f:
+            prefs = json.load(f)
+    except IOError:
+        prefs = {}
+
+    return prefs.get("chroot")
+
+
+def use_chroot():
+    if "BROOT" in os.environ:
+        return False
+
+    return get_chroot_prefs() != None
+
+
 def get_virtualenv_exists():
     return os.path.exists(get_virtualenv_dir())
 
 
 def setup(changed=[]):
     upgrade = get_virtualenv_exists()
-
     build_virtualenv = not upgrade
 
     if "dnarvaez/osbuild" in changed:
+        build_virtualenv = True
+
+    if "dnarvaez/broot" in changed:
         build_virtualenv = True
 
     if build_virtualenv:
@@ -216,20 +263,26 @@ def setup(changed=[]):
             print("* Create the python virtualenv")
             create_virtualenv()
 
-            print("* Install osbuild package")
-            install_osbuild()
+            if use_chroot():
+                print("* Install broot package")
+                install_broot()
+            else:
+                print("* Install osbuild package")
+                install_osbuild()
         except Exception, e:
             delete_virtualenv()
             raise e
 
     if main_repo in changed and not is_buildbot():
         print("* Pull latest %s" % main_repo)
+
+        os.chdir(get_base_dir())
         subprocess.check_call(["git", "pull", "--ff-only", "-q"])
 
 
 def get_available_commands():
     available_commands = []
-    for command in os.listdir(commands_dir):
+    for command in os.listdir(get_commands_dir()):
         if ".py" not in command:
             available_commands.append(command)
 
@@ -246,24 +299,36 @@ def get_command_path(command):
     if command not in get_available_commands():
         return None
 
-    return os.path.join(commands_dir, command)
+    return os.path.join(get_commands_dir(), command)
 
 
 def run_command(command):
-    command_path = get_command_path(command)
-    if command_path is None:
-        print_help()
-        sys.exit(1)
+    if use_chroot():
+        os.chdir(get_broot_dir())
 
-    args = [get_bin_path("python"), command_path]
+        args = ["sudo", get_bin_path("broot"), "run"]
+
+        prefs = get_chroot_prefs()
+        mirror = prefs.get("mirror", None)
+        if mirror is not None:
+            args.extend(["--mirror", mirror])
+
+        args.append("/home/broot/sugar-build/osbuild")
+    else:
+        command_path = get_command_path(command)
+        if command_path is None:
+            print_help()
+            sys.exit(1)
+
+        args = [get_bin_path("python"), command_path]
+
+        os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
+
+        if command == "shell":
+            print_help()
 
     if len(sys.argv) > 2:
         args.extend(sys.argv[2:])
-
-    os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
-
-    if command == "shell":
-        print_help()
 
     return subprocess.Popen(args)
 

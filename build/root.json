@@ -1,0 +1,16 @@
+{
+    "distro": "debian",
+    "mounts": {
+        "..": "home/broot/sugar-build"
+    },
+    "packages": [
+        "adduser",
+        "python-dev",
+        "gcc",
+        "git",
+        "pkg-config",
+        "python-apt",
+        "sudo"
+    ],
+    "path": "out/root"
+}
