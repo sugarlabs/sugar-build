@@ -934,17 +934,6 @@
             "gstreamer1.0-x"
         ]
     },
-    "pep8": {
-        "debian": [
-            "pep8"
-        ],
-        "fedora": [
-            "python-pep8"
-        ],
-        "ubuntu": [
-            "pep8"
-        ]
-    },
     "pkg-config": {
         "debian": [
             "pkg-config"
