@@ -183,12 +183,16 @@ def check_binaries(binary_names):
 
 
 def check_dependencies():
-    if not check_binaries(["gcc", "pkg-config"]):
-        return False
+    if use_chroot():
+        if not check_binaries(["debootstrap", "dpkg"]):
+            return False
+    else:
+        if not check_binaries(["gcc", "pkg-config"]):
+            return False
 
-    if subprocess.call(["pkg-config", "--exists", "python-2.7"]) != 0:
-        print("Please install the python development package.")
-        return False
+        if subprocess.call(["pkg-config", "--exists", "python-2.7"]) != 0:
+            print("Please install the python development package.")
+            return False
 
     return True
 
