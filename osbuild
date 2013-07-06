@@ -226,7 +226,7 @@ def get_chroot_prefs():
     except IOError:
         prefs = {}
 
-    return prefs.get("chroot")
+    return prefs.get("chroot", None)
 
 
 def use_chroot():
@@ -309,9 +309,10 @@ def run_command(command):
         args = ["sudo", get_bin_path("broot"), "run"]
 
         prefs = get_chroot_prefs()
-        mirror = prefs.get("mirror", None)
-        if mirror is not None:
-            args.extend(["--mirror", mirror])
+        if prefs is not None:
+            mirror = prefs.get("mirror", None)
+            if mirror is not None:
+                args.extend(["--mirror", mirror])
 
         args.append("/home/broot/sugar-build/osbuild")
     else:
