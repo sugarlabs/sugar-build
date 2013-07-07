@@ -26,10 +26,7 @@ import StringIO
 base_dir = os.path.dirname(os.path.abspath(__file__))
 virtualenv_version = "1.9.1"
 broot_dir = "build"
-sandbox_dir = os.path.join("build", "out", "sandbox")
-virtualenv_dir = os.path.join(sandbox_dir, "install")
 commands_dir = os.path.join("build", "commands")
-cache_dir = os.path.join(sandbox_dir, "cache")
 main_repo = "sugarlabs/sugar-build"
 docs_url = "http://developer.sugarlabs.org/dev-environment.md.html"
 buildbot_env = "SUGAR_BUILDBOT"
@@ -37,6 +34,14 @@ buildbot_env = "SUGAR_BUILDBOT"
 
 def get_base_dir():
     return base_dir
+
+
+def get_sandbox_dir():
+    sandbox_name = "sandbox"
+    if use_chroot():
+        sandbox_name = "sandbox-chroot"
+
+    return os.path.join(get_base_dir(), "build", "out", sandbox_name)
 
 
 def get_broot_dir():
@@ -48,11 +53,11 @@ def get_commands_dir():
 
 
 def get_cache_dir():
-    return os.path.join(get_base_dir(), cache_dir)
+    return os.path.join(get_sandbox_dir(), "cache")
 
 
 def get_virtualenv_dir():
-    return os.path.join(get_base_dir(), virtualenv_dir)
+    return os.path.join(get_sandbox_dir(), "install")
 
 
 def get_prefs_path():
@@ -60,7 +65,7 @@ def get_prefs_path():
 
 
 def get_stamp_path():
-    return os.path.join(get_base_dir(), sandbox_dir, "stamp")
+    return os.path.join(get_sandbox_dir(), "stamp")
 
 
 def get_bin_path(name=None):
@@ -201,6 +206,8 @@ def check_dependencies():
 
 
 def clean():
+    sandbox_dir = get_sandbox_dir()
+
     shutil.rmtree(sandbox_dir, ignore_errors=True)
 
     parent_dir = os.path.dirname(sandbox_dir)
