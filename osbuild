@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import fcntl
 import json
 import os
 import shutil
@@ -30,7 +31,21 @@ commands_dir = os.path.join("build", "commands")
 main_repo = "sugarlabs/sugar-build"
 docs_url = "http://developer.sugarlabs.org/dev-environment.md.html"
 buildbot_env = "SUGAR_BUILDBOT"
+lock_file = None
 
+def get_lock_file():
+    global lock_file
+
+    if lock_file is not None:
+        return lock_file
+
+    lock_name = ".lock"
+    if use_chroot():
+        lock_name = ".lock-chroot"
+
+    lock_file = open(os.path.join(get_base_dir(), lock_name), "w")
+
+    return lock_file
 
 def get_base_dir():
     return base_dir
@@ -249,7 +264,7 @@ def use_chroot():
     if "BROOT" in os.environ:
         return False
 
-    return get_chroot_prefs() != None
+    return get_chroot_prefs() is not None
 
 
 def get_virtualenv_exists():
@@ -350,9 +365,22 @@ def run_command(command):
     return subprocess.Popen(args)
 
 
+def check_lock():
+    try:
+        fcntl.lockf(get_lock_file(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except IOError:
+        return False
+
+    return True
+
+
 def main():
     if os.geteuid() == 0:
         print("osbuild should not be run as root.")
+        sys.exit(1)
+
+    if not check_lock():
+        print("Another osbuild instance is running.")
         sys.exit(1)
 
     if "OSBUILD_SHELL" in os.environ:
