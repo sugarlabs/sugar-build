@@ -25,6 +25,11 @@
         "name": "pygments"
     },
     {
+        "check": "import setuptools",
+        "checker": "python",
+        "name": "setuptools"
+    },
+    {
         "check": "atk-bridge",
         "checker": "gtkmodule",
         "name": "atk-bridge"

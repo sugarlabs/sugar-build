@@ -32,6 +32,17 @@
             "xserver-xephyr"
         ]
     },
+    "setuptools": {
+        "debian": [
+            "python-setuptools"
+        ],
+        "fedora": [
+            "python-setuptools"
+        ],
+        "ubuntu": [
+            "python-setuptools"
+        ]
+    },
     "Xvfb": {
         "debian": [
             "xvfb"
