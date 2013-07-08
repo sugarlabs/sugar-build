@@ -45,6 +45,8 @@
             "iso-codes-devel"
         ],
         "osbuild": [
+            "xorg-x11-server-Xvfb",
+            "xorg-x11-utils",
             "gcc",
             "python-devel"
         ],
@@ -91,10 +93,6 @@
             "librsvg2-devel",
             "GConf2-devel",
             "gobject-introspection-devel"
-        ],
-        "osbuild": [
-            "xorg-x11-server-Xvfb",
-            "xorg-x11-utils"
         ]
     },
     "path": "out/root"
