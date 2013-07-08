@@ -207,7 +207,7 @@ def check_binaries(binary_names):
 
 def check_dependencies():
     if use_chroot():
-        if not check_binaries(["debootstrap", "dpkg"]):
+        if not check_binaries(["yum", "rpm"]):
             return False
     else:
         if not check_binaries(["gcc", "pkg-config"]):
