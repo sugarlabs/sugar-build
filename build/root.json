@@ -51,7 +51,7 @@
             "python-devel"
         ],
         "sugar": [
-            "pygobject",
+            "pygobject3",
             "python-decorator",
             "libwnck3-devel",
             "dbus-python",
