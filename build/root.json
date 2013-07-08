@@ -61,7 +61,10 @@
             "metacity",
             "dejavu-sans-fonts",
             "dejavu-serif-fonts",
-            "telepathy-mission-control"
+            "telepathy-mission-control",
+            "zip",
+            "unzip",
+            "libwebkit2gtk"
         ],
         "sugar-artwork": [
             "gnome-common",
@@ -88,6 +91,10 @@
             "librsvg2-devel",
             "GConf2-devel",
             "gobject-introspection-devel"
+        ],
+        "osbuild": [
+            "xorg-x11-server-Xvfb",
+            "xorg-x11-utils"
         ]
     },
     "path": "out/root"
