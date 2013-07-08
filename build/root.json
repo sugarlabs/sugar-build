@@ -4,13 +4,13 @@
         "..": "home/broot/sugar-build"
     },
     "packages": {
+        "broot": [
+            "shadow-utils"
+        ],
         "osbuild": [
-            "shadow-utils",
             "python-devel",
             "gcc",
-            "git",
-            "pkg-config",
-            "sudo"
+            "git"
         ]
     },
     "path": "out/root"

@@ -33,6 +33,7 @@ docs_url = "http://developer.sugarlabs.org/dev-environment.md.html"
 buildbot_env = "SUGAR_BUILDBOT"
 lock_file = None
 
+
 def get_lock_file():
     global lock_file
 
@@ -40,12 +41,13 @@ def get_lock_file():
         return lock_file
 
     lock_name = ".lock"
-    if use_chroot():
+    if is_chroot():
         lock_name = ".lock-chroot"
 
     lock_file = open(os.path.join(get_base_dir(), lock_name), "w")
 
     return lock_file
+
 
 def get_base_dir():
     return base_dir
@@ -53,7 +55,8 @@ def get_base_dir():
 
 def get_sandbox_dir():
     sandbox_name = "sandbox"
-    if use_chroot():
+
+    if is_chroot():
         sandbox_name = "sandbox-chroot"
 
     return os.path.join(get_base_dir(), "build", "out", sandbox_name)
@@ -140,10 +143,10 @@ def check_stamp():
 
     repos = [main_repo]
 
-    if use_chroot():
-        repos.append("dnarvaez/broot")
-    else:
+    if is_chroot():
         repos.append("dnarvaez/osbuild")
+    else:
+        repos.append("dnarvaez/broot")
 
     for repo in repos:
         url = "https://api.github.com/repos/%s/branches/master" % repo
@@ -205,21 +208,6 @@ def check_binaries(binary_names):
     return True
 
 
-def check_dependencies():
-    if use_chroot():
-        if not check_binaries(["yum", "rpm"]):
-            return False
-    else:
-        if not check_binaries(["gcc", "pkg-config"]):
-            return False
-
-        if subprocess.call(["pkg-config", "--exists", "python-2.7"]) != 0:
-            print("Please install the python development package.")
-            return False
-
-    return True
-
-
 def clean():
     sandbox_dir = get_sandbox_dir()
 
@@ -250,21 +238,8 @@ def is_buildbot():
     return buildbot_env in os.environ
 
 
-def get_chroot_prefs():
-    try:
-        with open(get_prefs_path()) as f:
-            prefs = json.load(f)
-    except IOError:
-        prefs = {}
-
-    return prefs.get("chroot", None)
-
-
-def use_chroot():
-    if "BROOT" in os.environ:
-        return False
-
-    return get_chroot_prefs() is not None
+def is_chroot():
+    return "BROOT" in os.environ
 
 
 def get_virtualenv_exists():
@@ -294,12 +269,12 @@ def setup(changed=[]):
             print("* Create the python virtualenv")
             create_virtualenv()
 
-            if use_chroot():
-                print("* Install broot package")
-                install_broot()
-            else:
+            if is_chroot():
                 print("* Install osbuild package")
                 install_osbuild()
+            else:
+                print("* Install broot package")
+                install_broot()
         except Exception, e:
             delete_virtualenv()
             raise e
@@ -334,19 +309,7 @@ def get_command_path(command):
 
 
 def run_command(command):
-    if use_chroot():
-        os.chdir(get_broot_dir())
-
-        args = ["sudo", get_bin_path("broot"), "run"]
-
-        prefs = get_chroot_prefs()
-        if prefs is not None:
-            mirror = prefs.get("mirror", None)
-            if mirror is not None:
-                args.extend(["--mirror", mirror])
-
-        args.append("/home/broot/sugar-build/osbuild")
-    else:
+    if is_chroot():
         command_path = get_command_path(command)
         if command_path is None:
             print_help()
@@ -358,6 +321,11 @@ def run_command(command):
 
         if command == "shell":
             print_help()
+    else:
+        os.chdir(get_broot_dir())
+
+        args = ["sudo", get_bin_path("broot"), "run",
+                "/home/broot/sugar-build/osbuild"]
 
     if len(sys.argv) > 2:
         args.extend(sys.argv[2:])
@@ -388,7 +356,7 @@ def main():
               "run the commands directly.")
         sys.exit(1)
 
-    if not check_dependencies():
+    if not check_binaries(["yum", "rpm"]):
         sys.exit(1)
 
     os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
