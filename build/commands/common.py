@@ -58,14 +58,14 @@ def setup_logging():
     logger.addHandler(handler)
 
 
-def setup(check_args={}):
+def setup():
     setup_logging()
 
     os.environ["SUGAR_DEVELOPER"] = "1"
 
     config_args = get_config_args()
 
-    if not main.setup(config_args, check_args):
+    if not main.setup(config_args):
         sys.exit(1)
 
     environ.add_path("PATH", commands_dir)

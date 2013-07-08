@@ -4,13 +4,63 @@
         "..": "home/broot/sugar-build"
     },
     "packages": {
+        "at-spi2-atk": [
+            "atk-devel",
+            "xz"
+        ],
+        "at-spi2-core": [
+            "gtk-doc",
+            "intltool",
+            "libtool",
+            "dbus-devel",
+            "glib2-devel",
+            "libX11-devel",
+            "libXtst-devel"
+        ],
+        "automake": [
+            "ccache",
+            "make",
+            "git",
+            "findutils",
+            "autoconf",
+            "tar",
+            "texinfo"
+        ],
         "broot": [
             "shadow-utils"
         ],
+        "grunt-cli": [
+            "npm"
+        ],
+        "gst-plugins-espeak": [
+            "gstreamer1-devel",
+            "gstreamer1-base-devel",
+            "espeak-devel"
+        ],
+        "gwebsockets": [
+            "python-setuptools"
+        ],
+        "libxklavier": [
+            "libxml2-devel",
+            "iso-codes-devel"
+        ],
         "osbuild": [
-            "python-devel",
             "gcc",
-            "git"
+            "python-devel"
+        ],
+        "sugar-artwork": [
+            "gnome-common",
+            "icon-slicer",
+            "gtk2-devel",
+            "icon-naming-utils"
+        ],
+        "sugar-toolkit-gtk3": [
+            "gtk3-devel",
+            "libSM-devel",
+            "alsa-lib-devel",
+            "librsvg2-devel",
+            "GConf2-devel",
+            "gobject-introspection-devel"
         ]
     },
     "path": "out/root"
