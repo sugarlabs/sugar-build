@@ -34,7 +34,7 @@
         ],
         "gst-plugins-espeak": [
             "gstreamer1-devel",
-            "gstreamer1-base-devel",
+            "gstreamer1-plugins-base-devel",
             "espeak-devel"
         ],
         "gwebsockets": [
@@ -48,11 +48,38 @@
             "gcc",
             "python-devel"
         ],
+        "sugar": [
+            "pygobject",
+            "python-decorator",
+            "libwnck3-devel",
+            "dbus-python",
+            "python-telepathy",
+            "python-dateutil",
+            "gtksourceview3",
+            "dconf",
+            "gsettings-desktop-schemas",
+            "metacity",
+            "dejavu-sans-fonts",
+            "dejavu-serif-fonts",
+            "telepathy-mission-control"
+        ],
         "sugar-artwork": [
             "gnome-common",
             "icon-slicer",
             "gtk2-devel",
             "icon-naming-utils"
+        ],
+        "sugar-datastore": [
+            "xapian-bindings-python"
+        ],
+        "sugar-runner": [
+            "xorg-x11-xkb-utils",
+            "xorg-x11-drv-evdev",
+            "xorg-x11-drv-xinit",
+            "xorg-x11-server-Xephyr",
+            "xdg-user-dirs",
+            "dbus-x11",
+            "gnome-keyring"
         ],
         "sugar-toolkit-gtk3": [
             "gtk3-devel",
