@@ -68,7 +68,7 @@ def setup():
     if not main.setup(config_args):
         sys.exit(1)
 
-    environ.add_path("PATH", commands_dir)
+    environ.add_path("PATH", os.path.join(commands_dir, "broot"))
 
 
 def run(command):
