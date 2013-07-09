@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import argparse
 import fcntl
 import os
 import shutil
@@ -278,7 +279,7 @@ def get_command_path(command, commands_group):
     return None
 
 
-def run_command(command):
+def run_command(command, args):
     command_path = get_command_path(command, "host")
     if command_path is None:
         is_broot_command = True
@@ -287,22 +288,20 @@ def run_command(command):
         is_broot_command = False
 
     if not is_chroot() and is_broot_command:
-        args = ["run", "/home/broot/sugar-build/osbuild"]
+        broot_args = ["run", "/home/broot/sugar-build/osbuild", command]
+        if args:
+            broot_args.extend(args)
 
-        if len(sys.argv) > 1:
-            args.extend(sys.argv[1:])
-
-        run_broot(args)
+        run_broot(broot_args)
     else:
-        args = [get_bin_path("python"), command_path]
-
-        if len(sys.argv) > 2:
-            args.extend(sys.argv[2:])
+        command_args = [get_bin_path("python"), command_path]
+        if args:
+            command_args.extend(args)
 
         os.environ["PYTHONPATH"] = get_commands_dir()
         os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
 
-        subprocess.check_call(args)
+        subprocess.check_call(command_args)
 
 
 def check_lock():
@@ -333,24 +332,29 @@ def main():
 
     os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
 
-    if len(sys.argv) > 1:
-        command = sys.argv[1]
-    else:
-        command = "shell"
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command")
 
-    if command not in get_available_commands():
+    for command in get_available_commands():
+        subparser = subparsers.add_parser(command)
+
+        if command == "clean":
+            subparser.add_argument("--broot", action="store_true",
+                                   help="Clean also the build root")
+
+    options, other_args = parser.parse_known_args()
+
+    setup(options.command)
+
+    if is_chroot() and options.command == "shell":
         print_help()
-        sys.exit(1)
 
-    setup(command)
+    run_command(options.command, other_args)
 
-    if is_chroot() and command == "shell":
-        print_help()
+    if options.command == "clean":
+        if options.broot:
+            run_broot(["clean"])
 
-    run_command(command)
-
-    if command == "clean":
-        run_broot(["clean"])
         clean()
 
 
