@@ -15,7 +15,6 @@
 # limitations under the License.
 
 import fcntl
-import json
 import os
 import shutil
 import subprocess
@@ -34,17 +33,23 @@ buildbot_env = "SUGAR_BUILDBOT"
 lock_file = None
 
 
-def get_lock_file():
+def get_lock_file_path(lock_name=None):
+    if lock_name is None:
+        if is_chroot():
+            lock_name = "broot"
+        else:
+            lock_name = "host"
+
+    return os.path.join(get_base_dir(), ".lock-%s" % lock_name)
+
+
+def get_lock_file(lock_name=None):
     global lock_file
 
     if lock_file is not None:
         return lock_file
 
-    lock_name = ".lock"
-    if is_chroot():
-        lock_name = ".lock-chroot"
-
-    lock_file = open(os.path.join(get_base_dir(), lock_name), "w")
+    lock_file = open(get_lock_file_path(), "w")
 
     return lock_file
 
@@ -53,37 +58,38 @@ def get_base_dir():
     return base_dir
 
 
-def get_sandbox_dir():
-    sandbox_name = "sandbox"
-
-    if is_chroot():
-        sandbox_name = "sandbox-chroot"
-
-    return os.path.join(get_base_dir(), "build", "out", sandbox_name)
-
-
 def get_broot_dir():
     return os.path.join(get_base_dir(), broot_dir)
 
 
-def get_commands_dir():
-    return os.path.join(get_base_dir(), commands_dir)
+def get_sandbox_dir(sandbox_name=None):
+    if sandbox_name is None:
+        if is_chroot():
+            sandbox_name = "broot"
+        else:
+            sandbox_name = "host"
+
+    return os.path.join(get_base_dir(), "build", "out",
+                        "sandbox-%s" % sandbox_name)
+
+
+def get_commands_dir(commands_group=None):
+    if commands_group is None:
+        return os.path.join(get_base_dir(), commands_dir)
+    else:
+        return os.path.join(get_base_dir(), commands_dir, commands_group)
 
 
 def get_cache_dir():
     return os.path.join(get_sandbox_dir(), "cache")
 
 
-def get_virtualenv_dir():
-    return os.path.join(get_sandbox_dir(), "install")
+def get_virtualenv_dir(sandbox_name=None):
+    return os.path.join(get_sandbox_dir(sandbox_name=None), "install")
 
 
 def get_prefs_path():
     return os.path.join(get_base_dir(), "prefs.json")
-
-
-def get_stamp_path():
-    return os.path.join(get_sandbox_dir(), "stamp")
 
 
 def get_bin_path(name=None):
@@ -113,82 +119,15 @@ def create_virtualenv():
                            get_virtualenv_dir()])
 
 
-def install_osbuild():
-    subprocess.check_call([get_bin_path("pip"), "-q", "install",
-                           "git+git://github.com/dnarvaez/osbuild@chroot"])
+def install_packages():
+    for repo in ["dnarvaez/osbuild@chroot", "dnarvaez/broot"]:
+        subprocess.check_call([get_bin_path("pip"), "-q", "install",
+                               "git+git://github.com/%s" % repo])
 
 
-def install_broot():
-    subprocess.check_call([get_bin_path("pip"), "-q", "install",
-                           "git+git://github.com/dnarvaez/broot"])
-
-
-def check_stamp():
-    changed = []
-    new_stamp = {}
-    saved_stamp = {}
-
-    stamp_path = get_stamp_path()
-
+def delete_virtualenv(sandbox_name=None):
     try:
-        os.makedirs(os.path.dirname(stamp_path))
-    except OSError:
-        pass
-
-    try:
-        with open(stamp_path) as f:
-            saved_stamp = json.load(f)
-    except (IOError, ValueError):
-        pass
-
-    repos = [main_repo]
-
-    if is_chroot():
-        repos.append("dnarvaez/osbuild")
-    else:
-        repos.append("dnarvaez/broot")
-
-    for repo in repos:
-        url = "https://api.github.com/repos/%s/branches/master" % repo
-        headers = {}
-
-        etag = saved_stamp.get(repo, {}).get("etag", None)
-        if etag:
-            headers = {"If-None-Match": etag}
-
-        code = 200
-
-        try:
-            response = urllib2.urlopen(urllib2.Request(url, headers=headers))
-        except urllib2.HTTPError, e:
-            if e.code in (304, 403):
-                code = e.code
-            else:
-                raise e
-
-        if code == 200:
-            sha = json.load(response)["commit"]["sha"]
-
-            if saved_stamp.get(repo, {}).get("sha", None) != sha:
-                changed.append(repo)
-
-            new_stamp[repo] = {"sha": sha,
-                               "etag": response.info()["ETag"]}
-        elif code == 304:
-            new_stamp[repo] = saved_stamp[repo]
-        elif code == 403:
-            print("WARNING: GitHub rate limiting exceeded")
-            changed.append(repo)
-
-    with open(stamp_path, "w") as f:
-        json.dump(new_stamp, f)
-
-    return changed
-
-
-def delete_virtualenv():
-    try:
-        shutil.rmtree(get_virtualenv_dir())
+        shutil.rmtree(get_virtualenv_dir(sandbox_name))
     except OSError:
         pass
 
@@ -208,30 +147,34 @@ def check_binaries(binary_names):
     return True
 
 
-def clean():
-    sandbox_dir = get_sandbox_dir()
+def run_broot(args):
+    os.chdir(get_broot_dir())
 
-    shutil.rmtree(sandbox_dir, ignore_errors=True)
+    broot_args = ["sudo", get_bin_path("broot")]
+    broot_args.extend(args)
 
-    parent_dir = os.path.dirname(sandbox_dir)
+    log_dir = os.path.join(get_base_dir(), "build", "logs")
 
     try:
-        if not os.listdir(parent_dir):
-            os.rmdir(parent_dir)
+        os.makedirs(log_dir)
     except OSError:
         pass
 
+    log_path = os.path.join(log_dir, "broot.log")
 
-def check_upgrade():
+    with open(log_path, "w") as f:
+        subprocess.check_call(broot_args, stdout=f, stderr=subprocess.STDOUT)
+
+
+def clean():
     try:
-        changed = check_stamp()
-    except (urllib2.HTTPError, urllib2.URLError), e:
-        print ("Failed to check for changes, skipping setup. "
-               "Is your network working?")
-        print ("Error: %s" % e)
-        changed = None
+        os.unlink(get_lock_file_path("host"))
+        os.unlink(get_lock_file_path("broot"))
+    except OSError:
+        pass
 
-    return changed
+    delete_virtualenv("host")
+    delete_virtualenv("broot")
 
 
 def is_buildbot():
@@ -246,41 +189,31 @@ def get_virtualenv_exists():
     return os.path.exists(get_virtualenv_dir())
 
 
-def setup(changed=[]):
-    upgrade = get_virtualenv_exists()
-    build_virtualenv = not upgrade
+def setup(pull=False):
+    build_virtualenv = not get_virtualenv_exists()
 
-    if "dnarvaez/osbuild" in changed:
-        build_virtualenv = True
+    if is_buildbot():
+        pull = False
 
-    if "dnarvaez/broot" in changed:
-        build_virtualenv = True
+    if build_virtualenv or pull:
+        if is_chroot():
+            print("\n= Setup the broot build system =\n")
+        else:
+            print("\n= Setup the host build system =\n")
 
     if build_virtualenv:
-        if upgrade:
-            print("\n= Upgrade the build system =\n")
-        else:
-            print("\n= Setup the build system =\n")
-
-        if build_virtualenv:
-            delete_virtualenv()
-
         try:
             print("* Create the python virtualenv")
             create_virtualenv()
 
-            if is_chroot():
-                print("* Install osbuild package")
-                install_osbuild()
-            else:
-                print("* Install broot package")
-                install_broot()
+            print("* Install packages")
+            install_packages()
         except Exception, e:
             delete_virtualenv()
             raise e
 
-    if main_repo in changed and not is_buildbot():
-        print("* Pull latest %s" % main_repo)
+    if pull:
+        print("* Pull latest sugar-build")
 
         os.chdir(get_base_dir())
         subprocess.check_call(["git", "pull", "--ff-only", "-q", "origin",
@@ -289,8 +222,14 @@ def setup(changed=[]):
 
 def get_available_commands():
     available_commands = []
-    for command in os.listdir(get_commands_dir()):
-        if ".py" not in command:
+
+    commands_dirs = [get_commands_dir("broot")]
+
+    if not is_chroot():
+        commands_dirs.append(get_commands_dir("host"))
+
+    for command_dir in commands_dirs:
+        for command in os.listdir(command_dir):
             available_commands.append(command)
 
     return available_commands
@@ -302,36 +241,38 @@ def print_help():
     print("\nSee also %s" % docs_url)
 
 
-def get_command_path(command):
-    if command not in get_available_commands():
-        return None
-
-    return os.path.join(get_commands_dir(), command)
+def get_command_path(command, commands_group):
+    command_path = os.path.join(get_commands_dir(commands_group), command)
+    if os.path.exists(command_path):
+        return command_path
+    return None
 
 
 def run_command(command):
-    if is_chroot():
-        command_path = get_command_path(command)
-        if command_path is None:
-            print_help()
-            sys.exit(1)
+    command_path = get_command_path(command, "host")
+    if command_path is None:
+        is_broot_command = True
+        command_path = get_command_path(command, "broot")
+    else:
+        is_broot_command = False
 
+    if not is_chroot() and is_broot_command:
+        root_dir = os.path.join(get_broot_dir(), "out", "root")
+        if not os.path.exists(root_dir):
+            print("* Create the build root")
+            run_broot(["create"])
+
+        run_broot(["run", "/home/broot/sugar-build/osbuild"])
+    else:
         args = [get_bin_path("python"), command_path]
 
+        os.environ["PYTHONPATH"] = get_commands_dir()
         os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
-
-        if command == "shell":
-            print_help()
-    else:
-        os.chdir(get_broot_dir())
-
-        args = ["sudo", get_bin_path("broot"), "run",
-                "/home/broot/sugar-build/osbuild"]
 
     if len(sys.argv) > 2:
         args.extend(sys.argv[2:])
 
-    return subprocess.Popen(args)
+    subprocess.check_call(args)
 
 
 def check_lock():
@@ -367,33 +308,26 @@ def main():
     else:
         command = "shell"
 
-    pre_upgrade = is_buildbot() or command == "shell"
-    post_upgrade = not pre_upgrade and not command == "clean"
+    if command not in get_available_commands():
+        print_help()
+        sys.exit(1)
 
-    if not get_virtualenv_exists():
-        setup()
-    elif pre_upgrade:
-        changed = check_upgrade()
-        if changed is not None:
-            setup(changed)
+    setup(command == "pull")
 
-    process = run_command(command)
+    run_command(command)
 
-    if post_upgrade:
-        changed = check_upgrade()
-    else:
-        changed = None
+    if command == "pull":
+        run_broot(["update"])
+        delete_virtualenv("host")
+        delete_virtualenv("broot")
 
-    result = process.wait()
-
-    if changed is not None:
-        setup(changed)
-
-    if result != 0:
-        sys.exit(result)
+    if command == "shell":
+        print_help()
 
     if command == "clean":
+        run_broot(["clean"])
         clean()
+
 
 if __name__ == "__main__":
     main()
