@@ -40,22 +40,13 @@ def print_close_message():
 
 
 def setup_logging():
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-
     try:
         os.makedirs(logs_dir)
     except OSError:
         pass
 
-    if is_buildbot():
-        try:
-            os.unlink(log_path)
-        except OSError:
-            pass
-
-    handler = RotatingFileHandler(log_path, backupCount=10, maxBytes=5242880)
-    logger.addHandler(handler)
+    logging.basicConfig(level=logging.DEBUG,
+                        filename=log_path)
 
 
 def setup():
