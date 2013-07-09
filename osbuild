@@ -140,6 +140,13 @@ def delete_virtualenv(sandbox_name=None):
         pass
 
 
+def delete_sandbox(sandbox_name=None):
+    try:
+        shutil.rmtree(get_sandbox_dir(sandbox_name))
+    except OSError:
+        pass
+
+
 def check_binaries(binary_names):
     env = {"PATH": os.path.expandvars("/usr/sbin:/sbin:$PATH")}
 
@@ -178,8 +185,8 @@ def clean():
     except OSError:
         pass
 
-    delete_virtualenv("host")
-    delete_virtualenv("broot")
+    delete_sandbox("host")
+    delete_sandbox("broot")
 
 def is_buildbot():
     return buildbot_env in os.environ
