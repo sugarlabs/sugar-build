@@ -54,7 +54,8 @@
             "xorg-x11-server-Xvfb",
             "xorg-x11-utils",
             "gcc",
-            "python-devel"
+            "python-devel",
+            "python-pygments"
         ],
         "sugar": [
             "pygobject3",
