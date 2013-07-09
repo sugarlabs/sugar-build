@@ -162,7 +162,7 @@ def check_binaries(binary_names):
     return True
 
 
-def run_broot(args):
+def run_broot(args, log=False):
     os.chdir(get_broot_dir())
 
     broot_args = ["sudo", get_bin_path("broot")]
@@ -174,7 +174,11 @@ def run_broot(args):
         pass
 
     with open(get_broot_log_path(), "w") as f:
-        subprocess.check_call(broot_args, stdout=f, stderr=subprocess.STDOUT)
+        if log:
+            subprocess.check_call(broot_args, stdout=f,
+                                  stderr=subprocess.STDOUT)
+        else:
+            subprocess.check_call(broot_args)
 
 
 def clean():
@@ -232,7 +236,7 @@ def setup(command):
 
     if build_root:
         print("* Create the build root")
-        run_broot(["create"])
+        run_broot(["create"], log=True)
 
 
 def get_available_commands():
@@ -274,10 +278,10 @@ def run_command(command):
     if not is_chroot() and is_broot_command:
         args = ["run", "/home/broot/sugar-build/osbuild"]
 
-        if len(sys.argv) > 2:
-            args.extend(sys.argv[2:])
+        if len(sys.argv) > 1:
+            args.extend(sys.argv[1:])
 
-        run_broot(["run", "/home/broot/sugar-build/osbuild"])
+        run_broot(args)
     else:
         args = [get_bin_path("python"), command_path]
 
@@ -331,7 +335,7 @@ def main():
     run_command(command)
 
     if command == "pull":
-        run_broot(["update"])
+        run_broot(["update"], log=True)
         delete_virtualenv("host")
         delete_virtualenv("broot")
 
