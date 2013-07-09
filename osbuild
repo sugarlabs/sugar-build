@@ -343,10 +343,11 @@ def main():
         sys.exit(1)
 
     setup(command)
-    run_command(command)
 
-    if command == "shell":
+    if is_chroot() and command == "shell":
         print_help()
+
+    run_command(command)
 
     if command == "clean":
         run_broot(["clean"])
