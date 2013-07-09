@@ -85,7 +85,7 @@ def get_cache_dir():
 
 
 def get_virtualenv_dir(sandbox_name=None):
-    return os.path.join(get_sandbox_dir(sandbox_name=None), "install")
+    return os.path.join(get_sandbox_dir(sandbox_name=sandbox_name), "install")
 
 
 def get_log_dir():
@@ -135,7 +135,7 @@ def install_packages():
 
 def delete_virtualenv(sandbox_name=None):
     try:
-        shutil.rmtree(get_virtualenv_dir(sandbox_name))
+        shutil.rmtree(get_virtualenv_dir(sandbox_name=sandbox_name))
     except OSError:
         pass
 
@@ -205,9 +205,10 @@ def get_virtualenv_exists():
 
 
 def setup(command):
-    build_virtualenv = not get_virtualenv_exists()
+    build_virtualenv = not get_virtualenv_exists() or command == "pull"
     root_dir = os.path.join(get_broot_dir(), "out", "root")
     build_root = command != "clean" and not os.path.exists(root_dir)
+    update_root = command == "pull"
     pull = command == "pull" and not is_buildbot()
 
     if build_virtualenv or pull or build_root:
@@ -217,6 +218,8 @@ def setup(command):
             print("\n= Setup the host build system =\n")
 
     if build_virtualenv:
+        delete_virtualenv()
+
         try:
             print("* Create the python virtualenv")
             create_virtualenv()
@@ -237,6 +240,14 @@ def setup(command):
     if build_root:
         print("* Create the build root")
         run_broot(["create"], log=True)
+
+    if update_root:
+        print("* Update the build root")
+        run_broot(["update"], log=True)
+
+    # When we run the broot osbuild the virtualenv will be updated
+    if command == "pull":
+        delete_virtualenv("broot")
 
 
 def get_available_commands():
@@ -333,11 +344,6 @@ def main():
 
     setup(command)
     run_command(command)
-
-    if command == "pull":
-        run_broot(["update"], log=True)
-        delete_virtualenv("host")
-        delete_virtualenv("broot")
 
     if command == "shell":
         print_help()
