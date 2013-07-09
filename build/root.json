@@ -32,6 +32,9 @@
         "browse": [
             "evince-devel"
         ],
+        "terminal": [
+            "vte3-devel"
+        ],
         "grunt-cli": [
             "npm"
         ],
