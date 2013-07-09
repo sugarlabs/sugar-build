@@ -88,6 +88,14 @@ def get_virtualenv_dir(sandbox_name=None):
     return os.path.join(get_sandbox_dir(sandbox_name=None), "install")
 
 
+def get_log_dir():
+    return os.path.join(get_base_dir(), "build", "logs")
+
+
+def get_broot_log_path():
+    return os.path.join(get_log_dir(), "broot.log")
+
+
 def get_prefs_path():
     return os.path.join(get_base_dir(), "prefs.json")
 
@@ -153,16 +161,12 @@ def run_broot(args):
     broot_args = ["sudo", get_bin_path("broot")]
     broot_args.extend(args)
 
-    log_dir = os.path.join(get_base_dir(), "build", "logs")
-
     try:
-        os.makedirs(log_dir)
+        os.makedirs(get_log_dir())
     except OSError:
         pass
 
-    log_path = os.path.join(log_dir, "broot.log")
-
-    with open(log_path, "w") as f:
+    with open(get_broot_log_path(), "w") as f:
         subprocess.check_call(broot_args, stdout=f, stderr=subprocess.STDOUT)
 
 
@@ -170,12 +174,12 @@ def clean():
     try:
         os.unlink(get_lock_file_path("host"))
         os.unlink(get_lock_file_path("broot"))
+        os.unlink(get_broot_log_path())
     except OSError:
         pass
 
     delete_virtualenv("host")
     delete_virtualenv("broot")
-
 
 def is_buildbot():
     return buildbot_env in os.environ
@@ -189,13 +193,13 @@ def get_virtualenv_exists():
     return os.path.exists(get_virtualenv_dir())
 
 
-def setup(pull=False):
+def setup(command):
     build_virtualenv = not get_virtualenv_exists()
+    root_dir = os.path.join(get_broot_dir(), "out", "root")
+    build_root = command != "clean" and not os.path.exists(root_dir)
+    pull = command == "pull" and not is_buildbot()
 
-    if is_buildbot():
-        pull = False
-
-    if build_virtualenv or pull:
+    if build_virtualenv or pull or build_root:
         if is_chroot():
             print("\n= Setup the broot build system =\n")
         else:
@@ -206,7 +210,7 @@ def setup(pull=False):
             print("* Create the python virtualenv")
             create_virtualenv()
 
-            print("* Install packages")
+            print("* Install python packages")
             install_packages()
         except Exception, e:
             delete_virtualenv()
@@ -218,6 +222,10 @@ def setup(pull=False):
         os.chdir(get_base_dir())
         subprocess.check_call(["git", "pull", "--ff-only", "-q", "origin",
                                "chroot"])
+
+    if build_root:
+        print("* Create the build root")
+        run_broot(["create"])
 
 
 def get_available_commands():
@@ -257,22 +265,22 @@ def run_command(command):
         is_broot_command = False
 
     if not is_chroot() and is_broot_command:
-        root_dir = os.path.join(get_broot_dir(), "out", "root")
-        if not os.path.exists(root_dir):
-            print("* Create the build root")
-            run_broot(["create"])
+        args = ["run", "/home/broot/sugar-build/osbuild"]
+
+        if len(sys.argv) > 2:
+            args.extend(sys.argv[2:])
 
         run_broot(["run", "/home/broot/sugar-build/osbuild"])
     else:
         args = [get_bin_path("python"), command_path]
 
+        if len(sys.argv) > 2:
+            args.extend(sys.argv[2:])
+
         os.environ["PYTHONPATH"] = get_commands_dir()
         os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
 
-    if len(sys.argv) > 2:
-        args.extend(sys.argv[2:])
-
-    subprocess.check_call(args)
+        subprocess.check_call(args)
 
 
 def check_lock():
@@ -312,8 +320,7 @@ def main():
         print_help()
         sys.exit(1)
 
-    setup(command == "pull")
-
+    setup(command)
     run_command(command)
 
     if command == "pull":
