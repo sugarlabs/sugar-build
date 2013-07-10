@@ -3,6 +3,7 @@
     "mounts": {
         "..": "home/broot/sugar-build"
     },
+    "name": "sugar-build",
     "packages": {
         "at-spi2-atk": [
             "atk-devel",
@@ -31,9 +32,6 @@
         ],
         "browse": [
             "evince-devel"
-        ],
-        "terminal": [
-            "vte3-devel"
         ],
         "grunt-cli": [
             "npm"
@@ -100,7 +98,9 @@
             "librsvg2-devel",
             "GConf2-devel",
             "gobject-introspection-devel"
+        ],
+        "terminal": [
+            "vte3-devel"
         ]
-    },
-    "path": "out/root"
+    }
 }
