@@ -205,10 +205,14 @@ def get_virtualenv_exists():
     return os.path.exists(get_virtualenv_dir())
 
 
+def broot_exists():
+    os.chdir(get_broot_dir())
+    return subprocess.call(["sudo", get_bin_path("broot"), "exists"]) == 0
+
+
 def setup(command):
     build_virtualenv = not get_virtualenv_exists() or command == "pull"
-    root_dir = os.path.join(get_broot_dir(), "out", "root")
-    build_root = command != "clean" and not os.path.exists(root_dir)
+    build_root = command != "clean" and not broot_exists()
     update_root = command == "pull"
     pull = command == "pull" and not is_buildbot()
 
