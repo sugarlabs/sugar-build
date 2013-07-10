@@ -212,7 +212,7 @@ def broot_exists():
 
 def setup(command):
     build_virtualenv = not get_virtualenv_exists() or command == "pull"
-    build_root = command != "clean" and not broot_exists()
+    build_root = command != "clean" and not is_chroot() and not broot_exists()
     update_root = command == "pull"
     pull = command == "pull" and not is_buildbot()
 
