@@ -16,6 +16,7 @@
 
 import argparse
 import fcntl
+import json
 import os
 import shutil
 import subprocess
@@ -33,18 +34,52 @@ docs_url = "http://developer.sugarlabs.org/dev-environment.md.html"
 buildbot_env = "SUGAR_BUILDBOT"
 lock_file = None
 
+MODE_NONE = 1
+MODE_HOST = 2
+MODE_BROOT = 3
 
-def get_lock_file_path(lock_name=None):
-    if lock_name is None:
-        if is_chroot():
-            lock_name = "broot"
-        else:
-            lock_name = "host"
-
-    return os.path.join(get_base_dir(), ".lock-%s" % lock_name)
+_mode = None
 
 
-def get_lock_file(lock_name=None):
+def get_mode():
+    global _mode
+
+    if _mode is not None:
+        return _mode
+
+    try:
+        with open(get_prefs_path()) as f:
+            prefs = json.load(f)
+    except IOError:
+        prefs = {}
+
+    if not prefs.get("use_broot", True):
+        _mode = MODE_NONE
+    elif "BROOT" in os.environ:
+        _mode = MODE_BROOT
+    else:
+        _mode = MODE_HOST
+
+    return _mode
+
+
+def get_name_for_mode(base, mode=None):
+    if mode is None:
+        mode = get_mode()
+
+    if mode == MODE_NONE:
+        return base
+    elif mode == MODE_HOST:
+        return "%s-%s" % (base, "host")
+    elif mode == MODE_BROOT:
+        return "%s-%s" % (base, "broot")
+
+
+def get_lock_file_path(mode=None):
+    return os.path.join(get_base_dir(), get_name_for_mode(".lock", mode))
+
+
+def get_lock_file(mode=None):
     global lock_file
 
     if lock_file is not None:
@@ -63,15 +98,9 @@ def get_broot_dir():
     return os.path.join(get_base_dir(), broot_dir)
 
 
-def get_sandbox_dir(sandbox_name=None):
-    if sandbox_name is None:
-        if is_chroot():
-            sandbox_name = "broot"
-        else:
-            sandbox_name = "host"
-
+def get_sandbox_dir(mode=None):
     return os.path.join(get_base_dir(), "build", "out",
-                        "sandbox-%s" % sandbox_name)
+                        get_name_for_mode("sandbox", mode))
 
 
 def get_commands_dir(commands_group=None):
@@ -85,8 +114,8 @@ def get_cache_dir():
     return os.path.join(get_sandbox_dir(), "cache")
 
 
-def get_virtualenv_dir(sandbox_name=None):
-    return os.path.join(get_sandbox_dir(sandbox_name=sandbox_name), "install")
+def get_virtualenv_dir(mode=None):
+    return os.path.join(get_sandbox_dir(mode=mode), "install")
 
 
 def get_log_dir():
@@ -134,16 +163,16 @@ def install_packages():
                                "git+git://github.com/%s" % repo])
 
 
-def delete_virtualenv(sandbox_name=None):
+def delete_virtualenv(mode=None):
     try:
-        shutil.rmtree(get_virtualenv_dir(sandbox_name=sandbox_name))
+        shutil.rmtree(get_virtualenv_dir(mode=mode))
     except OSError:
         pass
 
 
-def delete_sandbox(sandbox_name=None):
+def delete_sandbox(mode=None):
     try:
-        shutil.rmtree(get_sandbox_dir(sandbox_name))
+        shutil.rmtree(get_sandbox_dir(mode=mode))
     except OSError:
         pass
 
@@ -183,22 +212,28 @@ def run_broot(args, log=False):
 
 
 def clean():
+    mode = get_mode()
+
     try:
-        os.unlink(get_lock_file_path("host"))
-        os.unlink(get_lock_file_path("broot"))
+        if mode == MODE_NONE:
+            os.unlink(get_lock_file_path(MODE_NONE))
+        elif mode == MODE_HOST: 
+            os.unlink(get_lock_file_path(MODE_HOST))
+            os.unlink(get_lock_file_path(MODE_BROOT))
+
         os.unlink(get_broot_log_path())
     except OSError:
         pass
 
-    delete_sandbox("host")
-    delete_sandbox("broot")
+    if mode == MODE_NONE:
+        delete_sandbox(MODE_NONE)
+    elif mode == MODE_HOST:
+        delete_sandbox(MODE_HOST)
+        delete_sandbox(MODE_BROOT)
+
 
 def is_buildbot():
     return buildbot_env in os.environ
-
-
-def is_chroot():
-    return "BROOT" in os.environ
 
 
 def get_virtualenv_exists():
@@ -211,8 +246,10 @@ def broot_exists():
 
 
 def setup(command):
+    mode = get_mode()
+
     build_virtualenv = not get_virtualenv_exists() or command == "pull"
-    build_root = command != "clean" and not is_chroot()
+    build_root = command != "clean" and mode == MODE_HOST
     update_root = command == "pull"
     pull = command == "pull" and not is_buildbot()
 
@@ -222,10 +259,11 @@ def setup(command):
         broot_checked = True
 
     if build_virtualenv or pull or build_root:
-        if is_chroot():
-            print("\n= Setup the broot build system =\n")
-        else:
-            print("\n= Setup the host build system =\n")
+        build_system = {MODE_NONE: "build system",
+                        MODE_HOST: "host build system",
+                        MODE_BROOT: "broot build system"}
+
+        print("\n= Setup the %s =\n" % build_system[mode])
 
     if build_virtualenv:
         delete_virtualenv()
@@ -259,8 +297,8 @@ def setup(command):
         run_broot(["update"], log=True)
 
     # When we run the broot osbuild the virtualenv will be updated
-    if command == "pull":
-        delete_virtualenv("broot")
+    if get_mode() == MODE_HOST and command == "pull":
+        delete_virtualenv(MODE_BROOT)
 
 
 def get_available_commands():
@@ -268,7 +306,7 @@ def get_available_commands():
 
     commands_dirs = [get_commands_dir("broot")]
 
-    if not is_chroot():
+    if get_mode() in (MODE_HOST, MODE_NONE):
         commands_dirs.append(get_commands_dir("host"))
 
     for command_dir in commands_dirs:
@@ -299,7 +337,7 @@ def run_command(command, args):
     else:
         is_broot_command = False
 
-    if not is_chroot() and is_broot_command:
+    if get_mode() == MODE_HOST and is_broot_command:
         broot_args = ["run", "/home/broot/sugar-build/osbuild", command]
         if args:
             broot_args.extend(args)
@@ -358,7 +396,7 @@ def main():
 
     setup(options.command)
 
-    if is_chroot() and options.command == "shell":
+    if get_mode() in (MODE_NONE, MODE_BROOT) and options.command == "shell":
         print_help()
 
     run_command(options.command, other_args)
