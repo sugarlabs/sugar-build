@@ -36,11 +36,6 @@
         "grunt-cli": [
             "npm"
         ],
-        "gst-plugins-espeak": [
-            "gstreamer1-devel",
-            "gstreamer1-plugins-base-devel",
-            "espeak-devel"
-        ],
         "gwebsockets": [
             "python-setuptools"
         ],

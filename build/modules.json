@@ -101,11 +101,6 @@
         "repo": "git://github.com/sugarlabs/sugar-datastore.git"
     },
     {
-        "clean_stamp": "1",
-        "name": "gst-plugins-espeak",
-        "repo": "git://git.sugarlabs.org/gst-plugins-espeak/mainline.git"
-    },
-    {
         "dist": true,
         "has_checks": true,
         "name": "sugar-runner",
