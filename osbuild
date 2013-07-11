@@ -392,7 +392,7 @@ def run_command(command, args):
 
         os.environ["PYTHONPATH"] = get_commands_dir()
         os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
-
+        os.environ["PYTHONUNBUFFERED"] = "yes"
         subprocess.check_call(command_args)
 
 
