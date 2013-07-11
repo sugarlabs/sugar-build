@@ -406,6 +406,9 @@ def check_lock():
 
 
 def main():
+    # Unbuffered stdout
+    sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
+
     if os.geteuid() == 0:
         print("osbuild should not be run as root.")
         sys.exit(1)
