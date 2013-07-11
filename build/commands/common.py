@@ -18,7 +18,7 @@ def is_buildbot():
 
 
 def get_config_args():
-    config_args = {"config_dir": os.path.join(build_dir, "config"),
+    config_args = {"config_dir": os.path.join(build_dir),
                    "install_dir": os.path.join(build_dir, "out", "install"),
                    "source_dir": os.path.join(root_dir),
                    "docs_dir": os.path.join(build_dir, "out", "docs"),
