@@ -77,7 +77,8 @@
             "gnome-common",
             "icon-slicer",
             "gtk2-devel",
-            "icon-naming-utils"
+            "icon-naming-utils",
+            "xorg-x11-apps"
         ],
         "sugar-datastore": [
             "xapian-bindings-python"
