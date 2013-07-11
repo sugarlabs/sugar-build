@@ -97,7 +97,8 @@
             "alsa-lib-devel",
             "librsvg2-devel",
             "GConf2-devel",
-            "gobject-introspection-devel"
+            "gobject-introspection-devel",
+            "file"
         ],
         "terminal": [
             "vte3-devel"
