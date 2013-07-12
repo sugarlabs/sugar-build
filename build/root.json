@@ -66,7 +66,11 @@
             "telepathy-mission-control",
             "zip",
             "unzip",
-            "libwebkit2gtk"
+            "libwebkit2gtk",
+            "gst-plugins-espeak",
+            "upower",
+            "telepathy-salut",
+            "gnome-themes-standard"
         ],
         "sugar-artwork": [
             "gnome-common",
