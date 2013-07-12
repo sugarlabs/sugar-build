@@ -3,7 +3,6 @@
     "mounts": {
         "..": "home/broot/sugar-build"
     },
-    "shell_path": "/home/broot/sugar-build",
     "name": "sugar-build",
     "packages": {
         "at-spi2-atk": [
@@ -104,5 +103,7 @@
         "terminal": [
             "vte3-devel"
         ]
-    }
+    },
+    "shell_path": "/home/broot/sugar-build",
+    "stamp": "1"
 }
