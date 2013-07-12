@@ -3,6 +3,7 @@
     "mounts": {
         "..": "home/broot/sugar-build"
     },
+    "shell_path": "/home/broot/sugar-build",
     "name": "sugar-build",
     "packages": {
         "at-spi2-atk": [
@@ -70,6 +71,7 @@
             "gst-plugins-espeak",
             "upower",
             "telepathy-salut",
+            "telepathy-jabber",
             "gnome-themes-standard"
         ],
         "sugar-artwork": [
