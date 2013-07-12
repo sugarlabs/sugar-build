@@ -66,10 +66,10 @@
             "zip",
             "unzip",
             "libwebkit2gtk",
-            "gst-plugins-espeak",
+            "gstreamer-plugins-espeak",
             "upower",
             "telepathy-salut",
-            "telepathy-jabber",
+            "telepathy-gabble",
             "gnome-themes-standard"
         ],
         "sugar-artwork": [
