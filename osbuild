@@ -280,9 +280,12 @@ def get_virtualenv_exists():
 
 
 def broot_exists():
-    os.chdir(get_broot_dir())
-    return subprocess.call(["sudo", get_bin_path("broot"), "exists"]) == 0
+    try:
+        run_broot(["exists"]) == 0
+    except subprocess.CalledProcessError:
+        return False
 
+    return True
 
 def setup(command):
     mode = get_mode()
@@ -372,6 +375,9 @@ def get_command_path(command, commands_group):
 
 
 def run_command(command, args):
+    if command == "broot":
+        run_broot(args)
+
     command_path = get_command_path(command, "host")
     if command_path is None:
         is_broot_command = True
@@ -430,7 +436,10 @@ def main():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command")
 
-    for command in get_available_commands():
+    commands = get_available_commands()
+    commands.append("broot")
+
+    for command in commands:
         subparser = subparsers.add_parser(command)
 
         if command == "clean":
