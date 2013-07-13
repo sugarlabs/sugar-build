@@ -67,7 +67,6 @@
             "unzip",
             "libwebkit2gtk",
             "gstreamer-plugins-espeak",
-            "upower",
             "telepathy-salut",
             "telepathy-gabble",
             "gnome-themes-standard"
