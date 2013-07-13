@@ -291,7 +291,7 @@ def setup(command):
     mode = get_mode()
 
     build_virtualenv = not get_virtualenv_exists() or command == "pull"
-    build_root = command != "clean" and mode == MODE_HOST
+    build_root = command not in ["clean", "broot"] and mode == MODE_HOST
     update_root = command == "pull"
     pull = command == "pull" and not is_buildbot()
 
