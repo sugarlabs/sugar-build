@@ -377,6 +377,7 @@ def get_command_path(command, commands_group):
 def run_command(command, args):
     if command == "broot":
         run_broot(args)
+        return
 
     command_path = get_command_path(command, "host")
     if command_path is None:
