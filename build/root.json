@@ -103,6 +103,7 @@
             "vte3-devel"
         ]
     },
+    "prebuilt": "http://sugarlabs.org/~buildbot/broot/",
     "shell_path": "/home/broot/sugar-build",
-    "stamp": "1"
+    "stamp": "2"
 }
