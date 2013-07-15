@@ -216,7 +216,16 @@ def delete_sandbox(mode=None):
         pass
 
 
-def run_broot(args, log=True):
+def broot_check_output(args, log=True):
+    os.chdir(get_broot_dir())
+
+    broot_args = ["sudo", get_bin_path("broot")]
+    broot_args.extend(args)
+
+    return subprocess.check_output(broot_args)
+
+
+def broot_run(args, log=True):
     os.chdir(get_broot_dir())
 
     broot_args = ["sudo", get_bin_path("broot")]
@@ -264,13 +273,9 @@ def get_virtualenv_exists():
     return os.path.exists(get_virtualenv_dir())
 
 
-def broot_exists():
-    try:
-        run_broot(["exists"]) == 0
-    except subprocess.CalledProcessError:
-        return False
+def broot_state():
+    return broot_check_output(["state"]).strip()
 
-    return True
 
 def setup(command):
     mode = get_mode()
@@ -282,7 +287,7 @@ def setup(command):
 
     broot_checked = False
     if get_virtualenv_exists():
-        build_root = build_root and not broot_exists()
+        build_root = build_root and broot_state() != "ready"
         broot_checked = True
 
     if build_virtualenv or pull or build_root:
@@ -313,15 +318,15 @@ def setup(command):
                                "chroot"])
 
     if not broot_checked:
-        build_root = build_root and not broot_exists()
+        build_root = build_root and broot_state() != "ready"
 
     if build_root:
         print("* Download the build root")
-        run_broot(["download"])
+        broot_run(["download"])
 
     if update_root:
         print("* Update the build root")
-        run_broot(["update"])
+        broot_run(["update"])
 
     if mode == MODE_NONE:
         install_system_deps()
@@ -361,7 +366,7 @@ def get_command_path(command, commands_group):
 
 def run_command(command, args):
     if command == "broot":
-        run_broot(args, log=False)
+        broot_run(args, log=False)
         return
 
     command_path = get_command_path(command, "host")
@@ -376,7 +381,7 @@ def run_command(command, args):
         if args:
             broot_args.extend(args)
 
-        run_broot(broot_args, log=False)
+        broot_run(broot_args, log=False)
     else:
         command_args = [get_bin_path("python"), command_path]
         if args:
@@ -453,7 +458,7 @@ def main():
 
     if options.command == "clean":
         if options.broot:
-            run_broot(["clean"])
+            broot_run(["clean"])
 
         clean()
 
