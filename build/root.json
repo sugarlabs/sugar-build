@@ -1,6 +1,6 @@
 {
     "distro": "fedora",
-    "mounts": {
+    "user_mounts": {
         "..": "home/broot/sugar-build"
     },
     "name": "sugar-build",
