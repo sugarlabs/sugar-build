@@ -1,8 +1,5 @@
 {
     "distro": "fedora",
-    "user_mounts": {
-        "..": "home/broot/sugar-build"
-    },
     "name": "sugar-build",
     "packages": {
         "at-spi2-atk": [
@@ -69,7 +66,20 @@
             "gstreamer-plugins-espeak",
             "telepathy-salut",
             "telepathy-gabble",
-            "gnome-themes-standard"
+            "gnome-themes-standard",
+            "xorg-x11-drv-evdev",
+            "xorg-x11-drv-modesetting",
+            "xorg-x11-drv-fbdev",
+            "xorg-x11-drv-vesa",
+            "xorg-x11-drv-vmmouse",
+            "xorg-x11-drv-intel",
+            "xorg-x11-drv-vmware",
+            "xorg-x11-drv-synaptics",
+            "xorg-x11-drv-wacom",
+            "xorg-x11-drv-openchrome",
+            "xorg-x11-drv-qxl",
+            "xorg-x11-drv-ati",
+            "xorg-x11-drv-mga"
         ],
         "sugar-artwork": [
             "gnome-common",
@@ -99,11 +109,17 @@
             "gobject-introspection-devel",
             "file"
         ],
+        "system": [
+            "deltarpm"
+        ],
         "terminal": [
             "vte3-devel"
         ]
     },
     "prebuilt": "http://sugarlabs.org/~buildbot/broot/",
     "shell_path": "/home/broot/sugar-build",
-    "stamp": "2"
+    "stamp": "2",
+    "user_mounts": {
+        "..": "home/broot/sugar-build"
+    }
 }
