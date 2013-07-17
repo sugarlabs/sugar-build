@@ -41,6 +41,7 @@ MODE_BROOT = 3
 _mode = None
 _prefs = None
 
+
 def get_mode():
     global _mode
 
@@ -250,7 +251,7 @@ def clean():
     try:
         if mode == MODE_NONE:
             os.unlink(get_lock_file_path(MODE_NONE))
-        elif mode == MODE_HOST: 
+        elif mode == MODE_HOST:
             os.unlink(get_lock_file_path(MODE_HOST))
             os.unlink(get_lock_file_path(MODE_BROOT))
 
@@ -408,7 +409,7 @@ def check_lock():
 
 
 def check_system_deps():
-    for bin_name in "tar", "xz", "chroot":
+    for bin_name in "tar", "xz", "chroot", "gcc", "pkg-config":
         found = False
 
         for bin_path in "/usr/bin", "/usr/sbin", "/bin", "/sbin":
@@ -416,7 +417,13 @@ def check_system_deps():
                 found = True
 
         if not found:
+            print ("Please install %s" % bin_name)
             sys.exit(1)
+
+    if subprocess.call(["pkg-config", "--exists", "python-2.7"]) != 0:
+        print("Please install the python development package.")
+        return False
+
 
 def main():
     # Unbuffered stdout
