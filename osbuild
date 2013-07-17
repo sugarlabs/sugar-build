@@ -307,9 +307,9 @@ def setup(command):
             print("* Install python packages")
 
             if mode == MODE_BROOT:
-                install_broot()
                 install_osbuild()
             else:
+                install_broot()
                 install_osbuild()
         except Exception, e:
             delete_virtualenv()
