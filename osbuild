@@ -192,14 +192,14 @@ def install_system_deps():
         subprocess.check_call(args)
 
 
-def install_python_deps():
-    repos = ["dnarvaez/osbuild@chroot"]
-    if get_mode() != MODE_BROOT:
-        repos.append("dnarvaez/broot")
+def install_broot():
+    subprocess.check_call([get_bin_path("pip"), "-q", "install",
+                           "git+git://github.com/dnarvaez/broot"])
 
-    for repo in repos:
-        subprocess.check_call([get_bin_path("pip"), "-q", "install",
-                               "git+git://github.com/%s" % repo])
+
+def install_osbuild():
+    subprocess.check_call([get_bin_path("pip"), "-q", "install",
+                           "git+git://github.com/dnarvaez/osbuild@chroot"])
 
 
 def delete_virtualenv(mode=None):
@@ -305,7 +305,12 @@ def setup(command):
             create_virtualenv()
 
             print("* Install python packages")
-            install_python_deps()
+
+            if mode == MODE_BROOT:
+                install_broot()
+                install_osbuild()
+            else:
+                install_osbuild()
         except Exception, e:
             delete_virtualenv()
             raise e
