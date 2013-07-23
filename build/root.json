@@ -67,6 +67,7 @@
             "gstreamer-plugins-espeak",
             "telepathy-salut",
             "telepathy-gabble",
+            "mobile-broadband-provider-info",
             "gnome-themes-standard",
             "xorg-x11-drv-evdev",
             "xorg-x11-drv-modesetting",
