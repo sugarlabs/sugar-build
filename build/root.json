@@ -53,6 +53,7 @@
             "dbus-python",
             "python-telepathy",
             "python-dateutil",
+            "python-mock",
             "gtksourceview3",
             "dconf",
             "gsettings-desktop-schemas",
