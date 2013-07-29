@@ -25,6 +25,7 @@ def get_config_args():
                    "docs_dir": os.path.join(build_dir, "out", "docs"),
                    "dist_dir": os.path.join(build_dir, "out", "dist"),
                    "state_dir": os.path.join(build_dir, "state"),
+                   "profile_name": os.environ.get("SUGAR_PROFILE", "default"),
                    "prefs_path": os.path.join(root_dir, "prefs.json"),
                    "interactive": not is_buildbot()}
 
