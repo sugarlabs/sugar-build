@@ -58,6 +58,9 @@ def setup():
     if not main.setup(config_args):
         sys.exit(1)
 
+    if "BROOT" in os.environ:
+        environ.setup_gconf()
+
     os.environ["SUGAR_DEVELOPER"] = "1"
 
     home_dir = os.path.join(config.home_state_dir,
