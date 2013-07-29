@@ -10,6 +10,7 @@ root_dir = os.path.dirname(build_dir)
 log_path = os.path.join(logs_dir, "main.log")
 
 from osbuild import main
+from osbuild import config
 from osbuild import environ
 
 
@@ -51,12 +52,18 @@ def setup_logging():
 def setup():
     setup_logging()
 
-    os.environ["SUGAR_DEVELOPER"] = "1"
 
     config_args = get_config_args()
 
     if not main.setup(config_args):
         sys.exit(1)
+
+    os.environ["SUGAR_DEVELOPER"] = "1"
+
+    home_dir = os.path.join(config.home_state_dir,
+                            os.environ.get("SUGAR_PROFILE", "default"))
+
+    os.environ["SUGAR_RUNNER_HOME_DIR"] = home_dir
 
     environ.add_path("PATH", os.path.join(commands_dir, "broot"))
 
