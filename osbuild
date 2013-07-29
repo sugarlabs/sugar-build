@@ -193,16 +193,6 @@ def install_system_deps():
         subprocess.check_call(args)
 
 
-def install_broot():
-    subprocess.check_call([get_bin_path("pip"), "-q", "install",
-                           "git+git://github.com/dnarvaez/broot"])
-
-
-def install_osbuild():
-    subprocess.check_call([get_bin_path("pip"), "-q", "install",
-                           "git+git://github.com/dnarvaez/osbuild@chroot"])
-
-
 def delete_virtualenv(mode=None):
     try:
         shutil.rmtree(get_virtualenv_dir(mode=mode))
@@ -310,11 +300,15 @@ def setup(command):
 
             print("* Install python packages")
 
+            packages = ["git+git://github.com/dnarvaez/osbuild@chroot"]
             if mode == MODE_BROOT:
-                install_osbuild()
+                packages.append("sourcestamp==0.1")
             else:
-                install_broot()
-                install_osbuild()
+                packages.append("git+git://github.com/dnarvaez/broot")
+
+            args = [get_bin_path("pip"), "-q", "install"]
+            args.extend(packages)
+            subprocess.check_call(args)
         except Exception, e:
             delete_virtualenv()
             raise e
@@ -412,7 +406,7 @@ def check_lock():
 
 
 def check_system_deps():
-    for bin_name in "tar", "xz", "chroot", "gcc", "pkg-config":
+    for bin_name in "tar", "xz", "chroot":
         found = False
 
         for bin_path in "/usr/bin", "/usr/sbin", "/bin", "/sbin":
@@ -422,10 +416,6 @@ def check_system_deps():
         if not found:
             print ("Please install %s" % bin_name)
             sys.exit(1)
-
-    if subprocess.call(["pkg-config", "--exists", "python-2.7"]) != 0:
-        print("Please install the python development package.")
-        return False
 
 
 def main():
