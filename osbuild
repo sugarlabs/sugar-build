@@ -275,12 +275,6 @@ def setup(changed=[]):
     upgrade = get_virtualenv_exists()
     build_virtualenv = not upgrade
 
-    if "dnarvaez/osbuild" in changed:
-        build_virtualenv = True
-
-    if "dnarvaez/broot" in changed:
-        build_virtualenv = True
-
     if build_virtualenv:
         if upgrade:
             print("\n= Upgrade the build system =\n")
@@ -303,12 +297,6 @@ def setup(changed=[]):
         except Exception, e:
             delete_virtualenv()
             raise e
-
-    if main_repo in changed and not is_buildbot():
-        print("* Pull latest %s" % main_repo)
-
-        os.chdir(get_base_dir())
-        subprocess.check_call(["git", "pull", "--ff-only", "-q"])
 
 
 def get_available_commands():
