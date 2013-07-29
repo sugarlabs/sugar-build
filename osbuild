@@ -227,6 +227,9 @@ def broot_check_output(args, log=True):
 
 
 def broot_run(args, log=True):
+    if "XAUTHORITY" not in os.environ:
+        os.environ["XAUTHORITY"] = os.path.expanduser("~/.Xauthority")
+
     os.chdir(get_broot_dir())
 
     broot_args = ["sudo", get_bin_path("broot")]
