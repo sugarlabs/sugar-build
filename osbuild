@@ -384,7 +384,7 @@ def run_command(command, args):
         if args:
             broot_args.extend(args)
 
-        broot_run(broot_args, log=False)
+        return broot_run(broot_args, log=False)
     else:
         command_args = [get_bin_path("python"), command_path]
         if args:
