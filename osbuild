@@ -393,7 +393,11 @@ def run_command(command, args):
         os.environ["PYTHONPATH"] = get_commands_dir()
         os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
         os.environ["PYTHONUNBUFFERED"] = "yes"
-        subprocess.check_call(command_args)
+
+        try:
+            subprocess.check_call(command_args)
+        except subprocess.CalledProcessError:
+            print("\n! Failed to run broot %s command." % command)
 
 
 def check_lock():
