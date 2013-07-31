@@ -272,20 +272,21 @@ def broot_state():
     return broot_check_output(["state"]).strip()
 
 
-def setup(command):
+def setup(command, args):
     mode = get_mode()
 
-    build_virtualenv = not get_virtualenv_exists() or command == "pull"
+    full_pull = command == "pull" and not args
+    build_virtualenv = not get_virtualenv_exists() or full_pull
     build_root = command not in ["clean", "broot"] and mode == MODE_HOST
-    update_root = command == "pull"
-    pull = command == "pull" and not is_buildbot()
+    update_root = full_pull
+    pull = full_pull and not is_buildbot()
 
     broot_checked = False
     if get_virtualenv_exists():
         build_root = build_root and broot_state() != "ready"
         broot_checked = True
 
-    if build_virtualenv or pull or build_root:
+    if build_virtualenv or full_pull or build_root:
         build_system = {MODE_NONE: "build system",
                         MODE_HOST: "host build system",
                         MODE_BROOT: "broot build system"}
@@ -314,7 +315,7 @@ def setup(command):
             delete_virtualenv()
             raise e
 
-    if pull:
+    if full_pull:
         print("* Pull latest sugar-build")
 
         os.chdir(get_base_dir())
@@ -455,7 +456,7 @@ def main():
 
     options, other_args = parser.parse_known_args()
 
-    setup(options.command)
+    setup(options.command, other_args)
 
     if get_mode() in (MODE_NONE, MODE_BROOT) and options.command == "shell":
         print_help()
