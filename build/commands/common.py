@@ -1,5 +1,4 @@
 import logging
-from logging.handlers import RotatingFileHandler
 import os
 import sys
 
@@ -11,6 +10,7 @@ root_dir = os.path.dirname(build_dir)
 log_path = os.path.join(logs_dir, "main.log")
 
 from osbuild import main
+from osbuild import config
 from osbuild import environ
 
 
@@ -19,12 +19,13 @@ def is_buildbot():
 
 
 def get_config_args():
-    config_args = {"config_dir": os.path.join(build_dir, "config"),
+    config_args = {"config_dir": os.path.join(build_dir),
                    "install_dir": os.path.join(build_dir, "out", "install"),
                    "source_dir": os.path.join(root_dir),
                    "docs_dir": os.path.join(build_dir, "out", "docs"),
                    "dist_dir": os.path.join(build_dir, "out", "dist"),
                    "state_dir": os.path.join(build_dir, "state"),
+                   "profile_name": os.environ.get("SUGAR_PROFILE", "default"),
                    "prefs_path": os.path.join(root_dir, "prefs.json"),
                    "interactive": not is_buildbot()}
 
@@ -40,35 +41,30 @@ def print_close_message():
 
 
 def setup_logging():
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
-
     try:
         os.makedirs(logs_dir)
     except OSError:
         pass
 
-    if is_buildbot():
-        try:
-            os.unlink(log_path)
-        except OSError:
-            pass
-
-    handler = RotatingFileHandler(log_path, backupCount=10, maxBytes=5242880)
-    logger.addHandler(handler)
+    logging.basicConfig(level=logging.DEBUG,
+                        filename=log_path)
 
 
-def setup(check_args={}):
+def setup():
     setup_logging()
 
-    os.environ["SUGAR_DEVELOPER"] = "1"
 
     config_args = get_config_args()
 
-    if not main.setup(config_args, check_args):
+    if not main.setup(config_args):
         sys.exit(1)
 
-    environ.add_path("PATH", commands_dir)
+    if "BROOT" in os.environ:
+        environ.setup_gconf()
+
+    os.environ["SUGAR_DEVELOPER"] = "1"
+
+    environ.add_path("PATH", os.path.join(commands_dir, "broot"))
 
 
 def run(command):

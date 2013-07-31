@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import argparse
 import fcntl
 import json
 import os
@@ -33,54 +34,110 @@ docs_url = "http://developer.sugarlabs.org/dev-environment.md.html"
 buildbot_env = "SUGAR_BUILDBOT"
 lock_file = None
 
-def get_lock_file():
+MODE_NONE = 1
+MODE_HOST = 2
+MODE_BROOT = 3
+
+_mode = None
+_prefs = None
+
+
+def get_mode():
+    global _mode
+
+    if _mode is not None:
+        return _mode
+
+    if not get_prefs().get("use_broot", True):
+        _mode = MODE_NONE
+    elif "BROOT" in os.environ:
+        _mode = MODE_BROOT
+    else:
+        _mode = MODE_HOST
+
+    return _mode
+
+
+def get_name_for_mode(base, mode=None):
+    if mode is None:
+        mode = get_mode()
+
+    if mode == MODE_NONE:
+        return base
+    elif mode == MODE_HOST:
+        return "%s-%s" % (base, "host")
+    elif mode == MODE_BROOT:
+        return "%s-%s" % (base, "broot")
+
+
+def get_lock_file_path(mode=None):
+    return os.path.join(get_base_dir(), get_name_for_mode(".lock", mode))
+
+
+def get_lock_file(mode=None):
     global lock_file
 
     if lock_file is not None:
         return lock_file
 
-    lock_name = ".lock"
-    if use_chroot():
-        lock_name = ".lock-chroot"
-
-    lock_file = open(os.path.join(get_base_dir(), lock_name), "w")
+    lock_file = open(get_lock_file_path(), "w")
 
     return lock_file
 
+
 def get_base_dir():
     return base_dir
-
-
-def get_sandbox_dir():
-    sandbox_name = "sandbox"
-    if use_chroot():
-        sandbox_name = "sandbox-chroot"
-
-    return os.path.join(get_base_dir(), "build", "out", sandbox_name)
 
 
 def get_broot_dir():
     return os.path.join(get_base_dir(), broot_dir)
 
 
-def get_commands_dir():
-    return os.path.join(get_base_dir(), commands_dir)
+def get_sandbox_dir(mode=None):
+    return os.path.join(get_base_dir(), "build", "out",
+                        get_name_for_mode("sandbox", mode))
+
+
+def get_commands_dir(commands_group=None):
+    if commands_group is None:
+        return os.path.join(get_base_dir(), commands_dir)
+    else:
+        return os.path.join(get_base_dir(), commands_dir, commands_group)
 
 
 def get_cache_dir():
     return os.path.join(get_sandbox_dir(), "cache")
 
 
-def get_virtualenv_dir():
-    return os.path.join(get_sandbox_dir(), "install")
+def get_virtualenv_dir(mode=None):
+    return os.path.join(get_sandbox_dir(mode=mode), "install")
+
+
+def get_log_dir():
+    return os.path.join(get_base_dir(), "build", "logs")
+
+
+def get_broot_log_path():
+    return os.path.join(get_log_dir(), "broot.log")
 
 
 def get_prefs_path():
     return os.path.join(get_base_dir(), "prefs.json")
 
 
-def get_stamp_path():
-    return os.path.join(get_sandbox_dir(), "stamp")
+def get_prefs():
+    global _prefs
+
+    if _prefs is not None:
+        return _prefs
+
+    try:
+        with open(get_prefs_path()) as f:
+            _prefs = json.load(f)
+    except IOError:
+        _prefs = {}
+
+    return _prefs
 
 
 def get_bin_path(name=None):
@@ -110,211 +167,190 @@ def create_virtualenv():
                            get_virtualenv_dir()])
 
 
-def install_osbuild():
-    subprocess.check_call([get_bin_path("pip"), "-q", "install",
-                           "git+git://github.com/dnarvaez/osbuild"])
-
-
-def install_broot():
-    subprocess.check_call([get_bin_path("pip"), "-q", "install",
-                           "git+git://github.com/dnarvaez/broot"])
-
-
-def check_stamp():
-    changed = []
-    new_stamp = {}
-    saved_stamp = {}
-
-    stamp_path = get_stamp_path()
-
+def install_system_deps():
     try:
-        os.makedirs(os.path.dirname(stamp_path))
-    except OSError:
-        pass
+        with open("/etc/fedora-release") as f:
+            if not f.read().startswith("Fedora release 19"):
+                return
+    except IOError:
+        return
 
+    with open(os.path.join(get_broot_dir(), "root.json")) as f:
+        broot_config = json.load(f)
+
+    packages = []
+    for group in broot_config.get("packages", {}).values():
+        for package in group:
+            if package not in packages:
+                packages.append(package)
+
+    args = ["rpm", "-q", "--quiet"]
+    args.extend(packages)
+
+    if subprocess.call(args) != 0:
+        args = ["sudo", "yum", "install"]
+        args.extend(packages)
+        subprocess.check_call(args)
+
+
+def delete_virtualenv(mode=None):
     try:
-        with open(stamp_path) as f:
-            saved_stamp = json.load(f)
-    except (IOError, ValueError):
-        pass
-
-    repos = [main_repo]
-
-    if use_chroot():
-        repos.append("dnarvaez/broot")
-    else:
-        repos.append("dnarvaez/osbuild")
-
-    for repo in repos:
-        url = "https://api.github.com/repos/%s/branches/master" % repo
-        headers = {}
-
-        etag = saved_stamp.get(repo, {}).get("etag", None)
-        if etag:
-            headers = {"If-None-Match": etag}
-
-        code = 200
-
-        try:
-            response = urllib2.urlopen(urllib2.Request(url, headers=headers))
-        except urllib2.HTTPError, e:
-            if e.code in (304, 403):
-                code = e.code
-            else:
-                raise e
-
-        if code == 200:
-            sha = json.load(response)["commit"]["sha"]
-
-            if saved_stamp.get(repo, {}).get("sha", None) != sha:
-                changed.append(repo)
-
-            new_stamp[repo] = {"sha": sha,
-                               "etag": response.info()["ETag"]}
-        elif code == 304:
-            new_stamp[repo] = saved_stamp[repo]
-        elif code == 403:
-            print("WARNING: GitHub rate limiting exceeded")
-            changed.append(repo)
-
-    with open(stamp_path, "w") as f:
-        json.dump(new_stamp, f)
-
-    return changed
-
-
-def delete_virtualenv():
-    try:
-        shutil.rmtree(get_virtualenv_dir())
+        shutil.rmtree(get_virtualenv_dir(mode=mode))
     except OSError:
         pass
 
 
-def check_binaries(binary_names):
-    env = {"PATH": os.path.expandvars("/usr/sbin:/sbin:$PATH")}
-
-    with open(os.devnull, "w") as devnull:
-        for name in binary_names:
-            try:
-                subprocess.call([name], stdout=devnull,
-                                stderr=subprocess.STDOUT, env=env)
-            except OSError:
-                print("Please install %s." % name)
-                return False
-
-    return True
+def delete_sandbox(mode=None):
+    try:
+        shutil.rmtree(get_sandbox_dir(mode=mode))
+    except OSError:
+        pass
 
 
-def check_dependencies():
-    if use_chroot():
-        if not check_binaries(["yum", "rpm"]):
-            return False
-    else:
-        if not check_binaries(["gcc", "pkg-config"]):
-            return False
+def broot_check_output(args, log=True):
+    os.chdir(get_broot_dir())
 
-        if subprocess.call(["pkg-config", "--exists", "python-2.7"]) != 0:
-            print("Please install the python development package.")
-            return False
+    broot_args = ["sudo", get_bin_path("broot")]
+    broot_args.extend(args)
 
-    return True
+    return subprocess.check_output(broot_args)
 
+
+def broot_run(args, log=True):
+    if "XAUTHORITY" not in os.environ:
+        os.environ["XAUTHORITY"] = os.path.expanduser("~/.Xauthority")
+
+    os.chdir(get_broot_dir())
+
+    broot_args = ["sudo", get_bin_path("broot")]
+    broot_args.extend(args)
+
+    try:
+        os.makedirs(get_log_dir())
+    except OSError:
+        pass
+
+    with open(get_broot_log_path(), "w") as f:
+        if log:
+            result = subprocess.call(broot_args, stdout=f,
+                                     stderr=subprocess.STDOUT)
+        else:
+            result = subprocess.call(broot_args)
+
+    return result == 0
 
 def clean():
-    sandbox_dir = get_sandbox_dir()
-
-    shutil.rmtree(sandbox_dir, ignore_errors=True)
-
-    parent_dir = os.path.dirname(sandbox_dir)
+    mode = get_mode()
 
     try:
-        if not os.listdir(parent_dir):
-            os.rmdir(parent_dir)
+        if mode == MODE_NONE:
+            os.unlink(get_lock_file_path(MODE_NONE))
+        elif mode == MODE_HOST:
+            os.unlink(get_lock_file_path(MODE_HOST))
+            os.unlink(get_lock_file_path(MODE_BROOT))
+
+        os.unlink(get_broot_log_path())
     except OSError:
         pass
 
-
-def check_upgrade():
-    try:
-        changed = check_stamp()
-    except (urllib2.HTTPError, urllib2.URLError), e:
-        print ("Failed to check for changes, skipping setup. "
-               "Is your network working?")
-        print ("Error: %s" % e)
-        changed = None
-
-    return changed
+    if mode == MODE_NONE:
+        delete_sandbox(MODE_NONE)
+    elif mode == MODE_HOST:
+        delete_sandbox(MODE_HOST)
+        delete_sandbox(MODE_BROOT)
 
 
 def is_buildbot():
     return buildbot_env in os.environ
 
 
-def get_chroot_prefs():
-    try:
-        with open(get_prefs_path()) as f:
-            prefs = json.load(f)
-    except IOError:
-        prefs = {}
-
-    return prefs.get("chroot", None)
-
-
-def use_chroot():
-    if "BROOT" in os.environ:
-        return False
-
-    return get_chroot_prefs() is not None
-
-
 def get_virtualenv_exists():
     return os.path.exists(get_virtualenv_dir())
 
 
-def setup(changed=[]):
-    upgrade = get_virtualenv_exists()
-    build_virtualenv = not upgrade
+def broot_state():
+    return broot_check_output(["state"]).strip()
 
-    if "dnarvaez/osbuild" in changed:
-        build_virtualenv = True
 
-    if "dnarvaez/broot" in changed:
-        build_virtualenv = True
+def setup(command, args):
+    mode = get_mode()
+
+    full_pull = command == "pull" and not args
+    build_virtualenv = not get_virtualenv_exists() or full_pull
+    build_root = command not in ["clean", "broot"] and mode == MODE_HOST
+    update_root = full_pull
+    pull = full_pull and not is_buildbot()
+
+    broot_checked = False
+    if get_virtualenv_exists():
+        build_root = build_root and broot_state() != "ready"
+        broot_checked = True
+
+    if build_virtualenv or full_pull or build_root:
+        build_system = {MODE_NONE: "build system",
+                        MODE_HOST: "host build system",
+                        MODE_BROOT: "broot build system"}
+
+        print("\n= Setup the %s =\n" % build_system[mode])
 
     if build_virtualenv:
-        if upgrade:
-            print("\n= Upgrade the build system =\n")
-        else:
-            print("\n= Setup the build system =\n")
-
-        if build_virtualenv:
-            delete_virtualenv()
+        delete_virtualenv()
 
         try:
             print("* Create the python virtualenv")
             create_virtualenv()
 
-            if use_chroot():
-                print("* Install broot package")
-                install_broot()
+            print("* Install python packages")
+
+            packages = ["git+git://github.com/dnarvaez/osbuild@chroot"]
+            if mode == MODE_BROOT:
+                packages.append("sourcestamp==0.1")
             else:
-                print("* Install osbuild package")
-                install_osbuild()
+                packages.append("git+git://github.com/dnarvaez/broot")
+
+            args = [get_bin_path("pip"), "-q", "install"]
+            args.extend(packages)
+            subprocess.check_call(args)
         except Exception, e:
             delete_virtualenv()
             raise e
 
-    if main_repo in changed and not is_buildbot():
-        print("* Pull latest %s" % main_repo)
+    if full_pull:
+        print("* Pull latest sugar-build")
 
         os.chdir(get_base_dir())
-        subprocess.check_call(["git", "pull", "--ff-only", "-q"])
+        subprocess.check_call(["git", "pull", "--ff-only", "-q", "origin",
+                               "chroot"])
+
+    if not broot_checked:
+        build_root = build_root and broot_state() != "ready"
+
+    if build_root:
+        print("* Download the build root")
+        broot_run(["download"])
+
+    if update_root:
+        print("* Update the build root")
+        broot_run(["update"])
+
+    if mode == MODE_NONE:
+        install_system_deps()
+
+    # When we run the broot osbuild the virtualenv will be updated
+    if get_mode() == MODE_HOST and command == "pull":
+        delete_virtualenv(MODE_BROOT)
 
 
 def get_available_commands():
     available_commands = []
-    for command in os.listdir(get_commands_dir()):
-        if ".py" not in command:
+
+    commands_dirs = [get_commands_dir("broot")]
+
+    if get_mode() in (MODE_HOST, MODE_NONE):
+        commands_dirs.append(get_commands_dir("host"))
+
+    for command_dir in commands_dirs:
+        for command in os.listdir(command_dir):
             available_commands.append(command)
 
     return available_commands
@@ -326,43 +362,40 @@ def print_help():
     print("\nSee also %s" % docs_url)
 
 
-def get_command_path(command):
-    if command not in get_available_commands():
-        return None
+def get_command_path(command, commands_group):
+    command_path = os.path.join(get_commands_dir(commands_group), command)
+    if os.path.exists(command_path):
+        return command_path
+    return None
 
-    return os.path.join(get_commands_dir(), command)
 
+def run_command(command, args):
+    if command == "broot":
+        return broot_run(args, log=False)
 
-def run_command(command):
-    if use_chroot():
-        os.chdir(get_broot_dir())
-
-        args = ["sudo", get_bin_path("broot"), "run"]
-
-        prefs = get_chroot_prefs()
-        if prefs is not None:
-            mirror = prefs.get("mirror", None)
-            if mirror is not None:
-                args.extend(["--mirror", mirror])
-
-        args.append("/home/broot/sugar-build/osbuild")
+    command_path = get_command_path(command, "host")
+    if command_path is None:
+        is_broot_command = True
+        command_path = get_command_path(command, "broot")
     else:
-        command_path = get_command_path(command)
-        if command_path is None:
-            print_help()
-            sys.exit(1)
+        is_broot_command = False
 
-        args = [get_bin_path("python"), command_path]
+    if get_mode() == MODE_HOST and is_broot_command:
+        broot_args = ["run", "/home/broot/sugar-build/osbuild", command]
+        if args:
+            broot_args.extend(args)
 
+        return broot_run(broot_args, log=False)
+    else:
+        command_args = [get_bin_path("python"), command_path]
+        if args:
+            command_args.extend(args)
+
+        os.environ["PYTHONPATH"] = get_commands_dir()
         os.environ["PATH"] = os.path.expandvars("$PATH:%s" % get_bin_path())
+        os.environ["PYTHONUNBUFFERED"] = "yes"
 
-        if command == "shell":
-            print_help()
-
-    if len(sys.argv) > 2:
-        args.extend(sys.argv[2:])
-
-    return subprocess.Popen(args)
+        return subprocess.call(command_args) == 0
 
 
 def check_lock():
@@ -374,7 +407,23 @@ def check_lock():
     return True
 
 
+def check_system_deps():
+    for bin_name in "tar", "xz", "chroot":
+        found = False
+
+        for bin_path in "/usr/bin", "/usr/sbin", "/bin", "/sbin":
+            if os.path.exists(os.path.join(bin_path, bin_name)):
+                found = True
+
+        if not found:
+            print ("Please install %s" % bin_name)
+            sys.exit(1)
+
+
 def main():
+    # Unbuffered stdout
+    sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
+
     if os.geteuid() == 0:
         print("osbuild should not be run as root.")
         sys.exit(1)
@@ -388,43 +437,40 @@ def main():
               "run the commands directly.")
         sys.exit(1)
 
-    if not check_dependencies():
-        sys.exit(1)
+    check_system_deps()
 
     os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
 
-    if len(sys.argv) > 1:
-        command = sys.argv[1]
-    else:
-        command = "shell"
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command")
 
-    pre_upgrade = is_buildbot() or command == "shell"
-    post_upgrade = not pre_upgrade and not command == "clean"
+    commands = get_available_commands()
+    commands.append("broot")
 
-    if not get_virtualenv_exists():
-        setup()
-    elif pre_upgrade:
-        changed = check_upgrade()
-        if changed is not None:
-            setup(changed)
+    for command in commands:
+        subparser = subparsers.add_parser(command)
 
-    process = run_command(command)
+        if command == "clean":
+            subparser.add_argument("--broot", action="store_true",
+                                   help="Clean also the build root")
 
-    if post_upgrade:
-        changed = check_upgrade()
-    else:
-        changed = None
+    options, other_args = parser.parse_known_args()
 
-    result = process.wait()
+    setup(options.command, other_args)
 
-    if changed is not None:
-        setup(changed)
+    if get_mode() in (MODE_NONE, MODE_BROOT) and options.command == "shell":
+        print_help()
 
-    if result != 0:
-        sys.exit(result)
+    if not run_command(options.command, other_args):
+        print("\n! Failed to run command %s" % options.command)
+        sys.exit(1)
 
-    if command == "clean":
+    if options.command == "clean":
+        if options.broot:
+            broot_run(["clean"])
+
         clean()
+
 
 if __name__ == "__main__":
     main()
