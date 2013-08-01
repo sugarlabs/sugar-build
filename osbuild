@@ -348,8 +348,11 @@ def get_available_commands():
 
 
 def print_help():
+    available_commands = get_available_commands()
+    available_commands.remove("shell")
+
     print("\n= Available commands =\n")
-    print("\n".join(get_available_commands()))
+    print("\n".join(available_commands))
     print("\nSee also %s" % docs_url)
 
 
