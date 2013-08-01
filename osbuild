@@ -278,14 +278,8 @@ def setup(command):
 
     full_pull = command == "pull" and is_full_pull()
     build_virtualenv = not get_virtualenv_exists() or full_pull
-    build_root = command not in ["clean", "broot"] and mode == MODE_HOST
 
-    broot_checked = False
-    if get_virtualenv_exists():
-        build_root = build_root and broot_state() != "ready"
-        broot_checked = True
-
-    if build_virtualenv or full_pull or build_root:
+    if build_virtualenv or full_pull:
         build_system = {MODE_NONE: "build system",
                         MODE_HOST: "host build system",
                         MODE_BROOT: "broot build system"}
@@ -321,16 +315,9 @@ def setup(command):
         subprocess.check_call(["git", "pull", "--ff-only", "-q", "origin",
                                "chroot"])
 
-    if not broot_checked:
-        build_root = build_root and broot_state() != "ready"
-
-    if build_root:
-        print("* Download the build root")
-        broot_run(["download"])
-
     if full_pull:
-        print("* Update the build root")
-        broot_run(["update"])
+        print("* Setup the build root")
+        broot_run(["setup"])
 
     if mode == MODE_NONE:
         install_system_deps()
