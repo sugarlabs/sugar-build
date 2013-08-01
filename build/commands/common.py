@@ -7,7 +7,7 @@ build_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 commands_dir = os.path.join(build_dir, "commands")
 logs_dir = os.path.join(build_dir, "logs")
 root_dir = os.path.dirname(build_dir)
-log_path = os.path.join(logs_dir, "main.log")
+log_path = os.path.join(logs_dir, "osbuild.log")
 
 from osbuild import main
 from osbuild import config
@@ -41,6 +41,11 @@ def print_close_message():
 
 
 def setup_logging():
+    try:
+        os.unlink(log_path)
+    except OSError:
+        pass
+
     try:
         os.makedirs(logs_dir)
     except OSError:
