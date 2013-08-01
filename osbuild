@@ -239,6 +239,7 @@ def broot_run(args, log=True):
 
     return result == 0
 
+
 def clean():
     mode = get_mode()
 
@@ -278,8 +279,6 @@ def setup(command, args):
     full_pull = command == "pull" and not args
     build_virtualenv = not get_virtualenv_exists() or full_pull
     build_root = command not in ["clean", "broot"] and mode == MODE_HOST
-    update_root = full_pull
-    pull = full_pull and not is_buildbot()
 
     broot_checked = False
     if get_virtualenv_exists():
@@ -315,7 +314,7 @@ def setup(command, args):
             delete_virtualenv()
             raise e
 
-    if full_pull:
+    if full_pull and not is_buildbot():
         print("* Pull latest sugar-build")
 
         os.chdir(get_base_dir())
@@ -329,7 +328,7 @@ def setup(command, args):
         print("* Download the build root")
         broot_run(["download"])
 
-    if update_root:
+    if full_pull:
         print("* Update the build root")
         broot_run(["update"])
 
