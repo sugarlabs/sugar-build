@@ -420,6 +420,23 @@ def check_system_deps():
             sys.exit(1)
 
 
+def parse_known_args():
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command")
+
+    commands = get_available_commands()
+    commands.append("broot")
+
+    for command in commands:
+        subparser = subparsers.add_parser(command)
+
+        if command == "clean":
+            subparser.add_argument("--broot", action="store_true",
+                                   help="Clean also the build root")
+
+    return parser.parse_known_args()
+
+
 def main():
     # Unbuffered stdout
     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
@@ -441,20 +458,7 @@ def main():
 
     os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
 
-    parser = argparse.ArgumentParser()
-    subparsers = parser.add_subparsers(dest="command")
-
-    commands = get_available_commands()
-    commands.append("broot")
-
-    for command in commands:
-        subparser = subparsers.add_parser(command)
-
-        if command == "clean":
-            subparser.add_argument("--broot", action="store_true",
-                                   help="Clean also the build root")
-
-    options, other_args = parser.parse_known_args()
+    options, other_args = parse_known_args()
 
     setup(options.command, other_args)
 
