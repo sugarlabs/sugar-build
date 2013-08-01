@@ -104,8 +104,7 @@
         "dist": true,
         "has_checks": true,
         "name": "sugar-runner",
-        "repo": "git://github.com/sugarlabs/sugar-runner.git",
-        "tag": "26820cd391"
+        "repo": "git://github.com/sugarlabs/sugar-runner.git"
     },
     {
         "name": "webL10n",
