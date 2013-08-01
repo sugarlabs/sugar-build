@@ -273,10 +273,10 @@ def broot_state():
     return broot_check_output(["state"]).strip()
 
 
-def setup(command, args):
+def setup(command):
     mode = get_mode()
 
-    full_pull = command == "pull" and not args
+    full_pull = command == "pull" and is_full_pull()
     build_virtualenv = not get_virtualenv_exists() or full_pull
     build_root = command not in ["clean", "broot"] and mode == MODE_HOST
 
@@ -419,6 +419,19 @@ def check_system_deps():
             sys.exit(1)
 
 
+def is_full_pull():
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers()
+
+    pull_parser = subparsers.add_parser("pull")
+    pull_parser.add_argument("module", nargs="?")
+    pull_parser.add_argument("--revisions")
+
+    options = parser.parse_args()
+
+    return options.module is None
+
+
 def parse_known_args():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command")
@@ -459,7 +472,7 @@ def main():
 
     options, other_args = parse_known_args()
 
-    setup(options.command, other_args)
+    setup(options.command)
 
     if get_mode() in (MODE_NONE, MODE_BROOT) and options.command == "shell":
         print_help()
