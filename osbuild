@@ -216,7 +216,7 @@ def broot_check_output(args, log=True):
     return subprocess.check_output(broot_args)
 
 
-def broot_run(args, log=True):
+def broot_run(args, message_args=None,  log=True):
     if "XAUTHORITY" not in os.environ:
         os.environ["XAUTHORITY"] = os.path.expanduser("~/.Xauthority")
 
@@ -229,6 +229,11 @@ def broot_run(args, log=True):
         os.makedirs(get_log_dir())
     except OSError:
         pass
+
+    if message_args is None:
+        message_args = args
+
+    print("\n$ sudo broot %s" % " ".join(message_args))
 
     with open(get_broot_log_path(), "w") as f:
         if log:
@@ -368,10 +373,13 @@ def run_command(command, args):
 
     if get_mode() == MODE_HOST and is_broot_command:
         broot_args = ["run", "/home/broot/sugar-build/osbuild", command]
+        broot_message_args = ["run", "osbuild", command]
+
         if args:
             broot_args.extend(args)
+            broot_message_args.extend(args)
 
-        return broot_run(broot_args, log=False)
+        return broot_run(broot_args, broot_message_args, log=False)
     else:
         command_args = [get_bin_path("python"), command_path]
         if args:
