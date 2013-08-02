@@ -222,7 +222,13 @@ def broot_run(args, message_args=None,  log=True):
 
     os.chdir(get_broot_dir())
 
-    broot_args = ["sudo", get_bin_path("broot")]
+    broot_args = ["sudo", "env"]
+
+    for name in ["DISPLAY", "XAUTHORITY", "XAUTHLOCALHOSTNAME"]:
+        if name in os.environ:
+            broot_args.append("%s=%s" % (name, os.environ[name]))
+
+    broot_args.append(get_bin_path("broot"))
     broot_args.extend(args)
 
     try:
