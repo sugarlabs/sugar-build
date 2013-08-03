@@ -120,7 +120,7 @@
     },
     "prebuilt": "http://sugarlabs.org/~buildbot/broot/",
     "shell_path": "/home/broot/sugar-build",
-    "stamp": "3",
+    "stamp": "4",
     "user_mounts": {
         "..": "home/broot/sugar-build"
     }
