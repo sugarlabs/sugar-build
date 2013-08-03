@@ -224,7 +224,7 @@ def broot_run(args, message_args=None,  log=True):
 
     broot_args = ["sudo", "env"]
 
-    for name in ["DISPLAY", "XAUTHORITY"]:
+    for name in ["DISPLAY", "XAUTHORITY", "XAUTHLOCALHOSTNAME"]:
         if name in os.environ:
             broot_args.append("%s=%s" % (name, os.environ[name]))
 
