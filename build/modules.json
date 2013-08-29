@@ -79,6 +79,14 @@
         "repo": "git://github.com/sugarlabs/sugar-docs.git"
     },
     {
+        "name": "sugar-base",
+        "repo": "git://git.sugarlabs.org/sugar-base/mainline.git"
+    }, 
+    {
+        "name": "sugar-toolkit",
+        "repo": "git://git.sugarlabs.org/sugar-toolkit/mainline.git"
+    },
+    {
         "dist": true,
         "has_checks": true,
         "name": "sugar-toolkit-gtk3",
@@ -161,6 +169,10 @@
     {
         "name": "jukebox",
         "repo": "git://git.sugarlabs.org/jukebox/mainline.git"
+    },
+    {
+        "name": "turtleart",
+        "repo": "git://git.sugarlabs.org/turtleart/mainline.git"
     },
     {
         "name": "clock-web",

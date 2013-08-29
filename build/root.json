@@ -111,6 +111,11 @@
             "gobject-introspection-devel",
             "file"
         ],
+        "sugar-toolkit": [
+            "pygtk2-devel",
+            "gnome-python2-gconf",
+            "hippo-canvas-python"
+        ],
         "system": [
             "deltarpm"
         ],
