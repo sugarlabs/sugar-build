@@ -114,7 +114,8 @@
         "sugar-toolkit": [
             "pygtk2-devel",
             "gnome-python2-gconf",
-            "hippo-canvas-python"
+            "hippo-canvas-python",
+            "gnome-python2-rsvg"
         ],
         "system": [
             "deltarpm"
