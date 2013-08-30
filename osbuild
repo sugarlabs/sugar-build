@@ -306,7 +306,7 @@ def setup(command):
 
             print("* Install python packages")
 
-            packages = ["git+git://github.com/dnarvaez/osbuild@chroot"]
+            packages = ["git+git://github.com/dnarvaez/osbuild"]
             if mode == MODE_BROOT:
                 packages.append("sourcestamp==0.1")
             else:
