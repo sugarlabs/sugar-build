@@ -326,12 +326,11 @@ def setup(command):
         subprocess.check_call(["git", "pull", "--ff-only", "-q", "origin",
                                "chroot"])
 
-    if full_pull:
-        print("* Setup the build root")
-        broot_run(["setup"])
-
     if mode == MODE_NONE:
         install_system_deps()
+    elif full_pull:
+        print("* Setup the build root")
+        broot_run(["setup"])
 
     # When we run the broot osbuild the virtualenv will be updated
     if get_mode() == MODE_HOST and command == "pull":
