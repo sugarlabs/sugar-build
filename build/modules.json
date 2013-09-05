@@ -50,6 +50,11 @@
         "tag": "v1.3.2"
     },
     {
+        "name": "recess",
+        "repo": "git://github.com/twitter/recess.git",
+        "tag": "1eda5a2"
+    },
+    {
         "name": "docker",
         "repo": "git://github.com/sugarlabs/docker.git"
     },
