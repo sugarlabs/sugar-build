@@ -323,8 +323,7 @@ def setup(command):
         print("* Pull latest sugar-build")
 
         os.chdir(get_base_dir())
-        subprocess.check_call(["git", "pull", "--ff-only", "-q", "origin",
-                               "chroot"])
+        subprocess.check_call(["git", "pull", "--ff-only", "-q"])
 
     if mode == MODE_NONE:
         install_system_deps()
