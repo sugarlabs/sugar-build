@@ -1,6 +1,8 @@
 *.pyc
 *.so
 *.lock*
+/home/
+/activities/
 /build/out/
 /build/logs/
 /build/state/

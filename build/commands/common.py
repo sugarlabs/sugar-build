@@ -5,6 +5,7 @@ import sys
 
 build_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 base_dir = os.path.dirname(build_dir)
+home_state_dir = os.path.join(base_dir, "home")
 commands_dir = os.path.join(build_dir, "commands")
 logs_dir = os.path.join(build_dir, "logs")
 root_dir = os.path.dirname(build_dir)
@@ -25,7 +26,8 @@ def get_config_args():
                    "source_dir": os.path.join(root_dir),
                    "docs_dir": os.path.join(build_dir, "out", "docs"),
                    "dist_dir": os.path.join(build_dir, "out", "dist"),
-                   "state_dir": os.path.join(build_dir, "state"),
+                   "build_state_dir": os.path.join(build_dir, "state"),
+                   "home_state_dir": home_state_dir,
                    "profile_name": os.environ.get("SUGAR_PROFILE", "default"),
                    "prefs_path": os.path.join(root_dir, "prefs.json"),
                    "interactive": not is_buildbot()}
@@ -70,6 +72,7 @@ def setup():
 
     os.environ["SUGAR_DEVELOPER"] = "1"
     os.environ["SUGAR_ACTIVITIES_PATH"] = os.path.join(base_dir, "activities")
+    os.environ["SUGAR_HOME"] = os.path.join(home_state_dir, "dotsugar")
 
     environ.add_path("PATH", os.path.join(commands_dir, "broot"))
 
