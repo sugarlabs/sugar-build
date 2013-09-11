@@ -4,6 +4,7 @@ import sys
 
 
 build_dir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+base_dir = os.path.dirname(build_dir)
 commands_dir = os.path.join(build_dir, "commands")
 logs_dir = os.path.join(build_dir, "logs")
 root_dir = os.path.dirname(build_dir)
@@ -68,6 +69,7 @@ def setup():
         environ.setup_gconf()
 
     os.environ["SUGAR_DEVELOPER"] = "1"
+    os.environ["SUGAR_ACTIVITIES_PATH"] = os.path.join(base_dir, "activities")
 
     environ.add_path("PATH", os.path.join(commands_dir, "broot"))
 
