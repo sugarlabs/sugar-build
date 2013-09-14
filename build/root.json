@@ -122,6 +122,9 @@
         ],
         "terminal": [
             "vte3-devel"
+        ],
+        "platform": [
+            "python-olpcgames"
         ]
     },
     "prebuilt": "http://sugarlabs.org/~buildbot/broot/",
