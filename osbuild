@@ -409,7 +409,7 @@ def check_lock():
 
 
 def check_system_deps():
-    for bin_name in "tar", "xz", "chroot", "arch":
+    for bin_name in "tar", "xz", "chroot", "uname":
         found = False
 
         for bin_path in "/usr/bin", "/usr/sbin", "/bin", "/sbin":
