@@ -162,7 +162,7 @@ def create_virtualenv():
         with tarfile.open(fileobj=buffer, mode="r:gz") as tar:
             tar.extractall(get_cache_dir())
 
-    subprocess.check_call(["python", os.path.join(source_dir, "virtualenv.py"),
+    subprocess.check_call(["python2.7", os.path.join(source_dir, "virtualenv.py"),
                            "-q", "--system-site-packages",
                            get_virtualenv_dir()])
 
@@ -388,7 +388,7 @@ def run_command(command, args):
 
         return broot_run(broot_args, broot_message_args, log=False)
     else:
-        command_args = [get_bin_path("python"), command_path]
+        command_args = [get_bin_path("python2.7"), command_path]
         if args:
             command_args.extend(args)
 
