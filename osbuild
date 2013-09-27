@@ -307,10 +307,10 @@ def setup(command):
             print("* Install python packages")
 
             packages = ["git+git://github.com/dnarvaez/osbuild"]
-            if mode == MODE_BROOT:
-                packages.append("sourcestamp==0.1")
-            else:
+            if mode == MODE_HOST:
                 packages.append("git+git://github.com/dnarvaez/broot")
+            else:
+                packages.append("sourcestamp==0.1")
 
             args = [get_bin_path("pip"), "-q", "install"]
             args.extend(packages)
