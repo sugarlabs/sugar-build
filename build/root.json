@@ -123,6 +123,10 @@
         "terminal": [
             "vte3-devel"
         ],
+        "platform-gtk2": [
+            "gstreamer-python",
+            "pyabiword"
+        ],
         "platform": [
             "python-olpcgames"
         ]
