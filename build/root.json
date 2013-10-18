@@ -128,7 +128,9 @@
             "pyabiword"
         ],
         "platform": [
-            "python-olpcgames"
+            "python-olpcgames",
+            "libabiword",
+            "libxml2-python"
         ]
     },
     "prebuilt": "http://sugarlabs.org/~buildbot/broot/",
