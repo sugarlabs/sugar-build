@@ -125,12 +125,14 @@
         ],
         "platform-gtk2": [
             "gstreamer-python",
-            "pyabiword"
+            "pyabiword",
+            "gstreamer-plugins-good"
         ],
         "platform": [
             "python-olpcgames",
             "libabiword",
-            "libxml2-python"
+            "libxml2-python",
+            "gstreamer1-plugins-good"
         ]
     },
     "prebuilt": "http://sugarlabs.org/~buildbot/broot/",
