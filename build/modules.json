@@ -92,28 +92,33 @@
         "repo": "git://git.sugarlabs.org/sugar-toolkit/mainline.git"
     },
     {
+        "branch": "sucrose-0.100",
         "dist": true,
         "has_checks": true,
         "name": "sugar-toolkit-gtk3",
         "repo": "git://github.com/sugarlabs/sugar-toolkit-gtk3.git"
     },
     {
+        "branch": "sucrose-0.100",
         "dist": true,
         "has_checks": true,
         "name": "sugar",
         "repo": "git://github.com/sugarlabs/sugar.git"
     },
     {
+        "branch": "sucrose-0.100",
         "dist": true,
         "name": "sugar-artwork",
         "repo": "git://github.com/sugarlabs/sugar-artwork.git"
     },
     {
+        "branch": "sucrose-0.100",
         "dist": true,
         "name": "sugar-datastore",
         "repo": "git://github.com/sugarlabs/sugar-datastore.git"
     },
     {
+        "branch": "sucrose-0.100",
         "dist": true,
         "has_checks": true,
         "name": "sugar-runner",
