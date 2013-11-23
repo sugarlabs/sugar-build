@@ -135,7 +135,8 @@
             "gstreamer1-plugins-good"
         ]
     },
-    "prebuilt": "http://sugarlabs.org/~buildbot/broot/",
+    "prebuilt": {"name": "master",
+                 "url": "http://sugarlabs.org/~buildbot/broot/"},
     "shell_path": "/home/broot/sugar-build",
     "stamp": "4",
     "user_mounts": {
