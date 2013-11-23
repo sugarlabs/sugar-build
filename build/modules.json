@@ -149,6 +149,10 @@
         "repo": "git://git.sugarlabs.org/browse/mainline.git"
     },
     {
+        "name": "write",
+        "repo": "git://git.sugarlabs.org/write/mainline.git"
+    },
+    {
         "branch": "gtk3",
         "name": "chat",
         "repo": "git://git.sugarlabs.org/chat/mainline.git"
