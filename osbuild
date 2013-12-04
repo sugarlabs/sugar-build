@@ -310,7 +310,7 @@ def setup(command):
             if mode == MODE_HOST:
                 packages.append("git+git://github.com/dnarvaez/broot")
             else:
-                packages.append("sourcestamp==0.1")
+                packages.extend(["sourcestamp", "flake8"])
 
             args = [get_bin_path("pip"), "-q", "install"]
             args.extend(packages)
