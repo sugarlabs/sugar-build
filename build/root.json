@@ -81,7 +81,8 @@
             "xorg-x11-drv-openchrome",
             "xorg-x11-drv-qxl",
             "xorg-x11-drv-ati",
-            "xorg-x11-drv-mga"
+            "xorg-x11-drv-mga",
+            "gvfs"
         ],
         "sugar-artwork": [
             "gnome-common",
