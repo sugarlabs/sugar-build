@@ -29,10 +29,11 @@ def _setup_profile(log_name):
     profile_path = os.path.expandvars("$SUGAR_HOME/check")
     shutil.rmtree(profile_path, ignore_errors=True)
 
-    yield
-
-    logs_dir = os.path.join(profile_path, "logs")
-    run.collect_logs(logs_dir, log_path)
+    try:
+        yield
+    finally:
+        logs_dir = os.path.join(profile_path, "logs")
+        run.collect_logs(logs_dir, log_path)
 
 
 def _run_smoketest():
