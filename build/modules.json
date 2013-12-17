@@ -5,21 +5,6 @@
         "repo": "git://github.com/sugarlabs/automake.git"
     },
     {
-        "name": "at-spi2-core",
-        "repo": "git://git.gnome.org/at-spi2-core",
-        "tag": "AT_SPI2_CORE_2_9_3"
-    },
-    {
-        "name": "at-spi2-atk",
-        "repo": "git://git.gnome.org/at-spi2-atk",
-        "tag": "AT_SPI2_ATK_2_9_3"
-    },
-    {
-        "name": "libxklavier",
-        "repo": "git://anongit.freedesktop.org/libxklavier",
-        "tag": "libxklavier-5.4"
-    },
-    {
         "has_checks": true,
         "name": "gwebsockets",
         "repo": "git://github.com/dnarvaez/gwebsockets.git"
