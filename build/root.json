@@ -2,19 +2,6 @@
     "distro": "fedora-20",
     "name": "sugar-build",
     "packages": {
-        "at-spi2-atk": [
-            "atk-devel",
-            "xz"
-        ],
-        "at-spi2-core": [
-            "gtk-doc",
-            "intltool",
-            "libtool",
-            "dbus-devel",
-            "glib2-devel",
-            "libX11-devel",
-            "libXtst-devel"
-        ],
         "automake": [
             "ccache",
             "make",
@@ -33,10 +20,6 @@
         "gwebsockets": [
             "python-setuptools"
         ],
-        "libxklavier": [
-            "libxml2-devel",
-            "iso-codes-devel"
-        ],
         "osbuild": [
             "xorg-x11-server-Xvfb",
             "xorg-x11-utils",
@@ -46,6 +29,7 @@
             "npm"
         ],
         "sugar": [
+            "libxklavier",
             "pygobject3",
             "python-decorator",
             "libwnck3-devel",
