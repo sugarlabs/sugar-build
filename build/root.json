@@ -120,7 +120,7 @@
             "gstreamer1-plugins-good"
         ]
     },
-    "prebuilt": {"name": "master",
+    "prebuilt": {"name": "f20",
                  "url": "http://sugarlabs.org/~buildbot/broot/"},
     "shell_path": "/home/broot/sugar-build",
     "stamp": "4",
