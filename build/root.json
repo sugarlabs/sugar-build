@@ -26,7 +26,8 @@
             "gcc",
             "python-devel",
             "bzip2",
-            "npm"
+            "npm",
+            "xz"
         ],
         "sugar": [
             "libxklavier",
