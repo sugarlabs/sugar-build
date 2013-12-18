@@ -30,6 +30,7 @@
             "xz"
         ],
         "sugar": [
+            "intltool",
             "libxklavier",
             "pygobject3",
             "python-decorator",
