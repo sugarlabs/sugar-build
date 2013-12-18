@@ -27,7 +27,8 @@
             "xorg-x11-server-Xvfb",
             "xorg-x11-utils",
             "gcc",
-            "python-devel"
+            "python-devel",
+            "xz"
         ],
         "sugar": [
             "libxklavier",
