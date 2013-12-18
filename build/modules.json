@@ -2,12 +2,14 @@
     {
         "branch": "sugar-build-v1.13.2",
         "name": "automake",
-        "repo": "git://github.com/sugarlabs/automake.git"
+        "repo": "git://github.com/sugarlabs/automake.git",
+        "clean_stamp": 1
     },
     {
         "has_checks": true,
         "name": "gwebsockets",
-        "repo": "git://github.com/dnarvaez/gwebsockets.git"
+        "repo": "git://github.com/dnarvaez/gwebsockets.git",
+        "clean_stamp": 1
     },
     {
         "docs_dir": "",
@@ -17,114 +19,138 @@
         ],
         "has_docs": true,
         "name": "sugar-docs",
-        "repo": "git://github.com/sugarlabs/sugar-docs.git"
+        "repo": "git://github.com/sugarlabs/sugar-docs.git",
+        "clean_stamp": 1
     },
     {
         "name": "sugar-base",
-        "repo": "git://git.sugarlabs.org/sugar-base/mainline.git"
+        "repo": "git://git.sugarlabs.org/sugar-base/mainline.git",
+        "clean_stamp": 1
     }, 
     {
         "name": "sugar-toolkit",
-        "repo": "git://git.sugarlabs.org/sugar-toolkit/mainline.git"
+        "repo": "git://git.sugarlabs.org/sugar-toolkit/mainline.git",
+        "clean_stamp": 1
     },
     {
         "dist": true,
         "has_checks": true,
         "name": "sugar-toolkit-gtk3",
-        "repo": "git://github.com/sugarlabs/sugar-toolkit-gtk3.git"
+        "repo": "git://github.com/sugarlabs/sugar-toolkit-gtk3.git",
+        "clean_stamp": 1
     },
     {
         "dist": true,
         "has_checks": true,
         "name": "sugar",
-        "repo": "git://github.com/sugarlabs/sugar.git"
+        "repo": "git://github.com/sugarlabs/sugar.git",
+        "clean_stamp": 1
     },
     {
         "dist": true,
         "name": "sugar-artwork",
-        "repo": "git://github.com/sugarlabs/sugar-artwork.git"
+        "repo": "git://github.com/sugarlabs/sugar-artwork.git",
+        "clean_stamp": 1
     },
     {
         "dist": true,
         "name": "sugar-datastore",
-        "repo": "git://github.com/sugarlabs/sugar-datastore.git"
+        "repo": "git://github.com/sugarlabs/sugar-datastore.git",
+        "clean_stamp": 1
     },
     {
         "dist": true,
         "has_checks": true,
         "name": "sugar-runner",
-        "repo": "git://github.com/sugarlabs/sugar-runner.git"
+        "repo": "git://github.com/sugarlabs/sugar-runner.git",
+        "clean_stamp": 1
     },
     {
         "name": "webL10n",
-        "repo": "git://github.com/sugarlabs/webL10n.git"
+        "repo": "git://github.com/sugarlabs/webL10n.git",
+        "clean_stamp": 1
     },
     {
         "has_checks": true,
         "has_docs": true,
         "name": "sugar-web",
-        "repo": "git://github.com/sugarlabs/sugar-web.git"
+        "repo": "git://github.com/sugarlabs/sugar-web.git",
+        "clean_stamp": 1
     },
     {
         "name": "sugar-web-test",
-        "repo": "git://github.com/sugarlabs/sugar-web-test.git"
+        "repo": "git://github.com/sugarlabs/sugar-web-test.git",
+        "clean_stamp": 1
     },
     {
         "build_system": "volo",
         "has_checks": true,
         "name": "sugar-web-template",
-        "repo": "git://github.com/sugarlabs/sugar-web-template.git"
+        "repo": "git://github.com/sugarlabs/sugar-web-template.git",
+        "clean_stamp": 1
     },
     {
         "name": "browse",
-        "repo": "git://git.sugarlabs.org/browse/mainline.git"
+        "repo": "git://git.sugarlabs.org/browse/mainline.git",
+        "clean_stamp": 1
     },
     {
         "name": "write",
-        "repo": "git://git.sugarlabs.org/write/mainline.git"
+        "repo": "git://git.sugarlabs.org/write/mainline.git",
+        "clean_stamp": 1
     },
     {
         "branch": "gtk3",
         "name": "chat",
-        "repo": "git://git.sugarlabs.org/chat/mainline.git"
+        "repo": "git://git.sugarlabs.org/chat/mainline.git",
+        "clean_stamp": 1
     },
     {
         "name": "read",
-        "repo": "git://git.sugarlabs.org/read/mainline.git"
+        "repo": "git://git.sugarlabs.org/read/mainline.git",
+        "clean_stamp": 1
     },
     {
         "name": "log",
-        "repo": "git://git.sugarlabs.org/log/mainline.git"
+        "repo": "git://git.sugarlabs.org/log/mainline.git",
+        "clean_stamp": 1
     },
     {
         "branch": "gtk3",
         "name": "terminal",
-        "repo": "git://git.sugarlabs.org/terminal/mainline.git"
+        "repo": "git://git.sugarlabs.org/terminal/mainline.git",
+        "clean_stamp": 1
     },
     {
         "branch": "gtk3",
         "name": "pippy",
-        "repo": "git://git.sugarlabs.org/pippy/mainline.git"
+        "repo": "git://git.sugarlabs.org/pippy/mainline.git",
+        "clean_stamp": 1
     },
     {
         "branch": "gtk3",
         "name": "imageviewer",
-        "repo": "git://git.sugarlabs.org/imageviewer/mainline.git"
+        "repo": "git://git.sugarlabs.org/imageviewer/mainline.git",
+        "clean_stamp": 1
     },
     {
         "name": "jukebox",
-        "repo": "git://git.sugarlabs.org/jukebox/mainline.git"
+        "repo": "git://git.sugarlabs.org/jukebox/mainline.git",
+        "clean_stamp": 1
     },
     {
         "name": "turtleart",
-        "repo": "git://git.sugarlabs.org/turtleart/mainline.git"
+        "repo": "git://git.sugarlabs.org/turtleart/mainline.git",
+        "clean_stamp": 1
     },
     {
         "name": "clock-web",
-        "repo": "git://github.com/manuq/clock-web.git"
+        "repo": "git://github.com/manuq/clock-web.git",
+        "clean_stamp": 1
     },
     {
         "name": "gtd-activity",
-        "repo": "git://github.com/manuq/gtd-activity.git"
+        "repo": "git://github.com/manuq/gtd-activity.git",
+        "clean_stamp": 1
     }
 ]
