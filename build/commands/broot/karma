@@ -10,7 +10,6 @@ from osbuild import command
 
 common.setup()
 
-karma_path = os.path.join(config.bin_dir, "karma")
 karma_args = " ".join(sys.argv[1:])
 
 if "SUGAR_TEST_LOG" in os.environ:
@@ -26,6 +25,6 @@ else:
     os.environ["SUGAR_TEST_LOG"] = watch_log
     common.print_close_message()
 
-os.environ["SUGAR_RUN_TEST"] = "%s %s" % (karma_path, karma_args)
+os.environ["SUGAR_RUN_TEST"] = "/usr/bin/karma %s" % karma_args
 
 command.run("sugar-runner", watch_log=watch_log)
