@@ -12,47 +12,6 @@
         "clean_stamp": 1
     },
     {
-        "name": "grunt-cli",
-        "repo": "git://github.com/gruntjs/grunt-cli.git",
-        "tag": "6fe6400",
-        "clean_stamp": 1
-    },
-    {
-        "name": "volo",
-        "repo": "git://github.com/volojs/volo.git",
-        "tag": "v0.3.0",
-        "clean_stamp": 1
-    },
-    {
-        "name": "karma",
-        "repo": "git://github.com/karma-runner/karma.git",
-        "tag": "v0.8.6",
-        "clean_stamp": 1
-    },
-    {
-        "name": "jshint",
-        "repo": "git://github.com/jshint/jshint.git",
-        "tag": "2.1.3",
-        "clean_stamp": 1
-    },
-    {
-        "name": "js-beautify",
-        "repo": "git://github.com/einars/js-beautify.git",
-        "tag": "v1.3.2",
-        "clean_stamp": 1
-    },
-    {
-        "name": "recess",
-        "repo": "git://github.com/twitter/recess.git",
-        "tag": "1eda5a2",
-        "clean_stamp": 1
-    },
-    {
-        "name": "docker",
-        "repo": "git://github.com/sugarlabs/docker.git",
-        "clean_stamp": 1
-    },
-    {
         "docs_dir": "",
         "docs_extras": [
             "addHeader",
