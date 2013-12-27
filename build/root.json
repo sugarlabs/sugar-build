@@ -139,7 +139,7 @@
     "prebuilt": {"name": "master",
                  "url": "http://sugarlabs.org/~buildbot/broot/"},
     "shell_path": "/home/broot/sugar-build",
-    "stamp": "4",
+    "stamp": "10",
     "user_mounts": {
         "..": "home/broot/sugar-build"
     }
