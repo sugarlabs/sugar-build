@@ -15,7 +15,6 @@ _activities_list = ["Browse",
                     "Pippy",
                     "Image Viewer",
                     "Jukebox",
-                    "TurtleBlocks",
                     "Write"]
 
 
