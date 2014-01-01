@@ -27,7 +27,7 @@
     {
         "name": "grunt-cli",
         "repo": "git://github.com/gruntjs/grunt-cli.git",
-        "tag": "6fe6400"
+        "tag": "2b46515"
     },
     {
         "name": "volo",
