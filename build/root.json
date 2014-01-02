@@ -42,7 +42,7 @@
             "xorg-x11-utils",
             "gcc",
             "python-devel",
-            "xz",
+            "bzip2",
             "npm"
         ],
         "sugar": [
