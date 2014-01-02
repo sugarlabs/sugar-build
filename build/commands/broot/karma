@@ -25,6 +25,7 @@ else:
     os.environ["SUGAR_TEST_LOG"] = watch_log
     common.print_close_message()
 
-os.environ["SUGAR_RUN_TEST"] = "/usr/bin/karma %s" % karma_args
+os.environ["SUGAR_RUN_TEST"] = "/usr/bin/karma --browsers %s %s" % \
+    (os.path.join(config.bin_dir, "sugar-web-test"), karma_args)
 
 command.run("sugar-runner", watch_log=watch_log)
