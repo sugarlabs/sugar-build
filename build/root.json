@@ -67,7 +67,8 @@
             "xorg-x11-drv-qxl",
             "xorg-x11-drv-ati",
             "xorg-x11-drv-mga",
-            "gvfs"
+            "gvfs",
+            "libxklavier"
         ],
         "sugar-artwork": [
             "gnome-common",
