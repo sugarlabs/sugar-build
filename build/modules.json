@@ -114,6 +114,7 @@
         "repo": "git://github.com/sugarlabs/webL10n.git"
     },
     {
+        "branch": "sucrose-0.100",
         "has_checks": true,
         "has_docs": true,
         "name": "sugar-web",
