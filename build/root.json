@@ -132,7 +132,7 @@
     "prebuilt": {"name": "f20",
                  "url": "http://sugarlabs.org/~buildbot/broot/"},
     "shell_path": "/home/broot/sugar-build",
-    "stamp": "10",
+    "stamp": "11",
     "user_mounts": {
         "..": "home/broot/sugar-build"
     }
