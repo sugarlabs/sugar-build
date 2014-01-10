@@ -90,6 +90,10 @@
         "clean_stamp": 1
     },
     {
+        "name": "docker",
+        "repo": "git://github.com/sugarlabs/docker.git"
+    },
+    {
         "name": "browse",
         "repo": "git://git.sugarlabs.org/browse/mainline.git",
         "clean_stamp": 1
