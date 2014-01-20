@@ -29,6 +29,9 @@
             "npm",
             "xz"
         ],
+        "read": [
+            "python-BeautifulSoup"
+        ],
         "sugar": [
             "intltool",
             "libxklavier",
