@@ -1,6 +1,13 @@
 {
     "distro": "fedora-20",
     "name": "sugar-build",
+    "npm_packages": [
+        "volo@0.3.0",
+        "karma@0.10.9",
+        "jshint@2.1.3",
+        "js-beautify@1.3.2",
+        "recess@1.1.9"
+    ],
     "packages": {
         "automake": [
             "ccache",
@@ -28,6 +35,17 @@
             "bzip2",
             "npm",
             "xz"
+        ],
+        "platform": [
+            "python-olpcgames",
+            "libabiword",
+            "libxml2-python",
+            "gstreamer1-plugins-good"
+        ],
+        "platform-gtk2": [
+            "gstreamer-python",
+            "pyabiword",
+            "gstreamer-plugins-good"
         ],
         "read": [
             "python-BeautifulSoup"
@@ -92,6 +110,12 @@
             "dbus-x11",
             "gnome-keyring"
         ],
+        "sugar-toolkit": [
+            "pygtk2-devel",
+            "gnome-python2-gconf",
+            "hippo-canvas-python",
+            "gnome-python2-rsvg"
+        ],
         "sugar-toolkit-gtk3": [
             "gtk3-devel",
             "libSM-devel",
@@ -101,39 +125,17 @@
             "gobject-introspection-devel",
             "file"
         ],
-        "sugar-toolkit": [
-            "pygtk2-devel",
-            "gnome-python2-gconf",
-            "hippo-canvas-python",
-            "gnome-python2-rsvg"
-        ],
         "system": [
             "deltarpm"
         ],
         "terminal": [
             "vte3-devel"
-        ],
-        "platform-gtk2": [
-            "gstreamer-python",
-            "pyabiword",
-            "gstreamer-plugins-good"
-        ],
-        "platform": [
-            "python-olpcgames",
-            "libabiword",
-            "libxml2-python",
-            "gstreamer1-plugins-good"
         ]
     },
-    "npm_packages": [
-        "volo@0.3.0",
-        "karma@0.10.9",
-        "jshint@2.1.3",
-        "js-beautify@1.3.2",
-        "recess@1.1.9"
-    ],
-    "prebuilt": {"name": "f20",
-                 "url": "http://sugarlabs.org/~buildbot/broot/"},
+    "prebuilt": {
+        "name": "f20",
+        "url": "http://sugarlabs.org/~buildbot/broot/"
+    },
     "shell_path": "/home/broot/sugar-build",
     "stamp": "11",
     "user_mounts": {
