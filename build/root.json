@@ -34,7 +34,8 @@
             "python-devel",
             "bzip2",
             "npm",
-            "xz"
+            "xz",
+            "sudo"
         ],
         "platform": [
             "python-olpcgames",
