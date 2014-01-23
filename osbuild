@@ -329,7 +329,7 @@ def setup(command):
         install_system_deps()
     elif full_pull:
         print("* Setup the build root")
-        broot_run(["setup"])
+        broot_run(["setup"], log=False)
 
     # When we run the broot osbuild the virtualenv will be updated
     if get_mode() == MODE_HOST and command == "pull":
