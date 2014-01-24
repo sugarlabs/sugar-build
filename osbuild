@@ -233,7 +233,7 @@ def broot_run(args, message_args=None):
 
     print("\n$ sudo broot %s" % " ".join(message_args))
 
-    return subprocess.call(broot_args)
+    return subprocess.call(broot_args) == 0
 
 
 def clean():
