@@ -117,10 +117,6 @@ def get_log_dir():
     return os.path.join(get_base_dir(), "build", "logs")
 
 
-def get_broot_log_path():
-    return os.path.join(get_log_dir(), "broot.log")
-
-
 def get_prefs_path():
     return os.path.join(get_base_dir(), "prefs.json")
 
@@ -162,7 +158,8 @@ def create_virtualenv():
         with tarfile.open(fileobj=buffer, mode="r:gz") as tar:
             tar.extractall(get_cache_dir())
 
-    subprocess.check_call(["python2.7", os.path.join(source_dir, "virtualenv.py"),
+    subprocess.check_call(["python2.7",
+                           os.path.join(source_dir, "virtualenv.py"),
                            "-q", "--system-site-packages",
                            get_virtualenv_dir()])
 
@@ -207,7 +204,7 @@ def delete_sandbox(mode=None):
         pass
 
 
-def broot_check_output(args, log=True):
+def broot_check_output(args):
     os.chdir(get_broot_dir())
 
     broot_args = ["sudo", get_bin_path("broot")]
@@ -216,7 +213,7 @@ def broot_check_output(args, log=True):
     return subprocess.check_output(broot_args)
 
 
-def broot_run(args, message_args=None,  log=True):
+def broot_run(args, message_args=None):
     if "XAUTHORITY" not in os.environ:
         os.environ["XAUTHORITY"] = os.path.expanduser("~/.Xauthority")
 
@@ -231,24 +228,12 @@ def broot_run(args, message_args=None,  log=True):
     broot_args.append(get_bin_path("broot"))
     broot_args.extend(args)
 
-    try:
-        os.makedirs(get_log_dir())
-    except OSError:
-        pass
-
     if message_args is None:
         message_args = args
 
     print("\n$ sudo broot %s" % " ".join(message_args))
 
-    with open(get_broot_log_path(), "w") as f:
-        if log:
-            result = subprocess.call(broot_args, stdout=f,
-                                     stderr=subprocess.STDOUT)
-        else:
-            result = subprocess.call(broot_args)
-
-    return result == 0
+    return subprocess.call(broot_args)
 
 
 def clean():
@@ -260,8 +245,6 @@ def clean():
         elif mode == MODE_HOST:
             os.unlink(get_lock_file_path(MODE_HOST))
             os.unlink(get_lock_file_path(MODE_BROOT))
-
-        os.unlink(get_broot_log_path())
     except OSError:
         pass
 
@@ -329,7 +312,7 @@ def setup(command):
         install_system_deps()
     elif full_pull:
         print("* Setup the build root")
-        broot_run(["setup"], log=False)
+        broot_run(["setup"])
 
     # When we run the broot osbuild the virtualenv will be updated
     if get_mode() == MODE_HOST and command == "pull":
@@ -369,7 +352,7 @@ def get_command_path(command, commands_group):
 
 def run_command(command, args):
     if command == "broot":
-        return broot_run(args, log=False)
+        return broot_run(args)
 
     command_path = get_command_path(command, "host")
     if command_path is None:
@@ -386,7 +369,7 @@ def run_command(command, args):
             broot_args.extend(args)
             broot_message_args.extend(args)
 
-        return broot_run(broot_args, broot_message_args, log=False)
+        return broot_run(broot_args, broot_message_args)
     else:
         command_args = [get_bin_path("python2.7"), command_path]
         if args:
