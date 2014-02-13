@@ -2,7 +2,7 @@
 *.so
 *.lock*
 /home/
-/activities/
+/activities/*.activity
 /build/out/
 /build/logs/
 /build/state/
