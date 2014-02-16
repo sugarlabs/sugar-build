@@ -134,7 +134,6 @@
         ]
     },
     "prebuilt": {
-        "name": "f20",
         "url": "http://sugarlabs.org/~buildbot/broot/"
     },
     "shell_path": "/home/broot/sugar-build",
