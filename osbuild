@@ -403,7 +403,8 @@ def check_system_deps():
 
         if not found:
             print ("Please install %s" % bin_name)
-            sys.exit(1)
+
+        return found
 
 
 def is_full_pull():
@@ -442,38 +443,42 @@ def main():
 
     if os.geteuid() == 0:
         print("osbuild should not be run as root.")
-        sys.exit(1)
+        return False
 
     if not check_lock():
         print("Another osbuild instance is running.")
-        sys.exit(1)
+        return False
 
     if "OSBUILD_SHELL" in os.environ:
         print("Don't run osbuild inside an osbuild shell, you can just "
               "run the commands directly.")
-        sys.exit(1)
+        return False
 
-    check_system_deps()
+    if not check_system_deps():
+        return False
 
     os.environ["PIP_DOWNLOAD_CACHE"] = get_cache_dir()
 
     options, other_args = parse_known_args()
 
-    setup(options.command)
+    if not setup(options.command):
+        return False
 
     if get_mode() in (MODE_NONE, MODE_BROOT) and options.command == "shell":
         print_help()
 
     if not run_command(options.command, other_args):
         print("\n! Failed to run command %s" % options.command)
-        sys.exit(1)
+        return False
 
     if options.command == "clean":
         if options.broot:
-            broot_run(["clean"])
+            if not broot_run(["clean"]):
+                return False
 
         clean()
 
 
 if __name__ == "__main__":
-    main()
+    if not main():
+        sys.exit(1)
