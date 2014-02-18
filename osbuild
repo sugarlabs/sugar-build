@@ -291,9 +291,9 @@ def setup(command):
 
             print("* Install python packages")
 
-            packages = ["git+git://github.com/dnarvaez/osbuild"]
+            packages = ["git+https://github.com/dnarvaez/osbuild"]
             if mode == MODE_HOST:
-                packages.append("git+git://github.com/dnarvaez/broot")
+                packages.append("git+https://github.com/dnarvaez/broot")
             else:
                 packages.extend(["sourcestamp", "flake8"])
 
