@@ -67,7 +67,9 @@ def setup():
     if not main.setup(config_args):
         sys.exit(1)
 
-    if "BROOT" in os.environ:
+    use_broot = config.get_prefs().get("use_broot", True)
+
+    if not use_broot or "BROOT" in os.environ:
         environ.setup_gconf()
 
     os.environ["SUGAR_DEVELOPER"] = "1"
