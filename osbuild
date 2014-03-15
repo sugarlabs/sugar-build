@@ -167,7 +167,7 @@ def create_virtualenv():
 def install_system_deps():
     try:
         with open("/etc/fedora-release") as f:
-            if not f.read().startswith("Fedora release 19"):
+            if not f.read().startswith("Fedora release 20"):
                 return
     except IOError:
         return
