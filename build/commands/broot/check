@@ -57,13 +57,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument("module", nargs="?", help="name of the module to test")
 args = parser.parse_args()
 
-common.setup()
-
 os.environ["GTK_MODULES"] = "gail:atk-bridge"
 os.environ["SUGAR_LOGGER_LEVEL"] = "debug"
 os.environ["SUGAR_PROFILE"] = "check"
 os.environ["SUGAR_PROFILE_NAME"] = "dummy"
 os.environ["SUGAR_RUNNER_VIRTUAL"] = "yes"
+
+common.setup()
 
 if args.module is None:
     if not main.run_build():
