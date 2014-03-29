@@ -24,7 +24,8 @@
             "texinfo"
         ],
         "broot": [
-            "shadow-utils"
+            "shadow-utils",
+            "python-pip"
         ],
         "browse": [
             "evince-devel"
