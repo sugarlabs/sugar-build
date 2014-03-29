@@ -1,6 +1,9 @@
 {
     "distro": "fedora-20",
     "name": "sugar-build",
+    "pypi_packages": [
+        "pep8==1.4.6"
+    ],
     "npm_packages": [
         "volo@0.3.1",
         "karma@0.10.9",
