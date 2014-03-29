@@ -2,7 +2,7 @@
     "distro": "fedora-20",
     "name": "sugar-build",
     "pypi_packages": [
-        "pep8==1.4.6",
+        "pep8==1.5.1",
         "pyflakes==0.8",
         "flake8==2.1.0"
     ],
