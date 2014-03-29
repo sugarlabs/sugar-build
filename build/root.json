@@ -4,7 +4,7 @@
     "pypi_packages": [
         "pep8==1.4.6",
         "pyflakes==0.8",
-        "flake8==2.1.0
+        "flake8==2.1.0"
     ],
     "npm_packages": [
         "volo@0.3.1",
