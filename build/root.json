@@ -10,6 +10,7 @@
         "volo@0.3.1",
         "karma-cli@0.0.4",
         "karma@0.12.1",
+        "karma-jasmine@0.1.5",
         "jshint@2.4.4",
         "js-beautify@1.4.2",
         "recess@1.1.9"
