@@ -13,4 +13,6 @@ if not main.run_build():
     sys.exit(1)
 
 common.print_close_message()
-run.run("sugar-runner")
+
+if not run.run("sugar-runner"):
+    sys.exit(1)
