@@ -106,7 +106,7 @@
     {
         "branch": "gtk3",
         "name": "chat",
-        "repo": "https://src.sugarlabs.org/chat/mainline.git",
+        "repo": "https://github.com/ignaciouy/chat.git",
         "clean_stamp": 1
     },
     {
@@ -116,7 +116,7 @@
     },
     {
         "name": "log",
-        "repo": "https://src.sugarlabs.org/log/mainline.git",
+        "repo": "https://github.com/ignaciouy/log.git",
         "clean_stamp": 1
     },
     {
@@ -126,9 +126,8 @@
         "clean_stamp": 1
     },
     {
-        "branch": "gtk3",
         "name": "pippy",
-        "repo": "https://src.sugarlabs.org/pippy/mainline.git",
+        "repo": "https://github.com/walterbender/Pippy.git",
         "clean_stamp": 1
     },
     {
@@ -144,7 +143,7 @@
     },
     {
         "name": "turtleart",
-        "repo": "https://src.sugarlabs.org/turtleart/mainline.git",
+        "repo": "https://github.com/walterbender/TurtleBlocks.git",
         "clean_stamp": 1
     },
     {
