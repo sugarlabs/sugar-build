@@ -24,12 +24,12 @@
     },
     {
         "name": "sugar-base",
-        "repo": "https://src.sugarlabs.org/sugar-base/mainline.git",
+        "repo": "https://github.com/sugarlabs/sugar-base.git",
         "clean_stamp": 1
     }, 
     {
         "name": "sugar-toolkit",
-        "repo": "https://src.sugarlabs.org/sugar-toolkit/mainline.git",
+        "repo": "https://github.com/sugarlabs/sugar-toolkit.git",
         "clean_stamp": 1
     },
     {
