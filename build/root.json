@@ -38,6 +38,9 @@
         "gwebsockets": [
             "python-setuptools"
         ],
+        "devtools": [
+            "gdb"
+        ],
         "osbuild": [
             "xorg-x11-server-Xvfb",
             "xorg-x11-utils",
