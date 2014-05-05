@@ -66,11 +66,6 @@
         "clean_stamp": 1
     },
     {
-        "name": "webL10n",
-        "repo": "https://github.com/sugarlabs/webL10n.git",
-        "clean_stamp": 1
-    },
-    {
         "has_docs": true,
         "has_checks": true,
         "name": "sugar-web",
