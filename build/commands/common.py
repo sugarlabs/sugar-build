@@ -30,6 +30,8 @@ def get_config_args():
                    "home_state_dir": home_state_dir,
                    "profile_name": os.environ.get("SUGAR_PROFILE", "default"),
                    "prefs_path": os.path.join(root_dir, "prefs.json"),
+                   "runner_bin": "sugar-runner",
+                   "runner_variable": "SUGAR_RUN_TEST",
                    "interactive": not is_buildbot()}
 
     if is_buildbot():

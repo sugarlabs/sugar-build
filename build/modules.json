@@ -72,6 +72,7 @@
     },
     {
         "has_docs": true,
+        "has_checks": true,
         "name": "sugar-web",
         "repo": "https://github.com/sugarlabs/sugar-web.git",
         "clean_stamp": 1
