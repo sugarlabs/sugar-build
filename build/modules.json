@@ -83,8 +83,6 @@
         "clean_stamp": 1
     },
     {
-        "build_system": "volo",
-        "has_checks": true,
         "name": "sugar-web-template",
         "repo": "https://github.com/sugarlabs/sugar-web-template.git",
         "clean_stamp": 1
