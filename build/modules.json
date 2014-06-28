@@ -97,9 +97,8 @@
         "clean_stamp": 1
     },
     {
-        "branch": "gtk3",
         "name": "chat",
-        "repo": "https://github.com/ignaciouy/chat.git",
+        "repo": "https://github.com/walterbender/chat.git",
         "clean_stamp": 1
     },
     {
