@@ -88,12 +88,12 @@
     },
     {
         "name": "browse",
-        "repo": "https://src.sugarlabs.org/browse/mainline.git",
+        "repo": "https://github.com/sugarlabs/browse-activity.git",
         "clean_stamp": 1
     },
     {
         "name": "write",
-        "repo": "https://src.sugarlabs.org/write/mainline.git",
+        "repo": "https://github.com/godiard/write-activity.git",
         "clean_stamp": 1
     },
     {
@@ -103,7 +103,7 @@
     },
     {
         "name": "read",
-        "repo": "https://src.sugarlabs.org/read/mainline.git",
+        "repo": "https://github.com/godiard/read-activity.git",
         "clean_stamp": 1
     },
     {
@@ -112,9 +112,8 @@
         "clean_stamp": 1
     },
     {
-        "branch": "gtk3",
         "name": "terminal",
-        "repo": "https://src.sugarlabs.org/terminal/mainline.git",
+        "repo": "https://github.com/godiard/terminal-activity.git",
         "clean_stamp": 1
     },
     {
@@ -123,14 +122,13 @@
         "clean_stamp": 1
     },
     {
-        "branch": "gtk3",
         "name": "imageviewer",
-        "repo": "https://src.sugarlabs.org/imageviewer/mainline.git",
+        "repo": "https://github.com/godiard/imageviewer-activity.git",
         "clean_stamp": 1
     },
     {
         "name": "jukebox",
-        "repo": "https://src.sugarlabs.org/jukebox/mainline.git",
+        "repo": "https://github.com/godiard/jukebox-activity.git",
         "clean_stamp": 1
     },
     {
