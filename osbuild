@@ -165,11 +165,8 @@ def create_virtualenv():
 
 
 def install_system_deps():
-    try:
-        with open("/etc/fedora-release") as f:
-            if not f.read().startswith("Fedora release 20"):
-                return
-    except IOError:
+    if not os.path.isfile('/etc/fedora-release'):
+        print('Refusing to install fedora packages on non-fedora system')
         return
 
     with open(os.path.join(get_broot_dir(), "root.json")) as f:
@@ -181,13 +178,9 @@ def install_system_deps():
             if package not in packages:
                 packages.append(package)
 
-    args = ["rpm", "-q", "--quiet"]
+    args = ["sudo", "dnf", "install"]
     args.extend(packages)
-
-    if subprocess.call(args) != 0:
-        args = ["sudo", "yum", "install"]
-        args.extend(packages)
-        subprocess.check_call(args)
+    subprocess.check_call(args)
 
 
 def delete_virtualenv(mode=None):
@@ -312,6 +305,7 @@ def setup(command):
 
     if full_pull:
         if mode == MODE_NONE:
+            print('* Installing system deps')
             install_system_deps()
         else:
             print("* Setup the build root")
