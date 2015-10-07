@@ -48,7 +48,9 @@ def get_mode():
     if _mode is not None:
         return _mode
 
-    if not get_prefs().get("use_broot", True):
+    use_broot = get_prefs().get("use_broot")
+    if not use_broot \
+        or (not use_broot and os.path.isfile('/etc/fedora-release')):
         _mode = MODE_NONE
     elif "BROOT" in os.environ:
         _mode = MODE_BROOT
