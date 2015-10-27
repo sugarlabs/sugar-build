@@ -143,7 +143,7 @@
     },
     "prebuilt": {
         "name": "master",
-        "url": "http://sugarlabs.org/~buildbot/broot/"
+        "url": "http://sunjammer.sugarlabs.org/~buildbot/broot/"
     },
     "shell_path": "/home/broot/sugar-build",
     "stamp": "11",
