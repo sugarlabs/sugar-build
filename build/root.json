@@ -1,5 +1,5 @@
 {
-    "distro": "fedora-20",
+    "distro": "fedora-23",
     "name": "sugar-build",
     "pypi_packages": [
         "pep8==1.5.1",
@@ -43,7 +43,9 @@
             "bzip2",
             "npm",
             "xz",
-            "sudo"
+            "sudo",
+            "automake",
+            "redhat-rpm-config"
         ],
         "platform": [
             "python-olpcgames",
