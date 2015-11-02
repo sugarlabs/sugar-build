@@ -184,6 +184,14 @@ def install_system_deps():
     args.extend(packages)
     subprocess.check_call(args)
 
+def install_nodejs_deps():
+    with open(os.path.join(get_broot_dir(), "root.json")) as f:
+        broot_config = json.load(f)
+    packages = broot_config.get("npm_packages", {})
+
+    args = ["sudo", "npm", "install", "--global"]
+    args.extend(packages)
+    subprocess.check_call(args)
 
 def delete_virtualenv(mode=None):
     try:
@@ -280,6 +288,9 @@ def setup(command):
     if mode == MODE_NONE and full_pull:
         print('* Installing system deps')
         install_system_deps()
+
+        print('* Installing nodejs deps')
+        install_nodejs_deps()
 
     if build_virtualenv:
         delete_virtualenv()
