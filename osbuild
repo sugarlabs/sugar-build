@@ -49,8 +49,7 @@ def get_mode():
         return _mode
 
     use_broot = get_prefs().get("use_broot")
-    if not use_broot \
-        or (not use_broot and os.path.isfile('/etc/fedora-release')):
+    if not use_broot and os.path.isfile('/etc/fedora-release'):
         _mode = MODE_NONE
     elif "BROOT" in os.environ:
         _mode = MODE_BROOT
@@ -278,14 +277,14 @@ def setup(command):
     full_pull = command == "pull" and is_full_pull()
     build_virtualenv = not get_virtualenv_exists() or full_pull
 
-    if build_virtualenv or full_pull:
+    if full_pull or build_virtualenv:
         build_system = {MODE_NONE: "build system",
                         MODE_HOST: "host build system",
                         MODE_BROOT: "broot build system"}
 
         print("\n= Setup the %s =\n" % build_system[mode])
 
-    if mode == MODE_NONE and full_pull:
+    if full_pull and mode == MODE_NONE:
         print('* Installing system deps')
         install_system_deps()
 
