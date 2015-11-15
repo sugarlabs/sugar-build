@@ -48,7 +48,8 @@ def get_mode():
     if _mode is not None:
         return _mode
 
-    if not get_prefs().get("use_broot", True):
+    use_broot = get_prefs().get("use_broot")
+    if not use_broot and os.path.isfile('/etc/fedora-release'):
         _mode = MODE_NONE
     elif "BROOT" in os.environ:
         _mode = MODE_BROOT
@@ -165,11 +166,8 @@ def create_virtualenv():
 
 
 def install_system_deps():
-    try:
-        with open("/etc/fedora-release") as f:
-            if not f.read().startswith("Fedora release 20"):
-                return
-    except IOError:
+    if not os.path.isfile('/etc/fedora-release'):
+        print('Refusing to install fedora packages on non-fedora system')
         return
 
     with open(os.path.join(get_broot_dir(), "root.json")) as f:
@@ -181,14 +179,18 @@ def install_system_deps():
             if package not in packages:
                 packages.append(package)
 
-    args = ["rpm", "-q", "--quiet"]
+    args = ["sudo", "dnf", "install"]
     args.extend(packages)
+    subprocess.check_call(args)
 
-    if subprocess.call(args) != 0:
-        args = ["sudo", "yum", "install"]
-        args.extend(packages)
-        subprocess.check_call(args)
+def install_nodejs_deps():
+    with open(os.path.join(get_broot_dir(), "root.json")) as f:
+        broot_config = json.load(f)
+    packages = broot_config.get("npm_packages", {})
 
+    args = ["sudo", "npm", "install", "--global"]
+    args.extend(packages)
+    subprocess.check_call(args)
 
 def delete_virtualenv(mode=None):
     try:
@@ -275,12 +277,19 @@ def setup(command):
     full_pull = command == "pull" and is_full_pull()
     build_virtualenv = not get_virtualenv_exists() or full_pull
 
-    if build_virtualenv or full_pull:
+    if full_pull or build_virtualenv:
         build_system = {MODE_NONE: "build system",
                         MODE_HOST: "host build system",
                         MODE_BROOT: "broot build system"}
 
         print("\n= Setup the %s =\n" % build_system[mode])
+
+    if full_pull and mode == MODE_NONE:
+        print('* Installing system deps')
+        install_system_deps()
+
+        print('* Installing nodejs deps')
+        install_nodejs_deps()
 
     if build_virtualenv:
         delete_virtualenv()
@@ -310,13 +319,10 @@ def setup(command):
         os.chdir(get_base_dir())
         subprocess.check_call(["git", "pull", "--ff-only", "-q"])
 
-    if full_pull:
-        if mode == MODE_NONE:
-            install_system_deps()
-        else:
-            print("* Setup the build root")
-            if not broot_run(["setup"]):
-                return False
+    if full_pull and mode != MODE_NONE:
+        print("* Setup the build root")
+        if not broot_run(["setup"]):
+            return False
 
     # When we run the broot osbuild the virtualenv will be updated
     if get_mode() == MODE_HOST and command == "pull":
