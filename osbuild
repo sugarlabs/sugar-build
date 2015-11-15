@@ -300,9 +300,9 @@ def setup(command):
 
             print("* Install python packages")
 
-            packages = ["git+https://github.com/dnarvaez/osbuild"]
+            packages = ["git+https://github.com/sugarlabs/osbuild"]
             if mode == MODE_HOST:
-                packages.append("git+https://github.com/dnarvaez/broot")
+                packages.append("git+https://github.com/sugarlabs/broot")
             else:
                 packages.append("sourcestamp")
 
