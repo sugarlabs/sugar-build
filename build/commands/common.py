@@ -69,7 +69,12 @@ def setup():
     if not main.setup(config_args):
         sys.exit(1)
 
-    use_broot = config.get_prefs().get("use_broot", True)
+    use_broot = config.get_prefs().get("use_broot")
+    if use_broot is None:
+        if os.path.isfile('/etc/fedora-release'):
+            use_broot = False
+        else:
+            use_broot = True
 
     if not use_broot or "BROOT" in os.environ:
         environ.setup_gconf()
