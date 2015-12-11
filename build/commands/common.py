@@ -63,7 +63,6 @@ def setup_logging():
 def setup():
     setup_logging()
 
-
     config_args = get_config_args()
 
     if not main.setup(config_args):
