@@ -41,7 +41,7 @@
             "gcc",
             "python-devel",
             "bzip2",
-            "npm",
+            "nodejs",
             "xz",
             "sudo",
             "automake",
