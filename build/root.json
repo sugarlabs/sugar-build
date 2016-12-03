@@ -80,6 +80,7 @@
             "telepathy-mission-control",
             "zip",
             "unzip",
+            "webkitgtk3",
             "libwebkit2gtk",
             "gstreamer-plugins-espeak",
             "telepathy-salut",
