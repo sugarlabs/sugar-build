@@ -26,7 +26,7 @@ import urllib2
 import StringIO
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
-virtualenv_version = "1.11.4"
+virtualenv_version = "15.1.0"
 broot_dir = "build"
 commands_dir = os.path.join("build", "commands")
 main_repo = "sugarlabs/sugar-build"
@@ -157,8 +157,8 @@ def create_virtualenv():
                               "virtualenv-%s" % virtualenv_version)
 
     if not os.path.exists(source_dir):
-        url = "https://pypi.python.org/packages/source/v/" \
-              "virtualenv/virtualenv-%s.tar.gz" % virtualenv_version
+        url = "https://github.com/pypa/virtualenv/archive/" \
+              "%s.tar.gz" % virtualenv_version
 
         f = urllib2.urlopen(url)
         buffer = StringIO.StringIO(f.read())
