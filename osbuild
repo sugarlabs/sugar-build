@@ -167,7 +167,7 @@ def create_virtualenv():
 
     subprocess.check_call(["python2.7",
                            os.path.join(source_dir, "virtualenv.py"),
-                           "-q", "--system-site-packages",
+                           "--system-site-packages",
                            get_virtualenv_dir()])
 
 
@@ -314,7 +314,7 @@ def setup(command):
             else:
                 packages.append("sourcestamp")
 
-            args = [get_bin_path("pip"), "-q", "install"]
+            args = [get_bin_path("pip"), "install"]
             args.extend(packages)
             subprocess.check_call(args)
         except Exception, e:
@@ -325,7 +325,7 @@ def setup(command):
         print("* Pull latest sugar-build")
 
         os.chdir(get_base_dir())
-        subprocess.check_call(["git", "pull", "--ff-only", "-q"])
+        subprocess.check_call(["git", "pull", "--ff-only"])
 
     if full_pull and mode != MODE_NONE:
         print("* Setup the build root")
